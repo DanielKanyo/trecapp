@@ -4,13 +4,13 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Navigation from '../Navigation';
-import LandingPage from '../Landing';
-import SignUpPage from '../SignUp';
-import SignInPage from '../SignIn';
-import PasswordForgetPage from '../PasswordForget';
-import HomePage from '../Home';
-import AccountPage from '../Account';
+import Navigation from '../Navigation/Navigation';
+import LandingPage from '../Landing/Landing';
+import SignUpPage from '../SignUp/SignUp';
+import SignInPage from '../SignIn/SignIn';
+import PasswordForgetPage from '../PasswordForget/PasswordForget';
+import HomePage from '../Home/Home';
+import AccountPage from '../Account/Account';
 import withAuthentication from '../Session/withAuthentication';
 import * as routes from '../../constants/routes';
 
