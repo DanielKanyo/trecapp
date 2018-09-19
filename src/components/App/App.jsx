@@ -20,8 +20,6 @@ const App = () =>
     <div className="app">
       <Navigation />
 
-      <hr/>
-
       <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
       <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
       <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
