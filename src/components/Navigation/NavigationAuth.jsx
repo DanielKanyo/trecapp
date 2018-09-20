@@ -55,10 +55,6 @@ const NavigationAuth = (props) => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <ul>
-        <li><Link to={routes.HOME}>Home</Link></li>
-        <li><Link to={routes.ACCOUNT}>Account</Link></li>
-      </ul>
     </div>
   );
 }
