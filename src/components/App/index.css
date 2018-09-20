@@ -8,5 +8,8 @@ button a {
 }
 
 .ComponentContent {
-  padding-top: 88px;
+  height: calc(100vh - 116px);
+  padding: 88px 28px 28px 28px;
+  display: flex;
+  flex-direction: row;
 }

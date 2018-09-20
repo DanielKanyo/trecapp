@@ -21,7 +21,7 @@ const styles = {
     flexGrow: 1,
   },
   appbar: {
-    backgroundColor: '#13a7b2',
+    backgroundColor: '#338c52',
     position: 'fixed',
     top: 0
   },
@@ -81,7 +81,7 @@ class NavigationAuth extends Component {
     );
   }
 }
- 
+
 NavigationAuth.propTypes = {
   classes: PropTypes.object.isRequired,
 };
