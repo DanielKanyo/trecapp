@@ -10,8 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Favorite from '@material-ui/icons/Favorite';
 import SwapHoriz from '@material-ui/icons/SwapHoriz';
-import Style from '@material-ui/icons/Style';
-import Restaurant from '@material-ui/icons/Restaurant';
+import Public from '@material-ui/icons/Public';
+import Receipt from '@material-ui/icons/Receipt';
 import Fastfood from '@material-ui/icons/Fastfood';
 
 const styles = theme => ({
@@ -48,16 +48,16 @@ class LeftMenu extends Component {
 
             <ListItem button>
               <ListItemIcon>
-                <Restaurant />
+                <Receipt />
               </ListItemIcon>
               <ListItemText primary="My Recipes" />
             </ListItem>
 
             <ListItem button>
               <ListItemIcon>
-                <Style />
+                <Public />
               </ListItemIcon>
-              <ListItemText primary="Recipes Wall" />
+              <ListItemText primary="Recipes World" />
             </ListItem>
 
             <ListItem button>

@@ -17,7 +17,7 @@ const styles = {
     flexGrow: 1,
   },
   appbar: {
-    backgroundColor: '#338c52'
+    backgroundColor: '#e84a1e'
   },
   grow: {
     flexGrow: 1,
