@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Home from '@material-ui/icons/Home';
 import Person from '@material-ui/icons/Person';
 import MeetingRoom from '@material-ui/icons/MeetingRoom';
 
@@ -23,6 +24,7 @@ const styles = {
   },
   grow: {
     flexGrow: 1,
+    textDecoration: 'none'
   },
   menuButton: {
     marginLeft: -12,
@@ -39,9 +41,12 @@ const NavigationAuth = (props) => {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="title" color="inherit" className={classes.grow}>
+          <Typography component={Link} to={routes.HOME} variant="title" color="inherit" className={classes.grow}>
             My Recipes
           </Typography>
+          <IconButton component={Link} to={routes.HOME} className={classes.menuButton} color="inherit" aria-label="Menu">
+            <Home />
+          </IconButton>
           <IconButton component={Link} to={routes.ACCOUNT} className={classes.menuButton} color="inherit" aria-label="Menu">
             <Person />
           </IconButton>
