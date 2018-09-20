@@ -6,6 +6,7 @@ import {
 
 import Navigation from '../Navigation/Navigation';
 import SignUpPage from '../SignUp/SignUp';
+import LandingPage from '../Landing/Landing';
 import SignInPage from '../SignIn/SignIn';
 import PasswordForgetPage from '../PasswordForget/PasswordForget';
 import HomePage from '../Home/Home';
@@ -20,6 +21,7 @@ const App = () =>
     <div className="app">
       <Navigation />
 
+      <Route exact path={routes.LANDING} component={() => <LandingPage />} />
       <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
       <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
       <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
