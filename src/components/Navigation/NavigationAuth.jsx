@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import LeftMenu from '../LeftMenu/LeftMenu';
 
 import * as routes from '../../constants/routes';
 import { auth } from '../../firebase';
@@ -20,7 +21,9 @@ const styles = {
     flexGrow: 1,
   },
   appbar: {
-    backgroundColor: '#13a7b2'
+    backgroundColor: '#13a7b2',
+    position: 'fixed',
+    top: 0
   },
   grow: {
     flexGrow: 1,
@@ -29,34 +32,54 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
-  },
+  }
 };
 
-const NavigationAuth = (props) => {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar className={classes.appbar} position="static">
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography component={Link} to={routes.HOME} variant="title" color="inherit" className={classes.grow}>
-            My Recipes
-          </Typography>
-          <IconButton component={Link} to={routes.HOME} className={classes.menuButton} color="inherit" aria-label="Menu">
-            <Home />
-          </IconButton>
-          <IconButton component={Link} to={routes.ACCOUNT} className={classes.menuButton} color="inherit" aria-label="Menu">
-            <Person />
-          </IconButton>
-          <IconButton onClick={auth.doSignOut} className={classes.menuButton} color="inherit" aria-label="Menu">
-            <Lock />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+class NavigationAuth extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isToggleOn: true
+    };
+
+    // This binding is necessary to make `this` work in the callback
+    this.toggleLeftMenu = this.toggleLeftMenu.bind(this);
+  }
+
+  toggleLeftMenu() {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar className={classes.appbar} position="static">
+          <Toolbar>
+            <IconButton onClick={this.toggleLeftMenu} className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography component={Link} to={routes.HOME} variant="title" color="inherit" className={classes.grow}>
+              My Recipes
+            </Typography>
+            <IconButton component={Link} to={routes.HOME} className={classes.menuButton} color="inherit" aria-label="Menu">
+              <Home />
+            </IconButton>
+            <IconButton component={Link} to={routes.ACCOUNT} className={classes.menuButton} color="inherit" aria-label="Menu">
+              <Person />
+            </IconButton>
+            <IconButton onClick={auth.doSignOut} className={classes.menuButton} color="inherit" aria-label="Menu">
+              <Lock />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <LeftMenu toggleLeftMenuProp={this.state.isToggleOn} />
+      </div>
+    );
+  }
 }
  
 NavigationAuth.propTypes = {

@@ -22,11 +22,14 @@ class HomePage extends Component {
     const { users } = this.state;
 
     return (
-      <div>
-        <h1>Home</h1>
-        <p>The Home Page is accessible by every signed in user.</p>
+      <div className="ComponentContent">
+        <div>
+          <span>Home</span>
+          <p>The Home Page is accessible by every signed in user.</p>
 
-        { !!users && <UserList users={users} /> }
+          {!!users && <UserList users={users} />}
+        </div>
+
       </div>
     );
   }

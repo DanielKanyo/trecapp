@@ -1,0 +1,43 @@
+.LeftMenu {
+  position: relative;
+  height: 100vh;
+  background: white;
+  float: left;
+  box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+  -webkit-transition: .1s;
+  transition: .1s;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.LeftMenu.open {
+  margin-left: 0px;
+}
+
+.LeftMenu.closed {
+  margin-left: -250px;
+}
+
+.LeftMenu .left-menu-content {
+  padding-top: 74px;
+}
+
+.LeftMenu.big {
+  width: 250px;
+}
+
+.LeftMenu.small {
+  width: 71px;
+}
+
+.LeftMenu .bottom {
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .LeftMenu.small {
+    width: 60px;
+  }
+}
