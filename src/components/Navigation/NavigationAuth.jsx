@@ -12,9 +12,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Person from '@material-ui/icons/Person';
+import Face from '@material-ui/icons/Face';
 import Lock from '@material-ui/icons/Lock';
 import Public from '@material-ui/icons/Public';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   root: {
@@ -32,7 +33,20 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
-  }
+  },
+  button: {
+    margin: 0,
+    paddingLeft: 14,
+    paddingRight: 14,
+    background: '#00c96b',
+    color: 'white'
+  },
+  rightIcon: {
+    marginLeft: 12,
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
 };
 
 class NavigationAuth extends Component {
@@ -68,12 +82,13 @@ class NavigationAuth extends Component {
             <IconButton component={Link} to={routes.WORLD} className={classes.menuButton} color="inherit" aria-label="Menu">
               <Public />
             </IconButton>
-            <IconButton component={Link} to={routes.ACCOUNT} className={classes.menuButton} color="inherit" aria-label="Menu">
-              <Person />
-            </IconButton>
             <IconButton onClick={auth.doSignOut} className={classes.menuButton} color="inherit" aria-label="Menu">
               <Lock />
             </IconButton>
+            <Button component={Link} to={routes.ACCOUNT} variant="contained" size="small" className={classes.button}>
+              Daniel Kanyo
+              <Face className={classes.rightIcon} />
+            </Button>
           </Toolbar>
         </AppBar>
         <LeftMenu toggleLeftMenuProp={this.state.isToggleOn} />
