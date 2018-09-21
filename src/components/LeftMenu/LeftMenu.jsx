@@ -44,6 +44,7 @@ class LeftMenu extends Component {
     return (
       <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
         <div className="left-menu-content">
+          <Divider />
           <List component="nav">
 
             <ListItem button>

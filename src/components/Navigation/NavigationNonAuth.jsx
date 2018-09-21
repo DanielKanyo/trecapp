@@ -17,7 +17,7 @@ const styles = {
     flexGrow: 1,
   },
   appbar: {
-    backgroundColor: '#e84a1e'
+    backgroundColor: '#00c96b'
   },
   grow: {
     flexGrow: 1,
@@ -35,7 +35,7 @@ const NavigationAuth = (props) => {
     <div className={classes.root}>
       <AppBar className={classes.appbar} position="static">
         <Toolbar>
-          <Typography component={Link} to={routes.HOME} variant="title" color="inherit" className={classes.grow}>
+          <Typography component={Link} to={routes.WORLD} variant="title" color="inherit" className={classes.grow}>
             My Recipes
           </Typography>
           <IconButton component={Link} to={routes.LANDING} className={classes.menuButton} color="inherit" aria-label="Menu">

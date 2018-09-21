@@ -12,16 +12,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Home from '@material-ui/icons/Home';
 import Person from '@material-ui/icons/Person';
 import Lock from '@material-ui/icons/Lock';
+import Public from '@material-ui/icons/Public';
 
 const styles = {
   root: {
     flexGrow: 1,
   },
   appbar: {
-    backgroundColor: '#e84a1e',
+    backgroundColor: '#00c96b',
     position: 'fixed',
     top: 0
   },
@@ -62,11 +62,11 @@ class NavigationAuth extends Component {
             <IconButton onClick={this.toggleLeftMenu} className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Typography component={Link} to={routes.HOME} variant="title" color="inherit" className={classes.grow}>
+            <Typography component={Link} to={routes.LANDING} variant="title" color="inherit" className={classes.grow}>
               My Recipes
             </Typography>
-            <IconButton component={Link} to={routes.HOME} className={classes.menuButton} color="inherit" aria-label="Menu">
-              <Home />
+            <IconButton component={Link} to={routes.WORLD} className={classes.menuButton} color="inherit" aria-label="Menu">
+              <Public />
             </IconButton>
             <IconButton component={Link} to={routes.ACCOUNT} className={classes.menuButton} color="inherit" aria-label="Menu">
               <Person />
