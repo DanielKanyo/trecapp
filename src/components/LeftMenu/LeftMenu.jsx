@@ -37,14 +37,12 @@ class LeftMenu extends Component {
   }
 
   render() {
-
     const isOpen = this.props.toggleLeftMenuProp ? 'open' : 'closed';
     const isMinimized = this.state.isMinimized ? 'big' : 'small'; 
 
     return (
       <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
         <div className="left-menu-content">
-          <Divider />
           <List component="nav">
 
             <ListItem button>

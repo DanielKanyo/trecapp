@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import LeftMenu from '../LeftMenu/LeftMenu';
 
 import * as routes from '../../constants/routes';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
+import compose from 'recompose/compose';
+import withAuthorization from '../Session/withAuthorization';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -54,7 +56,8 @@ class NavigationAuth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isToggleOn: true
+      isToggleOn: true,
+      user: {}
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -65,6 +68,15 @@ class NavigationAuth extends Component {
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));
+  }
+
+  componentDidMount() {
+    let loggedInUserId = auth.getCurrentUserId();
+
+    db.getUserInfo(loggedInUserId).then(snapshot => {
+      this.setState(() => ({ user: snapshot }))
+    });
+
   }
 
   render() {
@@ -86,7 +98,7 @@ class NavigationAuth extends Component {
               <Lock />
             </IconButton>
             <Button component={Link} to={routes.ACCOUNT} variant="contained" size="small" className={classes.button}>
-              Daniel Kanyo
+              {this.state.user.username}
               <Face className={classes.rightIcon} />
             </Button>
           </Toolbar>
@@ -97,8 +109,10 @@ class NavigationAuth extends Component {
   }
 }
 
+const authCondition = (authUser) => !!authUser;
+
 NavigationAuth.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavigationAuth);
+export default compose(withAuthorization(authCondition), withStyles(styles))(NavigationAuth);
