@@ -11,6 +11,7 @@ import SignInPage from '../SignIn/SignIn';
 import PasswordForgetPage from '../PasswordForget/PasswordForget';
 import RecipesWall from '../Recipes/RecipesWall';
 import AccountPage from '../Account/Account';
+import MyRecipes from '../Recipes/MyRecipes';
 import withAuthentication from '../Session/withAuthentication';
 import * as routes from '../../constants/routes';
 
@@ -27,6 +28,7 @@ const App = () =>
       <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
       <Route exact path={routes.WALL} component={() => <RecipesWall />} />
       <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
+      <Route exact path={routes.MYRECIPES} component={() => <MyRecipes />} />
     </div>
   </Router>
 

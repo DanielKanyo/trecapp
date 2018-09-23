@@ -30,7 +30,7 @@ const styles = {
     flexGrow: 1,
   },
   appbar: {
-    backgroundColor: '#00c96b',
+    backgroundColor: '#e5771d',
     position: 'fixed',
     top: 0
   },
@@ -47,7 +47,7 @@ const styles = {
     marginLeft: 15,
     paddingLeft: 14,
     paddingRight: 14,
-    background: '#00c96b',
+    background: '#e57d1c',
     color: 'white'
   },
   rightIcon: {

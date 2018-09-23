@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './index.css';
+import * as routes from '../../constants/routes';
+import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -36,6 +38,19 @@ class LeftMenu extends Component {
     }));
   }
 
+  handleLeftMenuItemClicked(e) {
+    let menuItems = document.getElementsByClassName('menuItem');
+    let targetElement = e.target;
+    
+    for (let i = 0; i < menuItems.length; i++) {
+      if (menuItems[i].classList.contains('activeMenuItem')) {
+        menuItems[i].classList.remove('activeMenuItem');
+      }
+    }
+    
+    targetElement.classList.add('activeMenuItem');
+  }
+
   render() {
     const isOpen = this.props.toggleLeftMenuProp ? 'open' : 'closed';
     const isMinimized = this.state.isMinimized ? 'big' : 'small'; 
@@ -45,28 +60,28 @@ class LeftMenu extends Component {
         <div className="left-menu-content">
           <List component="nav">
 
-            <ListItem button>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
               <ListItemIcon>
                 <Receipt />
               </ListItemIcon>
               <ListItemText primary="My Recipes" />
             </ListItem>
 
-            <ListItem button>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.WALL}>
               <ListItemIcon>
                 <Public />
               </ListItemIcon>
               <ListItemText primary="Recipes Wall" />
             </ListItem>
 
-            <ListItem button>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
               <ListItemIcon>
                 <Favorite />
               </ListItemIcon>
               <ListItemText primary="Favourites" />
             </ListItem>
 
-            <ListItem button>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
               <ListItemIcon>
                 <Fastfood />
               </ListItemIcon>
