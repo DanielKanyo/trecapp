@@ -44,7 +44,7 @@ class SignInForm extends Component {
     auth.doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState(() => ({ ...INITIAL_STATE }));
-        history.push(routes.WORLD);
+        history.push(routes.WALL);
       })
       .catch(error => {
         this.setState(updateByPropertyName('error', error));

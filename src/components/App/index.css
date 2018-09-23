@@ -13,3 +13,11 @@ button a {
   display: flex;
   flex-direction: row;
 }
+
+.btn-my:hover {
+  background: #00ac5c !important;
+}
+
+.account-dropdown {
+  margin-top: 6px;
+}

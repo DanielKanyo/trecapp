@@ -56,7 +56,7 @@ class LeftMenu extends Component {
               <ListItemIcon>
                 <Public />
               </ListItemIcon>
-              <ListItemText primary="Recipes World" />
+              <ListItemText primary="Recipes Wall" />
             </ListItem>
 
             <ListItem button>

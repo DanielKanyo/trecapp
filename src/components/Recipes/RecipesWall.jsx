@@ -17,7 +17,7 @@ const styles = theme => ({
   },
 });
 
-class World extends Component {
+class RecipesWall extends Component {
   constructor(props) {
     super(props);
 
@@ -42,8 +42,8 @@ class World extends Component {
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <div>
-                <span>World</span>
-                <p>The World Page is accessible by every signed in user.</p>
+                <span>Wall</span>
+                <p>The Wall Page is accessible by every signed in user.</p>
 
                 {!!users && <UserList users={users} />}
               </div>
@@ -71,8 +71,8 @@ const UserList = ({ users }) =>
 
 const authCondition = (authUser) => !!authUser;
 
-World.propTypes = {
+RecipesWall.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(World);
+export default compose(withAuthorization(authCondition), withStyles(styles))(RecipesWall);

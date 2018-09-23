@@ -9,7 +9,7 @@ import SignUpPage from '../SignUp/SignUp';
 import LandingPage from '../Landing/Landing';
 import SignInPage from '../SignIn/SignIn';
 import PasswordForgetPage from '../PasswordForget/PasswordForget';
-import World from '../World/World';
+import RecipesWall from '../Recipes/RecipesWall';
 import AccountPage from '../Account/Account';
 import withAuthentication from '../Session/withAuthentication';
 import * as routes from '../../constants/routes';
@@ -25,7 +25,7 @@ const App = () =>
       <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
       <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
       <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
-      <Route exact path={routes.WORLD} component={() => <World />} />
+      <Route exact path={routes.WALL} component={() => <RecipesWall />} />
       <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
     </div>
   </Router>

@@ -15,9 +15,15 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Face from '@material-ui/icons/Face';
-import Lock from '@material-ui/icons/Lock';
 import Public from '@material-ui/icons/Public';
 import Button from '@material-ui/core/Button';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {
   root: {
@@ -38,6 +44,7 @@ const styles = {
   },
   button: {
     margin: 0,
+    marginLeft: 15,
     paddingLeft: 14,
     paddingRight: 14,
     background: '#00c96b',
@@ -57,7 +64,8 @@ class NavigationAuth extends Component {
     super(props);
     this.state = {
       isToggleOn: true,
-      user: {}
+      user: {},
+      openAccountDropdown: false,
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -70,6 +78,18 @@ class NavigationAuth extends Component {
     }));
   }
 
+  handleToggleAccountDropdown = () => {
+    this.setState(state => ({ openAccountDropdown: !state.openAccountDropdown }));
+  };
+
+  handleCloseAccountDropdown = event => {
+    if (this.anchorEl.contains(event.target)) {
+      return;
+    }
+
+    this.setState({ openAccountDropdown: false });
+  };
+
   componentDidMount() {
     let loggedInUserId = auth.getCurrentUserId();
 
@@ -81,6 +101,8 @@ class NavigationAuth extends Component {
 
   render() {
     const { classes } = this.props;
+    const { openAccountDropdown } = this.state;
+    const userename = this.state.user.username;
     return (
       <div className={classes.root}>
         <AppBar className={classes.appbar} position="static">
@@ -88,19 +110,52 @@ class NavigationAuth extends Component {
             <IconButton onClick={this.toggleLeftMenu} className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
+
             <Typography component={Link} to={routes.LANDING} variant="title" color="inherit" className={classes.grow}>
               My Recipes
             </Typography>
-            <IconButton component={Link} to={routes.WORLD} className={classes.menuButton} color="inherit" aria-label="Menu">
-              <Public />
-            </IconButton>
-            <IconButton onClick={auth.doSignOut} className={classes.menuButton} color="inherit" aria-label="Menu">
-              <Lock />
-            </IconButton>
-            <Button component={Link} to={routes.ACCOUNT} variant="contained" size="small" className={classes.button}>
-              {this.state.user.username}
-              <Face className={classes.rightIcon} />
-            </Button>
+
+            <Tooltip title="Recipes Wall" placement="bottom-end">
+              <Button component={Link} to={routes.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
+                <Public />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Account Settings" placement="bottom-end">
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.button + ' btn-my'}
+                buttonRef={node => {
+                  this.anchorEl = node;
+                }}
+                aria-owns={openAccountDropdown ? 'menu-list-grow' : null}
+                aria-haspopup="true"
+                onClick={this.handleToggleAccountDropdown}
+              >
+                {userename}
+                <Face className={classes.rightIcon} />
+              </Button>
+            </Tooltip>
+
+            <Popper open={openAccountDropdown} anchorEl={this.anchorEl} transition disablePortal>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  id="menu-list-grow"
+                  style={{ transformOrigin: placement === 'bottom' ? 'right top' : 'right bottom' }}
+                >
+                  <Paper className="account-dropdown">
+                    <ClickAwayListener onClickAway={this.handleCloseAccountDropdown}>
+                      <MenuList>
+                        <MenuItem component={Link} to={routes.ACCOUNT} onClick={this.handleCloseAccountDropdown}>My Account</MenuItem>
+                        <MenuItem onClick={auth.doSignOut}>Logout</MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+
           </Toolbar>
         </AppBar>
         <LeftMenu toggleLeftMenuProp={this.state.isToggleOn} />

@@ -50,7 +50,7 @@ class SignUpForm extends Component {
         db.doCreateUser(authUser.user.uid, username, email)
           .then(() => {
             this.setState(() => ({ ...INITIAL_STATE }));
-            history.push(routes.WORLD);
+            history.push(routes.WALL);
           })
           .catch(error => {
             this.setState(updateByPropertyName('error', error));
