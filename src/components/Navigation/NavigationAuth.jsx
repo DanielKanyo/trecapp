@@ -23,14 +23,13 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {
   root: {
     flexGrow: 1,
   },
   appbar: {
-    backgroundColor: '#e5771d',
+    backgroundColor: '#e5b300',
     position: 'fixed',
     top: 0
   },
@@ -47,7 +46,7 @@ const styles = {
     marginLeft: 15,
     paddingLeft: 14,
     paddingRight: 14,
-    background: '#e57d1c',
+    background: '#e5b300',
     color: 'white'
   },
   rightIcon: {
@@ -115,27 +114,24 @@ class NavigationAuth extends Component {
               My Recipes
             </Typography>
 
-            <Tooltip title="Recipes Wall" placement="bottom-end">
-              <Button component={Link} to={routes.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
-                <Public />
-              </Button>
-            </Tooltip>
-            <Tooltip title="Account Settings" placement="bottom-end">
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.button + ' btn-my'}
-                buttonRef={node => {
-                  this.anchorEl = node;
-                }}
-                aria-owns={openAccountDropdown ? 'menu-list-grow' : null}
-                aria-haspopup="true"
-                onClick={this.handleToggleAccountDropdown}
-              >
-                {userename}
-                <Face className={classes.rightIcon} />
-              </Button>
-            </Tooltip>
+            <Button component={Link} to={routes.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
+              <Public />
+            </Button>
+
+            <Button
+              variant="contained"
+              size="small"
+              className={classes.button + ' btn-my'}
+              buttonRef={node => {
+                this.anchorEl = node;
+              }}
+              aria-owns={openAccountDropdown ? 'menu-list-grow' : null}
+              aria-haspopup="true"
+              onClick={this.handleToggleAccountDropdown}
+            >
+              {userename}
+              <Face className={classes.rightIcon} />
+            </Button>
 
             <Popper open={openAccountDropdown} anchorEl={this.anchorEl} transition disablePortal>
               {({ TransitionProps, placement }) => (

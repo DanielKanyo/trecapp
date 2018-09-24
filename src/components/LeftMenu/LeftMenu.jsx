@@ -58,6 +58,8 @@ class LeftMenu extends Component {
     return (
       <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
         <div className="left-menu-content">
+          <div className="left-menu-background-image"></div>
+          <div className="left-menu-background-color"></div>
           <List component="nav">
 
             <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
@@ -92,7 +94,7 @@ class LeftMenu extends Component {
           <div className="bottom">
           <Divider />
           <List component="nav">
-            <ListItem button onClick={this.minimizeLeftMenu}>
+            <ListItem className="minimize-btn" button onClick={this.minimizeLeftMenu}>
               <ListItemIcon>
                 <SwapHoriz />
               </ListItemIcon>

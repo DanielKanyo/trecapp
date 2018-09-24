@@ -1,5 +1,9 @@
 body {
-  background: #f8f8f8;
+  /* background-image: url('../../images/bg2.jpg'); */
+  background: #e7e7e7;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 button a {
@@ -15,7 +19,7 @@ button a {
 }
 
 .btn-my:hover {
-  background: #da690c !important;
+  background: #ddad00 !important;
 }
 
 .account-dropdown {
