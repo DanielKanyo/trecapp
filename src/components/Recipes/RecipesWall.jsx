@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Public from '@material-ui/icons/Public';
+import EventNote from '@material-ui/icons/EventNote';
 
 const styles = theme => ({
   paper: {
@@ -38,22 +40,41 @@ class RecipesWall extends Component {
 
     return (
       <div className="ComponentContent">
-        <Grid container spacing={24}>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}>
-              <div>
-                <span>Wall</span>
-                <p>The Wall Page is accessible by every signed in user.</p>
 
-                {!!users && <UserList users={users} />}
+        <div className="scrollable-view">
+          <Grid container spacing={16}>
+            <Grid item xs={6}>
+              <Paper className={classes.paper + ' paper-title paper-title-world'}>
+                <div className="paper-title-icon">
+                  <Public />
+                </div>
+                <div className="paper-title-text">
+                  Recipes World
               </div>
-            </Paper>
-          </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}>xs=6</Paper>
-          </Grid>
-        </Grid>
+              </Paper>
+              <Paper className={classes.paper + ' paper-recipe'}>
+                <div>
+                  <p>The Recipes World Page is accessible by every signed in user.</p>
 
+                  {!!users && <UserList users={users} />}
+                </div>
+              </Paper>
+            </Grid>
+            <Grid item xs={6}>
+              <Paper className={classes.paper + ' paper-title paper-title-events'}>
+                <div className="paper-title-icon">
+                  <EventNote />
+                </div>
+                <div className="paper-title-text">
+                  Events
+              </div>
+              </Paper>
+              <Paper className={classes.paper + ' paper-events'}>
+                <p>Events</p>
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
       </div>
     );
   }

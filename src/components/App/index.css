@@ -1,9 +1,6 @@
 body {
-  /* background-image: url('../../images/bg2.jpg'); */
   background: #e7e7e7;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  font-family: 'Roboto', sans-serif;
 }
 
 button a {
@@ -13,15 +10,78 @@ button a {
 
 .ComponentContent {
   height: calc(100vh - 116px);
-  padding: 88px 28px 28px 28px;
+  padding-top: 64px;
   display: flex;
   flex-direction: row;
 }
 
 .btn-my:hover {
-  background: #ddad00 !important;
+  background: #eca900 !important;
 }
 
 .account-dropdown {
   margin-top: 6px;
+}
+
+.paper-title {
+  border-radius: 4px;
+  padding: 0px !important;
+  height: 56px;
+  display: flex;
+  color: white !important;
+  flex-direction: row;
+}
+
+.paper-title-world {
+  background: #008E3D !important;
+}
+
+.paper-title-events {
+  background: #2AA7BB !important;
+}
+
+.paper-title-myrecipes {
+  background: #F8B000 !important;
+}
+
+.paper-title-newrecipe {
+  background: #F55300 !important;
+}
+
+.paper-title-icon {
+  padding: 16px 20px;
+}
+
+.paper-title-icon svg {
+  vertical-align: middle;
+}
+
+.paper-title-text {
+  line-height: 56px;
+}
+
+.paper-recipe,
+.paper-events {
+  margin-top: 16px;
+}
+
+.scrollable-view {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  padding: 28px 28px;
+  border-radius: 4px;
+}
+
+.scrollable-view::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.scrollable-view::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable-view::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
