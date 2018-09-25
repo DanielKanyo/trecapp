@@ -3,8 +3,6 @@ import '../App/index.css';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Receipt from '@material-ui/icons/Receipt';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -74,15 +72,6 @@ class Recipe extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Paper className={classes.paper + ' paper-title paper-title-myrecipes'}>
-          <div className="paper-title-icon">
-            <Receipt />
-          </div>
-          <div className="paper-title-text">
-            My Recipes
-              </div>
-        </Paper>
-
         <Card className={classes.card + ' card-recipe'}>
           <CardHeader
             avatar={

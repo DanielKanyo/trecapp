@@ -9,7 +9,7 @@ button a {
 }
 
 .ComponentContent {
-  height: calc(100vh - 116px);
+  height: calc(100vh - 121px);
   padding-top: 64px;
   display: flex;
   flex-direction: row;
@@ -84,4 +84,15 @@ button a {
 
 .scrollable-view::-webkit-scrollbar-thumb {
   background-color: transparent;
+}
+
+.empty-container {
+  border-radius: 4px;
+  padding: 16px 26px;
+  border-width: 2px;
+  border-style: dashed;
+  border-color: #ffffff;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 14px;
 }
