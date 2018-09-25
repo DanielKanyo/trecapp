@@ -41,40 +41,46 @@ class RecipesWall extends Component {
     return (
       <div className="ComponentContent">
 
-        <div className="scrollable-view">
-          <Grid container spacing={16}>
-            <Grid item xs={6}>
-              <Paper className={classes.paper + ' paper-title paper-title-world'}>
-                <div className="paper-title-icon">
-                  <Public />
-                </div>
-                <div className="paper-title-text">
-                  Recipes World
-              </div>
-              </Paper>
-              <Paper className={classes.paper + ' paper-recipe'}>
-                <div>
-                  <p>The Recipes World Page is accessible by every signed in user.</p>
+        <Grid className="main-grid" container spacing={16}>
 
-                  {!!users && <UserList users={users} />}
-                </div>
-              </Paper>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper className={classes.paper + ' paper-title paper-title-events'}>
-                <div className="paper-title-icon">
-                  <EventNote />
-                </div>
-                <div className="paper-title-text">
-                  Events
+          <Grid item xs={6}>
+
+            <Paper className={classes.paper + ' paper-title paper-title-world'}>
+              <div className="paper-title-icon">
+                <Public />
               </div>
-              </Paper>
-              <Paper className={classes.paper + ' paper-events'}>
-                <p>Events</p>
-              </Paper>
-            </Grid>
+              <div className="paper-title-text">
+                Recipes World
+              </div>
+            </Paper>
+            <Paper className={classes.paper + ' paper-recipe'}>
+              <div>
+                <p>The Recipes World Page is accessible by every signed in user.</p>
+
+                {!!users && <UserList users={users} />}
+              </div>
+            </Paper>
+
           </Grid>
-        </div>
+
+          <Grid item xs={6}>
+
+            <Paper className={classes.paper + ' paper-title paper-title-events'}>
+              <div className="paper-title-icon">
+                <EventNote />
+              </div>
+              <div className="paper-title-text">
+                Events
+              </div>
+            </Paper>
+            <Paper className={classes.paper + ' paper-events'}>
+              <p>Events</p>
+            </Paper>
+
+          </Grid>
+
+        </Grid>
+
       </div>
     );
   }

@@ -9,10 +9,13 @@ button a {
 }
 
 .ComponentContent {
-  height: calc(100vh - 121px);
-  padding-top: 64px;
+  height: calc(100vh - 80px);
+  padding-top: 80px;
+  padding-left: 12px;
+  padding-right: 12px;
   display: flex;
   flex-direction: row;
+  overflow-y: auto;
 }
 
 .btn-my:hover {
@@ -65,24 +68,15 @@ button a {
   margin-top: 16px;
 }
 
-.scrollable-view {
-  overflow-y: auto;
-  height: 100%;
-  width: 100%;
-  padding: 28px 28px;
-  border-radius: 4px;
-}
-
-.scrollable-view::-webkit-scrollbar {
+.ComponentContent::-webkit-scrollbar {
   width: 0px;
+}
+
+.ComponentContent::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.scrollable-view::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scrollable-view::-webkit-scrollbar-thumb {
+.ComponentContent::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
 
@@ -103,4 +97,12 @@ button a {
 
 .is-recipe-will-be-public-container {
   width: 100%;
+}
+
+.main-grid {
+  margin: 0px !important;
+}
+
+.card-recipe {
+  margin-bottom: 24px;
 }

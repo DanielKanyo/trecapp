@@ -38,10 +38,13 @@ class MyRecipes extends Component {
 
     return (
       <div className="ComponentContent">
-        <div className="scrollable-view">
-          <Grid container spacing={16}>
-            {/* MY RECIPES SECTION */}
-            <Grid item xs={6}>
+          <Grid className="main-grid" container spacing={16}>
+          
+            <Grid item className="grid-component" xs={6}>
+              <NewRecipe />
+            </Grid>
+            
+            <Grid item className="grid-component" xs={6}>
 
               <Paper className={classes.paper + ' paper-title paper-title-myrecipes'}>
                 <div className="paper-title-icon">
@@ -52,7 +55,7 @@ class MyRecipes extends Component {
                 </div>
               </Paper>
 
-              { recipes.length === 0 ? <EmptyList /> : ''}
+              {recipes.length === 0 ? <EmptyList /> : ''}
 
               {recipes.map((recipe, index) => {
                 return recipe;
@@ -61,13 +64,7 @@ class MyRecipes extends Component {
               <Recipe />
             </Grid>
 
-            {/* NEW RECIPE SECTION */}
-            <Grid item xs={6}>
-              <NewRecipe />
-            </Grid>
-
           </Grid>
-        </div>
       </div>
     );
   }

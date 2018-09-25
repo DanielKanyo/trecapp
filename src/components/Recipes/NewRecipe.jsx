@@ -67,7 +67,7 @@ class NewRecipe extends Component {
             id="outlined-multiline-static"
             label="Long description"
             multiline
-            rows="4"
+            rows="6"
             placeholder="Preparation method..."
             className={classes.textField}
             margin="normal"

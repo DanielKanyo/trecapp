@@ -82,7 +82,7 @@
   fill: white !important;
 }
 
-.menuItem.activeMenuItem > span {
+.menuItem.activeMenuItem>span {
   background: rgba(255, 255, 255, 0.1) !important;
 }
 
@@ -94,8 +94,15 @@
   background: rgba(255, 255, 255, 0.2) !important;
 }
 
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
   .LeftMenu.small {
     width: 60px;
   }
 }
+
+@media only screen and (max-width: 750px) {
+  .LeftMenu {
+    position: absolute;
+    z-index: 20;
+  }
+} */
