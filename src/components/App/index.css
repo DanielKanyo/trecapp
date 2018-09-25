@@ -96,3 +96,11 @@ button a {
   color: #ffffff;
   margin-bottom: 14px;
 }
+
+.paper-recipe-new {
+  padding: 15px 30px 15px 30px;
+}
+
+.is-recipe-will-be-public-container {
+  width: 100%;
+}
