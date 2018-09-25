@@ -43,7 +43,7 @@ class RecipesWall extends Component {
 
         <Grid className="main-grid" container spacing={16}>
 
-          <Grid item xs={6}>
+          <Grid item className="grid-component" xs={6}>
 
             <Paper className={classes.paper + ' paper-title paper-title-world'}>
               <div className="paper-title-icon">
@@ -63,7 +63,7 @@ class RecipesWall extends Component {
 
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item className="grid-component" xs={6}>
 
             <Paper className={classes.paper + ' paper-title paper-title-events'}>
               <div className="paper-title-icon">

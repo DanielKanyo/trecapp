@@ -1,5 +1,5 @@
 body {
-  background: #F6EDE1;
+  background: #eee2d1;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -95,14 +95,42 @@ button a {
   padding: 15px 30px 15px 30px;
 }
 
-.is-recipe-will-be-public-container {
-  width: 100%;
-}
-
 .main-grid {
   margin: 0px !important;
 }
 
 .card-recipe {
   margin-bottom: 24px;
+}
+
+.slider {
+  padding:  20px 0px !important;
+}
+
+#slider-label {
+  text-align: left !important;
+  margin-top: 10px;
+}
+
+.is-recipe-will-be-public-container {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 950px) {
+  .grid-component {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .LeftMenu {
+    position: absolute;
+    z-index: 20;
+  }
+  .ComponentContent {
+    height: calc(100vh - 74px);
+    padding-top: 74px;
+  }
 }
