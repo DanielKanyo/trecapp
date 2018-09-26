@@ -147,7 +147,6 @@ button a {
   padding: 0 !important;
   line-height: 64px !important;
   border-radius: 0px !important;
-  /* background: #4BB543 !important; */
 }
 
 input[type=time]::-webkit-clear-button {
