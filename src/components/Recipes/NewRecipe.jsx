@@ -24,7 +24,9 @@ const styles = theme => ({
     marginBottom: '14px'
   },
   textField: {
-    width: '100%'
+    width: '100%',
+    marginTop: 12,
+    marginBottom: 6
   },
   slider: {
     width: 300,
@@ -77,28 +79,22 @@ class NewRecipe extends Component {
   }
 
   handleSaveRecipe = () => {
-    let states = this.state;
+    let valueToSend = this.state;
+    valueToSend.creationTime = new Date().getTime();
 
-    if (states.title === '') {
-      this.warning('Warning! Title is missing...');
+    if (valueToSend.title === '' || valueToSend.shortDes === ''  || valueToSend.longDes === '' || valueToSend.prepTime === '') {
+      this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
-      this.success('Recipe saved!');
+      this.toastr('Recipe saved!', '#4BB543');
+      this.props.saveRecipeProp(valueToSend);
     }
   }
 
   /** sucess toast */
-  success(text) {
-    let successStyle = { background: '#4BB543', text: "#FFFFFF" };
+  toastr(msg, bgColor) {
+    let style = { background: bgColor, text: "#FFFFFF" };
 
-    notify.show(text, 'custom', 4000, successStyle);
-
-  }
-
-  warning(text) {
-    let warningStyle = { background: '#ffc107', text: "#FFFFFF" };
-
-    notify.show(text, 'custom', 4000, warningStyle);
-
+    notify.show(msg, 'custom', 4000, style);
   }
 
   render() {

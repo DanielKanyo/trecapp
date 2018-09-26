@@ -28,8 +28,15 @@ class MyRecipes extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log('componentDidMount');
+  componentDidMount() {}
+
+  saveRecipe(obj) {
+    let recipes = this.state.recipes;
+
+    let temp = [<Recipe key={ recipes.length } dataProp={ obj } />].concat(recipes)
+    this.setState({
+      recipes: temp
+    });
   }
 
   render() {
@@ -41,7 +48,7 @@ class MyRecipes extends Component {
         <Grid className="main-grid" container spacing={16}>
 
           <Grid item className="grid-component" xs={6}>
-            <NewRecipe />
+            <NewRecipe saveRecipeProp={this.saveRecipe.bind(this)} />
           </Grid>
 
           <Grid item className="grid-component" xs={6}>
@@ -62,7 +69,6 @@ class MyRecipes extends Component {
               return recipe;
             })}
 
-            {/* <Recipe /> */}
           </Grid>
 
         </Grid>
