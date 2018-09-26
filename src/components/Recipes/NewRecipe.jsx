@@ -32,7 +32,7 @@ const styles = theme => ({
   button: {
     marginBottom: 6,
     width: 100,
-    backgroundColor: '#3ea52c',
+    backgroundColor: '#4BB543',
     color: 'white',
     marginLeft: 'auto'
   },
@@ -77,13 +77,27 @@ class NewRecipe extends Component {
   }
 
   handleSaveRecipe = () => {
-    console.log(this.state);
-    this.success('Success!');
+    let states = this.state;
+
+    if (states.title === '') {
+      this.warning('Warning! Title is missing...');
+    } else {
+      this.success('Recipe saved!');
+    }
   }
 
   /** sucess toast */
-  success(successInfo) {
-    notify.show(successInfo, 'success', 5000);
+  success(text) {
+    let successStyle = { background: '#4BB543', text: "#FFFFFF" };
+
+    notify.show(text, 'custom', 4000, successStyle);
+
+  }
+
+  warning(text) {
+    let warningStyle = { background: '#ffc107', text: "#FFFFFF" };
+
+    notify.show(text, 'custom', 4000, warningStyle);
 
   }
 
