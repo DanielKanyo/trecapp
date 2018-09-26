@@ -129,8 +129,21 @@ button a {
     padding: 0px 16px;
 }
 
-.save-recipe-container {
+.recipe-controller-container {
   display: flex;
+}
+
+.save-recipe-btn {
+  margin-left: 10px !important;
+  background: #4BB543 !important;
+}
+
+.clear-recipe-input-btn {
+  background: #FC0000 !important;
+}
+
+.clear-recipe-input-btn:hover {
+  background: #f00101 !important;
 }
 
 .save-recipe-btn:hover {
@@ -156,6 +169,10 @@ input[type=time]::-webkit-clear-button {
   -ms-appearance: none;
   appearance: none;
   margin: -10px;
+}
+
+.recipe-control-btn {
+  /* margin-right: 10px !important; */
 }
 
 @media only screen and (max-width: 950px) {
@@ -185,7 +202,7 @@ input[type=time]::-webkit-clear-button {
     padding-top: 72px;
   }
   .paper-recipe-new {
-    padding: 5px 18px 5px 18px;
+    padding: 5px 18px 10px 18px;
   }
   .toast-notification span {
     height: 56px;

@@ -14,6 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/lab/Slider';
 import SaveIcon from '@material-ui/icons/Save';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import Notifications, { notify } from 'react-notify-toast';
 
@@ -34,7 +35,6 @@ const styles = theme => ({
   button: {
     marginBottom: 6,
     width: 100,
-    backgroundColor: '#4BB543',
     color: 'white',
     marginLeft: 'auto'
   },
@@ -82,12 +82,16 @@ class NewRecipe extends Component {
     let valueToSend = this.state;
     valueToSend.creationTime = new Date().getTime();
 
-    if (valueToSend.title === '' || valueToSend.shortDes === ''  || valueToSend.longDes === '' || valueToSend.prepTime === '') {
+    if (valueToSend.title === '' || valueToSend.shortDes === '' || valueToSend.longDes === '' || valueToSend.prepTime === '') {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
       this.toastr('Recipe saved!', '#4BB543');
       this.props.saveRecipeProp(valueToSend);
     }
+  }
+
+  handleClearForm = () => {
+    console.log('Clear');
   }
 
   /** sucess toast */
@@ -172,19 +176,26 @@ class NewRecipe extends Component {
                 label="Public"
               />
             </FormGroup>
-            <div className="save-recipe-container">
+            <div className="recipe-controller-container">
               <Button
                 variant="contained"
                 size="small"
-                className={classes.button + ' save-recipe-btn'}
+                className={classes.button + ' recipe-control-btn clear-recipe-input-btn'}
+                onClick={this.handleClearForm}
+              >
+                <ClearIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
+                Clear
+              </Button>
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.button + ' recipe-control-btn save-recipe-btn'}
                 onClick={this.handleSaveRecipe}
               >
                 <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
                 Save
               </Button>
             </div>
-
-
           </MuiThemeProvider>
         </Paper>
         <Notifications options={{ zIndex: 5000 }} />
