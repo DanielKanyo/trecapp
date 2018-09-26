@@ -38,33 +38,34 @@ class MyRecipes extends Component {
 
     return (
       <div className="ComponentContent">
-          <Grid className="main-grid" container spacing={16}>
-          
-            <Grid item className="grid-component" xs={6}>
-              <NewRecipe />
-            </Grid>
-            
-            <Grid item className="grid-component" xs={6}>
+        <Grid className="main-grid" container spacing={16}>
 
-              <Paper className={classes.paper + ' paper-title paper-title-myrecipes'}>
-                <div className="paper-title-icon">
-                  <Receipt />
-                </div>
-                <div className="paper-title-text">
-                  My Recipes
-                </div>
-              </Paper>
-
-              {recipes.length === 0 ? <EmptyList /> : ''}
-
-              {recipes.map((recipe, index) => {
-                return recipe;
-              })}
-
-              <Recipe />
-            </Grid>
-
+          <Grid item className="grid-component" xs={6}>
+            <NewRecipe />
           </Grid>
+
+          <Grid item className="grid-component" xs={6}>
+
+            <Paper className={classes.paper + ' paper-title paper-title-myrecipes'}>
+              <div className="paper-title-icon">
+                <Receipt />
+              </div>
+              <div className="paper-title-text">
+                My Recipes
+                </div>
+              <div className="number-of-recipes">({recipes.length})</div>
+            </Paper>
+
+            {recipes.length === 0 ? <EmptyList /> : ''}
+
+            {recipes.map((recipe, index) => {
+              return recipe;
+            })}
+
+            {/* <Recipe /> */}
+          </Grid>
+
+        </Grid>
       </div>
     );
   }

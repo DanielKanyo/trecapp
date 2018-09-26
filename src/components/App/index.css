@@ -32,6 +32,7 @@ button a {
   height: 56px;
   display: flex;
   color: white !important;
+  position: relative;
   flex-direction: row;
 }
 
@@ -101,7 +102,7 @@ button a {
 }
 
 .card-recipe {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 .slider {
@@ -121,6 +122,21 @@ button a {
   display: none;
 }
 
+.number-of-recipes {
+  position: absolute;
+    right: 0;
+    line-height: 56px;
+    padding: 0px 16px;
+}
+
+.save-recipe-container {
+  display: flex;
+}
+
+.save-recipe-btn:hover {
+  background: #328d22 !important;
+}
+
 input[type=time]::-webkit-clear-button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -135,6 +151,9 @@ input[type=time]::-webkit-clear-button {
     width: 100% !important;
     max-width: 100% !important;
     flex-basis: 100% !important;
+  }
+  .main-grid {
+    display: block !important;
   }
 }
 

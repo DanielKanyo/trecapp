@@ -4,6 +4,8 @@ import '../App/index.css';
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import classNames from 'classnames';
+import Button from '@material-ui/core/Button';
 import AddCircle from '@material-ui/icons/AddCircle';
 import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -11,6 +13,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/lab/Slider';
+import SaveIcon from '@material-ui/icons/Save';
 
 const styles = theme => ({
   paper: {
@@ -23,6 +26,16 @@ const styles = theme => ({
   },
   slider: {
     width: 300,
+  },
+  button: {
+    marginBottom: 6,
+    width: 100,
+    backgroundColor: '#3ea52c',
+    color: 'white',
+    marginLeft: 'auto'
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -39,9 +52,14 @@ class NewRecipe extends Component {
     super(props);
 
     this.state = {
-      checked: false,
+      title: '',
+      shortDes: '',
+      longDes: '',
       sliderValue: 1,
+      prepTime: '02:00',
+      publicChecked: false,
     };
+    this.handleSaveRecipe = this.handleSaveRecipe.bind(this);
   }
 
   handleChangeCheckbox = name => event => {
@@ -51,6 +69,14 @@ class NewRecipe extends Component {
   handleChangeSlider = (event, sliderValue) => {
     this.setState({ sliderValue });
   };
+
+  handleInputChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  }
+
+  handleSaveRecipe = () => {
+    console.log(this.state);
+  }
 
   render() {
     const { classes } = this.props;
@@ -72,6 +98,7 @@ class NewRecipe extends Component {
             <TextField
               id="outlined-name"
               label="Title"
+              onChange={this.handleInputChange('title')}
               className={classes.textField}
               margin="normal"
               placeholder="Recipe title..."
@@ -80,6 +107,7 @@ class NewRecipe extends Component {
             <TextField
               id="outlined-name"
               label="Short description"
+              onChange={this.handleInputChange('shortDes')}
               className={classes.textField}
               placeholder="Just a few sentences..."
               margin="normal"
@@ -91,6 +119,7 @@ class NewRecipe extends Component {
               multiline
               rows="5"
               placeholder="Preparation method..."
+              onChange={this.handleInputChange('longDes')}
               className={classes.textField}
               margin="normal"
               variant="outlined"
@@ -102,6 +131,7 @@ class NewRecipe extends Component {
               label="Preparation time"
               type="time"
               defaultValue="02:00"
+              onChange={this.handleInputChange('prepTime')}
               className={classes.textField}
               InputLabelProps={{
                 shrink: true,
@@ -114,8 +144,8 @@ class NewRecipe extends Component {
               <FormControlLabel className="is-recipe-will-be-public-container"
                 control={
                   <Checkbox
-                    checked={this.state.checked}
-                    onChange={this.handleChangeCheckbox('checked')}
+                    checked={this.state.publicChecked}
+                    onChange={this.handleChangeCheckbox('publicChecked')}
                     value="checked"
                     color="primary"
                   />
@@ -123,6 +153,19 @@ class NewRecipe extends Component {
                 label="Public"
               />
             </FormGroup>
+            <div className="save-recipe-container">
+              <Button 
+                variant="contained" 
+                size="small" 
+                className={classes.button + ' save-recipe-btn'} 
+                onClick={this.handleSaveRecipe}
+              >
+                <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
+                Save
+              </Button>
+            </div>
+
+
           </MuiThemeProvider>
         </Paper>
       </div>
