@@ -137,6 +137,18 @@ button a {
   background: #328d22 !important;
 }
 
+.toast-notification {
+  width: 100% !important;
+}
+
+.toast-notification span {
+  width: 100% !important;
+  height: 64px;
+  padding: 0 !important;
+  line-height: 64px !important;
+  border-radius: 0px !important;
+}
+
 input[type=time]::-webkit-clear-button {
   -webkit-appearance: none;
   -moz-appearance: none;

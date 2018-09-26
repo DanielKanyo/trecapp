@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/lab/Slider';
 import SaveIcon from '@material-ui/icons/Save';
 
+import Notifications, { notify } from 'react-notify-toast';
+
 const styles = theme => ({
   paper: {
     textAlign: 'center',
@@ -76,6 +78,13 @@ class NewRecipe extends Component {
 
   handleSaveRecipe = () => {
     console.log(this.state);
+    this.success('Success!');
+  }
+
+  /** sucess toast */
+  success(successInfo) {
+    notify.show(successInfo, 'success', 5000);
+
   }
 
   render() {
@@ -154,10 +163,10 @@ class NewRecipe extends Component {
               />
             </FormGroup>
             <div className="save-recipe-container">
-              <Button 
-                variant="contained" 
-                size="small" 
-                className={classes.button + ' save-recipe-btn'} 
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.button + ' save-recipe-btn'}
                 onClick={this.handleSaveRecipe}
               >
                 <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
@@ -168,6 +177,7 @@ class NewRecipe extends Component {
 
           </MuiThemeProvider>
         </Paper>
+        <Notifications options={{ zIndex: 5000 }} />
       </div>
     );
   }
