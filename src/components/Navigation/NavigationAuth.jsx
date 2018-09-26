@@ -89,6 +89,16 @@ class NavigationAuth extends Component {
     this.setState({ openAccountDropdown: false });
   };
 
+  componentWillMount() {
+    const w = window.innerWidth;
+
+    if (w < 750) {
+      this.setState({
+        isToggleOn: false
+      });
+    }
+  }
+
   componentDidMount() {
     let loggedInUserId = auth.getCurrentUserId();
 
@@ -113,26 +123,26 @@ class NavigationAuth extends Component {
             <Typography component={Link} to={routes.LANDING} variant="title" color="inherit" className={classes.grow}>
               My Recipes
             </Typography>
+            <div className="navigation-right-side">
+              <Button component={Link} to={routes.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
+                <Public />
+              </Button>
 
-            <Button component={Link} to={routes.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
-              <Public />
-            </Button>
-
-            <Button
-              variant="contained"
-              size="small"
-              className={classes.button + ' btn-my'}
-              buttonRef={node => {
-                this.anchorEl = node;
-              }}
-              aria-owns={openAccountDropdown ? 'menu-list-grow' : null}
-              aria-haspopup="true"
-              onClick={this.handleToggleAccountDropdown}
-            >
-              {userename}
-              <Face className={classes.rightIcon} />
-            </Button>
-
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.button + ' btn-my'}
+                buttonRef={node => {
+                  this.anchorEl = node;
+                }}
+                aria-owns={openAccountDropdown ? 'menu-list-grow' : null}
+                aria-haspopup="true"
+                onClick={this.handleToggleAccountDropdown}
+              >
+                {userename}
+                <Face className={classes.rightIcon} />
+              </Button>
+            </div>
             <Popper open={openAccountDropdown} anchorEl={this.anchorEl} transition disablePortal>
               {({ TransitionProps, placement }) => (
                 <Grow

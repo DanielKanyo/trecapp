@@ -100,7 +100,7 @@ class NewRecipe extends Component {
             <TextField
               id="new-recipe-time"
               label="Preparation time"
-              type="time-local"
+              type="time"
               defaultValue="02:00"
               className={classes.textField}
               InputLabelProps={{

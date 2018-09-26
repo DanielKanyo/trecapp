@@ -1,5 +1,5 @@
 body {
-  background: #eee2d1;
+  background: #dadada;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -93,6 +93,7 @@ button a {
 
 .paper-recipe-new {
   padding: 15px 30px 15px 30px;
+  margin-bottom: 0px !important;
 }
 
 .main-grid {
@@ -100,11 +101,11 @@ button a {
 }
 
 .card-recipe {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .slider {
-  padding:  20px 0px !important;
+  padding: 20px 0px !important;
 }
 
 #slider-label {
@@ -114,6 +115,19 @@ button a {
 
 .is-recipe-will-be-public-container {
   margin-top: 10px;
+}
+
+#new-recipe-time::-webkit-datetime-edit-ampm-field {
+  display: none;
+}
+
+input[type=time]::-webkit-clear-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  margin: -10px;
 }
 
 @media only screen and (max-width: 950px) {
@@ -129,8 +143,21 @@ button a {
     position: absolute;
     z-index: 20;
   }
+}
+
+@media only screen and (max-width: 600px) {
   .ComponentContent {
-    height: calc(100vh - 74px);
-    padding-top: 74px;
+    height: calc(100vh - 72px);
+    padding-top: 72px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .divider-toggle {
+    display: none;
   }
 }
