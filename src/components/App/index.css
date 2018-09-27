@@ -112,6 +112,8 @@ button a {
 #slider-label {
   text-align: left !important;
   margin-top: 10px;
+  font-size: 12px !important;
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .is-recipe-will-be-public-container {
@@ -134,16 +136,7 @@ button a {
 }
 
 .save-recipe-btn {
-  margin-left: 10px !important;
   background: #4BB543 !important;
-}
-
-.clear-recipe-input-btn {
-  background: #FC0000 !important;
-}
-
-.clear-recipe-input-btn:hover {
-  background: #f00101 !important;
 }
 
 .save-recipe-btn:hover {

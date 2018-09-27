@@ -14,7 +14,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/lab/Slider';
 import SaveIcon from '@material-ui/icons/Save';
-import ClearIcon from '@material-ui/icons/Clear';
 
 import Notifications, { notify } from 'react-notify-toast';
 
@@ -120,7 +119,7 @@ class NewRecipe extends Component {
           <MuiThemeProvider theme={theme}>
             <TextField
               id="outlined-name"
-              label="Title"
+              label="* Title"
               onChange={this.handleInputChange('title')}
               className={classes.textField}
               margin="normal"
@@ -129,7 +128,7 @@ class NewRecipe extends Component {
             />
             <TextField
               id="outlined-name"
-              label="Short description"
+              label="* Short description"
               onChange={this.handleInputChange('shortDes')}
               className={classes.textField}
               placeholder="Just a few sentences..."
@@ -138,7 +137,7 @@ class NewRecipe extends Component {
             />
             <TextField
               id="outlined-multiline-static"
-              label="Long description"
+              label="* Long description"
               multiline
               rows="5"
               placeholder="Preparation method..."
@@ -147,7 +146,7 @@ class NewRecipe extends Component {
               margin="normal"
               variant="outlined"
             />
-            <Typography id="slider-label">The difficulty of preparation</Typography>
+            <Typography id="slider-label">Difficulty level</Typography>
             <Slider className="slider" value={sliderValue} min={0} max={5} step={1} onChange={this.handleChangeSlider} />
             <TextField
               id="new-recipe-time"
@@ -177,15 +176,6 @@ class NewRecipe extends Component {
               />
             </FormGroup>
             <div className="recipe-controller-container">
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.button + ' recipe-control-btn clear-recipe-input-btn'}
-                onClick={this.handleClearForm}
-              >
-                <ClearIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
-                Clear
-              </Button>
               <Button
                 variant="contained"
                 size="small"
