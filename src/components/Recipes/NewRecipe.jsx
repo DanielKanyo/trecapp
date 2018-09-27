@@ -12,7 +12,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/lab/Slider';
+import Select from '@material-ui/core/Select';
 import SaveIcon from '@material-ui/icons/Save';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 
 import Notifications, { notify } from 'react-notify-toast';
 
@@ -26,6 +30,15 @@ const styles = theme => ({
     width: '100%',
     marginTop: 12,
     marginBottom: 6
+  },
+  timePicker: {
+    width: '100%',
+    marginTop: 12,
+    marginBottom: 6
+  },
+  formControl: {
+    marginBottom: 12,
+    minWidth: '100%',
   },
   slider: {
     width: 300,
@@ -44,9 +57,12 @@ const styles = theme => ({
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#ff9b68',
-    },
-  },
+      light: '#F55300',
+      main: '#F55300',
+      dark: '#F55300',
+      contrastText: '#fff',
+    }
+  }
 });
 
 class NewRecipe extends Component {
@@ -60,6 +76,7 @@ class NewRecipe extends Component {
       sliderValue: 1,
       prepTime: '02:00',
       publicChecked: false,
+      category: ''
     };
     this.handleSaveRecipe = this.handleSaveRecipe.bind(this);
   }
@@ -88,8 +105,8 @@ class NewRecipe extends Component {
     }
   }
 
-  handleClearForm = () => {
-    console.log('Clear');
+  handleChangeCategory = (event) => {
+    this.setState({ category: event.target.value });
   }
 
   /** sucess toast */
@@ -158,7 +175,7 @@ class NewRecipe extends Component {
                   type="time"
                   defaultValue="02:00"
                   onChange={this.handleInputChange('prepTime')}
-                  className={classes.textField}
+                  className={classes.timePicker}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -167,6 +184,39 @@ class NewRecipe extends Component {
                   }}
                 />
               </div>
+            </div>
+            <div>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="age-simple">Category</InputLabel>
+                <Select
+                  value={this.state.category}
+                  onChange={this.handleChangeCategory}
+                  inputProps={{
+                    name: 'Category',
+                    id: 'category-dropdown',
+                  }}
+                >
+                  <MenuItem value=''><em>None</em></MenuItem>
+                  <MenuItem value='Breakfast'>Breakfast</MenuItem>
+                  <MenuItem value='Lunch'>Lunch</MenuItem>
+                  <MenuItem value='Beverages'>Beverages</MenuItem>
+                  <MenuItem value='Appetizers'>Appetizers</MenuItem>
+                  <MenuItem value='Soups'>Soups</MenuItem>
+                  <MenuItem value='Salads'>Salads</MenuItem>
+                  <MenuItem value='Beef'>Beef</MenuItem>
+                  <MenuItem value='Poultry'>Poultry</MenuItem>
+                  <MenuItem value='Pork'>Pork</MenuItem>
+                  <MenuItem value='Seafood'>Seafood</MenuItem>
+                  <MenuItem value='Vegetarian'>Vegetarian</MenuItem>
+                  <MenuItem value='Vegetables'>Vegetables</MenuItem>
+                  <MenuItem value='Desserts'>Desserts</MenuItem>
+                  <MenuItem value='Canning / Freezing'>Canning / Freezing</MenuItem>
+                  <MenuItem value='Breads'>Breads</MenuItem>
+                  <MenuItem value='Holidays'>Holidays</MenuItem>
+                  <MenuItem value='Entertaining'>Entertaining</MenuItem>
+                  <MenuItem value='Other'>Other</MenuItem>
+                </Select>
+              </FormControl>
             </div>
             <div className="recipe-controller-container">
               <FormControlLabel className="is-recipe-will-be-public-container"
