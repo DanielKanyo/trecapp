@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import '../App/index.css';
+import { auth } from '../../firebase';
+import compose from 'recompose/compose';
+import withAuthorization from '../Session/withAuthorization';
 
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -76,9 +79,15 @@ class NewRecipe extends Component {
       sliderValue: 1,
       prepTime: '02:00',
       publicChecked: false,
-      category: ''
+      category: '',
+      loggedInUserId: ''
     };
     this.handleSaveRecipe = this.handleSaveRecipe.bind(this);
+  }
+
+  componentDidMount() {
+    let loggedInUserId = auth.getCurrentUserId();
+    this.setState({ loggedInUserId: loggedInUserId });
   }
 
   handleChangeCheckbox = name => event => {
@@ -94,14 +103,15 @@ class NewRecipe extends Component {
   }
 
   handleSaveRecipe = () => {
-    let valueToSend = this.state;
-    valueToSend.creationTime = new Date().getTime();
+    let data = this.state;
+    data.creationTime = new Date().getTime();
 
-    if (valueToSend.title === '' || valueToSend.shortDes === '' || valueToSend.longDes === '' || valueToSend.prepTime === '') {
+    if (data.title === '' || data.shortDes === '' || data.longDes === '' || data.prepTime === '' || data.category === '') {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
       this.toastr('Recipe saved!', '#4BB543');
-      this.props.saveRecipeProp(valueToSend);
+      
+      // this.props.saveRecipeProps(data);
     }
   }
 
@@ -192,7 +202,7 @@ class NewRecipe extends Component {
                   value={this.state.category}
                   onChange={this.handleChangeCategory}
                   inputProps={{
-                    name: 'Category',
+                    name: 'category',
                     id: 'category-dropdown',
                   }}
                 >
@@ -248,8 +258,10 @@ class NewRecipe extends Component {
   }
 }
 
+const authCondition = (authUser) => !!authUser;
+
 NewRecipe.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(NewRecipe);
+export default compose(withAuthorization(authCondition), withStyles(styles))(NewRecipe);

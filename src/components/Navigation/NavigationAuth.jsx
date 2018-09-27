@@ -105,13 +105,13 @@ class NavigationAuth extends Component {
     db.getUserInfo(loggedInUserId).then(snapshot => {
       this.setState(() => ({ user: snapshot }))
     });
-
   }
 
   render() {
     const { classes } = this.props;
     const { openAccountDropdown } = this.state;
     const userename = this.state.user.username;
+
     return (
       <div className={classes.root}>
         <AppBar className={classes.appbar} position="static">

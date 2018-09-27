@@ -12,10 +12,12 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Chip from '@material-ui/core/Chip';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const styles = theme => ({
   paper: {
@@ -38,16 +40,16 @@ const styles = theme => ({
       duration: theme.transitions.duration.shortest,
     }),
     marginLeft: 'auto',
-    [theme.breakpoints.up('sm')]: {
-      marginRight: -8,
-    },
   },
   expandOpen: {
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: '#F8B000',
     textTransform: 'uppercase'
+  },
+  chip: {
+    margin: theme.spacing.unit,
   },
 });
 
@@ -62,14 +64,8 @@ class Recipe extends Component {
     this.state = { expanded: false };
   }
 
-  componentDidMount() {}
-
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
-  };
-
-  formatDate() {
-
   }
 
   render() {
@@ -86,14 +82,14 @@ class Recipe extends Component {
     return (
       <div>
         <Card className={classes.card + ' card-recipe'}>
-          <CardHeader
+          <CardHeader className="recipe-card-header"
             avatar={
               <Avatar aria-label="Recipe" className={classes.avatar}>
                 { titleCharacters[0] }
               </Avatar>
             }
             action={
-              <IconButton>
+              <IconButton className="delete-recipe-btn">
                 <DeleteIcon />
               </IconButton>
             }
@@ -109,6 +105,10 @@ class Recipe extends Component {
             <IconButton aria-label="Add to favorites">
               <FavoriteIcon />
             </IconButton>
+            <IconButton aria-label="Public recipe">
+              { data.publicChecked ? <Visibility /> : <VisibilityOff /> }
+            </IconButton>
+            <Chip label={ data.category } className={classes.chip} />
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,

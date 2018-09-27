@@ -48,7 +48,7 @@ class MyRecipes extends Component {
         <Grid className="main-grid" container spacing={16}>
 
           <Grid item className="grid-component" xs={6}>
-            <NewRecipe saveRecipeProp={this.saveRecipe.bind(this)} />
+            <NewRecipe saveRecipeProps={this.saveRecipe.bind(this)} />
           </Grid>
 
           <Grid item className="grid-component" xs={6}>
@@ -77,16 +77,13 @@ class MyRecipes extends Component {
   }
 }
 
-
 const EmptyList = () =>
   <div className="empty-container">
     Empty
   </div>
 
-
 MyRecipes.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
 
 export default withStyles(styles)(MyRecipes);

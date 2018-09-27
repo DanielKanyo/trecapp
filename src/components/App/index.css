@@ -161,6 +161,11 @@ button a {
   width: 50% !important;
 }
 
+#menu-category ul {
+  padding-right: 0px !important;
+  width: 100% !important;
+}
+
 input[type=time]::-webkit-clear-button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -172,6 +177,10 @@ input[type=time]::-webkit-clear-button {
 
 .slider-and-timepicker-container {
   display: flex;
+}
+
+.recipe-card-header div:nth-child(3) {
+  margin-right: -12px !important;
 }
 
 @media only screen and (max-width: 950px) {
