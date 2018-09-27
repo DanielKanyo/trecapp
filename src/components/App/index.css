@@ -111,24 +111,17 @@ button a {
 
 #slider-label {
   text-align: left !important;
-  margin-top: 10px;
+  margin-top: 12px;
+  margin-bottom: 11px;
   font-size: 12px !important;
   color: rgba(0, 0, 0, 0.54);
 }
 
-.is-recipe-will-be-public-container {
-  margin-top: 10px;
-}
-
-#new-recipe-time::-webkit-datetime-edit-ampm-field {
-  display: none;
-}
-
 .number-of-recipes {
   position: absolute;
-    right: 0;
-    line-height: 56px;
-    padding: 0px 16px;
+  right: 0;
+  line-height: 56px;
+  padding: 0px 16px;
 }
 
 .recipe-controller-container {
@@ -155,6 +148,19 @@ button a {
   border-radius: 0px !important;
 }
 
+#new-recipe-time::-webkit-datetime-edit-ampm-field {
+  display: none;
+}
+
+.space-between {
+  width: 20px;
+}
+
+.slider-container,
+.timepicker-container {
+  width: 50% !important;
+}
+
 input[type=time]::-webkit-clear-button {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -164,8 +170,8 @@ input[type=time]::-webkit-clear-button {
   margin: -10px;
 }
 
-.recipe-control-btn {
-  /* margin-right: 10px !important; */
+.slider-and-timepicker-container {
+  display: flex;
 }
 
 @media only screen and (max-width: 950px) {
@@ -174,9 +180,11 @@ input[type=time]::-webkit-clear-button {
     max-width: 100% !important;
     flex-basis: 100% !important;
   }
+
   .main-grid {
     display: block !important;
   }
+
   .paper-recipe-new {
     margin-bottom: 0px !important;
   }
@@ -194,9 +202,11 @@ input[type=time]::-webkit-clear-button {
     height: calc(100vh - 72px);
     padding-top: 72px;
   }
+
   .paper-recipe-new {
     padding: 5px 18px 10px 18px;
   }
+
   .toast-notification span {
     height: 56px;
     line-height: 56px !important;

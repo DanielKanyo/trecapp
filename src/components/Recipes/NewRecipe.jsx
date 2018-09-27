@@ -8,7 +8,6 @@ import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import AddCircle from '@material-ui/icons/AddCircle';
 import TextField from '@material-ui/core/TextField';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
@@ -146,23 +145,30 @@ class NewRecipe extends Component {
               margin="normal"
               variant="outlined"
             />
-            <Typography id="slider-label">Difficulty level</Typography>
-            <Slider className="slider" value={sliderValue} min={0} max={5} step={1} onChange={this.handleChangeSlider} />
-            <TextField
-              id="new-recipe-time"
-              label="Preparation time"
-              type="time"
-              defaultValue="02:00"
-              onChange={this.handleInputChange('prepTime')}
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300, // 5 min
-              }}
-            />
-            <FormGroup row>
+            <div className="slider-and-timepicker-container">
+              <div className="slider-container">
+                <Typography id="slider-label">Difficulty</Typography>
+                <Slider className="slider" value={sliderValue} min={0} max={5} step={1} onChange={this.handleChangeSlider} />
+              </div>
+              <div className="space-between"></div>
+              <div className="timepicker-container">
+                <TextField
+                  id="new-recipe-time"
+                  label="Preparation time"
+                  type="time"
+                  defaultValue="02:00"
+                  onChange={this.handleInputChange('prepTime')}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                />
+              </div>
+            </div>
+            <div className="recipe-controller-container">
               <FormControlLabel className="is-recipe-will-be-public-container"
                 control={
                   <Checkbox
@@ -174,8 +180,6 @@ class NewRecipe extends Component {
                 }
                 label="Public"
               />
-            </FormGroup>
-            <div className="recipe-controller-container">
               <Button
                 variant="contained"
                 size="small"
