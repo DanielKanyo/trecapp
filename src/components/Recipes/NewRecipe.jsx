@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-import { auth } from '../../firebase';
-import compose from 'recompose/compose';
-import withAuthorization from '../Session/withAuthorization';
 
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -79,15 +76,9 @@ class NewRecipe extends Component {
       sliderValue: 1,
       prepTime: '02:00',
       publicChecked: false,
-      category: '',
-      loggedInUserId: ''
+      category: ''
     };
     this.handleSaveRecipe = this.handleSaveRecipe.bind(this);
-  }
-
-  componentDidMount() {
-    let loggedInUserId = auth.getCurrentUserId();
-    this.setState({ loggedInUserId: loggedInUserId });
   }
 
   handleChangeCheckbox = name => event => {
@@ -111,7 +102,7 @@ class NewRecipe extends Component {
     } else {
       this.toastr('Recipe saved!', '#4BB543');
       
-      // this.props.saveRecipeProps(data);
+      this.props.saveRecipeProps(data);
     }
   }
 
@@ -258,10 +249,8 @@ class NewRecipe extends Component {
   }
 }
 
-const authCondition = (authUser) => !!authUser;
-
 NewRecipe.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(NewRecipe);
+export default withStyles(styles)(NewRecipe);

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import '../App/index.css';
+import { auth, db } from '../../firebase';
+import compose from 'recompose/compose';
+import withAuthorization from '../Session/withAuthorization';
 
 import NewRecipe from './NewRecipe';
 import Recipe from './Recipe';
@@ -24,18 +27,28 @@ class MyRecipes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipes: []
+      recipes: [],
+      loggedInUserId: ''
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    let loggedInUserId = auth.getCurrentUserId();
+    
+    this.setState({ loggedInUserId: loggedInUserId });
+  }
 
   saveRecipe(obj) {
+    let dataToSend = obj;
     let recipes = this.state.recipes;
+    
+    db.addRecipe(this.state.loggedInUserId, obj).then(snap => {
+      let temp = [<Recipe key={ snap.key } dataProp={ dataToSend } />].concat(recipes)
 
-    let temp = [<Recipe key={ recipes.length } dataProp={ obj } />].concat(recipes)
-    this.setState({
-      recipes: temp
+      this.setState({
+        recipes: temp
+      });
+
     });
   }
 
@@ -82,8 +95,10 @@ const EmptyList = () =>
     Empty
   </div>
 
+const authCondition = (authUser) => !!authUser;
+
 MyRecipes.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MyRecipes);
+export default compose(withAuthorization(authCondition), withStyles(styles))(MyRecipes);

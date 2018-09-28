@@ -20,12 +20,19 @@ export const getUserInfo = (id) =>
     return snap.val();
   });
 
-export const addRecipe = (id, recipeData) => {
+export const addRecipe = (id, recipe) => {
   let recipesRef = db.ref(`users/${id}/recipes`);
   let recipeRef = recipesRef.push();
 
   recipeRef.set({
-    recipeData
+    category: recipe.category,
+    creationTime: recipe.creationTime,
+    longDes: recipe.longDes,
+    prepTime: recipe.prepTime,
+    publicChecked: recipe.publicChecked,
+    shortDes: recipe.shortDes,
+    sliderValue: recipe.sliderValue,
+    title: recipe.title
   });
 
   return recipeRef;
