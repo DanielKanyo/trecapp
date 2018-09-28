@@ -36,6 +36,10 @@ class MyRecipes extends Component {
     let loggedInUserId = auth.getCurrentUserId();
     
     this.setState({ loggedInUserId: loggedInUserId });
+
+    db.getUsersRecipes(loggedInUserId).then(snap => {
+      console.log(snap);
+    });
   }
 
   saveRecipe(obj) {
