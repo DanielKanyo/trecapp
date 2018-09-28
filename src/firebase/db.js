@@ -41,7 +41,7 @@ export const addRecipe = (id, recipe) => {
 
 // Get users recipes
 export const getUsersRecipes = (id) => {
-  db.ref(`users/${id}/recipes`).once('value').then(function (snap) {
+  return db.ref(`users/${id}/recipes`).once('value').then(function (snap) {
     return snap.val();
   });
 }

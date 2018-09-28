@@ -34,11 +34,24 @@ class MyRecipes extends Component {
 
   componentDidMount() {
     let loggedInUserId = auth.getCurrentUserId();
+    let previousRecipes = this.state.recipes;
     
     this.setState({ loggedInUserId: loggedInUserId });
+    
+    db.getUsersRecipes(loggedInUserId).then(snapshot => {
+      let recipes = snapshot;
 
-    db.getUsersRecipes(loggedInUserId).then(snap => {
-      console.log(snap);
+      for (var key in recipes) {
+        if (recipes.hasOwnProperty(key)) {
+          let data = recipes[key];
+
+          previousRecipes.unshift(<Recipe key={ key } dataProp={ data } />)
+        }
+      }
+
+      this.setState({
+        recipes: previousRecipes
+      })
     });
   }
 
