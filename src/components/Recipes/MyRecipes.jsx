@@ -39,33 +39,60 @@ class MyRecipes extends Component {
     this.setState({ loggedInUserId: loggedInUserId });
     
     db.getUsersRecipes(loggedInUserId).then(snapshot => {
-      let recipes = snapshot;
+      let dataObject = snapshot;
+
+      let id = dataObject.id;
+      let recipes = dataObject.value;
+      let ownRecipe = loggedInUserId === id ? true : false;
 
       for (var key in recipes) {
         if (recipes.hasOwnProperty(key)) {
           let data = recipes[key];
 
-          previousRecipes.unshift(<Recipe key={ key } dataProp={ data } />)
+          data.ownRecipe = ownRecipe;
+          data.recipeId = key;
+
+          previousRecipes.unshift(<Recipe key={ key } dataProp={ data } deleteRecipeProp={this.deleteRecipe.bind(this)} />)
         }
       }
 
       this.setState({
         recipes: previousRecipes
-      })
+      });
     });
   }
 
   saveRecipe(obj) {
     let dataToSend = obj;
     let recipes = this.state.recipes;
+
+    dataToSend.id = this.state.loggedInUserId;
+    dataToSend.ownRecipe = true;
     
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {
-      let temp = [<Recipe key={ snap.key } dataProp={ dataToSend } />].concat(recipes)
+      let temp = [<Recipe key={ snap.key } dataProp={ dataToSend } deleteRecipeProp={this.deleteRecipe.bind(this)} />].concat(recipes)
 
       this.setState({
         recipes: temp
       });
 
+    });
+  }
+
+  deleteRecipe(recipeId) {
+    let loggedInUserId = this.state.loggedInUserId;
+    let previousRecipes = this.state.recipes;
+
+    db.removeRecipe(loggedInUserId, recipeId);
+
+    for (let i = 0; i < previousRecipes.length; i++) {
+      if (previousRecipes[i].key === recipeId) {
+        previousRecipes.splice(i, 1);
+      }
+    }
+
+    this.setState({
+      notes: previousRecipes
     });
   }
 

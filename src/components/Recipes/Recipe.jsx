@@ -68,6 +68,10 @@ class Recipe extends Component {
     this.setState(state => ({ expanded: !state.expanded }));
   }
 
+  handleDeleteRecipe = (id) => {
+    this.props.deleteRecipeProp(id);
+  }
+
   render() {
     const { classes } = this.props;
     const data = this.props.dataProp;
@@ -77,7 +81,7 @@ class Recipe extends Component {
     let day = new Date(data.creationTime).getDate();
     let creationTime = `${month} ${day}, ${year}`;
 
-    let titleCharacters = data.title.split(''); 
+    let titleCharacters = data.title.split('');
 
     return (
       <div>
@@ -85,20 +89,21 @@ class Recipe extends Component {
           <CardHeader className="recipe-card-header"
             avatar={
               <Avatar aria-label="Recipe" className={classes.avatar}>
-                { titleCharacters[0] }
+                {titleCharacters[0]}
               </Avatar>
             }
             action={
-              <IconButton className="delete-recipe-btn">
-                <DeleteIcon />
-              </IconButton>
+              data.ownRecipe ?
+                <IconButton className="delete-recipe-btn" onClick={() => this.handleDeleteRecipe(data.recipeId)}>
+                  <DeleteIcon />
+                </IconButton> : ''
             }
-            title={ data.title }
-            subheader={ creationTime }
+            title={data.title}
+            subheader={creationTime}
           />
           <CardContent>
             <Typography component="p">
-              { data.shortDes }
+              {data.shortDes}
             </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
@@ -106,9 +111,9 @@ class Recipe extends Component {
               <FavoriteIcon />
             </IconButton>
             <IconButton aria-label="Public recipe">
-              { data.publicChecked ? <Visibility /> : <VisibilityOff /> }
+              {data.publicChecked ? <Visibility /> : <VisibilityOff />}
             </IconButton>
-            <Chip label={ data.category } className={classes.chip} />
+            <Chip label={data.category} className={classes.chip} />
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,
@@ -126,7 +131,7 @@ class Recipe extends Component {
                 Method:
               </Typography>
               <Typography paragraph>
-                { data.longDes }
+                {data.longDes}
               </Typography>
             </CardContent>
           </Collapse>
