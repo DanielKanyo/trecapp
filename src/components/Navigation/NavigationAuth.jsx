@@ -103,6 +103,7 @@ class NavigationAuth extends Component {
     let loggedInUserId = auth.getCurrentUserId();
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
+      this.props.setLanguageProp(snapshot.language);
       this.setState(() => ({ user: snapshot }))
     });
   }
@@ -111,6 +112,8 @@ class NavigationAuth extends Component {
     const { classes } = this.props;
     const { openAccountDropdown } = this.state;
     const userename = this.state.user.username;
+
+    const { languageObjectProp } = this.props;
 
     return (
       <div className={classes.root}>
@@ -121,7 +124,7 @@ class NavigationAuth extends Component {
             </IconButton>
 
             <Typography component={Link} to={routes.LANDING} variant="title" color="inherit" className={classes.grow}>
-              My Recipes
+              {languageObjectProp.data.appTitle}
             </Typography>
             <div className="navigation-right-side">
               <Button component={Link} to={routes.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
