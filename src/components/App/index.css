@@ -52,6 +52,14 @@ button a {
   background: #F55300 !important;
 }
 
+.paper-title-profile {
+  background: #3f51b5 !important;
+}
+
+.paper-title-danger {
+  background: #FC050C !important;
+}
+
 .paper-title-icon {
   padding: 16px 20px;
 }
@@ -187,6 +195,10 @@ input[type=time]::-webkit-clear-button {
 #delete-recipe-dialog div:nth-child(2) {
   min-width: 280px !important;
   overflow: hidden;
+}
+
+.account-details-container {
+  padding: 10px 20px;
 }
 
 @media only screen and (max-width: 950px) {
