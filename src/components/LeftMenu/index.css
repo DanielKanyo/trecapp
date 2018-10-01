@@ -89,6 +89,10 @@
     display: none;
   }
 
+  .LeftMenu.small {
+    width: 56px;
+  }
+
   .LeftMenu .left-menu-content {
     padding-top: 66px;
     width: 100%;
