@@ -70,6 +70,7 @@ class MyRecipes extends Component {
     dataToSend.ownRecipe = true;
     
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {
+      dataToSend.recipeId = snap.key;
       let temp = [<Recipe key={ snap.key } dataProp={ dataToSend } deleteRecipeProp={this.deleteRecipe.bind(this)} />].concat(recipes)
 
       this.setState({

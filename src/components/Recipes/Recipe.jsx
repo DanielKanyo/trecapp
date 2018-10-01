@@ -18,6 +18,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Chip from '@material-ui/core/Chip';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   paper: {
@@ -61,7 +65,10 @@ class Recipe extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { expanded: false };
+    this.state = {
+      expanded: false,
+      dialogOpen: false,
+    };
   }
 
   handleExpandClick = () => {
@@ -71,6 +78,14 @@ class Recipe extends Component {
   handleDeleteRecipe = (id) => {
     this.props.deleteRecipeProp(id);
   }
+
+  handleClickOpenDialog = () => {
+    this.setState({ dialogOpen: true });
+  };
+
+  handleCloseDialog = () => {
+    this.setState({ dialogOpen: false });
+  };
 
   render() {
     const { classes } = this.props;
@@ -94,7 +109,11 @@ class Recipe extends Component {
             }
             action={
               data.ownRecipe ?
-                <IconButton className="delete-recipe-btn" onClick={() => this.handleDeleteRecipe(data.recipeId)}>
+                <IconButton
+                  className="delete-recipe-btn"
+                  onClick={this.handleClickOpenDialog}
+                // onClick={() => this.handleDeleteRecipe(data.recipeId)}
+                >
                   <DeleteIcon />
                 </IconButton> : ''
             }
@@ -136,6 +155,23 @@ class Recipe extends Component {
             </CardContent>
           </Collapse>
         </Card>
+        <Dialog
+          open={this.state.dialogOpen}
+          onClose={this.handleCloseDialog}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          id='delete-recipe-dialog'
+        >
+          <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
+          <DialogActions>
+            <Button onClick={this.handleCloseDialog} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={() => {this.handleCloseDialog(); this.handleDeleteRecipe(data.recipeId)}} color="primary" autoFocus>
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

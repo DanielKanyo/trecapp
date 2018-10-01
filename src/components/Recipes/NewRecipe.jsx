@@ -94,8 +94,16 @@ class NewRecipe extends Component {
   }
 
   handleSaveRecipe = () => {
-    let data = this.state;
-    data.creationTime = new Date().getTime();
+    let data = {
+      title: this.state.title,
+      shortDes: this.state.shortDes,
+      longDes: this.state.longDes,
+      sliderValue: this.state.sliderValue,
+      publicChecked: this.state.publicChecked,
+      prepTime: this.state.prepTime,
+      category: this.state.category,
+      creationTime: new Date().getTime()
+    };
 
     if (data.title === '' || data.shortDes === '' || data.longDes === '' || data.prepTime === '' || data.category === '') {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
@@ -199,23 +207,36 @@ class NewRecipe extends Component {
                 >
                   <MenuItem value=''><em>None</em></MenuItem>
                   <MenuItem value='Breakfast'>Breakfast</MenuItem>
+                  <MenuItem value='Brunch'>Brunch</MenuItem>
                   <MenuItem value='Lunch'>Lunch</MenuItem>
-                  <MenuItem value='Beverages'>Beverages</MenuItem>
-                  <MenuItem value='Appetizers'>Appetizers</MenuItem>
+                  <MenuItem value='Dinner'>Dinner</MenuItem>
+                  <MenuItem value='Snacks'>Snacks</MenuItem>
+                  <MenuItem value='Appetisers'>Appetisers</MenuItem>
                   <MenuItem value='Soups'>Soups</MenuItem>
                   <MenuItem value='Salads'>Salads</MenuItem>
-                  <MenuItem value='Beef'>Beef</MenuItem>
+                  <MenuItem value='Sides'>Sides</MenuItem>
+                  <MenuItem value='Rice'>Rice</MenuItem>
+                  <MenuItem value='Noodles'>Noodles</MenuItem>
+                  <MenuItem value='Pasta'>Pasta</MenuItem>
+                  <MenuItem value='Pies'>Pies</MenuItem>
+                  <MenuItem value='Burgers'>Burgers</MenuItem>
+                  <MenuItem value='Mince'>Mince</MenuItem>
+                  <MenuItem value='Sausages'>Sausages</MenuItem>
+                  <MenuItem value='Chicken'>Chicken</MenuItem>
+                  <MenuItem value='Turkey'>Turkey</MenuItem>
+                  <MenuItem value='Duck'>Duck</MenuItem>
                   <MenuItem value='Poultry'>Poultry</MenuItem>
                   <MenuItem value='Pork'>Pork</MenuItem>
+                  <MenuItem value='Lamb'>Lamb</MenuItem>
+                  <MenuItem value='Beef'>Beef</MenuItem>
+                  <MenuItem value='Meat'>Meat</MenuItem>
                   <MenuItem value='Seafood'>Seafood</MenuItem>
+                  <MenuItem value='Stir Fry'>Stir Fry</MenuItem>
+                  <MenuItem value='Sauces'>Sauces</MenuItem>
                   <MenuItem value='Vegetarian'>Vegetarian</MenuItem>
-                  <MenuItem value='Vegetables'>Vegetables</MenuItem>
                   <MenuItem value='Desserts'>Desserts</MenuItem>
-                  <MenuItem value='Canning / Freezing'>Canning / Freezing</MenuItem>
-                  <MenuItem value='Breads'>Breads</MenuItem>
-                  <MenuItem value='Holidays'>Holidays</MenuItem>
-                  <MenuItem value='Entertaining'>Entertaining</MenuItem>
-                  <MenuItem value='Other'>Other</MenuItem>
+                  <MenuItem value='Baking'>Baking</MenuItem>
+                  <MenuItem value='Drinks'>Drinks</MenuItem>
                 </Select>
               </FormControl>
             </div>

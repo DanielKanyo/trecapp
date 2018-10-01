@@ -69,16 +69,17 @@ button a {
   margin-top: 16px;
 }
 
-.ComponentContent::-webkit-scrollbar {
-  width: 0px;
+::-webkit-scrollbar {
+  width: 3px;
+  background: red;
 }
 
-.ComponentContent::-webkit-scrollbar-track {
-  background: transparent;
+::-webkit-scrollbar-track {
+  background: #cfcfcf;
 }
 
-.ComponentContent::-webkit-scrollbar-thumb {
-  background-color: transparent;
+::-webkit-scrollbar-thumb {
+  background-color: #aaaaaa;
 }
 
 .empty-container {
@@ -181,6 +182,11 @@ input[type=time]::-webkit-clear-button {
 
 .recipe-card-header div:nth-child(3) {
   margin-right: -12px !important;
+}
+
+#delete-recipe-dialog div:nth-child(2) {
+  min-width: 280px !important;
+  overflow: hidden;
 }
 
 @media only screen and (max-width: 950px) {
