@@ -4,10 +4,11 @@ import {
 
 // User API
 
-export const doCreateUser = (id, username, email) =>
+export const doCreateUser = (id, username, email, language) =>
   db.ref(`users/${id}`).set({
     username,
     email,
+    language
   });
 
 export const onceGetUsers = () =>
