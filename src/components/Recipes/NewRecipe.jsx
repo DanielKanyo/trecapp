@@ -109,8 +109,18 @@ class NewRecipe extends Component {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
       this.toastr('Recipe saved!', '#4BB543');
-      
+
       this.props.saveRecipeProps(data);
+
+      this.setState({
+        title: '',
+        shortDes: '',
+        longDes: '',
+        sliderValue: 1,
+        prepTime: '02:00',
+        publicChecked: false,
+        category: ''
+      });
     }
   }
 
@@ -118,7 +128,6 @@ class NewRecipe extends Component {
     this.setState({ category: event.target.value });
   }
 
-  /** sucess toast */
   toastr(msg, bgColor) {
     let style = { background: bgColor, text: "#FFFFFF" };
 
@@ -143,31 +152,34 @@ class NewRecipe extends Component {
         <Paper className={classes.paper + ' paper-recipe-new'}>
           <MuiThemeProvider theme={theme}>
             <TextField
-              id="outlined-name"
+              id="textfield-recipe-title"
               label="* Title"
               onChange={this.handleInputChange('title')}
               className={classes.textField}
+              value={this.state.title}
               margin="normal"
               placeholder="Recipe title..."
               variant="outlined"
             />
             <TextField
-              id="outlined-name"
+              id="textfield-recipe-shortDes"
               label="* Short description"
               onChange={this.handleInputChange('shortDes')}
               className={classes.textField}
               placeholder="Just a few sentences..."
+              value={this.state.shortDes}
               margin="normal"
               variant="outlined"
             />
             <TextField
-              id="outlined-multiline-static"
+              id="textfield-recipe-longDes"
               label="* Long description"
               multiline
               rows="5"
               placeholder="Preparation method..."
               onChange={this.handleInputChange('longDes')}
               className={classes.textField}
+              value={this.state.longDes}
               margin="normal"
               variant="outlined"
             />
@@ -179,11 +191,11 @@ class NewRecipe extends Component {
               <div className="space-between"></div>
               <div className="timepicker-container">
                 <TextField
-                  id="new-recipe-time"
+                  id="textfield-recipe-time"
                   label="Preparation time"
                   type="time"
-                  defaultValue="02:00"
                   onChange={this.handleInputChange('prepTime')}
+                  value={this.state.prepTime}
                   className={classes.timePicker}
                   InputLabelProps={{
                     shrink: true,

@@ -59,6 +59,10 @@ const styles = {
 
 class NavigationAuth extends Component {
 
+  /**
+   * 
+   * @param {Object} props - props object 
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -71,12 +75,18 @@ class NavigationAuth extends Component {
     this.toggleLeftMenu = this.toggleLeftMenu.bind(this);
   }
 
+  /**
+   * Toggle left menu function, set isToggleOn state
+   */
   toggleLeftMenu() {
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));
   }
 
+  /**
+   * Open or close the account dropdown menu
+   */
   handleToggleAccountDropdown = () => {
     this.setState(state => ({ openAccountDropdown: !state.openAccountDropdown }));
   };
@@ -89,6 +99,9 @@ class NavigationAuth extends Component {
     this.setState({ openAccountDropdown: false });
   };
 
+  /**
+   * Set isToggleOn state depends on the screen width
+   */
   componentWillMount() {
     const w = window.innerWidth;
 
@@ -99,6 +112,9 @@ class NavigationAuth extends Component {
     }
   }
 
+  /**
+   * Get user info to set language and then save user object
+   */
   componentDidMount() {
     let loggedInUserId = auth.getCurrentUserId();
 
@@ -108,6 +124,9 @@ class NavigationAuth extends Component {
     });
   }
 
+  /**
+   * Render function
+   */
   render() {
     const { classes } = this.props;
     const { openAccountDropdown } = this.state;
@@ -167,7 +186,7 @@ class NavigationAuth extends Component {
 
           </Toolbar>
         </AppBar>
-        <LeftMenu toggleLeftMenuProp={this.state.isToggleOn} />
+        <LeftMenu isToggleProp={this.state.isToggleOn} toggleLeftMenuProp={this.toggleLeftMenu} />
       </div>
     );
   }

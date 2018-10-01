@@ -30,7 +30,6 @@ class App extends Component {
   }
 
   setLanguage(language) {
-    console.log(language);
     switch (language) {
       case 'eng':
         this.setState({ languageObject: dataEng })

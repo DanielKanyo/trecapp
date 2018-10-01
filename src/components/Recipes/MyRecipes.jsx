@@ -11,7 +11,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper';
-import Receipt from '@material-ui/icons/Receipt';;
+import Receipt from '@material-ui/icons/Receipt';
+
+import Notifications, { notify } from 'react-notify-toast';
 
 const styles = theme => ({
   paper: {
@@ -95,6 +97,14 @@ class MyRecipes extends Component {
     this.setState({
       notes: previousRecipes
     });
+
+    this.toastr('Recipe deleted!', '#4BB543');
+  }
+
+  toastr(msg, bgColor) {
+    let style = { background: bgColor, text: "#FFFFFF" };
+
+    notify.show(msg, 'custom', 4000, style);
   }
 
   render() {
@@ -130,6 +140,8 @@ class MyRecipes extends Component {
           </Grid>
 
         </Grid>
+
+        <Notifications options={{ zIndex: 5000 }} />
       </div>
     );
   }

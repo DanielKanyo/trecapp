@@ -19,12 +19,15 @@ import Fastfood from '@material-ui/icons/Fastfood';
 import Face from '@material-ui/icons/Face';
 import Lock from '@material-ui/icons/Lock';
 
-const styles = theme => ({
-
-});
+const styles = theme => ({});
 
 class LeftMenu extends Component {
 
+  /**
+   * Constructor
+   * 
+   * @param {Object} props - props object
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -33,16 +36,28 @@ class LeftMenu extends Component {
 
     // This binding is necessary to make `this` work in the callback
     this.minimizeLeftMenu = this.minimizeLeftMenu.bind(this);
+    this.handleLeftMenuItemClicked = this.handleLeftMenuItemClicked.bind(this);
   }
 
+  /**
+   * Minimize the left menu, show only the icons
+   */
   minimizeLeftMenu() {
     this.setState(state => ({
       isMinimized: !state.isMinimized
     }));
   }
 
+  /**
+   * Add class to the menu item, close menu if screen bigger than 750px, change isToggleOn value via toggleLeftMenuProp
+   * 
+   * @param e - event
+   */
   handleLeftMenuItemClicked(e) {
+    const w = window.innerWidth;
     let menuItems = document.getElementsByClassName('menuItem');
+    let leftMenu = document.getElementsByClassName('LeftMenu');
+
     let targetElement = e.target;
 
     for (let i = 0; i < menuItems.length; i++) {
@@ -51,11 +66,24 @@ class LeftMenu extends Component {
       }
     }
 
+    if (w < 750) {
+      if (leftMenu[0] && leftMenu[0].classList.contains('open')) {
+
+        leftMenu[0].classList.remove('open');
+        leftMenu[0].classList.add('closed');
+
+        this.props.toggleLeftMenuProp(false);
+      }
+    }
+
     targetElement.classList.add('activeMenuItem');
   }
 
+  /**
+   * Render function
+   */
   render() {
-    const isOpen = this.props.toggleLeftMenuProp ? 'open' : 'closed';
+    const isOpen = this.props.isToggleProp ? 'open' : 'closed';
     const isMinimized = this.state.isMinimized ? 'big' : 'small';
 
     return (

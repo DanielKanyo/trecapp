@@ -149,7 +149,7 @@ button a {
   border-radius: 0px !important;
 }
 
-#new-recipe-time::-webkit-datetime-edit-ampm-field {
+#textfield-recipe-time::-webkit-datetime-edit-ampm-field {
   display: none;
 }
 
