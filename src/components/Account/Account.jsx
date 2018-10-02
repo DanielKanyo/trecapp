@@ -34,9 +34,12 @@ class AccountPage extends Component {
     this.state = {
       accountName: '',
       accountEmail: '',
+      accountLanguage: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
+    this.setLanguageProp = this.props.setLanguageProp.bind(this);
+    this.handleSaveNewAccountData = this.handleSaveNewAccountData.bind(this);
   }
 
   handleInputChange(name, event) {
@@ -47,11 +50,22 @@ class AccountPage extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleSaveNewAccountData(name, language) {
+    console.log(name, language);
+    
+    this.setState({ 
+      accountName: name,
+      accountLanguage: language 
+    });
+
+    // todo: save new data here
+  }
+
   componentDidMount() {
     let loggedInUserId = auth.getCurrentUserId();
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
-      this.setState(() => ({ 
+      this.setState(() => ({
         accountName: snapshot.username,
         accountEmail: snapshot.email,
         accountLanguage: snapshot.language
@@ -61,7 +75,7 @@ class AccountPage extends Component {
 
   render() {
     const { classes } = this.props;
-    
+
     return (
       <AuthUserContext.Consumer>
         {authUser =>
@@ -72,9 +86,11 @@ class AccountPage extends Component {
                 <AccountDetails
                   handleInputChangeProp={this.handleInputChange}
                   handleChangeLanguageProp={this.handleChangeLanguage}
+                  setLanguageProp={this.props.setLanguageProp}
+                  handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
                   accountNameProp={this.state.accountName}
                   accountEmailProp={this.state.accountEmail}
-                  accountLanguageProp={this.state.accountLanguage} 
+                  accountLanguageProp={this.state.accountLanguage}
                 />
               </Grid>
               <Grid item className="grid-component" xs={6}>

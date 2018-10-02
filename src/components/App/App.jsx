@@ -27,6 +27,7 @@ class App extends Component {
     this.state = {
       languageObject: dataEng
     };
+    this.setLanguage = this.setLanguage.bind(this);
   }
 
   setLanguage(language) {
@@ -54,7 +55,7 @@ class App extends Component {
           <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
           <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
           <Route exact path={routes.WALL} component={() => <RecipesWall />} />
-          <Route exact path={routes.ACCOUNT} component={() => <AccountPage />} />
+          <Route exact path={routes.ACCOUNT} component={() => <AccountPage setLanguageProp={this.setLanguage} />} />
           <Route exact path={routes.MYRECIPES} component={() => <MyRecipes />} />
         </div>
       </Router>

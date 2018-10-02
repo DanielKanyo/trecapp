@@ -9,6 +9,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
+import SaveIcon from '@material-ui/icons/Save';
+import classNames from 'classnames';
+import Button from '@material-ui/core/Button';
+import Notifications, { notify } from 'react-notify-toast';
 
 const styles = theme => ({
   textField: {
@@ -28,7 +32,17 @@ const styles = theme => ({
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
-  }
+  },
+  button: {
+    marginBottom: 6,
+    marginTop: 4,
+    width: 100,
+    color: 'white',
+    marginLeft: 'auto'
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 class AccountDetails extends Component {
@@ -36,6 +50,9 @@ class AccountDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    
+    this.setLanguageProp = this.props.setLanguageProp.bind(this);
+    this.handleSaveNewAccountDataProp = this.props.handleSaveNewAccountDataProp.bind(this);
   }
 
   handleInputChange = name => event => {
@@ -44,7 +61,23 @@ class AccountDetails extends Component {
 
   handleChangeLanguage = event => {
     this.props.handleChangeLanguageProp(event);
-  };
+  }
+
+  handleSaveAccount = (event) => {
+    if (this.props.accountNameProp === '' || this.props.accountEmailProp === '' || this.props.accountLanguageProp === '') {
+      this.toastr('Warning! Fill the required fields...', '#ffc107');
+    } else {
+      this.props.handleSaveNewAccountDataProp(this.props.accountNameProp, this.props.accountLanguageProp);
+      this.props.setLanguageProp(this.props.accountLanguageProp);
+      this.toastr('Recipe saved!', '#4BB543');
+    }
+  }
+
+  toastr(msg, bgColor) {
+    let style = { background: bgColor, text: "#FFFFFF" };
+
+    notify.show(msg, 'custom', 4000, style);
+  }
 
   render() {
     const { classes } = this.props;
@@ -96,8 +129,21 @@ class AccountDetails extends Component {
                 {/* <MenuItem value={30}>German</MenuItem> */}
               </Select>
             </FormControl>
+            <div className="account-save-container">
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.button + ' control-btn save-btn'}
+                onClick={this.handleSaveAccount}
+              >
+                <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
+                Save
+              </Button>
+            </div>
           </div>
         </Paper>
+
+        <Notifications options={{ zIndex: 5000 }} />
       </div>
     );
   }

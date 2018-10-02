@@ -137,11 +137,11 @@ button a {
   display: flex;
 }
 
-.save-recipe-btn {
+.save-btn {
   background: #4BB543 !important;
 }
 
-.save-recipe-btn:hover {
+.save-btn:hover {
   background: #42a73b !important;
 }
 
@@ -199,6 +199,11 @@ input[type=time]::-webkit-clear-button {
 
 .account-details-container {
   padding: 10px 20px;
+}
+
+.account-save-container {
+  display: flex;
+  flex-direction: row;
 }
 
 @media only screen and (max-width: 950px) {

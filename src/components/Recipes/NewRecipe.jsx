@@ -280,7 +280,7 @@ class NewRecipe extends Component {
               <Button
                 variant="contained"
                 size="small"
-                className={classes.button + ' recipe-control-btn save-recipe-btn'}
+                className={classes.button + ' control-btn save-btn'}
                 onClick={this.handleSaveRecipe}
               >
                 <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
