@@ -85,7 +85,7 @@
 }
 
 @media only screen and (max-width: 750px) {
-  .LeftMenu.big {
+  .LeftMenu {
     position: absolute;
     z-index: 20;
   }
