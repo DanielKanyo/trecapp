@@ -84,6 +84,13 @@
   background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
+@media only screen and (max-width: 750px) {
+  .LeftMenu.big {
+    position: absolute;
+    z-index: 20;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .navigation-right-side {
     display: none;
