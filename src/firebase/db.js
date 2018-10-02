@@ -32,7 +32,8 @@ export const addRecipe = (id, recipe) => {
     longDes: recipe.longDes,
     prepTime: recipe.prepTime,
     publicChecked: recipe.publicChecked,
-    shortDes: recipe.shortDes,
+    story: recipe.story,
+    ingredients: recipe.ingredients,
     sliderValue: recipe.sliderValue,
     title: recipe.title
   });

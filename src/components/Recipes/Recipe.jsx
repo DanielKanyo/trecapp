@@ -112,7 +112,6 @@ class Recipe extends Component {
                 <IconButton
                   className="delete-recipe-btn"
                   onClick={this.handleClickOpenDialog}
-                // onClick={() => this.handleDeleteRecipe(data.recipeId)}
                 >
                   <DeleteIcon />
                 </IconButton> : ''
@@ -122,7 +121,7 @@ class Recipe extends Component {
           />
           <CardContent>
             <Typography component="p">
-              {data.shortDes}
+              {data.story}
             </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
@@ -147,6 +146,12 @@ class Recipe extends Component {
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph variant="body2">
+                Ingredients:
+              </Typography>
+              <Typography paragraph>
+                {data.ingredients}
+              </Typography>
+              <Typography paragraph variant="body2">
                 Method:
               </Typography>
               <Typography paragraph>
@@ -167,7 +172,7 @@ class Recipe extends Component {
             <Button onClick={this.handleCloseDialog} color="primary">
               Cancel
             </Button>
-            <Button onClick={() => {this.handleCloseDialog(); this.handleDeleteRecipe(data.recipeId)}} color="primary" autoFocus>
+            <Button onClick={() => { this.handleCloseDialog(); this.handleDeleteRecipe(data.recipeId) }} color="primary" autoFocus>
               Delete
             </Button>
           </DialogActions>

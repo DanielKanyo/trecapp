@@ -71,7 +71,8 @@ class NewRecipe extends Component {
 
     this.state = {
       title: '',
-      shortDes: '',
+      story: '',
+      ingredients: '',
       longDes: '',
       sliderValue: 1,
       prepTime: '02:00',
@@ -96,7 +97,8 @@ class NewRecipe extends Component {
   handleSaveRecipe = () => {
     let data = {
       title: this.state.title,
-      shortDes: this.state.shortDes,
+      story: this.state.story,
+      ingredients: this.state.ingredients,
       longDes: this.state.longDes,
       sliderValue: this.state.sliderValue,
       publicChecked: this.state.publicChecked,
@@ -105,7 +107,7 @@ class NewRecipe extends Component {
       creationTime: new Date().getTime()
     };
 
-    if (data.title === '' || data.shortDes === '' || data.longDes === '' || data.prepTime === '' || data.category === '') {
+    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || data.prepTime === '' || data.category === '') {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
       this.toastr('Recipe saved!', '#4BB543');
@@ -114,8 +116,9 @@ class NewRecipe extends Component {
 
       this.setState({
         title: '',
-        shortDes: '',
+        story: '',
         longDes: '',
+        ingredients: '',
         sliderValue: 1,
         prepTime: '02:00',
         publicChecked: false,
@@ -162,12 +165,22 @@ class NewRecipe extends Component {
               variant="outlined"
             />
             <TextField
-              id="textfield-recipe-shortDes"
-              label="* Short description"
-              onChange={this.handleInputChange('shortDes')}
+              id="textfield-recipe-story"
+              label="* Story"
+              onChange={this.handleInputChange('story')}
               className={classes.textField}
               placeholder="Just a few sentences..."
-              value={this.state.shortDes}
+              value={this.state.story}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextField
+              id="textfield-recipe-ingredients"
+              label="* Ingredients"
+              onChange={this.handleInputChange('ingredients')}
+              className={classes.textField}
+              placeholder="List here..."
+              value={this.state.ingredients}
               margin="normal"
               variant="outlined"
             />
