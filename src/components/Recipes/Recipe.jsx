@@ -57,10 +57,6 @@ const styles = theme => ({
   },
 });
 
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-
 class Recipe extends Component {
 
   constructor(props) {
@@ -93,7 +89,7 @@ class Recipe extends Component {
     const data = this.props.dataProp;
 
     let year = new Date(data.creationTime).getFullYear();
-    let month = monthNames[new Date(data.creationTime).getMonth()];
+    let month = languageObjectProp.data.months[new Date(data.creationTime).getMonth()];
     let day = new Date(data.creationTime).getDate();
     let creationTime = `${month} ${day}, ${year}`;
 
@@ -109,13 +105,9 @@ class Recipe extends Component {
               </Avatar>
             }
             action={
-              data.ownRecipe ?
-                <IconButton
-                  className="delete-recipe-btn"
-                  onClick={this.handleClickOpenDialog}
-                >
-                  <DeleteIcon />
-                </IconButton> : ''
+              <IconButton className="delete-recipe-btn" onClick={this.handleClickOpenDialog}>
+                <DeleteIcon />
+              </IconButton>
             }
             title={data.title}
             subheader={creationTime}
@@ -130,9 +122,9 @@ class Recipe extends Component {
               <FavoriteIcon />
             </IconButton>
             <IconButton aria-label="Public recipe">
-              { data.publicChecked ? <Visibility /> : <VisibilityOff /> }
+              {data.publicChecked ? <Visibility /> : <VisibilityOff />}
             </IconButton>
-            <Chip label={data.category} className={classes.chip} />
+            <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded,

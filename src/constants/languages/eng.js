@@ -2,6 +2,7 @@ export const dataEng = {
   data: {
     appTitle: 'My Recipes',
     menuItems: ['My Recipes', 'Recipes Wall', 'Favourites', 'Food porn', 'My Account', 'Logout'],
+    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     myRecipes: {
       newRecipe: {
         title: 'New Recipe',
@@ -22,7 +23,7 @@ export const dataEng = {
           ingredientsPlaceholder: 'List here...',
           longDesPlaceholder: 'Preparation method...'
         },
-        categoryItems: ['Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Snacks', 'Appetisers', 'Soups', 'Salads', 'Sides', 'Rice', 'Noodles', 'Pasta', 'Pies', 'Burgers', 'Mince', 'Sausages', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meat', 'Seafood', 'Stir Fry', 'Sauces', 'Vegetarian', 'Desserts', 'Baking', 'Drinks']
+        categoryItems: ['None', 'Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Snacks', 'Appetisers', 'Soups', 'Salads', 'Sides', 'Rice', 'Noodles', 'Pasta', 'Pies', 'Burgers', 'Mince', 'Sausages', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meat', 'Seafood', 'Stir Fry', 'Sauces', 'Vegetarian', 'Desserts', 'Baking', 'Drinks']
       },
       myRecipes: {
         title: 'My Recipes',

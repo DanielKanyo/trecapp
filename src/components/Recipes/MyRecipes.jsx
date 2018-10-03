@@ -45,40 +45,46 @@ class MyRecipes extends Component {
    * ComponentDidMount built in function
    */
   componentDidMount() {
+    this.mounted = true;
+
     let loggedInUserId = auth.getCurrentUserId();
     let previousRecipes = this.state.recipes;
 
     this.setState({ loggedInUserId: loggedInUserId });
 
-    db.getUsersRecipes(loggedInUserId).then(snapshot => {
-      let dataObject = snapshot;
+    db.getUsersRecipes().then(snapshot => {
+      if (this.mounted) {
+        let recipes = snapshot;
 
-      let id = dataObject.id;
-      let recipes = dataObject.value;
-      let ownRecipe = loggedInUserId === id ? true : false;
+        for (var key in recipes) {
+          if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
+            let data = recipes[key];
 
-      for (var key in recipes) {
-        if (recipes.hasOwnProperty(key)) {
-          let data = recipes[key];
+            data.recipeId = key;
 
-          data.ownRecipe = ownRecipe;
-          data.recipeId = key;
-
-          previousRecipes.unshift(
-            <Recipe
-              key={key}
-              dataProp={data}
-              deleteRecipeProp={this.deleteRecipe.bind(this)}
-              languageObjectProp={this.props.languageObjectProp}
-            />
-          )
+            previousRecipes.unshift(
+              <Recipe
+                key={key}
+                dataProp={data}
+                deleteRecipeProp={this.deleteRecipe.bind(this)}
+                languageObjectProp={this.props.languageObjectProp}
+              />
+            )
+          }
         }
-      }
 
-      this.setState({
-        recipes: previousRecipes
-      });
+        this.setState({
+          recipes: previousRecipes
+        });
+      }
     });
+  }
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount(){
+    this.mounted = false;
   }
 
   /**
@@ -90,7 +96,7 @@ class MyRecipes extends Component {
     let dataToSend = obj;
     let recipes = this.state.recipes;
 
-    dataToSend.id = this.state.loggedInUserId;
+    dataToSend.userId = this.state.loggedInUserId;
     dataToSend.ownRecipe = true;
 
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {

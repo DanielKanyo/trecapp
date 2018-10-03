@@ -106,8 +106,8 @@ class NewRecipe extends Component {
       category: this.state.category,
       creationTime: new Date().getTime()
     };
-
-    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || data.prepTime === '' || data.category === '') {
+    
+    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || data.prepTime === '' || !data.category) {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
       this.toastr('Recipe saved!', '#4BB543');
@@ -235,9 +235,8 @@ class NewRecipe extends Component {
                     id: 'category-dropdown',
                   }}
                 >
-                  <MenuItem value=''><em>None</em></MenuItem>
                   {languageObjectProp.data.myRecipes.newRecipe.categoryItems.map((item, i) => {
-                    return <MenuItem key={i} value={item}>{item}</MenuItem>
+                    return <MenuItem key={i} value={i}>{item}</MenuItem>
                   })}
                 </Select>
               </FormControl>

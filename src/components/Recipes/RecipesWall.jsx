@@ -29,9 +29,21 @@ class RecipesWall extends Component {
   }
 
   componentDidMount() {
-    db.onceGetUsers().then(snapshot =>
-      this.setState(() => ({ users: snapshot.val() }))
-    );
+    this.mounted = true;
+
+    db.onceGetUsers().then(snapshot => {
+      if (this.mounted) {
+        this.setState(() => ({ users: snapshot.val() }));
+      }
+    });
+  }
+
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount(){
+    this.mounted = false;
   }
 
   render() {
