@@ -45,9 +45,9 @@ class MyRecipes extends Component {
   componentDidMount() {
     let loggedInUserId = auth.getCurrentUserId();
     let previousRecipes = this.state.recipes;
-    
+
     this.setState({ loggedInUserId: loggedInUserId });
-    
+
     db.getUsersRecipes(loggedInUserId).then(snapshot => {
       let dataObject = snapshot;
 
@@ -62,7 +62,14 @@ class MyRecipes extends Component {
           data.ownRecipe = ownRecipe;
           data.recipeId = key;
 
-          previousRecipes.unshift(<Recipe key={ key } dataProp={ data } deleteRecipeProp={this.deleteRecipe.bind(this)} />)
+          previousRecipes.unshift(
+            <Recipe
+              key={key}
+              dataProp={data}
+              deleteRecipeProp={this.deleteRecipe.bind(this)}
+              languageObjectProp={this.props.languageObjectProp}
+            />
+          )
         }
       }
 
@@ -83,10 +90,17 @@ class MyRecipes extends Component {
 
     dataToSend.id = this.state.loggedInUserId;
     dataToSend.ownRecipe = true;
-    
+
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {
       dataToSend.recipeId = snap.key;
-      let temp = [<Recipe key={ snap.key } dataProp={ dataToSend } deleteRecipeProp={this.deleteRecipe.bind(this)} />].concat(recipes)
+      let temp = [
+        <Recipe
+          key={snap.key}
+          dataProp={dataToSend}
+          deleteRecipeProp={this.deleteRecipe.bind(this)}
+          languageObjectProp={this.props.languageObjectProp}
+        />
+      ].concat(recipes)
 
       this.setState({
         recipes: temp
@@ -136,6 +150,8 @@ class MyRecipes extends Component {
    */
   render() {
     const { classes } = this.props;
+    const { languageObjectProp } = this.props;
+
     let recipes = this.state.recipes;
 
     return (
@@ -143,7 +159,7 @@ class MyRecipes extends Component {
         <Grid className="main-grid" container spacing={16}>
 
           <Grid item className="grid-component" xs={6}>
-            <NewRecipe saveRecipeProps={this.saveRecipe.bind(this)} />
+            <NewRecipe saveRecipeProps={this.saveRecipe.bind(this)} languageObjectProp={languageObjectProp} />
           </Grid>
 
           <Grid item className="grid-component" xs={6}>
@@ -153,8 +169,8 @@ class MyRecipes extends Component {
                 <Receipt />
               </div>
               <div className="paper-title-text">
-                My Recipes
-                </div>
+                {languageObjectProp.data.myRecipes.myRecipes.title}
+              </div>
               <div className="number-of-recipes">({recipes.length})</div>
             </Paper>
 

@@ -89,6 +89,7 @@ class Recipe extends Component {
 
   render() {
     const { classes } = this.props;
+    const { languageObjectProp } = this.props;
     const data = this.props.dataProp;
 
     let year = new Date(data.creationTime).getFullYear();
@@ -146,13 +147,13 @@ class Recipe extends Component {
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
               <Typography paragraph variant="body2">
-                Ingredients:
+                {languageObjectProp.data.myRecipes.myRecipes.ingredients + ':'}
               </Typography>
               <Typography paragraph>
                 {data.ingredients}
               </Typography>
               <Typography paragraph variant="body2">
-                Method:
+                {languageObjectProp.data.myRecipes.myRecipes.method + ':'}
               </Typography>
               <Typography paragraph>
                 {data.longDes}

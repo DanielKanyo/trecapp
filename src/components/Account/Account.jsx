@@ -52,8 +52,6 @@ class AccountPage extends Component {
   };
 
   handleSaveNewAccountData(name, language) {
-    console.log(name, language);
-    
     this.setState({ 
       accountName: name,
       accountLanguage: language 

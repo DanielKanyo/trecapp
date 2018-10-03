@@ -45,7 +45,7 @@ const styles = theme => ({
   },
   button: {
     marginBottom: 6,
-    width: 100,
+    width: 110,
     color: 'white',
     marginLeft: 'auto'
   },
@@ -140,6 +140,7 @@ class NewRecipe extends Component {
   render() {
     const { classes } = this.props;
     const { sliderValue } = this.state;
+    const { languageObjectProp } = this.props;
 
     return (
       <div>
@@ -148,7 +149,7 @@ class NewRecipe extends Component {
             <AddCircle />
           </div>
           <div className="paper-title-text">
-            New Recipe
+            {languageObjectProp.data.myRecipes.newRecipe.title}
           </div>
         </Paper>
 
@@ -156,40 +157,40 @@ class NewRecipe extends Component {
           <MuiThemeProvider theme={theme}>
             <TextField
               id="textfield-recipe-title"
-              label="* Title"
+              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.title}
               onChange={this.handleInputChange('title')}
               className={classes.textField}
               value={this.state.title}
               margin="normal"
-              placeholder="Recipe title..."
+              placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.titlePlaceholder}
               variant="outlined"
             />
             <TextField
               id="textfield-recipe-story"
-              label="* Story"
+              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.story}
               onChange={this.handleInputChange('story')}
               className={classes.textField}
-              placeholder="Just a few sentences..."
+              placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.storyPlaceholder}
               value={this.state.story}
               margin="normal"
               variant="outlined"
             />
             <TextField
               id="textfield-recipe-ingredients"
-              label="* Ingredients"
+              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
               onChange={this.handleInputChange('ingredients')}
               className={classes.textField}
-              placeholder="List here..."
+              placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
               value={this.state.ingredients}
               margin="normal"
               variant="outlined"
             />
             <TextField
               id="textfield-recipe-longDes"
-              label="* Long description"
+              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.longDes}
               multiline
               rows="5"
-              placeholder="Preparation method..."
+              placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.longDesPlaceholder}
               onChange={this.handleInputChange('longDes')}
               className={classes.textField}
               value={this.state.longDes}
@@ -198,14 +199,16 @@ class NewRecipe extends Component {
             />
             <div className="slider-and-timepicker-container">
               <div className="slider-container">
-                <Typography id="slider-label">Difficulty</Typography>
+                <Typography id="slider-label">
+                  {languageObjectProp.data.myRecipes.newRecipe.form.difficulty}
+                </Typography>
                 <Slider className="slider" value={sliderValue} min={0} max={5} step={1} onChange={this.handleChangeSlider} />
               </div>
               <div className="space-between"></div>
               <div className="timepicker-container">
                 <TextField
                   id="textfield-recipe-time"
-                  label="Preparation time"
+                  label={languageObjectProp.data.myRecipes.newRecipe.form.prepTime}
                   type="time"
                   onChange={this.handleInputChange('prepTime')}
                   value={this.state.prepTime}
@@ -221,7 +224,9 @@ class NewRecipe extends Component {
             </div>
             <div>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-simple">Category</InputLabel>
+                <InputLabel htmlFor="age-simple">
+                  {languageObjectProp.data.myRecipes.newRecipe.form.category}
+                </InputLabel>
                 <Select
                   value={this.state.category}
                   onChange={this.handleChangeCategory}
@@ -231,37 +236,9 @@ class NewRecipe extends Component {
                   }}
                 >
                   <MenuItem value=''><em>None</em></MenuItem>
-                  <MenuItem value='Breakfast'>Breakfast</MenuItem>
-                  <MenuItem value='Brunch'>Brunch</MenuItem>
-                  <MenuItem value='Lunch'>Lunch</MenuItem>
-                  <MenuItem value='Dinner'>Dinner</MenuItem>
-                  <MenuItem value='Snacks'>Snacks</MenuItem>
-                  <MenuItem value='Appetisers'>Appetisers</MenuItem>
-                  <MenuItem value='Soups'>Soups</MenuItem>
-                  <MenuItem value='Salads'>Salads</MenuItem>
-                  <MenuItem value='Sides'>Sides</MenuItem>
-                  <MenuItem value='Rice'>Rice</MenuItem>
-                  <MenuItem value='Noodles'>Noodles</MenuItem>
-                  <MenuItem value='Pasta'>Pasta</MenuItem>
-                  <MenuItem value='Pies'>Pies</MenuItem>
-                  <MenuItem value='Burgers'>Burgers</MenuItem>
-                  <MenuItem value='Mince'>Mince</MenuItem>
-                  <MenuItem value='Sausages'>Sausages</MenuItem>
-                  <MenuItem value='Chicken'>Chicken</MenuItem>
-                  <MenuItem value='Turkey'>Turkey</MenuItem>
-                  <MenuItem value='Duck'>Duck</MenuItem>
-                  <MenuItem value='Poultry'>Poultry</MenuItem>
-                  <MenuItem value='Pork'>Pork</MenuItem>
-                  <MenuItem value='Lamb'>Lamb</MenuItem>
-                  <MenuItem value='Beef'>Beef</MenuItem>
-                  <MenuItem value='Meat'>Meat</MenuItem>
-                  <MenuItem value='Seafood'>Seafood</MenuItem>
-                  <MenuItem value='Stir Fry'>Stir Fry</MenuItem>
-                  <MenuItem value='Sauces'>Sauces</MenuItem>
-                  <MenuItem value='Vegetarian'>Vegetarian</MenuItem>
-                  <MenuItem value='Desserts'>Desserts</MenuItem>
-                  <MenuItem value='Baking'>Baking</MenuItem>
-                  <MenuItem value='Drinks'>Drinks</MenuItem>
+                  {languageObjectProp.data.myRecipes.newRecipe.categoryItems.map((item, i) => {
+                    return <MenuItem key={i} value={item}>{item}</MenuItem>
+                  })}
                 </Select>
               </FormControl>
             </div>
@@ -275,7 +252,7 @@ class NewRecipe extends Component {
                     color="primary"
                   />
                 }
-                label="Public"
+                label={languageObjectProp.data.myRecipes.newRecipe.form.public}
               />
               <Button
                 variant="contained"
@@ -284,7 +261,7 @@ class NewRecipe extends Component {
                 onClick={this.handleSaveRecipe}
               >
                 <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
-                Save
+                {languageObjectProp.data.myRecipes.newRecipe.form.save}
               </Button>
             </div>
           </MuiThemeProvider>

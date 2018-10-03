@@ -30,7 +30,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      languageObject: dataEng
+      languageObject: dataEng,
+      renderDone: false
     };
     this.setLanguage = this.setLanguage.bind(this);
   }
@@ -63,26 +64,26 @@ class App extends Component {
             setLanguageProp={this.setLanguage.bind(this)}
           />
 
-          <Route exact path={routes.LANDING} 
-            component={() => <LandingPage />} 
+          <Route exact path={routes.LANDING}
+            component={() => <LandingPage languageObjectProp={this.state.languageObject} />}
           />
-          <Route exact path={routes.SIGN_UP} 
-            component={() => <SignUpPage />} 
+          <Route exact path={routes.SIGN_UP}
+            component={() => <SignUpPage languageObjectProp={this.state.languageObject} />}
           />
-          <Route exact path={routes.SIGN_IN} 
-            component={() => <SignInPage />} 
+          <Route exact path={routes.SIGN_IN}
+            component={() => <SignInPage languageObjectProp={this.state.languageObject} />}
           />
-          <Route exact path={routes.PASSWORD_FORGET} 
-            component={() => <PasswordForgetPage />} 
+          <Route exact path={routes.PASSWORD_FORGET}
+            component={() => <PasswordForgetPage languageObjectProp={this.state.languageObject} />}
           />
-          <Route exact path={routes.WALL} 
-            component={() => <RecipesWall 
-          />} />
-          <Route exact path={routes.ACCOUNT} 
-            component={() => <AccountPage setLanguageProp={this.setLanguage} />} 
+          <Route exact path={routes.WALL}
+            component={() => <RecipesWall languageObjectProp={this.state.languageObject} />}
           />
-          <Route exact path={routes.MYRECIPES} 
-            component={() => <MyRecipes />} 
+          <Route exact path={routes.ACCOUNT}
+            component={() => <AccountPage setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
+          />
+          <Route exact path={routes.MYRECIPES}
+            component={() => <MyRecipes languageObjectProp={this.state.languageObject} />}
           />
         </div>
       </Router>
