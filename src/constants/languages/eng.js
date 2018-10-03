@@ -1,7 +1,7 @@
 export const dataEng = {
   data: {
     appTitle: 'My Recipes',
-    menuItems: ['My Recipes', 'Recipes Wall', 'Favourites', 'Food porn'],
+    menuItems: ['My Recipes', 'Recipes Wall', 'Favourites', 'Food porn', 'My Account', 'Logout'],
     myRecipes: {
       newRecipe: {
         title: 'New Recipe',

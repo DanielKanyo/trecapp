@@ -37,6 +37,8 @@ class MyRecipes extends Component {
       recipes: [],
       loggedInUserId: ''
     };
+
+    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   /**
@@ -97,7 +99,7 @@ class MyRecipes extends Component {
         <Recipe
           key={snap.key}
           dataProp={dataToSend}
-          deleteRecipeProp={this.deleteRecipe.bind(this)}
+          deleteRecipeProp={this.deleteRecipe}
           languageObjectProp={this.props.languageObjectProp}
         />
       ].concat(recipes)

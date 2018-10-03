@@ -58,7 +58,6 @@ class AccountPage extends Component {
     });
     
     db.updateUserInfo(this.state.loggedInUserId, name, language);
-    // todo: save new data here
   }
 
   componentDidMount() {

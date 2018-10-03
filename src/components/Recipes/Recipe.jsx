@@ -130,7 +130,7 @@ class Recipe extends Component {
               <FavoriteIcon />
             </IconButton>
             <IconButton aria-label="Public recipe">
-              {data.publicChecked ? <Visibility /> : <VisibilityOff />}
+              { data.publicChecked ? <Visibility /> : <VisibilityOff /> }
             </IconButton>
             <Chip label={data.category} className={classes.chip} />
             <IconButton

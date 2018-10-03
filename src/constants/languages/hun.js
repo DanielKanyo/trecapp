@@ -1,7 +1,7 @@
 export const dataHun = {
   data: {
     appTitle: 'Receptjeim',
-    menuItems: ['Receptjeim', 'Receptek Fal', 'Kedvencek', 'Kaja orgia'],
+    menuItems: ['Receptjeim', 'Receptek Fal', 'Kedvencek', 'Kaja orgia', 'Profilom', 'Kijelentkezés'],
     myRecipes: {
       newRecipe: {
         title: 'Új Recept',
@@ -22,7 +22,7 @@ export const dataHun = {
           ingredientsPlaceholder: 'Sorolja fel...',
           longDesPlaceholder: 'Elkészítési metódus...'
         },
-        categoryItems: ['Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Snacks', 'Appetisers', 'Soups', 'Salads', 'Sides', 'Rice', 'Noodles', 'Pasta', 'Pies', 'Burgers', 'Mince', 'Sausages', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meat', 'Seafood', 'Stir Fry', 'Sauces', 'Vegetarian', 'Desserts', 'Baking', 'Drinks']
+        categoryItems: ['Reggeli', 'Tízórai', 'Ebéd', 'Vacsora', 'Harapnivaló', 'Előételek', 'Levesek', 'Saláták', 'Köretek', 'Rizs', 'Tészta', 'Durumtészta', 'Piték', 'Burgerek', 'Vagdalt', 'Kolbász', 'Csrike', 'Pulyka', 'Kacsa', 'Szárnyas', 'Sertés', 'Bárány', 'Marha', 'Fasírt', 'Tenger Gyümölcsei', 'Keverjük - Sütjük', 'Szószok', 'Vegetáriánus', 'Desszertek', 'Sütik', 'Italok']
       },
       myRecipes: {
         title: 'Receptjeim',

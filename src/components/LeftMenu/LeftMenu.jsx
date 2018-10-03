@@ -130,14 +130,14 @@ class LeftMenu extends Component {
               <ListItemIcon>
                 <Face />
               </ListItemIcon>
-              <ListItemText primary="My Acoount" />
+              <ListItemText primary={languageObjectProp.data.menuItems[4]} />
             </ListItem>
 
             <ListItem className="menuItem" button onClick={auth.doSignOut}>
               <ListItemIcon>
                 <Lock />
               </ListItemIcon>
-              <ListItemText primary="Logout" />
+              <ListItemText primary={languageObjectProp.data.menuItems[5]} />
             </ListItem>
 
           </List>
