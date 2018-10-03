@@ -34,7 +34,8 @@ class AccountPage extends Component {
     this.state = {
       accountName: '',
       accountEmail: '',
-      accountLanguage: ''
+      accountLanguage: '',
+      loggedInUserId: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
@@ -57,7 +58,8 @@ class AccountPage extends Component {
       accountName: name,
       accountLanguage: language 
     });
-
+    
+    db.updateUserInfo(this.state.loggedInUserId, name, language);
     // todo: save new data here
   }
 
@@ -68,7 +70,8 @@ class AccountPage extends Component {
       this.setState(() => ({
         accountName: snapshot.username,
         accountEmail: snapshot.email,
-        accountLanguage: snapshot.language
+        accountLanguage: snapshot.language,
+        loggedInUserId: loggedInUserId
       }));
     });
   }

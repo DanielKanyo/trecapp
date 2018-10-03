@@ -22,6 +22,11 @@ import './index.css';
 
 class App extends Component {
 
+  /**
+   * Constructor
+   * 
+   * @param {Object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -30,6 +35,11 @@ class App extends Component {
     this.setLanguage = this.setLanguage.bind(this);
   }
 
+  /**
+   * Set language object
+   * 
+   * @param {string} language 
+   */
   setLanguage(language) {
     switch (language) {
       case 'eng':
@@ -41,6 +51,9 @@ class App extends Component {
     }
   }
 
+  /**
+   * Render function
+   */
   render() {
     return (
       <Router>
@@ -50,13 +63,27 @@ class App extends Component {
             setLanguageProp={this.setLanguage.bind(this)}
           />
 
-          <Route exact path={routes.LANDING} component={() => <LandingPage />} />
-          <Route exact path={routes.SIGN_UP} component={() => <SignUpPage />} />
-          <Route exact path={routes.SIGN_IN} component={() => <SignInPage />} />
-          <Route exact path={routes.PASSWORD_FORGET} component={() => <PasswordForgetPage />} />
-          <Route exact path={routes.WALL} component={() => <RecipesWall />} />
-          <Route exact path={routes.ACCOUNT} component={() => <AccountPage setLanguageProp={this.setLanguage} />} />
-          <Route exact path={routes.MYRECIPES} component={() => <MyRecipes />} />
+          <Route exact path={routes.LANDING} 
+            component={() => <LandingPage />} 
+          />
+          <Route exact path={routes.SIGN_UP} 
+            component={() => <SignUpPage />} 
+          />
+          <Route exact path={routes.SIGN_IN} 
+            component={() => <SignInPage />} 
+          />
+          <Route exact path={routes.PASSWORD_FORGET} 
+            component={() => <PasswordForgetPage />} 
+          />
+          <Route exact path={routes.WALL} 
+            component={() => <RecipesWall 
+          />} />
+          <Route exact path={routes.ACCOUNT} 
+            component={() => <AccountPage setLanguageProp={this.setLanguage} />} 
+          />
+          <Route exact path={routes.MYRECIPES} 
+            component={() => <MyRecipes />} 
+          />
         </div>
       </Router>
     );

@@ -186,7 +186,7 @@ class NavigationAuth extends Component {
 
           </Toolbar>
         </AppBar>
-        <LeftMenu isToggleProp={this.state.isToggleOn} toggleLeftMenuProp={this.toggleLeftMenu} />
+        <LeftMenu isToggleProp={this.state.isToggleOn} toggleLeftMenuProp={this.toggleLeftMenu} languageObjectProp={languageObjectProp} />
       </div>
     );
   }

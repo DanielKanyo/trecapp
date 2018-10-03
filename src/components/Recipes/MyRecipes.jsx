@@ -26,6 +26,11 @@ const styles = theme => ({
 
 class MyRecipes extends Component {
 
+  /**
+   * Constructor
+   * 
+   * @param {Object} props 
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -34,6 +39,9 @@ class MyRecipes extends Component {
     };
   }
 
+  /**
+   * ComponentDidMount built in function
+   */
   componentDidMount() {
     let loggedInUserId = auth.getCurrentUserId();
     let previousRecipes = this.state.recipes;
@@ -64,6 +72,11 @@ class MyRecipes extends Component {
     });
   }
 
+  /**
+   * Save new recipe
+   * 
+   * @param {Object} obj 
+   */
   saveRecipe(obj) {
     let dataToSend = obj;
     let recipes = this.state.recipes;
@@ -82,6 +95,11 @@ class MyRecipes extends Component {
     });
   }
 
+  /**
+   * Delete recipe by id
+   * 
+   * @param {string} recipeId 
+   */
   deleteRecipe(recipeId) {
     let loggedInUserId = this.state.loggedInUserId;
     let previousRecipes = this.state.recipes;
@@ -101,12 +119,21 @@ class MyRecipes extends Component {
     this.toastr('Recipe deleted!', '#4BB543');
   }
 
+  /**
+   * Show notification
+   * 
+   * @param {string} msg 
+   * @param {string} bgColor 
+   */
   toastr(msg, bgColor) {
     let style = { background: bgColor, text: "#FFFFFF" };
 
     notify.show(msg, 'custom', 4000, style);
   }
 
+  /**
+   * Render function
+   */
   render() {
     const { classes } = this.props;
     let recipes = this.state.recipes;

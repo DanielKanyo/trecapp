@@ -1,5 +1,6 @@
 export const dataHun = {
   data: {
-    appTitle: 'Receptjeim'
+    appTitle: 'Receptjeim',
+    menuItems: ['Receptjeim', 'Receptek Fal', 'Kedvencek', 'Kaja orgia']
   }
 }

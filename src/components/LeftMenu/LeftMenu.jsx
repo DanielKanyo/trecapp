@@ -26,7 +26,7 @@ class LeftMenu extends Component {
   /**
    * Constructor
    * 
-   * @param {Object} props - props object
+   * @param {Object} props
    */
   constructor(props) {
     super(props);
@@ -51,7 +51,7 @@ class LeftMenu extends Component {
   /**
    * Add class to the menu item, close menu if screen bigger than 750px, change isToggleOn value via toggleLeftMenuProp
    * 
-   * @param e - event
+   * @param {Object} e 
    */
   handleLeftMenuItemClicked(e) {
     const w = window.innerWidth;
@@ -85,6 +85,7 @@ class LeftMenu extends Component {
   render() {
     const isOpen = this.props.isToggleProp ? 'open' : 'closed';
     const isMinimized = this.state.isMinimized ? 'big' : 'small';
+    const { languageObjectProp } = this.props;
 
     return (
       <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
@@ -96,28 +97,28 @@ class LeftMenu extends Component {
               <ListItemIcon>
                 <Receipt />
               </ListItemIcon>
-              <ListItemText primary="My Recipes" />
+              <ListItemText primary={languageObjectProp.data.menuItems[0]} />
             </ListItem>
 
             <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.WALL}>
               <ListItemIcon>
                 <Public />
               </ListItemIcon>
-              <ListItemText primary="Recipes Wall" />
+              <ListItemText primary={languageObjectProp.data.menuItems[1]} />
             </ListItem>
 
             <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
               <ListItemIcon>
                 <Favorite />
               </ListItemIcon>
-              <ListItemText primary="Favourites" />
+              <ListItemText primary={languageObjectProp.data.menuItems[2]} />
             </ListItem>
 
             <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
               <ListItemIcon>
                 <Fastfood />
               </ListItemIcon>
-              <ListItemText primary="Food Porn" />
+              <ListItemText primary={languageObjectProp.data.menuItems[3]} />
             </ListItem>
           </List>
 

@@ -14,8 +14,7 @@ export const doCreateUser = (id, username, email, language) =>
 export const onceGetUsers = () =>
   db.ref('users').once('value');
 
-// Other db APIs ...
-
+// Get user data
 export const getUserInfo = (id) =>
   db.ref(`users/${id}`).once('value').then(function (snap) {
     return snap.val();
@@ -56,4 +55,14 @@ export const getUsersRecipes = (id) => {
 export const removeRecipe = (id, recipeId) => {
   let recipeRef = db.ref(`users/${id}/recipes/${recipeId}`);
   recipeRef.remove();
+}
+
+// Update user info
+export const updateUserInfo = (id, username, language) => {
+  let userRef = db.ref(`users/${id}`);
+
+  return userRef.update({
+    username,
+    language
+  });
 }

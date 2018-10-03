@@ -47,6 +47,10 @@ const styles = theme => ({
 
 class AccountDetails extends Component {
 
+  /**
+   * 
+   * @param {Object} props
+   */
   constructor(props) {
     super(props);
     this.state = {};
@@ -55,14 +59,30 @@ class AccountDetails extends Component {
     this.handleSaveNewAccountDataProp = this.props.handleSaveNewAccountDataProp.bind(this);
   }
 
+  /**
+   * Change input value
+   * 
+   * @param {string} name
+   * @param {Object} event
+   */
   handleInputChange = name => event => {
     this.props.handleInputChangeProp(name, event);
   }
 
+  /**
+   * Change dropdown value
+   * 
+   * @param {Object} event
+   */
   handleChangeLanguage = event => {
     this.props.handleChangeLanguageProp(event);
   }
 
+  /**
+   * Save new data
+   * 
+   * @param {Object} event
+   */
   handleSaveAccount = (event) => {
     if (this.props.accountNameProp === '' || this.props.accountEmailProp === '' || this.props.accountLanguageProp === '') {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
@@ -73,12 +93,21 @@ class AccountDetails extends Component {
     }
   }
 
+  /**
+   * Show notification
+   * 
+   * @param {string} msg 
+   * @param {string} bgColor 
+   */
   toastr(msg, bgColor) {
     let style = { background: bgColor, text: "#FFFFFF" };
 
     notify.show(msg, 'custom', 4000, style);
   }
 
+  /**
+   * Render function
+   */
   render() {
     const { classes } = this.props;
 
