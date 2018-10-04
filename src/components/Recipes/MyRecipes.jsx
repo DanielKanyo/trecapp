@@ -83,7 +83,7 @@ class MyRecipes extends Component {
   /**
    * Sets 'mounted' property to false to ignore warning 
    */
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.mounted = false;
   }
 
@@ -101,6 +101,7 @@ class MyRecipes extends Component {
 
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {
       dataToSend.recipeId = snap.key;
+
       let temp = [
         <Recipe
           key={snap.key}

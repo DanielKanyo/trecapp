@@ -64,6 +64,7 @@ class Recipe extends Component {
     this.state = {
       expanded: false,
       dialogOpen: false,
+      visibility: this.props.dataProp.publicChecked
     };
   }
 
@@ -82,6 +83,14 @@ class Recipe extends Component {
   handleCloseDialog = () => {
     this.setState({ dialogOpen: false });
   };
+
+  handleChangeVisibility(recipeId, isPublic) {
+    console.log(recipeId, isPublic);
+    
+    this.setState({
+      visibility: !isPublic
+    })
+  }
 
   render() {
     const { classes } = this.props;
@@ -121,9 +130,17 @@ class Recipe extends Component {
             <IconButton aria-label="Add to favorites">
               <FavoriteIcon />
             </IconButton>
-            <IconButton aria-label="Public recipe">
-              {data.publicChecked ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
+            
+            {this.state.visibility ?
+              <IconButton aria-label="Public recipe" onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}>
+                <Visibility />
+              </IconButton>
+              :
+              <IconButton aria-label="Public recipe" onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}>
+                <VisibilityOff />
+              </IconButton>
+            }
+
             <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
             <IconButton
               className={classnames(classes.expand, {
