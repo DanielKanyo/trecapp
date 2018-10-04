@@ -51,7 +51,8 @@ class SignUpForm extends Component {
         // Create a user in your own accessible Firebase Database too
         db.doCreateUser(authUser.user.uid, username, email, language)
           .then(() => {
-            this.setState(() => ({ ...INITIAL_STATE }));
+            // this.setState(() => ({ ...INITIAL_STATE }));
+
             history.push(routes.WALL);
           })
           .catch(error => {
@@ -111,7 +112,7 @@ class SignUpForm extends Component {
           Sign Up
         </button>
 
-        { error && <p>{error.message}</p> }
+        {error && <p>{error.message}</p>}
       </form>
     );
   }

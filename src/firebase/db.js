@@ -2,15 +2,16 @@ import {
   db
 } from './firebase';
 
-// User API
-
-export const doCreateUser = (id, username, email, language) =>
-  db.ref(`users/${id}`).set({
+// Create user
+export const doCreateUser = (id, username, email, language) => {
+  return db.ref(`users/${id}`).set({
     username,
     email,
     language
   });
+}
 
+// Get all user
 export const onceGetUsers = () =>
   db.ref('users').once('value');
 
@@ -71,4 +72,21 @@ export const updateRecipeVisibility = (recipeId, visibility) => {
   return recipeRef.update({
     publicChecked: visibility
   });
+}
+
+export const addRecipeToFavourites = (userId, recipeId) => {
+  let favouritesRef = db.ref(`users/${userId}/favourites`);
+  let favouriteRef = favouritesRef.push();
+
+  favouriteRef.set({
+    userId,
+    recipeId
+  });
+
+  return favouriteRef;
+}
+
+export const removeRecipeFromFavourites = (userId, favouriteId) => {
+  let favouriteRef = db.ref(`users/${userId}/favourites/${favouriteId}`);
+  favouriteRef.remove();
 }

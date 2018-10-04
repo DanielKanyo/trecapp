@@ -16,11 +16,12 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Chip from '@material-ui/core/Chip';
 import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import VisibilityOutlined from '@material-ui/icons/VisibilityOutlined';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -67,25 +68,41 @@ class Recipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: this.props.dataProp.userId,
       expanded: false,
       dialogOpen: false,
       visibility: this.props.dataProp.publicChecked,
-      favourite: false
+      favourite: false,
+      favouriteId: ''
     };
   }
 
+  /**
+   * Open or close recipe details
+   */
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   }
 
+  /**
+   * Delete recipe prop function
+   * 
+   * @param {string} id
+   */
   handleDeleteRecipe = (id) => {
     this.props.deleteRecipeProp(id);
   }
 
+  /**
+   * Open dialog
+   */
   handleClickOpenDialog = () => {
     this.setState({ dialogOpen: true });
   };
 
+  /**
+   * Close dialog
+   */
   handleCloseDialog = () => {
     this.setState({ dialogOpen: false });
   };
@@ -98,18 +115,48 @@ class Recipe extends Component {
    */
   handleChangeVisibility(recipeId, isPublic) {
     db.updateRecipeVisibility(recipeId, !isPublic);
-    
+
     this.setState({
       visibility: !isPublic
     });
 
-    this.toastr('Visibility of the recipe has changed!', '#4BB543');
+    if (isPublic) {
+      this.toastr('Your recipe is no longer public!', '#4BB543');
+    } else {
+      this.toastr('Your recipe is now public!', '#4BB543');
+    }
   }
 
-  handleAddToFavorites(recipeId) {
-    this.setState(prevState => ({
-      favourite: !prevState.favourite
-    }));
+  /**
+   * User can add or remove recipe from favourites
+   * 
+   * @param {strin} recipeId 
+   * @param {string} userId 
+   */
+  handleAddToFavorites(recipeId, userId) {
+    let isFav = this.state.favourite;
+    let newValue = !isFav;
+
+    this.setState({
+      favourite: newValue
+    });
+
+    if (newValue) {
+      db.addRecipeToFavourites(userId, recipeId).then(snap => {
+        let favouriteId = snap.key;
+
+        this.setState({
+          favouriteId
+        });
+
+        this.toastr('Recipe added to favourites!', '#4BB543');
+        
+      });  
+    } else {
+      db.removeRecipeFromFavourites(userId, this.state.favouriteId);
+
+      this.toastr('Recipe removed from favourites!', '#4BB543');
+    } 
   }
 
   /**
@@ -124,6 +171,9 @@ class Recipe extends Component {
     notify.show(msg, 'custom', 4000, style);
   }
 
+  /**
+   * Render function
+   */
   render() {
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
@@ -159,17 +209,36 @@ class Recipe extends Component {
             </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
-            <IconButton aria-label="Add to favorites" onClick={() => { this.handleAddToFavorites(data.recipeId)}}>
-              <FavoriteIcon className={this.state.favourite ? 'fav-recipe': ''} />
-            </IconButton>
-            
+
+            {this.state.favourite ?
+              <IconButton 
+                aria-label="Add to favorites" 
+                onClick={() => { this.handleAddToFavorites(data.recipeId, this.state.userId) }}
+              >
+                <FavoriteIcon />
+              </IconButton>
+              :
+              <IconButton 
+                aria-label="Add to favorites" 
+                onClick={() => { this.handleAddToFavorites(data.recipeId, this.state.userId) }}
+              >
+                <FavoriteBorderIcon />
+              </IconButton>
+            }
+
             {this.state.visibility ?
-              <IconButton aria-label="Public recipe" onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}>
+              <IconButton 
+                aria-label="Public recipe" 
+                onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
+              >
                 <Visibility />
               </IconButton>
               :
-              <IconButton aria-label="Public recipe" onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}>
-                <VisibilityOff />
+              <IconButton 
+                aria-label="Public recipe" 
+                onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
+              >
+                <VisibilityOutlined />
               </IconButton>
             }
 
