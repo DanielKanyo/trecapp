@@ -206,6 +206,10 @@ input[type=time]::-webkit-clear-button {
   flex-direction: row;
 }
 
+.fav-recipe {
+  fill: #FC050C !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

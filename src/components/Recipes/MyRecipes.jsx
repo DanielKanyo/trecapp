@@ -124,10 +124,9 @@ class MyRecipes extends Component {
    * @param {string} recipeId 
    */
   deleteRecipe(recipeId) {
-    let loggedInUserId = this.state.loggedInUserId;
     let previousRecipes = this.state.recipes;
 
-    db.removeRecipe(loggedInUserId, recipeId);
+    db.removeRecipe(recipeId);
 
     for (let i = 0; i < previousRecipes.length; i++) {
       if (previousRecipes[i].key === recipeId) {

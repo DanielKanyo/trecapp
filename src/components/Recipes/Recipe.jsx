@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import '../App/index.css';
+import { db } from '../../firebase';
+import withAuthorization from '../Session/withAuthorization';
+import compose from 'recompose/compose';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -22,6 +25,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+
+import Notifications, { notify } from 'react-notify-toast';
 
 const styles = theme => ({
   paper: {
@@ -64,7 +69,8 @@ class Recipe extends Component {
     this.state = {
       expanded: false,
       dialogOpen: false,
-      visibility: this.props.dataProp.publicChecked
+      visibility: this.props.dataProp.publicChecked,
+      favourite: false
     };
   }
 
@@ -84,12 +90,38 @@ class Recipe extends Component {
     this.setState({ dialogOpen: false });
   };
 
+  /**
+   * Change recipe vibility
+   * 
+   * @param {string} recipeId 
+   * @param {boolean} isPublic 
+   */
   handleChangeVisibility(recipeId, isPublic) {
-    console.log(recipeId, isPublic);
+    db.updateRecipeVisibility(recipeId, !isPublic);
     
     this.setState({
       visibility: !isPublic
-    })
+    });
+
+    this.toastr('Visibility of the recipe has changed!', '#4BB543');
+  }
+
+  handleAddToFavorites(recipeId) {
+    this.setState(prevState => ({
+      favourite: !prevState.favourite
+    }));
+  }
+
+  /**
+   * Show notification
+   * 
+   * @param {string} msg 
+   * @param {string} bgColor 
+   */
+  toastr(msg, bgColor) {
+    let style = { background: bgColor, text: "#FFFFFF" };
+
+    notify.show(msg, 'custom', 4000, style);
   }
 
   render() {
@@ -127,8 +159,8 @@ class Recipe extends Component {
             </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
-            <IconButton aria-label="Add to favorites">
-              <FavoriteIcon />
+            <IconButton aria-label="Add to favorites" onClick={() => { this.handleAddToFavorites(data.recipeId)}}>
+              <FavoriteIcon className={this.state.favourite ? 'fav-recipe': ''} />
             </IconButton>
             
             {this.state.visibility ?
@@ -187,14 +219,17 @@ class Recipe extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <Notifications options={{ zIndex: 5000 }} />
       </div>
     );
   }
 }
 
+const authCondition = (authUser) => !!authUser;
+
 Recipe.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-
-export default withStyles(styles)(Recipe);
+export default compose(withAuthorization(authCondition), withStyles(styles))(Recipe);

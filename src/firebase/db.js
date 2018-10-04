@@ -49,7 +49,7 @@ export const getUsersRecipes = () => {
 }
 
 // Remove recipe
-export const removeRecipe = (id, recipeId) => {
+export const removeRecipe = (recipeId) => {
   let recipeRef = db.ref(`recipes/${recipeId}`);
   recipeRef.remove();
 }
@@ -61,5 +61,14 @@ export const updateUserInfo = (id, username, language) => {
   return userRef.update({
     username,
     language
+  });
+}
+
+// Update recipe visibility
+export const updateRecipeVisibility = (recipeId, visibility) => {
+  let recipeRef = db.ref(`recipes/${recipeId}`);
+
+  return recipeRef.update({
+    publicChecked: visibility
   });
 }
