@@ -196,9 +196,11 @@ class Recipe extends Component {
               </Avatar>
             }
             action={
-              <IconButton className="delete-recipe-btn" onClick={this.handleClickOpenDialog}>
-                <DeleteIcon />
-              </IconButton>
+              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.deleteRecipe}>
+                <IconButton className="delete-recipe-btn" onClick={this.handleClickOpenDialog}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             }
             title={data.title}
             subheader={creationTime}
@@ -225,7 +227,7 @@ class Recipe extends Component {
                   aria-label="Add to favorites"
                   onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
                 >
-                  <FavoriteBorderIcon />
+                  <FavoriteBorderIcon className="icon-outlined" />
                 </IconButton>
               </Tooltip>
             }
@@ -246,22 +248,26 @@ class Recipe extends Component {
                   aria-label="Private recipe"
                   onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
                 >
-                  <VisibilityOutlined />
+                  <VisibilityOutlined className="icon-outlined" />
                 </IconButton>
               </Tooltip>
             }
 
             <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
-            <IconButton
-              className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded,
-              })}
-              onClick={this.handleExpandClick}
-              aria-expanded={this.state.expanded}
-              aria-label="Show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
+
+            <Tooltip title={languageObjectProp.data.myRecipes.tooltips.more}>
+              <IconButton
+                className={classnames(classes.expand, {
+                  [classes.expandOpen]: this.state.expanded,
+                })}
+                onClick={this.handleExpandClick}
+                aria-expanded={this.state.expanded}
+                aria-label="Show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </Tooltip>
+
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>

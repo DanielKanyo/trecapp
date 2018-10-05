@@ -35,6 +35,8 @@ export const dataHun = {
         publicRecipe: 'Nyilvános recept',
         addToFav: 'Hozzáadás a kedvencekhez',
         removeFromFav: 'Törlés a kedvencekből',
+        deleteRecipe: 'Recept törlése',
+        more: 'Több',
       },
       toaster: {
         addedToPublic: 'A receptje mostantól nyilvános!',

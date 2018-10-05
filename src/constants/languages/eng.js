@@ -35,6 +35,8 @@ export const dataEng = {
         publicRecipe: 'Public recipe',
         addToFav: 'Add to favourites',
         removeFromFav: 'Remove from favourites',
+        deleteRecipe: 'Delete recipe',
+        more: 'More',
       },
       toaster: {
         addedToPublic: 'Your recipe is now public!',

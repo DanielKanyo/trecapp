@@ -206,6 +206,10 @@ input[type=time]::-webkit-clear-button {
   flex-direction: row;
 }
 
+.icon-outlined {
+  fill: #b1b1b1 !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
