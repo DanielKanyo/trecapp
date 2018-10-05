@@ -29,6 +29,18 @@ export const dataEng = {
         title: 'My Recipes',
         ingredients: 'Ingredients',
         method: 'Method'
+      },
+      tooltips: {
+        privateRecipe: 'Private recipe',
+        publicRecipe: 'Public recipe',
+        addToFav: 'Add to favourites',
+        removeFromFav: 'Remove from favourites',
+      },
+      toaster: {
+        addedToPublic: 'Your recipe is now public!',
+        removedFromPublic: 'Your recipe is no longer public!',
+        addedToFav: 'Recipe added to favourites!',
+        removedFromFav: 'Recipe removed from favourites!'
       }
     }
   }

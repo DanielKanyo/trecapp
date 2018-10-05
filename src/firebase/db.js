@@ -74,6 +74,12 @@ export const updateRecipeVisibility = (recipeId, visibility) => {
   });
 }
 
+// Get favourite recipes by userid
+export const getFavouriteRecipesByUserId = (userId) => {
+  return db.ref(`users/${userId}/favourites`).once('value');
+}
+
+// Add recipe to favourites
 export const addRecipeToFavourites = (userId, recipeId) => {
   let favouritesRef = db.ref(`users/${userId}/favourites`);
   let favouriteRef = favouritesRef.push();
@@ -86,6 +92,7 @@ export const addRecipeToFavourites = (userId, recipeId) => {
   return favouriteRef;
 }
 
+// Remove recipe from favourites
 export const removeRecipeFromFavourites = (userId, favouriteId) => {
   let favouriteRef = db.ref(`users/${userId}/favourites/${favouriteId}`);
   favouriteRef.remove();

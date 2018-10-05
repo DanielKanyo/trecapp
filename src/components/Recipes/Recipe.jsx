@@ -26,6 +26,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import Notifications, { notify } from 'react-notify-toast';
 
@@ -72,8 +73,8 @@ class Recipe extends Component {
       expanded: false,
       dialogOpen: false,
       visibility: this.props.dataProp.publicChecked,
-      favourite: false,
-      favouriteId: ''
+      favourite: this.props.dataProp.isFavourite,
+      favouriteId: this.props.dataProp.favouriteId
     };
   }
 
@@ -121,9 +122,9 @@ class Recipe extends Component {
     });
 
     if (isPublic) {
-      this.toastr('Your recipe is no longer public!', '#4BB543');
+      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.removedFromPublic, '#4BB543');
     } else {
-      this.toastr('Your recipe is now public!', '#4BB543');
+      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.addedToPublic, '#4BB543');
     }
   }
 
@@ -133,7 +134,7 @@ class Recipe extends Component {
    * @param {strin} recipeId 
    * @param {string} userId 
    */
-  handleAddToFavorites(recipeId, userId) {
+  handleAddOrRemoveToFavorites(recipeId, userId) {
     let isFav = this.state.favourite;
     let newValue = !isFav;
 
@@ -149,14 +150,13 @@ class Recipe extends Component {
           favouriteId
         });
 
-        this.toastr('Recipe added to favourites!', '#4BB543');
-        
-      });  
+        this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.addedToFav, '#4BB543');
+      });
     } else {
       db.removeRecipeFromFavourites(userId, this.state.favouriteId);
 
-      this.toastr('Recipe removed from favourites!', '#4BB543');
-    } 
+      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav, '#4BB543');
+    }
   }
 
   /**
@@ -211,35 +211,44 @@ class Recipe extends Component {
           <CardActions className={classes.actions} disableActionSpacing>
 
             {this.state.favourite ?
-              <IconButton 
-                aria-label="Add to favorites" 
-                onClick={() => { this.handleAddToFavorites(data.recipeId, this.state.userId) }}
-              >
-                <FavoriteIcon />
-              </IconButton>
+              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.removeFromFav}>
+                <IconButton
+                  aria-label="Remove from favorites"
+                  onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
+                >
+                  <FavoriteIcon />
+                </IconButton>
+              </Tooltip>
               :
-              <IconButton 
-                aria-label="Add to favorites" 
-                onClick={() => { this.handleAddToFavorites(data.recipeId, this.state.userId) }}
-              >
-                <FavoriteBorderIcon />
-              </IconButton>
+              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.addToFav}>
+                <IconButton
+                  aria-label="Add to favorites"
+                  onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
+                >
+                  <FavoriteBorderIcon />
+                </IconButton>
+              </Tooltip>
             }
 
             {this.state.visibility ?
-              <IconButton 
-                aria-label="Public recipe" 
-                onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
-              >
-                <Visibility />
-              </IconButton>
+              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.publicRecipe}>
+                <IconButton
+                  aria-label="Public recipe"
+                  onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
+                >
+
+                  <Visibility />
+                </IconButton>
+              </Tooltip>
               :
-              <IconButton 
-                aria-label="Public recipe" 
-                onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
-              >
-                <VisibilityOutlined />
-              </IconButton>
+              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.privateRecipe}>
+                <IconButton
+                  aria-label="Private recipe"
+                  onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
+                >
+                  <VisibilityOutlined />
+                </IconButton>
+              </Tooltip>
             }
 
             <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />

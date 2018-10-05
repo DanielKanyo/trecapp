@@ -29,6 +29,18 @@ export const dataHun = {
         title: 'Receptjeim',
         ingredients: 'Hozzávalók',
         method: 'Metódus'
+      },
+      tooltips: {
+        privateRecipe: 'Privát recept',
+        publicRecipe: 'Nyilvános recept',
+        addToFav: 'Hozzáadás a kedvencekhez',
+        removeFromFav: 'Törlés a kedvencekből',
+      },
+      toaster: {
+        addedToPublic: 'A receptje mostantól nyilvános!',
+        removedFromPublic: 'A receptje mostantól privát!',
+        addedToFav: 'Recept hozzáadva a kedvencekhez!',
+        removedFromFav: 'Recept eltávolítva a kedvencekből!'
       }
     }
   }

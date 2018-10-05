@@ -43,40 +43,64 @@ class MyRecipes extends Component {
 
   /**
    * ComponentDidMount built in function
+   * 
+   * Get favourites, get recipes, push recipes
    */
   componentDidMount() {
     this.mounted = true;
 
     let loggedInUserId = auth.getCurrentUserId();
     let previousRecipes = this.state.recipes;
+    let favRecipeIdArray = [];
+    let favouriteId;
+    let isFavourite = false;
 
     this.setState({ loggedInUserId: loggedInUserId });
 
-    db.getUsersRecipes().then(snapshot => {
-      if (this.mounted) {
-        let recipes = snapshot;
+    db.getFavouriteRecipesByUserId(loggedInUserId).then(resFavourites => {
+      if (resFavourites.val()) {
+        let fav = resFavourites.val();
+        for (var key in fav) {
+          if (fav[key]) {
+            favouriteId = key;
 
-        for (var key in recipes) {
-          if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
-            let data = recipes[key];
-
-            data.recipeId = key;
-
-            previousRecipes.unshift(
-              <Recipe
-                key={key}
-                dataProp={data}
-                deleteRecipeProp={this.deleteRecipe.bind(this)}
-                languageObjectProp={this.props.languageObjectProp}
-              />
-            )
+            favRecipeIdArray.push(fav[key].recipeId);
           }
         }
-
-        this.setState({
-          recipes: previousRecipes
-        });
       }
+
+      db.getUsersRecipes().then(resRecipes => {
+        if (this.mounted) {
+          let recipes = resRecipes;
+
+          for (var key in recipes) {
+            if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
+              
+              if (favRecipeIdArray.includes(key)) isFavourite = true;
+              else isFavourite = false;
+
+              let data = recipes[key];
+
+              data.recipeId = key;
+              data.isFavourite = isFavourite;
+              data.favouriteId = isFavourite ? favouriteId : null;
+
+              previousRecipes.unshift(
+                <Recipe
+                  key={key}
+                  dataProp={data}
+                  deleteRecipeProp={this.deleteRecipe.bind(this)}
+                  languageObjectProp={this.props.languageObjectProp}
+                />
+              )
+            }
+          }
+
+          this.setState({
+            recipes: previousRecipes
+          });
+        }
+      });
     });
   }
 
