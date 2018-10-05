@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import Face from '@material-ui/icons/Face';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -113,14 +112,6 @@ class AccountDetails extends Component {
 
     return (
       <div>
-        <Paper className={classes.paper + ' paper-title paper-title-profile'}>
-          <div className="paper-title-icon">
-            <Face />
-          </div>
-          <div className="paper-title-text">
-            Account Details
-          </div>
-        </Paper>
         <Paper>
           <div className="account-details-container">
             <TextField

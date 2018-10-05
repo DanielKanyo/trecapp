@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Warning from '@material-ui/icons/Warning';
+import Face from '@material-ui/icons/Face';
 
 const styles = theme => ({
   textField: {
@@ -52,11 +52,11 @@ class AccountPage extends Component {
   };
 
   handleSaveNewAccountData(name, language) {
-    this.setState({ 
+    this.setState({
       accountName: name,
-      accountLanguage: language 
+      accountLanguage: language
     });
-    
+
     db.updateUserInfo(this.state.loggedInUserId, name, language);
   }
 
@@ -82,30 +82,42 @@ class AccountPage extends Component {
           <div className="ComponentContent">
             <Grid className="main-grid" container spacing={16}>
 
-              <Grid item className="grid-component" xs={6}>
-                <AccountDetails
-                  handleInputChangeProp={this.handleInputChange}
-                  handleChangeLanguageProp={this.handleChangeLanguage}
-                  setLanguageProp={this.props.setLanguageProp}
-                  handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
-                  accountNameProp={this.state.accountName}
-                  accountEmailProp={this.state.accountEmail}
-                  accountLanguageProp={this.state.accountLanguage}
-                />
-              </Grid>
-              <Grid item className="grid-component" xs={6}>
-                <Paper className={classes.paper + ' paper-title paper-title-danger'}>
+              <Grid item className="grid-component" xs={12}>
+
+                <Paper className={classes.paper + ' paper-title paper-title-profile'}>
                   <div className="paper-title-icon">
-                    <Warning />
+                    <Face />
                   </div>
                   <div className="paper-title-text">
-                    Danger
+                    Account Details
                   </div>
                 </Paper>
-                <Paper className={classes.paper}>
-                  <PasswordForgetForm />
-                  <PasswordChangeForm />
-                </Paper>
+
+                <Grid item className="grid-component" xs={12}>
+                  <Grid className="sub-grid" container spacing={16}>
+
+                    <Grid item className="grid-component grid-left" xs={6}>
+                      <AccountDetails
+                        handleInputChangeProp={this.handleInputChange}
+                        handleChangeLanguageProp={this.handleChangeLanguage}
+                        setLanguageProp={this.props.setLanguageProp}
+                        handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
+                        accountNameProp={this.state.accountName}
+                        accountEmailProp={this.state.accountEmail}
+                        accountLanguageProp={this.state.accountLanguage}
+                      />
+                    </Grid>
+
+                    <Grid item className="grid-component grid-right" xs={6}>
+                      <Paper className={classes.paper}>
+                        <PasswordForgetForm />
+                        <PasswordChangeForm />
+                      </Paper>
+                    </Grid>
+
+                  </Grid>
+                </Grid>
+
               </Grid>
             </Grid>
           </div>

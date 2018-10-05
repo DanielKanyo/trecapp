@@ -110,6 +110,23 @@ button a {
   margin: 0px !important;
 }
 
+.sub-grid {
+  margin: 0px !important;
+  width: 100% !important;
+}
+
+.sub-grid .grid-component {
+  padding: 0px !important;
+}
+
+.sub-grid .grid-left {
+  padding-right: 8px !important;
+}
+
+.sub-grid .grid-right {
+  padding-left: 8px !important;
+}
+
 .card-recipe {
   margin-bottom: 24px;
 }
