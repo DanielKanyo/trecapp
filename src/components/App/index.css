@@ -120,6 +120,7 @@ button a {
 }
 
 .sub-grid .grid-left {
+  margin-bottom: 14px;
   padding-right: 8px !important;
 }
 
@@ -182,12 +183,19 @@ button a {
   width: 20px;
 }
 
-.slider-container,
-.timepicker-container {
+.slider-container {
   width: 50% !important;
 }
 
-#menu-category ul {
+.timepicker-container {
+  width: 50% !important;
+  display: flex;
+  flex-direction: row;
+}
+
+#menu-category ul,
+#menu-minute ul,
+#menu-hour ul {
   padding-right: 0px !important;
   width: 100% !important;
 }
@@ -227,6 +235,17 @@ input[type=time]::-webkit-clear-button {
   fill: #b1b1b1 !important;
 }
 
+.hour-picker,
+.minute-picker {
+  margin-bottom: 0px !important;
+  margin-top: 12px !important;
+}
+
+.hour,
+.minute {
+  width: 50%;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -240,6 +259,14 @@ input[type=time]::-webkit-clear-button {
 
   .paper-recipe-new {
     margin-bottom: 0px !important;
+  }
+
+  .sub-grid .grid-left {
+    padding-right: 0px !important;
+  }
+  
+  .sub-grid .grid-right {
+    padding-left: 0px !important;
   }
 }
 

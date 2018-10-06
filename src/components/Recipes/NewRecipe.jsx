@@ -75,7 +75,8 @@ class NewRecipe extends Component {
       ingredients: '',
       longDes: '',
       sliderValue: 1,
-      prepTime: '02:00',
+      hour: '02',
+      minute: '00',
       publicChecked: false,
       category: ''
     };
@@ -102,12 +103,13 @@ class NewRecipe extends Component {
       longDes: this.state.longDes,
       sliderValue: this.state.sliderValue,
       publicChecked: this.state.publicChecked,
-      prepTime: this.state.prepTime,
+      hour: this.state.hour,
+      minute: this.state.minute,
       category: this.state.category,
       creationTime: new Date().getTime()
     };
-    
-    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || data.prepTime === '' || !data.category) {
+
+    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || !data.category) {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
       this.toastr('Recipe saved!', '#4BB543');
@@ -120,7 +122,8 @@ class NewRecipe extends Component {
         longDes: '',
         ingredients: '',
         sliderValue: 1,
-        prepTime: '02:00',
+        hour: '02',
+        minute: '00',
         publicChecked: false,
         category: ''
       });
@@ -129,6 +132,14 @@ class NewRecipe extends Component {
 
   handleChangeCategory = (event) => {
     this.setState({ category: event.target.value });
+  }
+
+  handleChangeHour = (event) => {
+    this.setState({ hour: event.target.value });
+  }
+
+  handleChangeMinute = (event) => {
+    this.setState({ minute: event.target.value });
   }
 
   toastr(msg, bgColor) {
@@ -206,25 +217,62 @@ class NewRecipe extends Component {
               </div>
               <div className="space-between"></div>
               <div className="timepicker-container">
-                <TextField
-                  id="textfield-recipe-time"
-                  label={languageObjectProp.data.myRecipes.newRecipe.form.prepTime}
-                  type="time"
-                  onChange={this.handleInputChange('prepTime')}
-                  value={this.state.prepTime}
-                  className={classes.timePicker}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{
-                    step: 300, // 5 min
-                  }}
-                />
+                <div className="hour">
+                  <FormControl className={classes.formControl + ' hour-picker'}>
+                    <InputLabel htmlFor="hour-select">{languageObjectProp.data.myRecipes.newRecipe.form.prepTime}</InputLabel>
+                    <Select
+                      value={this.state.hour}
+                      onChange={this.handleChangeHour}
+                      inputProps={{
+                        name: 'hour',
+                        id: 'hour-select',
+                      }}
+                    >
+                      <MenuItem value='00'>00</MenuItem>
+                      <MenuItem value='01'>01</MenuItem>
+                      <MenuItem value='02'>02</MenuItem>
+                      <MenuItem value='03'>03</MenuItem>
+                      <MenuItem value='04'>04</MenuItem>
+                      <MenuItem value='05'>05</MenuItem>
+                      <MenuItem value='06'>06</MenuItem>
+                      <MenuItem value='07'>07</MenuItem>
+                      <MenuItem value='08'>08</MenuItem>
+                      <MenuItem value='09'>09</MenuItem>
+                      <MenuItem value='10'>10</MenuItem>
+                      <MenuItem value='11'>11</MenuItem>
+                      <MenuItem value='12'>12</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className="minute">
+                  <FormControl className={classes.formControl + ' minute-picker'}>
+                    <InputLabel htmlFor="hour-select"></InputLabel>
+                    <Select
+                      value={this.state.minute}
+                      onChange={this.handleChangeMinute}
+                      inputProps={{
+                        name: 'minute',
+                        id: 'minute-select',
+                      }}
+                    >
+                      <MenuItem value='00'>00</MenuItem>
+                      <MenuItem value='15'>15</MenuItem>
+                      <MenuItem value='20'>20</MenuItem>
+                      <MenuItem value='25'>25</MenuItem>
+                      <MenuItem value='30'>30</MenuItem>
+                      <MenuItem value='35'>35</MenuItem>
+                      <MenuItem value='40'>40</MenuItem>
+                      <MenuItem value='45'>45</MenuItem>
+                      <MenuItem value='50'>50</MenuItem>
+                      <MenuItem value='55'>55</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
             </div>
             <div>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-simple">
+                <InputLabel htmlFor="category-dropdown">
                   {languageObjectProp.data.myRecipes.newRecipe.form.category}
                 </InputLabel>
                 <Select
