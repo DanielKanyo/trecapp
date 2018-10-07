@@ -12,7 +12,7 @@ export const dataEng = {
           ingredients: 'Ingredients',
           longDes: 'Long description',
           difficulty: 'Difficulty',
-          prepTime: 'Preparation time',
+          prepTime: 'Preparation time (h:m)',
           category: 'Category',
           public: 'Public',
           save: 'Save'
@@ -37,6 +37,7 @@ export const dataEng = {
         removeFromFav: 'Remove from favourites',
         deleteRecipe: 'Delete recipe',
         more: 'More',
+        numOfRecipes: 'Number of recipes'
       },
       toaster: {
         addedToPublic: 'Your recipe is now public!',
@@ -44,6 +45,10 @@ export const dataEng = {
         addedToFav: 'Recipe added to favourites!',
         removedFromFav: 'Recipe removed from favourites!'
       }
+    },
+    Account: {
+      name: 'Name',
+      language: 'Language'
     }
   }
 }

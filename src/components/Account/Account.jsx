@@ -75,6 +75,7 @@ class AccountPage extends Component {
 
   render() {
     const { classes } = this.props;
+    const { languageObjectProp } = this.props;
 
     return (
       <AuthUserContext.Consumer>
@@ -105,6 +106,7 @@ class AccountPage extends Component {
                         accountNameProp={this.state.accountName}
                         accountEmailProp={this.state.accountEmail}
                         accountLanguageProp={this.state.accountLanguage}
+                        languageObjectProp={languageObjectProp}
                       />
                     </Grid>
 

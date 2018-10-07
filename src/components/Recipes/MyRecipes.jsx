@@ -12,6 +12,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Receipt from '@material-ui/icons/Receipt';
+import Chip from '@material-ui/core/Chip';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import Notifications, { notify } from 'react-notify-toast';
 
@@ -22,6 +24,10 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     marginBottom: '14px'
   },
+  chip: {
+    background: '#ffca44',
+    color: 'white'
+  }
 });
 
 class MyRecipes extends Component {
@@ -203,7 +209,11 @@ class MyRecipes extends Component {
               <div className="paper-title-text">
                 {languageObjectProp.data.myRecipes.myRecipes.title}
               </div>
-              <div className="number-of-recipes">({recipes.length})</div>
+              <div className="number-of-recipes">
+                <Tooltip title={languageObjectProp.data.myRecipes.tooltips.numOfRecipes}>
+                  <Chip label={recipes.length} className={classes.chip} />
+                </Tooltip>
+              </div>
             </Paper>
 
             {recipes.length === 0 ? <EmptyList /> : ''}

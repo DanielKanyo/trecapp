@@ -12,7 +12,7 @@ export const dataHun = {
           ingredients: 'Hozzávalók',
           longDes: 'Hosszabb leírás',
           difficulty: 'Nehézség',
-          prepTime: 'Elkészítési idő',
+          prepTime: 'Elkészítési idő (ó:p)',
           category: 'Kategória',
           public: 'Nyilvános',
           save: 'Mentés'
@@ -37,13 +37,18 @@ export const dataHun = {
         removeFromFav: 'Törlés a kedvencekből',
         deleteRecipe: 'Recept törlése',
         more: 'Több',
+        numOfRecipes: 'Receptjeinek száma'
       },
       toaster: {
-        addedToPublic: 'A receptje mostantól nyilvános!',
-        removedFromPublic: 'A receptje mostantól privát!',
+        addedToPublic: 'Receptje mostantól nyilvános!',
+        removedFromPublic: 'Receptje mostantól privát!',
         addedToFav: 'Recept hozzáadva a kedvencekhez!',
         removedFromFav: 'Recept eltávolítva a kedvencekből!'
       }
+    },
+    Account: {
+      name: 'Név',
+      language: 'Nyelv'
     }
   }
 }

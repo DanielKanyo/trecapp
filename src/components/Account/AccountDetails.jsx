@@ -109,6 +109,7 @@ class AccountDetails extends Component {
    */
   render() {
     const { classes } = this.props;
+    const { languageObjectProp } = this.props;
 
     return (
       <div>
@@ -116,7 +117,7 @@ class AccountDetails extends Component {
           <div className="account-details-container">
             <TextField
               id="account-name"
-              label="Name"
+              label={languageObjectProp.data.Account.name}
               onChange={this.handleInputChange('accountName')}
               className={classes.textField}
               value={this.props.accountNameProp}
@@ -135,7 +136,7 @@ class AccountDetails extends Component {
               disabled
             />
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="account-langu-dropdown-label">Language</InputLabel>
+              <InputLabel htmlFor="account-langu-dropdown-label">{languageObjectProp.data.Account.language}</InputLabel>
               <Select
                 value={this.props.accountLanguageProp ? this.props.accountLanguageProp : ''}
                 onChange={this.handleChangeLanguage}
@@ -145,7 +146,7 @@ class AccountDetails extends Component {
                 }}
               >
                 <MenuItem value={'eng'}>English</MenuItem>
-                <MenuItem value={'hun'}>Hungarian</MenuItem>
+                <MenuItem value={'hun'}>Magyar</MenuItem>
                 {/* <MenuItem value={30}>German</MenuItem> */}
               </Select>
             </FormControl>
