@@ -219,7 +219,9 @@ class NewRecipe extends Component {
               <div className="timepicker-container">
                 <div className="hour">
                   <FormControl className={classes.formControl + ' hour-picker'}>
-                    <InputLabel htmlFor="hour-select">{languageObjectProp.data.myRecipes.newRecipe.form.prepTime}</InputLabel>
+                    <InputLabel className="time-select-label" htmlFor="hour-select">
+                      {languageObjectProp.data.myRecipes.newRecipe.form.prepTime}
+                    </InputLabel>
                     <Select
                       value={this.state.hour}
                       onChange={this.handleChangeHour}
@@ -256,6 +258,8 @@ class NewRecipe extends Component {
                       }}
                     >
                       <MenuItem value='00'>00</MenuItem>
+                      <MenuItem value='05'>05</MenuItem>
+                      <MenuItem value='10'>10</MenuItem>
                       <MenuItem value='15'>15</MenuItem>
                       <MenuItem value='20'>20</MenuItem>
                       <MenuItem value='25'>25</MenuItem>

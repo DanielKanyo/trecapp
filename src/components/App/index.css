@@ -246,6 +246,10 @@ input[type=time]::-webkit-clear-button {
   width: 50%;
 }
 
+.time-select-label {
+  white-space: nowrap;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -283,6 +287,10 @@ input[type=time]::-webkit-clear-button {
   }
 
   .paper-recipe-new {
+    padding: 5px 18px 10px 18px;
+  }
+
+  .account-details-container {
     padding: 5px 18px 10px 18px;
   }
 
