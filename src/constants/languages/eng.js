@@ -23,7 +23,7 @@ export const dataEng = {
           storyPlaceholder: 'Just a few sentences...',
           ingredientsPlaceholder: 'List here...',
           longDesPlaceholder: 'Preparation method...',
-          dosePlaceholder: 'e.g 4'
+          dosePlaceholder: 'For example 4'
         },
         categoryItems: ['None', 'Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Snacks', 'Appetisers', 'Soups', 'Salads', 'Sides', 'Rice', 'Noodles', 'Pasta', 'Pies', 'Burgers', 'Mince', 'Sausages', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meat', 'Seafood', 'Stir Fry', 'Sauces', 'Vegetarian', 'Desserts', 'Baking', 'Drinks']
       },

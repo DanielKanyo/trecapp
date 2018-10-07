@@ -189,30 +189,27 @@ class NewRecipe extends Component {
               margin="normal"
               variant="outlined"
             />
-            <div className="dose-and-ingredients-container">
-              <TextField
-                id="textfield-recipe-dose"
-                label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.dose}
-                onChange={this.handleInputChange('dose')}
-                className={classes.textField}
-                placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.dosePlaceholder}
-                value={this.state.dose}
-                margin="normal"
-                type="number"
-                variant="outlined"
-              />
-              <div className="space-between"></div>
-              <TextField
-                id="textfield-recipe-ingredients"
-                label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
-                onChange={this.handleInputChange('ingredients')}
-                className={classes.textField}
-                placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
-                value={this.state.ingredients}
-                margin="normal"
-                variant="outlined"
-              />
-            </div>
+            <TextField
+              id="textfield-recipe-dose"
+              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.dose}
+              onChange={this.handleInputChange('dose')}
+              className={classes.textField}
+              placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.dosePlaceholder}
+              value={this.state.dose}
+              margin="normal"
+              type="number"
+              variant="outlined"
+            />
+            <TextField
+              id="textfield-recipe-ingredients"
+              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
+              onChange={this.handleInputChange('ingredients')}
+              className={classes.textField}
+              placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
+              value={this.state.ingredients}
+              margin="normal"
+              variant="outlined"
+            />
             <TextField
               id="textfield-recipe-longDes"
               label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.longDes}

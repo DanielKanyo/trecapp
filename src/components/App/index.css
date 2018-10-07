@@ -245,15 +245,6 @@ input[type=time]::-webkit-clear-button {
   color: rgba(0, 0, 0, 0.54) !important;
 }
 
-.dose-and-ingredients-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.dose-and-ingredients-container > div:first-of-type {
-  max-width: 115px;
-}
-
 .hour,
 .minute {
   width: 50%;

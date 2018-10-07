@@ -23,7 +23,7 @@ export const dataHun = {
           storyPlaceholder: 'Csak néhány mondatot...',
           ingredientsPlaceholder: 'Sorolja fel...',
           longDesPlaceholder: 'Elkészítési metódus...',
-          dosePlaceholder: 'pl. 4'
+          dosePlaceholder: 'Például 4'
         },
         categoryItems: ['Üres', 'Reggeli', 'Tízórai', 'Ebéd', 'Vacsora', 'Harapnivaló', 'Előételek', 'Levesek', 'Saláták', 'Köretek', 'Rizs', 'Tészta', 'Durumtészta', 'Piték', 'Burgerek', 'Vagdalt', 'Kolbász', 'Csrike', 'Pulyka', 'Kacsa', 'Szárnyas', 'Sertés', 'Bárány', 'Marha', 'Fasírt', 'Tenger Gyümölcsei', 'Keverjük - Sütjük', 'Szószok', 'Vegetáriánus', 'Desszertek', 'Sütik', 'Italok']
       },
