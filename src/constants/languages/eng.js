@@ -14,6 +14,7 @@ export const dataEng = {
           difficulty: 'Difficulty',
           prepTime: 'Preparation time (h:m)',
           category: 'Category',
+          dose: 'Dose',
           public: 'Public',
           save: 'Save'
         },
@@ -21,7 +22,8 @@ export const dataEng = {
           titlePlaceholder: 'Recipe title...',
           storyPlaceholder: 'Just a few sentences...',
           ingredientsPlaceholder: 'List here...',
-          longDesPlaceholder: 'Preparation method...'
+          longDesPlaceholder: 'Preparation method...',
+          dosePlaceholder: 'e.g 4'
         },
         categoryItems: ['None', 'Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Snacks', 'Appetisers', 'Soups', 'Salads', 'Sides', 'Rice', 'Noodles', 'Pasta', 'Pies', 'Burgers', 'Mince', 'Sausages', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meat', 'Seafood', 'Stir Fry', 'Sauces', 'Vegetarian', 'Desserts', 'Baking', 'Drinks']
       },

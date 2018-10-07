@@ -77,6 +77,7 @@ class NewRecipe extends Component {
       sliderValue: 1,
       hour: '02',
       minute: '00',
+      dose: '',
       publicChecked: false,
       category: ''
     };
@@ -105,11 +106,12 @@ class NewRecipe extends Component {
       publicChecked: this.state.publicChecked,
       hour: this.state.hour,
       minute: this.state.minute,
+      dose: this.state.dose,
       category: this.state.category,
       creationTime: new Date().getTime()
     };
 
-    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || !data.category) {
+    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || data.dose === '' || !data.category) {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
       this.toastr('Recipe saved!', '#4BB543');
@@ -124,6 +126,7 @@ class NewRecipe extends Component {
         sliderValue: 1,
         hour: '02',
         minute: '00',
+        dose: '',
         publicChecked: false,
         category: ''
       });
@@ -186,16 +189,30 @@ class NewRecipe extends Component {
               margin="normal"
               variant="outlined"
             />
-            <TextField
-              id="textfield-recipe-ingredients"
-              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
-              onChange={this.handleInputChange('ingredients')}
-              className={classes.textField}
-              placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
-              value={this.state.ingredients}
-              margin="normal"
-              variant="outlined"
-            />
+            <div className="dose-and-ingredients-container">
+              <TextField
+                id="textfield-recipe-dose"
+                label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.dose}
+                onChange={this.handleInputChange('dose')}
+                className={classes.textField}
+                placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.dosePlaceholder}
+                value={this.state.dose}
+                margin="normal"
+                type="number"
+                variant="outlined"
+              />
+              <div className="space-between"></div>
+              <TextField
+                id="textfield-recipe-ingredients"
+                label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
+                onChange={this.handleInputChange('ingredients')}
+                className={classes.textField}
+                placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
+                value={this.state.ingredients}
+                margin="normal"
+                variant="outlined"
+              />
+            </div>
             <TextField
               id="textfield-recipe-longDes"
               label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.longDes}
@@ -277,7 +294,7 @@ class NewRecipe extends Component {
             <div>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="category-dropdown">
-                  {languageObjectProp.data.myRecipes.newRecipe.form.category}
+                  * {languageObjectProp.data.myRecipes.newRecipe.form.category}
                 </InputLabel>
                 <Select
                   value={this.state.category}
