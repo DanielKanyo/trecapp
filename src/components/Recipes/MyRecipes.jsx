@@ -139,7 +139,9 @@ class MyRecipes extends Component {
           deleteRecipeProp={this.deleteRecipe}
           languageObjectProp={this.props.languageObjectProp}
         />
-      ].concat(recipes)
+      ].concat(recipes);
+
+      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.recipeSaved, '#4BB543');
 
       this.setState({
         recipes: temp
@@ -168,7 +170,7 @@ class MyRecipes extends Component {
       notes: previousRecipes
     });
 
-    this.toastr('Recipe deleted!', '#4BB543');
+    this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.recipeRemoved, '#4BB543');
   }
 
   /**

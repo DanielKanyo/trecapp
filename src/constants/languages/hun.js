@@ -16,14 +16,16 @@ export const dataHun = {
           category: 'Kategória',
           dose: 'Adag',
           public: 'Nyilvános',
-          save: 'Mentés'
+          save: 'Mentés',
+          cost: 'Költség'
         },
         placeholder: {
           titlePlaceholder: 'Recept címe...',
           storyPlaceholder: 'Csak néhány mondatot...',
           ingredientsPlaceholder: 'Sorolja fel...',
           longDesPlaceholder: 'Elkészítési metódus...',
-          dosePlaceholder: 'Például 4'
+          dosePlaceholder: 'Mennyiség...',
+          costPlaceholder: 'Ár...'
         },
         categoryItems: ['Üres', 'Reggeli', 'Tízórai', 'Ebéd', 'Vacsora', 'Harapnivaló', 'Előételek', 'Levesek', 'Saláták', 'Köretek', 'Rizs', 'Tészta', 'Durumtészta', 'Piték', 'Burgerek', 'Vagdalt', 'Kolbász', 'Csrike', 'Pulyka', 'Kacsa', 'Szárnyas', 'Sertés', 'Bárány', 'Marha', 'Fasírt', 'Tenger Gyümölcsei', 'Keverjük - Sütjük', 'Szószok', 'Vegetáriánus', 'Desszertek', 'Sütik', 'Italok']
       },
@@ -42,6 +44,9 @@ export const dataHun = {
         numOfRecipes: 'Receptjeinek száma'
       },
       toaster: {
+        recipeSaved: 'Recept elmentve!',
+        recipeRemoved: 'Recept törölve!',
+        warningFillReq: 'Vigyázat! Töltse ki a kötelező mezőket...',
         addedToPublic: 'Receptje mostantól nyilvános!',
         removedFromPublic: 'Receptje mostantól privát!',
         addedToFav: 'Recept hozzáadva a kedvencekhez!',

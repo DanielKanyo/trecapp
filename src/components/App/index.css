@@ -79,7 +79,6 @@ button a {
 
 ::-webkit-scrollbar {
   width: 3px;
-  background: red;
 }
 
 ::-webkit-scrollbar-track {
@@ -254,6 +253,11 @@ input[type=time]::-webkit-clear-button {
   white-space: nowrap;
 }
 
+.dose-cost-container {
+  display: flex;
+  flex-direction: row;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -301,6 +305,10 @@ input[type=time]::-webkit-clear-button {
   .toast-notification span {
     height: 56px;
     line-height: 56px !important;
+  }
+
+  .dose-cost-container {
+    flex-direction: column;
   }
 }
 

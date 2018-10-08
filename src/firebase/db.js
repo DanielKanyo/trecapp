@@ -36,6 +36,7 @@ export const addRecipe = (id, recipe) => {
     publicChecked: recipe.publicChecked,
     story: recipe.story,
     dose: recipe.dose,
+    cost: recipe.cost,
     ingredients: recipe.ingredients,
     sliderValue: recipe.sliderValue,
     title: recipe.title

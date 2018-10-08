@@ -16,14 +16,16 @@ export const dataEng = {
           category: 'Category',
           dose: 'Dose',
           public: 'Public',
-          save: 'Save'
+          save: 'Save',
+          cost: 'Cost'
         },
         placeholder: {
           titlePlaceholder: 'Recipe title...',
           storyPlaceholder: 'Just a few sentences...',
           ingredientsPlaceholder: 'List here...',
           longDesPlaceholder: 'Preparation method...',
-          dosePlaceholder: 'For example 4'
+          dosePlaceholder: 'Quantity...',
+          costPlaceholder: 'Price...'
         },
         categoryItems: ['None', 'Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Snacks', 'Appetisers', 'Soups', 'Salads', 'Sides', 'Rice', 'Noodles', 'Pasta', 'Pies', 'Burgers', 'Mince', 'Sausages', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meat', 'Seafood', 'Stir Fry', 'Sauces', 'Vegetarian', 'Desserts', 'Baking', 'Drinks']
       },
@@ -42,6 +44,9 @@ export const dataEng = {
         numOfRecipes: 'Number of recipes'
       },
       toaster: {
+        recipeSaved: 'Recipe saved!',
+        recipeRemoved: 'Recipe deleted!',
+        warningFillReq: 'Warning! Fill the required fields...',
         addedToPublic: 'Your recipe is now public!',
         removedFromPublic: 'Your recipe is no longer public!',
         addedToFav: 'Recipe added to favourites!',
