@@ -335,6 +335,14 @@ input[type=time]::-webkit-clear-button {
   .language-currency-container {
     flex-direction: column;
   }
+
+  .recipe-content:last-of-type {
+    margin-bottom: 0px;
+  }
+
+  .main-grid .grid-component:last-of-type {
+    padding-bottom: 0px !important;
+  }
 }
 
 @media only screen and (min-width: 600px) {
