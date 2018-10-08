@@ -32,7 +32,10 @@ export const dataHun = {
       myRecipes: {
         title: 'Receptjeim',
         ingredients: 'Hozzávalók',
-        method: 'Metódus'
+        method: 'Metódus',
+        numDose: 'adag',
+        hourText: 'óra',
+        minuteText: 'perc'
       },
       tooltips: {
         privateRecipe: 'Privát recept',

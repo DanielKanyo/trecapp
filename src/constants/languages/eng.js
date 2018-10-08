@@ -32,7 +32,10 @@ export const dataEng = {
       myRecipes: {
         title: 'My Recipes',
         ingredients: 'Ingredients',
-        method: 'Method'
+        method: 'Method',
+        numDose: 'dose',
+        hourText: 'hour',
+        minuteText: 'minute'
       },
       tooltips: {
         privateRecipe: 'Private recipe',
