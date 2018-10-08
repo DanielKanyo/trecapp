@@ -44,12 +44,13 @@ class SignUpForm extends Component {
     } = this.props;
 
     const language = 'eng';
+    const currency = 'USD'
 
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
 
         // Create a user in your own accessible Firebase Database too
-        db.doCreateUser(authUser.user.uid, username, email, language)
+        db.doCreateUser(authUser.user.uid, username, email, language, currency)
           .then(() => {
             // this.setState(() => ({ ...INITIAL_STATE }));
 

@@ -53,7 +53,7 @@ class AccountDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    
+
     this.setLanguageProp = this.props.setLanguageProp.bind(this);
     this.handleSaveNewAccountDataProp = this.props.handleSaveNewAccountDataProp.bind(this);
   }
@@ -78,6 +78,15 @@ class AccountDetails extends Component {
   }
 
   /**
+     * Change dropdown value
+     * 
+     * @param {Object} event
+     */
+  handleChangeCurrency = event => {
+    this.props.handleChangeCurrencyProp(event);
+  }
+
+  /**
    * Save new data
    * 
    * @param {Object} event
@@ -86,7 +95,7 @@ class AccountDetails extends Component {
     if (this.props.accountNameProp === '' || this.props.accountEmailProp === '' || this.props.accountLanguageProp === '') {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
-      this.props.handleSaveNewAccountDataProp(this.props.accountNameProp, this.props.accountLanguageProp);
+      this.props.handleSaveNewAccountDataProp(this.props.accountNameProp, this.props.accountLanguageProp, this.props.accountCurrencyProp);
       this.props.setLanguageProp(this.props.accountLanguageProp);
       this.toastr('Recipe saved!', '#4BB543');
     }
@@ -135,21 +144,40 @@ class AccountDetails extends Component {
               variant="outlined"
               disabled
             />
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="account-langu-dropdown-label">{languageObjectProp.data.Account.language}</InputLabel>
-              <Select
-                value={this.props.accountLanguageProp ? this.props.accountLanguageProp : ''}
-                onChange={this.handleChangeLanguage}
-                inputProps={{
-                  name: 'accountLanguage',
-                  id: 'language-dropdown',
-                }}
-              >
-                <MenuItem value={'eng'}>English</MenuItem>
-                <MenuItem value={'hun'}>Magyar</MenuItem>
-                {/* <MenuItem value={30}>German</MenuItem> */}
-              </Select>
-            </FormControl>
+            <div className="language-currency-container">
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="account-langu-dropdown-label">{languageObjectProp.data.Account.language}</InputLabel>
+                <Select
+                  value={this.props.accountLanguageProp ? this.props.accountLanguageProp : ''}
+                  onChange={this.handleChangeLanguage}
+                  inputProps={{
+                    name: 'accountLanguage',
+                    id: 'language-dropdown',
+                  }}
+                >
+                  <MenuItem value={'eng'}>English</MenuItem>
+                  <MenuItem value={'hun'}>Magyar</MenuItem>
+                  {/* <MenuItem value={30}>German</MenuItem> */}
+                </Select>
+              </FormControl>
+              <div className="space-between"></div>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.currency}</InputLabel>
+                <Select
+                  value={this.props.accountCurrencyProp ? this.props.accountCurrencyProp : ''}
+                  onChange={this.handleChangeCurrency}
+                  inputProps={{
+                    name: 'accountCurrency',
+                    id: 'currency-dropdown',
+                  }}
+                >
+                  <MenuItem value={'USD'}>USD</MenuItem>
+                  <MenuItem value={'HUF'}>HUF</MenuItem>
+                  {/* <MenuItem value={30}>German</MenuItem> */}
+                </Select>
+              </FormControl>
+            </div>
+
             <div className="account-save-container">
               <Button
                 variant="contained"

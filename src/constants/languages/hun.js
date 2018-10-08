@@ -55,7 +55,8 @@ export const dataHun = {
     },
     Account: {
       name: 'Név',
-      language: 'Nyelv'
+      language: 'Nyelv',
+      currency: 'Valuta',
     }
   }
 }

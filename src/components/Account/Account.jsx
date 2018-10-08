@@ -35,10 +35,12 @@ class AccountPage extends Component {
       accountName: '',
       accountEmail: '',
       accountLanguage: '',
-      loggedInUserId: ''
+      loggedInUserId: '',
+      accountCurrency: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
+    this.handleChangeCurrency = this.handleChangeCurrency.bind(this);
     this.setLanguageProp = this.props.setLanguageProp.bind(this);
     this.handleSaveNewAccountData = this.handleSaveNewAccountData.bind(this);
   }
@@ -51,13 +53,18 @@ class AccountPage extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSaveNewAccountData(name, language) {
+  handleChangeCurrency(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleSaveNewAccountData(name, language, currency) {
     this.setState({
       accountName: name,
-      accountLanguage: language
+      accountLanguage: language,
+      accountCurrency: currency
     });
 
-    db.updateUserInfo(this.state.loggedInUserId, name, language);
+    db.updateUserInfo(this.state.loggedInUserId, name, language, currency);
   }
 
   componentDidMount() {
@@ -67,6 +74,7 @@ class AccountPage extends Component {
       this.setState(() => ({
         accountName: snapshot.username,
         accountEmail: snapshot.email,
+        accountCurrency: snapshot.currency,
         accountLanguage: snapshot.language,
         loggedInUserId: loggedInUserId
       }));
@@ -101,11 +109,13 @@ class AccountPage extends Component {
                       <AccountDetails
                         handleInputChangeProp={this.handleInputChange}
                         handleChangeLanguageProp={this.handleChangeLanguage}
+                        handleChangeCurrencyProp={this.handleChangeCurrency}
                         setLanguageProp={this.props.setLanguageProp}
                         handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
                         accountNameProp={this.state.accountName}
                         accountEmailProp={this.state.accountEmail}
                         accountLanguageProp={this.state.accountLanguage}
+                        accountCurrencyProp={this.state.accountCurrency}
                         languageObjectProp={languageObjectProp}
                       />
                     </Grid>

@@ -187,7 +187,7 @@ class Recipe extends Component {
     let titleCharacters = data.title.split('');
 
     return (
-      <div>
+      <div className="recipe-content">
         <Card className={classes.card + ' card-recipe'}>
           <CardHeader className="recipe-card-header"
             avatar={
@@ -205,7 +205,7 @@ class Recipe extends Component {
             title={data.title}
             subheader={creationTime}
           />
-          <CardContent>
+          <CardContent className="recipe-story-card-content">
             <Typography component="p">
               {data.story}
             </Typography>

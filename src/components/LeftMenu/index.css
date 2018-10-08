@@ -22,7 +22,7 @@
   background-position: right;
   background-size: cover;
   background-repeat: no-repeat;
-  opacity: 0.15;
+  opacity: 0.30;
 }
 
 .LeftMenu.open {
@@ -88,6 +88,13 @@
   .LeftMenu {
     position: absolute;
     z-index: 20;
+  }
+
+  .left-menu-background-image {
+    background-image: url('../../images/bg2.jpg');
+    background-position: center;
+    background-size: auto 100%;
+    opacity: 0.15;
   }
 }
 

@@ -3,11 +3,12 @@ import {
 } from './firebase';
 
 // Create user
-export const doCreateUser = (id, username, email, language) => {
+export const doCreateUser = (id, username, email, language, currency) => {
   return db.ref(`users/${id}`).set({
     username,
     email,
-    language
+    language,
+    currency
   });
 }
 
@@ -59,12 +60,13 @@ export const removeRecipe = (recipeId) => {
 }
 
 // Update user info
-export const updateUserInfo = (id, username, language) => {
+export const updateUserInfo = (id, username, language, currency) => {
   let userRef = db.ref(`users/${id}`);
 
   return userRef.update({
     username,
-    language
+    language,
+    currency
   });
 }
 

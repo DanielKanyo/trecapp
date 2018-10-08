@@ -55,7 +55,8 @@ export const dataEng = {
     },
     Account: {
       name: 'Name',
-      language: 'Language'
+      language: 'Language',
+      currency: 'Currency',
     }
   }
 }

@@ -128,7 +128,7 @@ button a {
 }
 
 .card-recipe {
-  margin-bottom: 24px;
+  margin-bottom: 0px;
 }
 
 .slider {
@@ -258,6 +258,27 @@ input[type=time]::-webkit-clear-button {
   flex-direction: row;
 }
 
+.dose-cost-container .space-between {
+  width: 32px !important;
+}
+
+.recipe-story-card-content {
+  padding: 8px 24px !important;
+}
+
+.recipe-content {
+  margin-bottom: 14px;
+}
+
+.recipe-content:last-of-type {
+  margin-bottom: 24px;
+}
+
+.language-currency-container {
+  display: flex;
+  flex-direction: row;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -308,6 +329,10 @@ input[type=time]::-webkit-clear-button {
   }
 
   .dose-cost-container {
+    flex-direction: column;
+  }
+
+  .language-currency-container {
     flex-direction: column;
   }
 }
