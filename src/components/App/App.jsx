@@ -13,6 +13,7 @@ import RecipesWall from '../Recipes/RecipesWall';
 import AccountPage from '../Account/Account';
 import MyRecipes from '../Recipes/MyRecipes';
 import withAuthentication from '../Session/withAuthentication';
+import Favourites from '../Favourites/Favourites';
 import * as routes from '../../constants/routes';
 
 import { dataHun } from '../../constants/languages/hun';
@@ -84,6 +85,9 @@ class App extends Component {
           />
           <Route exact path={routes.MYRECIPES}
             component={() => <MyRecipes languageObjectProp={this.state.languageObject} />}
+          />
+          <Route exact path={routes.FAVOURITES}
+            component={() => <Favourites languageObjectProp={this.state.languageObject} />}
           />
         </div>
       </Router>

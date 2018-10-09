@@ -40,7 +40,8 @@ export const addRecipe = (id, recipe) => {
     cost: recipe.cost,
     ingredients: recipe.ingredients,
     sliderValue: recipe.sliderValue,
-    title: recipe.title
+    title: recipe.title,
+    currency: recipe.currency
   });
 
   return recipeRef;

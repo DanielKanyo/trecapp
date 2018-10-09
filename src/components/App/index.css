@@ -60,6 +60,10 @@ button a {
   background: #FC050C !important;
 }
 
+.paper-title-favourites {
+  background: #9b42f4 !important;
+}
+
 .paper-title-icon {
   padding: 16px 20px;
 }

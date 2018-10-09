@@ -41,7 +41,8 @@ class MyRecipes extends Component {
     super(props);
     this.state = {
       recipes: [],
-      loggedInUserId: ''
+      loggedInUserId: '',
+      currency: ''
     };
 
     this.deleteRecipe = this.deleteRecipe.bind(this);
@@ -60,6 +61,12 @@ class MyRecipes extends Component {
     let favRecipeIdArray = [];
     let favouriteId;
     let isFavourite = false;
+
+    db.getUserInfo(loggedInUserId).then(resUserInfo => {
+      this.setState({
+        currency: resUserInfo.currency
+      });
+    });
 
     this.setState({ loggedInUserId: loggedInUserId });
 
@@ -128,6 +135,8 @@ class MyRecipes extends Component {
 
     dataToSend.userId = this.state.loggedInUserId;
     dataToSend.ownRecipe = true;
+    dataToSend.currency = this.state.currency;
+    obj.currency = this.state.currency;
 
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {
       dataToSend.recipeId = snap.key;

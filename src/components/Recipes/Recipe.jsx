@@ -186,11 +186,8 @@ class Recipe extends Component {
 
     let titleCharacters = data.title.split('');
 
-    let hour = data.hour.split('');
-    let hourText = hour[0] === '0' ? hour[1] : hour[0] + '' + hour[1];
-
-    let minute = data.minute.split('');
-    let minuteText = minute[0] === '0' ? minute[1] : minute[0] + '' + minute[1];
+    let hour = data.hour;
+    let minute = data.minute;
 
     return (
       <div className="recipe-content">
@@ -291,19 +288,19 @@ class Recipe extends Component {
               </Typography>
               <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content" />
               {
-                hour[0] === '0' ?
+                hour === '0' ?
                   <Chip
-                    label={`${minuteText} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
+                    label={`${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
                     className="chip-card-content"
                   />
                   :
                   <Chip
-                    label={`${hourText} ${languageObjectProp.data.myRecipes.myRecipes.hourText} 
-                        ${minuteText} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
+                    label={`${hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText} 
+                        ${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
                     className="chip-card-content"
                   />
               }
-
+              <Chip label={`${data.cost} ${data.currency}`} className="chip-card-content" />
             </CardContent>
           </Collapse>
         </Card>
