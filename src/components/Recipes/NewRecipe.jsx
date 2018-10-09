@@ -17,6 +17,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import Notifications, { notify } from 'react-notify-toast';
 
@@ -40,14 +41,23 @@ const styles = theme => ({
     marginBottom: 12,
     minWidth: '100%',
   },
-  button: {
+  buttonSave: {
     marginBottom: 6,
     width: 110,
     color: 'white',
     marginLeft: 'auto'
   },
+  buttonClear: {
+    width: 100,
+    color: 'white',
+    marginLeft: 'auto',
+    background: '#F55300'
+  },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: 12,
   },
 });
 
@@ -80,6 +90,7 @@ class NewRecipe extends Component {
       category: ''
     };
     this.handleSaveRecipe = this.handleSaveRecipe.bind(this);
+    this.clearForm = this.clearForm.bind(this);
   }
 
   handleChangeCheckbox = name => event => {
@@ -143,6 +154,25 @@ class NewRecipe extends Component {
     this.setState({ minute: event.target.value });
   }
 
+  /**
+   * Clear input fields
+   */
+  clearForm() {
+    this.setState({
+      title: '',
+      story: '',
+      longDes: '',
+      ingredients: '',
+      sliderValue: 1,
+      hour: '0',
+      minute: '30',
+      dose: '',
+      publicChecked: false,
+      category: '',
+      cost: ''
+    });
+  }
+
   toastr(msg, bgColor) {
     let style = { background: bgColor, text: "#FFFFFF" };
 
@@ -162,6 +192,18 @@ class NewRecipe extends Component {
           </div>
           <div className="paper-title-text">
             {languageObjectProp.data.myRecipes.newRecipe.title}
+          </div>
+          <div className="clear-form-container">
+            <Button
+              variant="contained"
+              size="small"
+              aria-label="Delete"
+              className={classes.buttonClear + ' btn-clear'}
+              onClick={this.clearForm}
+            >
+              Clear
+              <ClearIcon className={classes.rightIcon} />
+            </Button>
           </div>
         </Paper>
 
@@ -334,7 +376,7 @@ class NewRecipe extends Component {
               <Button
                 variant="contained"
                 size="small"
-                className={classes.button + ' control-btn save-btn'}
+                className={classes.buttonSave + ' control-btn save-btn'}
                 onClick={this.handleSaveRecipe}
               >
                 <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />

@@ -22,6 +22,10 @@ button a {
   background: #eca900 !important;
 }
 
+.btn-clear:hover {
+  background: #e24b00 !important;
+}
+
 .account-dropdown {
   margin-top: 6px;
 }
@@ -152,6 +156,13 @@ button a {
   right: 0;
   line-height: 56px;
   padding: 0px 16px;
+}
+
+.clear-form-container {
+  position: absolute;
+  right: 0;
+  line-height: 54px;
+  padding: 0px 9px;
 }
 
 .recipe-controller-container {
@@ -309,7 +320,7 @@ input[type=time]::-webkit-clear-button {
   .sub-grid .grid-left {
     padding-right: 0px !important;
   }
-  
+
   .sub-grid .grid-right {
     padding-left: 0px !important;
   }
