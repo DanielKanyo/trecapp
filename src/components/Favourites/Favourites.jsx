@@ -17,12 +17,11 @@ class Favourites extends Component {
     this.state = {}
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() { }
 
   render() {
     const { classes } = this.props;
+    const { languageObjectProp } = this.props;
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
@@ -33,7 +32,7 @@ class Favourites extends Component {
                 <FavoriteIcon />
               </div>
               <div className="paper-title-text">
-                Favourites
+                {languageObjectProp.data.menuItems[2]}
               </div>
             </Paper>
           </Grid>

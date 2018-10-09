@@ -146,7 +146,7 @@ class NewRecipe extends Component {
   toastr(msg, bgColor) {
     let style = { background: bgColor, text: "#FFFFFF" };
 
-    notify.show(msg, 'custom', 4000, style);
+    notify.show(msg, 'custom', 3000, style);
   }
 
   render() {
@@ -202,7 +202,7 @@ class NewRecipe extends Component {
               <div className="space-between"></div>
               <TextField
                 id="textfield-recipe-cost"
-                label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.cost}
+                label={`* ${languageObjectProp.data.myRecipes.newRecipe.form.cost} (${this.props.currencyProp})`}
                 onChange={this.handleInputChange('cost')}
                 className={classes.textField}
                 placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.costPlaceholder}

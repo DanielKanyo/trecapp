@@ -110,7 +110,7 @@ class AccountDetails extends Component {
   toastr(msg, bgColor) {
     let style = { background: bgColor, text: "#FFFFFF" };
 
-    notify.show(msg, 'custom', 4000, style);
+    notify.show(msg, 'custom', 3000, style);
   }
 
   /**

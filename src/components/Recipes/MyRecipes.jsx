@@ -191,7 +191,7 @@ class MyRecipes extends Component {
   toastr(msg, bgColor) {
     let style = { background: bgColor, text: "#FFFFFF" };
 
-    notify.show(msg, 'custom', 4000, style);
+    notify.show(msg, 'custom', 3000, style);
   }
 
   /**
@@ -208,7 +208,10 @@ class MyRecipes extends Component {
         <Grid className="main-grid" container spacing={16}>
 
           <Grid item className="grid-component" xs={6}>
-            <NewRecipe saveRecipeProps={this.saveRecipe.bind(this)} languageObjectProp={languageObjectProp} />
+            <NewRecipe
+              currencyProp={this.state.currency} 
+              saveRecipeProps={this.saveRecipe.bind(this)} 
+              languageObjectProp={languageObjectProp} />
           </Grid>
 
           <Grid item className="grid-component" xs={6}>
