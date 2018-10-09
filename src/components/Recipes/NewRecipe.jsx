@@ -90,7 +90,7 @@ class NewRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-    
+
     this.handleSaveRecipe = this.handleSaveRecipe.bind(this);
     this.clearForm = this.clearForm.bind(this);
   }
@@ -189,62 +189,57 @@ class NewRecipe extends Component {
           <MuiThemeProvider theme={theme}>
             <TextField
               id="textfield-recipe-title"
-              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.title}
+              label={languageObjectProp.data.myRecipes.newRecipe.form.title}
               onChange={this.handleInputChange('title')}
               className={classes.textField}
               value={this.state.title}
               margin="normal"
               placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.titlePlaceholder}
-              variant="outlined"
             />
             <TextField
               id="textfield-recipe-story"
-              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.story}
+              label={languageObjectProp.data.myRecipes.newRecipe.form.story}
               onChange={this.handleInputChange('story')}
               className={classes.textField}
               placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.storyPlaceholder}
               value={this.state.story}
               margin="normal"
-              variant="outlined"
             />
             <div className="dose-cost-container">
               <TextField
                 id="textfield-recipe-dose"
-                label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.dose}
+                label={languageObjectProp.data.myRecipes.newRecipe.form.dose}
                 onChange={this.handleInputChange('dose')}
                 className={classes.textField}
                 placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.dosePlaceholder}
                 value={this.state.dose}
                 margin="normal"
                 type="number"
-                variant="outlined"
               />
               <div className="space-between"></div>
               <TextField
                 id="textfield-recipe-cost"
-                label={`* ${languageObjectProp.data.myRecipes.newRecipe.form.cost} (${this.props.currencyProp})`}
+                label={`${languageObjectProp.data.myRecipes.newRecipe.form.cost} (${this.props.currencyProp})`}
                 onChange={this.handleInputChange('cost')}
                 className={classes.textField}
                 placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.costPlaceholder}
                 value={this.state.cost}
                 margin="normal"
                 type="number"
-                variant="outlined"
               />
             </div>
             <TextField
               id="textfield-recipe-ingredients"
-              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
+              label={languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
               onChange={this.handleInputChange('ingredients')}
               className={classes.textField}
               placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
               value={this.state.ingredients}
               margin="normal"
-              variant="outlined"
             />
             <TextField
               id="textfield-recipe-longDes"
-              label={'* ' + languageObjectProp.data.myRecipes.newRecipe.form.longDes}
+              label={languageObjectProp.data.myRecipes.newRecipe.form.longDes}
               multiline
               rows="5"
               placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.longDesPlaceholder}
@@ -252,7 +247,6 @@ class NewRecipe extends Component {
               className={classes.textField}
               value={this.state.longDes}
               margin="normal"
-              variant="outlined"
             />
             <div className="slider-and-timepicker-container">
               <div className="slider-container">
@@ -323,7 +317,7 @@ class NewRecipe extends Component {
             <div>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="category-dropdown">
-                  * {languageObjectProp.data.myRecipes.newRecipe.form.category}
+                  {languageObjectProp.data.myRecipes.newRecipe.form.category}
                 </InputLabel>
                 <Select
                   value={this.state.category}

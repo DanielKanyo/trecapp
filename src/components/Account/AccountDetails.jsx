@@ -132,7 +132,6 @@ class AccountDetails extends Component {
               value={this.props.accountNameProp}
               margin="normal"
               placeholder="Your name..."
-              variant="outlined"
             />
             <TextField
               id="account-email"
@@ -141,7 +140,6 @@ class AccountDetails extends Component {
               className={classes.textField}
               value={this.props.accountEmailProp}
               margin="normal"
-              variant="outlined"
               disabled
             />
             <div className="language-currency-container">
@@ -157,7 +155,7 @@ class AccountDetails extends Component {
                 >
                   <MenuItem value={'eng'}>English</MenuItem>
                   <MenuItem value={'hun'}>Magyar</MenuItem>
-                  {/* <MenuItem value={30}>German</MenuItem> */}
+                  {/* <MenuItem value={'deu'}>Deutsch</MenuItem> */}
                 </Select>
               </FormControl>
               <div className="space-between"></div>

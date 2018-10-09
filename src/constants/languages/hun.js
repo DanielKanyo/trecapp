@@ -1,7 +1,7 @@
 export const dataHun = {
   data: {
     appTitle: 'Receptjeim',
-    menuItems: ['Receptjeim', 'Receptek Fal', 'Kedvencek', 'Kaja orgia', 'Profilom', 'Kijelentkezés'],
+    menuItems: ['Receptjeim', 'Receptek Fal', 'Kedvencek', 'Kategóriák', 'Bevásárló Lista', 'Profilom', 'Kijelentkezés'],
     months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
     myRecipes: {
       newRecipe: {

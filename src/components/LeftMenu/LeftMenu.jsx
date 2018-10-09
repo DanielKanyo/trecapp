@@ -15,9 +15,10 @@ import Favorite from '@material-ui/icons/Favorite';
 import SwapHoriz from '@material-ui/icons/SwapHoriz';
 import Public from '@material-ui/icons/Public';
 import Receipt from '@material-ui/icons/Receipt';
-import Fastfood from '@material-ui/icons/Fastfood';
+import Dashboard from '@material-ui/icons/Dashboard';
 import Face from '@material-ui/icons/Face';
 import Lock from '@material-ui/icons/Lock';
+import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 
 const styles = theme => ({});
 
@@ -116,9 +117,16 @@ class LeftMenu extends Component {
 
             <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
               <ListItemIcon>
-                <Fastfood />
+                <Dashboard />
               </ListItemIcon>
               <ListItemText primary={languageObjectProp.data.menuItems[3]} />
+            </ListItem>
+
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.SHOPPINGLIST}>
+              <ListItemIcon>
+                <PlaylistAdd />
+              </ListItemIcon>
+              <ListItemText primary={languageObjectProp.data.menuItems[4]} />
             </ListItem>
           </List>
 
@@ -130,14 +138,14 @@ class LeftMenu extends Component {
               <ListItemIcon>
                 <Face />
               </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[4]} />
+              <ListItemText primary={languageObjectProp.data.menuItems[5]} />
             </ListItem>
 
             <ListItem className="menuItem" button onClick={auth.doSignOut}>
               <ListItemIcon>
                 <Lock />
               </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[5]} />
+              <ListItemText primary={languageObjectProp.data.menuItems[6]} />
             </ListItem>
 
           </List>
