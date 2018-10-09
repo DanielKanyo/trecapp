@@ -72,23 +72,25 @@ const theme = createMuiTheme({
   }
 });
 
+const INITIAL_STATE = {
+  title: '',
+  story: '',
+  ingredients: '',
+  longDes: '',
+  sliderValue: 1,
+  hour: '0',
+  minute: '30',
+  dose: '',
+  cost: '',
+  publicChecked: false,
+  category: ''
+};
+
 class NewRecipe extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      title: '',
-      story: '',
-      ingredients: '',
-      longDes: '',
-      sliderValue: 1,
-      hour: '0',
-      minute: '30',
-      dose: '',
-      cost: '',
-      publicChecked: false,
-      category: ''
-    };
+    this.state = { ...INITIAL_STATE };
+    
     this.handleSaveRecipe = this.handleSaveRecipe.bind(this);
     this.clearForm = this.clearForm.bind(this);
   }
@@ -126,19 +128,7 @@ class NewRecipe extends Component {
     } else {
       this.props.saveRecipeProps(data);
 
-      this.setState({
-        title: '',
-        story: '',
-        longDes: '',
-        ingredients: '',
-        sliderValue: 1,
-        hour: '0',
-        minute: '30',
-        dose: '',
-        publicChecked: false,
-        category: '',
-        cost: ''
-      });
+      this.setState({ ...INITIAL_STATE });
     }
   }
 
@@ -158,19 +148,7 @@ class NewRecipe extends Component {
    * Clear input fields
    */
   clearForm() {
-    this.setState({
-      title: '',
-      story: '',
-      longDes: '',
-      ingredients: '',
-      sliderValue: 1,
-      hour: '0',
-      minute: '30',
-      dose: '',
-      publicChecked: false,
-      category: '',
-      cost: ''
-    });
+    this.setState({ ...INITIAL_STATE });
   }
 
   toastr(msg, bgColor) {

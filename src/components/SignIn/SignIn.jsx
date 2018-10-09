@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import compose from 'recompose/compose';
 
 import { SignUpLink } from '../SignUp/SignUp';
 import { PasswordForgetLink } from '../PasswordForget/PasswordForget';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
+import TextField from '@material-ui/core/TextField';
+
+const styles = theme => ({});
 
 const SignInPage = ({ history }) =>
-  <div>
-    <h1>SignIn</h1>
-    <SignInForm history={history} />
-    <PasswordForgetLink />
-    <SignUpLink />
+  <div className="sign-form">
+    <div className="outer">
+      <div className="middle">
+        <div className="inner">
+
+          <Paper className="sign-paper" elevation={1}>
+            <div>SignIn</div>
+            <SignInForm history={history} />
+            <PasswordForgetLink />
+            <SignUpLink />
+
+          </Paper>
+        </div>
+      </div>
+    </div>
   </div>
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -27,6 +44,8 @@ const INITIAL_STATE = {
 class SignInForm extends Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props);
 
     this.state = { ...INITIAL_STATE };
   }
@@ -66,29 +85,48 @@ class SignInForm extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <TextField
+          id="outlined-email-input"
+          label="Email"
+          className="sign-input"
+          type="email"
+          name="email"
+          autoComplete="email"
+          margin="normal"
+          variant="outlined"
           value={email}
-          onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
-          type="text"
           placeholder="Email Address"
+          onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
         />
-        <input
-          value={password}
-          onChange={event => this.setState(updateByPropertyName('password', event.target.value))}
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          className="sign-input"
           type="password"
+          name="password"
+          autoComplete="password"
+          margin="normal"
+          variant="outlined"
+          value={password}
           placeholder="Password"
+          onChange={event => this.setState(updateByPropertyName('password', event.target.value))}
         />
+
         <button disabled={isInvalid} type="submit">
           Sign In
         </button>
 
-        { error && <p>{error.message}</p> }
+        {error && <p>{error.message}</p>}
       </form>
     );
   }
 }
 
-export default withRouter(SignInPage);
+SignInPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default compose(withRouter, withStyles(styles))(SignInPage);
 
 export {
   SignInForm,

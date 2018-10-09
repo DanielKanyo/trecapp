@@ -1,11 +1,46 @@
 body {
-  background: #dadada;
   font-family: 'Roboto', sans-serif;
+  background: #e6e6e6;
 }
 
 button a {
   text-decoration: none;
   color: white;
+}
+
+.sign-form {
+  width: 100%;
+  height: calc(100vh - 128px);
+}
+
+.sign-paper {
+  padding: 16px;
+}
+
+.sign-input {
+  width: 100% !important;
+}
+
+.sign-input label {
+  z-index: 50;
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  height: calc(100vh - 128px);
+  width: 100%;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 420px;
 }
 
 .ComponentContent {
@@ -16,6 +51,7 @@ button a {
   display: flex;
   flex-direction: row;
   overflow-y: auto;
+  background: #e6e6e6;
 }
 
 .btn-my:hover {
@@ -296,6 +332,7 @@ input[type=time]::-webkit-clear-button {
 
 .recipe-card-content {
   padding-bottom: 16px !important;
+  padding-top: 0px !important;
 }
 
 .chip-card-content {
@@ -365,6 +402,14 @@ input[type=time]::-webkit-clear-button {
 
   .main-grid .grid-component:last-of-type {
     padding-bottom: 0px !important;
+  }
+
+  .outer {
+    height: calc(100vh - 112px);
+  }
+
+  .inner {
+    width: 320px;
   }
 }
 
