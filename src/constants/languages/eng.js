@@ -60,6 +60,10 @@ export const dataEng = {
       name: 'Name',
       language: 'Language',
       currency: 'Currency',
+    },
+    ShoppingList: {
+      input: 'Product...',
+      recentProduct: 'Recent Products'
     }
   }
 }

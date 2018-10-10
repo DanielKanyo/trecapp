@@ -6,6 +6,7 @@ import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import ListItem from './ListItem';
 import Paper from '@material-ui/core/Paper';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import TextField from '@material-ui/core/TextField';
@@ -88,7 +89,7 @@ class ShoppingList extends Component {
                   <TextField
                     id="standard-bare"
                     className={classes.textField}
-                    placeholder="Product..."
+                    placeholder={languageObjectProp.data.ShoppingList.input}
                     value={this.state.product}
                     margin="normal"
                     onChange={this.changeProductValue('product')}
@@ -100,6 +101,8 @@ class ShoppingList extends Component {
               </Paper>
 
               <EmptyList />
+
+              <ListItem />
             </Grid>
 
             <Grid item className="grid-component" xs={6}>
@@ -108,10 +111,10 @@ class ShoppingList extends Component {
                   <HistoryIcon />
                 </div>
                 <div className="paper-title-text">
-                  Recent Products
+                  {languageObjectProp.data.ShoppingList.recentProduct}
                 </div>
               </Paper>
-              
+
               <EmptyList />
             </Grid>
 

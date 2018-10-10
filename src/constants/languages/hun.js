@@ -60,6 +60,10 @@ export const dataHun = {
       name: 'Név',
       language: 'Nyelv',
       currency: 'Valuta',
+    },
+    ShoppingList: {
+      input: 'Termék...',
+      recentProduct: 'Legutóbbi Termékek'
     }
   }
 }
