@@ -46,7 +46,8 @@ class ShoppingList extends Component {
     super(props);
     this.state = {
       loggedInUserId: '',
-      product: ''
+      product: '',
+      items: []
     }
 
     this.saveItem = this.saveItem.bind(this);
@@ -67,23 +68,40 @@ class ShoppingList extends Component {
   };
 
   saveItem() {
+    let items = this.state.items;
+
     let item = {
       value: this.state.product,
       creationTime: new Date().getTime()
     };
-    
+
+    let data = item;
+
     db.addItem(this.state.loggedInUserId, item).then(snap => {
-      console.log(snap);
+      data.id = snap.key;
+
+      let temp = items.concat(
+        <ListItem
+          key={snap.key}
+          dataProp={data}
+          languageObjectProp={this.props.languageObjectProp}
+        />
+      );
+
+      this.setState({
+        items: temp
+      });
     });
 
     this.setState({
       product: ''
-    })
+    });
   }
 
   render() {
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
+    let { items } = this.state;
     return (
       <div className="ComponentContent">
         <MuiThemeProvider theme={theme}>
@@ -116,9 +134,12 @@ class ShoppingList extends Component {
                 </IconButton>
               </Paper>
 
-              <EmptyList />
+              {items.length === 0 ? <EmptyList /> : ''}
 
-              <ListItem />
+              {items.map((item, index) => {
+                return item;
+              })}
+
             </Grid>
 
             <Grid item className="grid-component" xs={6}>

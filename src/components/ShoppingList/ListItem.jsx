@@ -4,7 +4,7 @@ class ListItem extends Component {
   render() {
     return(
       <div>
-        ListItem
+        {this.props.dataProp.value}
       </div>
     );
   }
