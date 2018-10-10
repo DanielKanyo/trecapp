@@ -14,6 +14,8 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import HistoryIcon from '@material-ui/icons/History';
 
+import Notifications, { notify } from 'react-notify-toast';
+
 const styles = theme => ({
   textField: {
     width: '100%',
@@ -25,7 +27,7 @@ const styles = theme => ({
     marginBottom: 14
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: '8px 4px'
   },
 });
 
@@ -51,15 +53,42 @@ class ShoppingList extends Component {
     }
 
     this.saveItem = this.saveItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount() {
     this.mounted = true;
 
     let loggedInUserId = auth.getCurrentUserId();
+    let previousItems = this.state.items;
 
     this.setState({
-      loggedInUserId: loggedInUserId
+      loggedInUserId
+    });
+
+    db.getShoppingListItems(loggedInUserId).then(resItem => {
+
+      for (var key in resItem) {
+        if (resItem.hasOwnProperty(key)) {
+          let data = resItem[key];
+
+          data.itemId = key;
+
+          previousItems.push(
+            <ListItem
+              key={key}
+              dataProp={data}
+              languageObjectProp={this.props.languageObjectProp}
+              deleteItemProp={this.deleteItem}
+            />
+          )
+        }
+      }
+
+      this.setState({
+        items: previousItems
+      });
+
     });
   }
 
@@ -67,35 +96,79 @@ class ShoppingList extends Component {
     this.setState({ [name]: event.target.value });
   };
 
+  /**
+   * Save shopping list item
+   */
   saveItem() {
     let items = this.state.items;
 
-    let item = {
-      value: this.state.product,
-      creationTime: new Date().getTime()
-    };
+    if (this.state.product !== '') {
+      let item = {
+        value: this.state.product,
+        creationTime: new Date().getTime(),
+        inBasket: false
+      };
 
-    let data = item;
+      let data = item;
 
-    db.addItem(this.state.loggedInUserId, item).then(snap => {
-      data.id = snap.key;
+      db.addItem(this.state.loggedInUserId, item).then(snap => {
+        data.itemId = snap.key;
 
-      let temp = items.concat(
-        <ListItem
-          key={snap.key}
-          dataProp={data}
-          languageObjectProp={this.props.languageObjectProp}
-        />
-      );
+        let temp = items.concat(
+          <ListItem
+            key={snap.key}
+            dataProp={data}
+            languageObjectProp={this.props.languageObjectProp}
+            deleteItemProp={this.deleteItem}
+          />
+        );
+
+        this.setState({
+          items: temp
+        });
+      });
 
       this.setState({
-        items: temp
+        product: ''
       });
-    });
+    } else {
+      this.toastr('Fill the input field!', '#ffc107');
+    }
+  }
+
+  /**
+   * Delete item from database and from array
+   * 
+   * @param {string} itemId 
+   */
+  deleteItem(itemId) {
+    let previousItems = this.state.items;
+
+    db.removeShoppingListItem(this.state.loggedInUserId, itemId);
+
+    for (let i = 0; i < previousItems.length; i++) {
+      if (previousItems[i].key === itemId) {
+        previousItems.splice(i, 1);
+      }
+    }
 
     this.setState({
-      product: ''
+      items: previousItems
     });
+
+    this.toastr('Item deleted!', '#4BB543');
+  }
+
+  /**
+   * Show notification
+   * 
+   * @param {string} msg 
+   * @param {string} bgColor 
+   */
+  toastr(msg, bgColor) {
+    let style = { background: bgColor, text: "#FFFFFF" };
+
+    notify.show(msg, 'custom', 3000, style);
   }
 
   render() {
@@ -103,7 +176,7 @@ class ShoppingList extends Component {
     const { languageObjectProp } = this.props;
     let { items } = this.state;
     return (
-      <div className="ComponentContent">
+      <div className="ComponentContent ShoppingList">
         <MuiThemeProvider theme={theme}>
           <Grid className="main-grid" container spacing={16}>
 
@@ -129,7 +202,7 @@ class ShoppingList extends Component {
                     onChange={this.changeProductValue('product')}
                   />
                 </div>
-                <IconButton onClick={this.saveItem} className={classes.button + ' add-item-btn'} aria-label="visibility">
+                <IconButton onClick={this.saveItem} className={classes.button + ' add-item-btn'} aria-label="addItem">
                   <AddIcon />
                 </IconButton>
               </Paper>
@@ -158,6 +231,8 @@ class ShoppingList extends Component {
           </Grid>
 
         </MuiThemeProvider>
+
+        <Notifications options={{ zIndex: 5000 }} />
       </div>
     );
   }

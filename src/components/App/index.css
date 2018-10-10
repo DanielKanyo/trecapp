@@ -386,6 +386,24 @@ input[type=time]::-webkit-clear-button {
   top: 0 !important;
 }
 
+.done-icon {
+  fill: #b1b1b1 !important;
+}
+
+.ListItem {
+  display: flex;
+  flex-direction: row;
+}
+
+.list-value-container {
+  width: 100%;
+  line-height: 48px;
+}
+
+.ShoppingList .grid-component > div:last-of-type {
+  margin-bottom: 24px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

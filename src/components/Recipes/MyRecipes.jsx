@@ -50,7 +50,6 @@ class MyRecipes extends Component {
 
   /**
    * ComponentDidMount built in function
-   * 
    * Get favourites, get recipes, push recipes
    */
   componentDidMount() {
@@ -88,7 +87,7 @@ class MyRecipes extends Component {
 
           for (var key in recipes) {
             if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
-              
+
               if (favRecipeIdArray.includes(key)) isFavourite = true;
               else isFavourite = false;
 
@@ -209,8 +208,8 @@ class MyRecipes extends Component {
 
           <Grid item className="grid-component" xs={6}>
             <NewRecipe
-              currencyProp={this.state.currency} 
-              saveRecipeProps={this.saveRecipe.bind(this)} 
+              currencyProp={this.state.currency}
+              saveRecipeProps={this.saveRecipe.bind(this)}
               languageObjectProp={languageObjectProp} />
           </Grid>
 

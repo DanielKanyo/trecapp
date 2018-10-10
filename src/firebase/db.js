@@ -48,11 +48,11 @@ export const addRecipe = (id, recipe) => {
 }
 
 // Get users recipes
-export const getUsersRecipes = () => {
-  return db.ref(`recipes`).once('value').then(function (snap) {
+export const getUsersRecipes = () =>
+  db.ref(`recipes`).once('value').then(function (snap) {
     return snap.val();
   });
-}
+
 
 // Remove recipe
 export const removeRecipe = (recipeId) => {
@@ -111,8 +111,21 @@ export const addItem = (userId, item) => {
 
   itemRef.set({
     value: item.value,
-    creationTime: item.creationTime
+    creationTime: item.creationTime,
+    inBasket: item.inBasket
   });
 
   return itemRef;
+}
+
+// Get shopping items
+export const getShoppingListItems = (userId) =>
+  db.ref(`users/${userId}/shoppingListItems`).once('value').then(function (snap) {
+    return snap.val();
+  });
+
+// Remove shoppping list item
+export const removeShoppingListItem = (userId, itemId) => {
+  let itemRef = db.ref(`users/${userId}/shoppingListItems/${itemId}`);
+  itemRef.remove();
 }
