@@ -9,13 +9,18 @@ button a {
 }
 
 .sign-form {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: calc(100vh - 128px);
+  min-height: calc(100vh - 128px);
+  justify-content: center;
 }
 
 .sign-paper {
   padding: 16px;
   position: relative;
+  width: 380px;
+  margin: 0 auto;
 }
 
 .sign-title {
@@ -40,24 +45,6 @@ button a {
   z-index: 50;
 }
 
-.outer {
-  display: table;
-  position: absolute;
-  height: calc(100vh - 128px);
-  width: 100%;
-}
-
-.middle {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.inner {
-  margin-left: auto;
-  margin-right: auto;
-  width: 380px;
-}
-
 .sign-btn {
   width: 100% !important;
   margin-top: 10px !important;
@@ -79,6 +66,10 @@ button a {
   flex-direction: row;
   overflow-y: auto;
   background: #e6e6e6;
+}
+
+.grid-component {
+  position: relative;
 }
 
 .btn-my:hover {
@@ -129,6 +120,10 @@ button a {
 
 .paper-title-favourites {
   background: #9b42f4 !important;
+}
+
+.paper-title-shoppinglist {
+  background: #03c457 !important;
 }
 
 .paper-title-icon {
@@ -366,6 +361,21 @@ input[type=time]::-webkit-clear-button {
   margin-right: 8px;
 }
 
+.list-add-container {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  width: calc(100% - 16px);
+  padding: 8px;
+}
+
+.list-input-container {
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  background: #03c457;
+  padding: 10px 20px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -431,12 +441,14 @@ input[type=time]::-webkit-clear-button {
     padding-bottom: 0px !important;
   }
 
-  .outer {
-    height: calc(100vh - 112px);
+  .sign-form {
+    display: block;
+    padding-top: 40px;
+    min-height: calc(100vh - 96px);
   }
 
-  .inner {
-    width: 305px;
+  .sign-paper {
+    width: 260px;
   }
 }
 

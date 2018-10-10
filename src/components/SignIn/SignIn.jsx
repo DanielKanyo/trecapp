@@ -23,18 +23,12 @@ const styles = theme => ({
 
 const SignInPage = ({ history }) =>
   <div className="sign-form">
-    <div className="outer">
-      <div className="middle">
-        <div className="inner">
-          <Paper className="sign-paper" elevation={1}>
-            <div className="sign-title">Sign in</div>
-            <SignInForm history={history} />
-            <PasswordForgetLink />
-            <SignUpLink />
-          </Paper>
-        </div>
-      </div>
-    </div>
+    <Paper className="sign-paper" elevation={1}>
+      <div className="sign-title">Sign in</div>
+      <SignInForm history={history} />
+      <PasswordForgetLink />
+      <SignUpLink />
+    </Paper>
   </div>
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -129,7 +123,7 @@ class SignInForm extends Component {
             this.state.showPassword ?
               <IconButton onClick={this.changeInputType} className="show-password-btn" aria-label="visibility">
                 <VisibilityOff />
-              </IconButton> 
+              </IconButton>
               :
               <IconButton onClick={this.changeInputType} className="show-password-btn" aria-label="visibility">
                 <Visibility />
