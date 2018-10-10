@@ -92,6 +92,7 @@ button a {
   color: white !important;
   position: relative;
   flex-direction: row;
+  margin-bottom: 14px;
 }
 
 .paper-title-world {
@@ -124,6 +125,10 @@ button a {
 
 .paper-title-shoppinglist {
   background: #03c457 !important;
+}
+
+.paper-title-recent-product {
+  background: #01c1c4 !important;
 }
 
 .paper-title-icon {
@@ -374,6 +379,12 @@ input[type=time]::-webkit-clear-button {
   border-radius: 4px;
   background: #03c457;
   padding: 10px 20px;
+}
+
+.add-item-btn {
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
 }
 
 @media only screen and (max-width: 950px) {
