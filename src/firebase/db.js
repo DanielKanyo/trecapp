@@ -103,3 +103,16 @@ export const removeRecipeFromFavourites = (userId, favouriteId) => {
   let favouriteRef = db.ref(`users/${userId}/favourites/${favouriteId}`);
   favouriteRef.remove();
 }
+
+// Save shopping list item
+export const addItem = (userId, item) => {
+  let itemsRef = db.ref(`users/${userId}/shoppingListItems`);
+  let itemRef = itemsRef.push();
+
+  itemRef.set({
+    value: item.value,
+    creationTime: item.creationTime
+  });
+
+  return itemRef;
+}

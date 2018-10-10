@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-// import { auth, db } from '../../firebase';
+import { auth, db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
@@ -45,20 +45,36 @@ class ShoppingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loggedInUserId: '',
       product: ''
     }
 
-    this.addItemToList = this.addItemToList.bind(this);
+    this.saveItem = this.saveItem.bind(this);
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+    this.mounted = true;
+
+    let loggedInUserId = auth.getCurrentUserId();
+
+    this.setState({
+      loggedInUserId: loggedInUserId
+    });
+  }
 
   changeProductValue = name => event => {
     this.setState({ [name]: event.target.value });
   };
 
-  addItemToList() {
-    console.log(this.state.product);
+  saveItem() {
+    let item = {
+      value: this.state.product,
+      creationTime: new Date().getTime()
+    };
+    
+    db.addItem(this.state.loggedInUserId, item).then(snap => {
+      console.log(snap);
+    });
 
     this.setState({
       product: ''
@@ -95,7 +111,7 @@ class ShoppingList extends Component {
                     onChange={this.changeProductValue('product')}
                   />
                 </div>
-                <IconButton onClick={this.addItemToList} className={classes.button + ' add-item-btn'} aria-label="visibility">
+                <IconButton onClick={this.saveItem} className={classes.button + ' add-item-btn'} aria-label="visibility">
                   <AddIcon />
                 </IconButton>
               </Paper>
