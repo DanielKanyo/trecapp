@@ -138,3 +138,33 @@ export const updateItemInBasketValue = (userId, itemId, value) => {
     inBasket: value
   });
 }
+
+// Delete all shopping list item
+export const deleteAllShoppingListItem = (userId) => {
+  let shoppingListRef = db.ref(`users/${userId}/shoppingListItems`);
+  shoppingListRef.remove();
+}
+
+// Get all recent products
+export const getResentProducts = (userId) =>
+  db.ref(`users/${userId}/recentProducts`).once('value').then(function (snap) {
+    return snap.val();
+  });
+
+// Save product name for recet products feature
+export const saveProductForRecent = (userId, value) => {
+  let recProdsRef = db.ref(`users/${userId}/recentProducts`);
+  let recProdRef = recProdsRef.push();
+
+  recProdRef.set({
+    value
+  });
+
+  return recProdRef;
+}
+
+// Clear all recent products
+export const clearRecentProducts = (userId) => {
+  let recProdsRef = db.ref(`users/${userId}/recentProducts`);
+  recProdsRef.remove();
+}

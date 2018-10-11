@@ -48,16 +48,17 @@ const styles = theme => ({
     marginLeft: 'auto'
   },
   buttonClear: {
-    width: 100,
+    width: 'auto',
     color: 'white',
     marginLeft: 'auto',
+    padding: '7px 8px 7px 12px',
     background: '#F55300'
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
   },
   rightIcon: {
-    marginLeft: 12,
+    marginLeft: 8,
   },
 });
 
@@ -179,7 +180,7 @@ class NewRecipe extends Component {
               className={classes.buttonClear + ' btn-clear'}
               onClick={this.clearForm}
             >
-              Clear
+              {languageObjectProp.data.myRecipes.newRecipe.clearBtn}
               <ClearIcon className={classes.rightIcon} />
             </Button>
           </div>

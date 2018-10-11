@@ -6,6 +6,7 @@ export const dataHun = {
     myRecipes: {
       newRecipe: {
         title: 'Új Recept',
+        clearBtn: 'Kiürít',
         form: {
           title: 'Cím',
           story: 'Történet',
@@ -35,7 +36,13 @@ export const dataHun = {
         method: 'Metódus',
         numDose: 'adag',
         hourText: 'óra',
-        minuteText: 'perc'
+        minuteText: 'perc',
+        modal: {
+          title: 'Biztos benne?',
+          content: 'Biztosan törölni akarja a receptet?',
+          cancel: 'Mégse',
+          do: 'Törlés'
+        }
       },
       tooltips: {
         privateRecipe: 'Privát recept',
@@ -64,11 +71,21 @@ export const dataHun = {
     ShoppingList: {
       input: 'Termék...',
       recentProduct: 'Legutóbbi Termékek',
+      deleteAllBtn: 'Törlés',
       toaster: {
         inBasket: 'Termék a kosárban!',
         notInBasket: 'A termék nincs a kosárban!',
         inputWarning: 'Töltse ki a beviteli mezőt!',
+        itemAdded: 'Termék hozzáadva!',
         productDel: 'A termék törölve!',
+        allItemDeleted: 'Minden termék törölve!',
+        noItemInList: 'Nincs termék a listán!'
+      },
+      modal: {
+        title: 'Biztos benne?',
+        content: 'Biztosan törölni akarja a listában szereplő összes terméket?',
+        cancel: 'Mégse',
+        do: 'Törlés'
       }
     }
   }

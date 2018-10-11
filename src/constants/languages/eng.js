@@ -5,6 +5,7 @@ export const dataEng = {
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     myRecipes: {
       newRecipe: {
+        clearBtn: 'Empty',
         title: 'New Recipe',
         form: {
           title: 'Title',
@@ -35,7 +36,13 @@ export const dataEng = {
         method: 'Method',
         numDose: 'dose',
         hourText: 'hour',
-        minuteText: 'minutes'
+        minuteText: 'minutes',
+        modal: {
+          title: 'Are you sure?',
+          content: 'Are you sure you want to delete the recipe?',
+          cancel: 'Cancel',
+          do: 'Delete'
+        }
       },
       tooltips: {
         privateRecipe: 'Private recipe',
@@ -64,11 +71,21 @@ export const dataEng = {
     ShoppingList: {
       input: 'Product...',
       recentProduct: 'Recent Products',
+      deleteAllBtn: 'Delete',
       toaster: {
         inBasket: 'Product is in the basket!',
         notInBasket: 'Product is not in the basket!',
+        itemAdded: 'Product added!',
         inputWarning: 'Fill the input field!',
         productDel: 'Product deleted!',
+        allItemDeleted: 'All products are deleted!',
+        noItemInList: 'No product in your list!'
+      },
+      modal: {
+        title: 'Are you sure?',
+        content: 'Are you sure you want to delete all the products from the list?',
+        cancel: 'Cancel',
+        do: 'Delete'
       }
     }
   }

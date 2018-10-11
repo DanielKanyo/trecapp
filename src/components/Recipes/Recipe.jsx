@@ -25,6 +25,8 @@ import VisibilityOutlined from '@material-ui/icons/VisibilityOutlined';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -311,13 +313,18 @@ class Recipe extends Component {
           aria-describedby="alert-dialog-description"
           id='delete-recipe-dialog'
         >
-          <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{languageObjectProp.data.myRecipes.myRecipes.modal.title}</DialogTitle>
+          <DialogContent id="alert-dialog-content">
+            <DialogContentText id="alert-dialog-description">
+              {languageObjectProp.data.myRecipes.myRecipes.modal.content}
+            </DialogContentText>
+          </DialogContent>
           <DialogActions>
             <Button onClick={this.handleCloseDialog} color="primary">
-              Cancel
+              {languageObjectProp.data.myRecipes.myRecipes.modal.cancel}
             </Button>
             <Button onClick={() => { this.handleCloseDialog(); this.handleDeleteRecipe(data.recipeId) }} color="primary" autoFocus>
-              Delete
+              {languageObjectProp.data.myRecipes.myRecipes.modal.do}
             </Button>
           </DialogActions>
         </Dialog>
