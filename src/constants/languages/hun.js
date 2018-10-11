@@ -63,7 +63,13 @@ export const dataHun = {
     },
     ShoppingList: {
       input: 'Termék...',
-      recentProduct: 'Legutóbbi Termékek'
+      recentProduct: 'Legutóbbi Termékek',
+      toaster: {
+        inBasket: 'Termék a kosárban!',
+        notInBasket: 'A termék nincs a kosárban!',
+        inputWarning: 'Töltse ki a beviteli mezőt!',
+        productDel: 'A termék törölve!',
+      }
     }
   }
 }

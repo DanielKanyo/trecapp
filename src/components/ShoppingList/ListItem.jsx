@@ -64,9 +64,9 @@ class ListItem extends Component {
     });
 
     if (inBasket) {
-      this.toastr('Product is not in the basket!', '#4BB543');
+      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.notInBasket, '#4BB543');
     } else {
-      this.toastr('Product is in the basket!', '#4BB543');
+      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.inBasket, '#4BB543');
     }
 
   }

@@ -134,7 +134,7 @@ class ShoppingList extends Component {
         product: ''
       });
     } else {
-      this.toastr('Fill the input field!', '#ffc107');
+      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.inputWarning, '#ffc107');
     }
   }
 
@@ -167,7 +167,7 @@ class ShoppingList extends Component {
       items: previousItems
     });
 
-    this.toastr('Item deleted!', '#4BB543');
+    this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.productDel, '#4BB543');
   }
 
   /**

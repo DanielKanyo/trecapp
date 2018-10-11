@@ -63,7 +63,13 @@ export const dataEng = {
     },
     ShoppingList: {
       input: 'Product...',
-      recentProduct: 'Recent Products'
+      recentProduct: 'Recent Products',
+      toaster: {
+        inBasket: 'Product is in the basket!',
+        notInBasket: 'Product is not in the basket!',
+        inputWarning: 'Fill the input field!',
+        productDel: 'Product deleted!',
+      }
     }
   }
 }
