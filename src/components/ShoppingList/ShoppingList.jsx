@@ -79,6 +79,7 @@ class ShoppingList extends Component {
               key={key}
               dataProp={data}
               languageObjectProp={this.props.languageObjectProp}
+              loggedInUserIdProp={loggedInUserId}
               deleteItemProp={this.deleteItem}
             />
           )
@@ -119,6 +120,7 @@ class ShoppingList extends Component {
             key={snap.key}
             dataProp={data}
             languageObjectProp={this.props.languageObjectProp}
+            loggedInUserIdProp={this.state.loggedInUserId}
             deleteItemProp={this.deleteItem}
           />
         );
@@ -175,6 +177,7 @@ class ShoppingList extends Component {
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
     let { items } = this.state;
+
     return (
       <div className="ComponentContent ShoppingList">
         <MuiThemeProvider theme={theme}>

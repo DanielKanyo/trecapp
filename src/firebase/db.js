@@ -129,3 +129,12 @@ export const removeShoppingListItem = (userId, itemId) => {
   let itemRef = db.ref(`users/${userId}/shoppingListItems/${itemId}`);
   itemRef.remove();
 }
+
+// Update inBasket value
+export const updateItemInBasketValue = (userId, itemId, value) => {
+  let itemRef = db.ref(`users/${userId}/shoppingListItems/${itemId}`);
+
+  return itemRef.update({
+    inBasket: value
+  });
+}
