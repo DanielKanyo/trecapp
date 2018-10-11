@@ -402,6 +402,7 @@ input[type=time]::-webkit-clear-button {
 .list-value-container {
   width: 100%;
   line-height: 48px;
+  color: #444444;
 }
 
 .ShoppingList .grid-component > div:last-of-type {
@@ -433,6 +434,10 @@ input[type=time]::-webkit-clear-button {
 
   .sub-grid .grid-right {
     padding-left: 0px !important;
+  }
+
+  .ShoppingList .grid-component > div:last-of-type {
+    margin-bottom: 0px !important;
   }
 }
 

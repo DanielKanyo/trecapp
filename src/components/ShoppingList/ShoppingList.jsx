@@ -139,6 +139,15 @@ class ShoppingList extends Component {
   }
 
   /**
+   * If user press enter, call saveItem function
+   */
+  handleKeyPressAddItem = event => {
+    if (event.key === 'Enter') {
+      this.saveItem();
+    }
+  }
+
+  /**
    * Delete item from database and from array
    * 
    * @param {string} itemId 
@@ -203,9 +212,13 @@ class ShoppingList extends Component {
                     value={this.state.product}
                     margin="normal"
                     onChange={this.changeProductValue('product')}
+                    onKeyPress={this.handleKeyPressAddItem}
                   />
                 </div>
-                <IconButton onClick={this.saveItem} className={classes.button + ' add-item-btn'} aria-label="addItem">
+                <IconButton 
+                  onClick={this.saveItem} 
+                  className={classes.button + ' add-item-btn'}
+                  aria-label="addItem">
                   <AddIcon />
                 </IconButton>
               </Paper>
