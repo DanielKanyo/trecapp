@@ -23,10 +23,81 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Chip from '@material-ui/core/Chip';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import deburr from 'lodash/deburr';
+import Autosuggest from 'react-autosuggest';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+
+function renderInputComponent(inputProps) {
+  const { classes, inputRef = () => { }, ref, ...other } = inputProps;
+
+  return (
+    <TextField
+      fullWidth
+      InputProps={{
+        inputRef: node => {
+          ref(node);
+          inputRef(node);
+        },
+        classes: {
+          input: classes.input,
+        },
+      }}
+      {...other}
+    />
+  );
+}
+
+function renderSuggestion(suggestion, { query, isHighlighted }) {
+  const matches = match(suggestion.label, query);
+  const parts = parse(suggestion.label, matches);
+
+  return (
+    <MenuItem selected={isHighlighted} component="div">
+      <div>
+        {parts.map((part, index) => {
+          return part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 500 }}>
+              {part.text}
+            </span>
+          ) : (
+              <strong key={String(index)} style={{ fontWeight: 300 }}>
+                {part.text}
+              </strong>
+            );
+        })}
+      </div>
+    </MenuItem>
+  );
+}
+
+function getSuggestions(value, suggestionsObjectProp) {
+  const inputValue = deburr(value.trim()).toLowerCase();
+  const inputLength = inputValue.length;
+  let count = 0;
+
+  return inputLength === 0
+    ? []
+    : suggestionsObjectProp.filter(suggestion => {
+      const keep =
+        count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+
+      if (keep) {
+        count += 1;
+      }
+
+      return keep;
+    });
+}
+
+function getSuggestionValue(suggestion) {
+  return suggestion.label;
+}
 
 const styles = theme => ({
   textField: {
@@ -62,6 +133,24 @@ const styles = theme => ({
   chip: {
     margin: theme.spacing.unit,
   },
+  container: {
+    position: 'relative',
+  },
+  suggestionsContainerOpen: {
+    position: 'absolute',
+    zIndex: 1,
+    marginTop: theme.spacing.unit,
+    left: 0,
+    right: 0,
+  },
+  suggestion: {
+    display: 'block',
+  },
+  suggestionsList: {
+    margin: 0,
+    padding: 0,
+    listStyleType: 'none',
+  },
 });
 
 const theme = createMuiTheme({
@@ -85,6 +174,7 @@ class ShoppingList extends Component {
       items: [],
       recentProducts: [],
       dialogOpen: false,
+      suggestions: [],
     }
 
     this.saveItem = this.saveItem.bind(this);
@@ -93,6 +183,27 @@ class ShoppingList extends Component {
     this.handleClearResentProducts = this.handleClearResentProducts.bind(this);
     this.handleAddItemFromRecentProduct = this.handleAddItemFromRecentProduct.bind(this);
   }
+
+  handleSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value, this.props.suggestionsObjectProp),
+    });
+  };
+
+  handleSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: [],
+    });
+  };
+
+  /**
+   * Change product value
+   */
+  changeProductValue = name => (event, { newValue }) => {
+    this.setState({
+      [name]: newValue,
+    });
+  };
 
   componentDidMount() {
     this.mounted = true;
@@ -162,10 +273,6 @@ class ShoppingList extends Component {
   componentWillUnmount() {
     this.mounted = false;
   }
-
-  changeProductValue = name => event => {
-    this.setState({ [name]: event.target.value });
-  };
 
   /**
    * Open dialog
@@ -255,7 +362,7 @@ class ShoppingList extends Component {
   /**
    * Delete item from database and from array
    * 
-   * @param {string} itemId 
+   * @param {String} itemId 
    */
   deleteItem(itemId) {
     let previousItems = this.state.items;
@@ -267,7 +374,7 @@ class ShoppingList extends Component {
         previousItems.splice(i, 1);
       }
     }
-    
+
     if (this.mounted) {
       this.setState({
         items: previousItems
@@ -305,6 +412,12 @@ class ShoppingList extends Component {
     });
   }
 
+  /**
+   * add item from recent products
+   * 
+   * @param {Object} e 
+   * @param {String} value 
+   */
   handleAddItemFromRecentProduct(e, value) {
     this.saveItem(e, value);
   }
@@ -314,6 +427,15 @@ class ShoppingList extends Component {
     const { languageObjectProp } = this.props;
     let { items } = this.state;
     let { recentProducts } = this.state;
+
+    const autosuggestProps = {
+      renderInputComponent,
+      suggestions: this.state.suggestions,
+      onSuggestionsFetchRequested: this.handleSuggestionsFetchRequested,
+      onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
+      getSuggestionValue,
+      renderSuggestion,
+    };
 
     return (
       <div className="ComponentContent ShoppingList">
@@ -344,14 +466,28 @@ class ShoppingList extends Component {
 
               <Paper className={classes.paper}>
                 <div className="shoppinglist-input-container">
-                  <TextField
-                    id="standard-bare"
+                  <Autosuggest
                     className={classes.textField}
-                    placeholder={languageObjectProp.data.ShoppingList.input}
-                    value={this.state.product}
-                    margin="normal"
-                    onChange={this.changeProductValue('product')}
-                    onKeyPress={this.handleKeyPressAddItem}
+                    id="product-autocomplete"
+                    {...autosuggestProps}
+                    inputProps={{
+                      classes,
+                      placeholder: languageObjectProp.data.ShoppingList.input,
+                      value: this.state.product,
+                      onChange: this.changeProductValue('product'),
+                      onKeyPress: this.handleKeyPressAddItem
+                    }}
+                    theme={{
+                      container: classes.container,
+                      suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                      suggestionsList: classes.suggestionsList,
+                      suggestion: classes.suggestion,
+                    }}
+                    renderSuggestionsContainer={options => (
+                      <Paper {...options.containerProps} square>
+                        {options.children}
+                      </Paper>
+                    )}
                   />
                 </div>
                 <IconButton

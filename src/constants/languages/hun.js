@@ -90,3 +90,7 @@ export const dataHun = {
     }
   }
 }
+
+export const suggestionsHun = [
+  { label: 'Alma' }
+];

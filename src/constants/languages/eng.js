@@ -90,3 +90,7 @@ export const dataEng = {
     }
   }
 }
+
+export const suggestionsEng = [
+  { label: 'Apple' }
+];

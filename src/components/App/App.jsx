@@ -20,6 +20,9 @@ import * as routes from '../../constants/routes';
 import { dataHun } from '../../constants/languages/hun';
 import { dataEng } from '../../constants/languages/eng';
 
+import { suggestionsHun } from '../../constants/languages/hun';
+import { suggestionsEng } from '../../constants/languages/eng';
+
 import './index.css';
 
 class App extends Component {
@@ -32,7 +35,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      languageObject: dataEng
+      languageObject: dataEng,
+      suggestionsObject: suggestionsEng,
     };
     this.setLanguage = this.setLanguage.bind(this);
   }
@@ -45,10 +49,16 @@ class App extends Component {
   setLanguage(language) {
     switch (language) {
       case 'eng':
-        this.setState({ languageObject: dataEng })
+        this.setState({ 
+          languageObject: dataEng,
+          suggestionsObject: suggestionsEng
+        });
         break;
       default:
-        this.setState({ languageObject: dataHun })
+        this.setState({ 
+          languageObject: dataHun,
+          suggestionsObject: suggestionsHun
+        });
         break;
     }
   }
@@ -90,7 +100,7 @@ class App extends Component {
             component={() => <Favourites languageObjectProp={this.state.languageObject} />}
           />
           <Route exact path={routes.SHOPPINGLIST}
-            component={() => <ShoppingList languageObjectProp={this.state.languageObject} />}
+            component={() => <ShoppingList languageObjectProp={this.state.languageObject} suggestionsObjectProp={this.state.suggestionsObject} />}
           />
         </div>
       </Router>

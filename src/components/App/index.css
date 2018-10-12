@@ -451,6 +451,10 @@ input[type=time]::-webkit-clear-button {
   text-align: center !important;
 }
 
+.shoppinglist-input-container {
+  margin: 8px 0px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
