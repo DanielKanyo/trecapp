@@ -11,7 +11,6 @@ import FormControl from '@material-ui/core/FormControl';
 import SaveIcon from '@material-ui/icons/Save';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
-import Notifications, { notify } from 'react-notify-toast';
 
 const styles = theme => ({
   textField: {
@@ -97,20 +96,7 @@ class AccountDetails extends Component {
     } else {
       this.props.handleSaveNewAccountDataProp(this.props.accountNameProp, this.props.accountLanguageProp, this.props.accountCurrencyProp);
       this.props.setLanguageProp(this.props.accountLanguageProp);
-      this.toastr('Recipe saved!', '#4BB543');
     }
-  }
-
-  /**
-   * Show notification
-   * 
-   * @param {string} msg 
-   * @param {string} bgColor 
-   */
-  toastr(msg, bgColor) {
-    let style = { background: bgColor, text: "#FFFFFF" };
-
-    notify.show(msg, 'custom', 3000, style);
   }
 
   /**
@@ -189,8 +175,6 @@ class AccountDetails extends Component {
             </div>
           </div>
         </Paper>
-
-        <Notifications options={{ zIndex: 5000 }} />
       </div>
     );
   }

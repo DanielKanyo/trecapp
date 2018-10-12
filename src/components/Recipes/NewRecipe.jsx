@@ -19,7 +19,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import Notifications, { notify } from 'react-notify-toast';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
   paper: {
@@ -125,7 +126,7 @@ class NewRecipe extends Component {
     };
 
     if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || data.dose === '' || data.cost === '' || !data.category) {
-      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.warningFillReq, '#ffc107');
+      toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.warningFillReq);
     } else {
       this.props.saveRecipeProps(data);
 
@@ -150,12 +151,6 @@ class NewRecipe extends Component {
    */
   clearForm() {
     this.setState({ ...INITIAL_STATE });
-  }
-
-  toastr(msg, bgColor) {
-    let style = { background: bgColor, text: "#FFFFFF" };
-
-    notify.show(msg, 'custom', 3000, style);
   }
 
   render() {
@@ -358,7 +353,6 @@ class NewRecipe extends Component {
             </div>
           </MuiThemeProvider>
         </Paper>
-        <Notifications options={{ zIndex: 5000 }} />
       </div>
     );
   }

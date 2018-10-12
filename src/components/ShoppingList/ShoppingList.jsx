@@ -24,7 +24,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import Chip from '@material-ui/core/Chip';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-import Notifications, { notify } from 'react-notify-toast';
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
   textField: {
@@ -213,7 +215,7 @@ class ShoppingList extends Component {
         });
       });
 
-      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.itemAdded, '#4BB543')
+      toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.itemAdded);
 
       if (!newValue) {
         db.saveProductForRecent(this.state.loggedInUserId, item.value).then(resResProd => {
@@ -237,7 +239,7 @@ class ShoppingList extends Component {
         product: ''
       });
     } else {
-      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.inputWarning, '#ffc107');
+      toast.warn(this.props.languageObjectProp.data.ShoppingList.toaster.inputWarning);
     }
   }
 
@@ -265,12 +267,14 @@ class ShoppingList extends Component {
         previousItems.splice(i, 1);
       }
     }
+    
+    if (this.mounted) {
+      this.setState({
+        items: previousItems
+      });
+    }
 
-    this.setState({
-      items: previousItems
-    });
-
-    this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.productDel, '#4BB543');
+    toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.productDel);
   }
 
   /**
@@ -278,11 +282,11 @@ class ShoppingList extends Component {
    */
   deleteAllItem() {
     if (this.state.items.length === 0) {
-      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.noItemInList, '#ffc107');
+      toast.warn(this.props.languageObjectProp.data.ShoppingList.toaster.noItemInList);
     } else {
       db.deleteAllShoppingListItem(this.state.loggedInUserId);
 
-      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.allItemDeleted, '#4BB543');
+      toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.allItemDeleted);
 
       this.setState({
         items: []
@@ -303,18 +307,6 @@ class ShoppingList extends Component {
 
   handleAddItemFromRecentProduct(e, value) {
     this.saveItem(e, value);
-  }
-
-  /**
-   * Show notification
-   * 
-   * @param {string} msg 
-   * @param {string} bgColor 
-   */
-  toastr(msg, bgColor) {
-    let style = { background: bgColor, text: "#FFFFFF" };
-
-    notify.show(msg, 'custom', 3000, style);
   }
 
   render() {
@@ -436,7 +428,16 @@ class ShoppingList extends Component {
           </DialogActions>
         </Dialog>
 
-        <Notifications options={{ zIndex: 5000 }} />
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          pauseOnHover
+        />
       </div>
     );
   }

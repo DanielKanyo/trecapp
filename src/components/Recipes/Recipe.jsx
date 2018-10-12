@@ -30,7 +30,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import Notifications, { notify } from 'react-notify-toast';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
   paper: {
@@ -124,9 +125,9 @@ class Recipe extends Component {
     });
 
     if (isPublic) {
-      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.removedFromPublic, '#4BB543');
+      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.removedFromPublic);
     } else {
-      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.addedToPublic, '#4BB543');
+      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.addedToPublic);
     }
   }
 
@@ -152,25 +153,13 @@ class Recipe extends Component {
           favouriteId
         });
 
-        this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.addedToFav, '#4BB543');
+        toast.success(this.props.languageObjectProp.data.myRecipes.toaster.addedToFav);
       });
     } else {
       db.removeRecipeFromFavourites(userId, this.state.favouriteId);
 
-      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav, '#4BB543');
+      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav);
     }
-  }
-
-  /**
-   * Show notification
-   * 
-   * @param {string} msg 
-   * @param {string} bgColor 
-   */
-  toastr(msg, bgColor) {
-    let style = { background: bgColor, text: "#FFFFFF" };
-
-    notify.show(msg, 'custom', 3000, style);
   }
 
   /**
@@ -328,8 +317,6 @@ class Recipe extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-
-        <Notifications options={{ zIndex: 5000 }} />
       </div>
     );
   }

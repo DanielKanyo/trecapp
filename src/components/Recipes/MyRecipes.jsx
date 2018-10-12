@@ -15,7 +15,9 @@ import Receipt from '@material-ui/icons/Receipt';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import Notifications, { notify } from 'react-notify-toast';
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
   paper: {
@@ -149,7 +151,7 @@ class MyRecipes extends Component {
         />
       ].concat(recipes);
 
-      this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.recipeSaved, '#4BB543');
+      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.recipeSaved);
 
       this.setState({
         recipes: temp
@@ -178,19 +180,7 @@ class MyRecipes extends Component {
       notes: previousRecipes
     });
 
-    this.toastr(this.props.languageObjectProp.data.myRecipes.toaster.recipeRemoved, '#4BB543');
-  }
-
-  /**
-   * Show notification
-   * 
-   * @param {string} msg 
-   * @param {string} bgColor 
-   */
-  toastr(msg, bgColor) {
-    let style = { background: bgColor, text: "#FFFFFF" };
-
-    notify.show(msg, 'custom', 3000, style);
+    toast.success(this.props.languageObjectProp.data.myRecipes.toaster.recipeRemoved);
   }
 
   /**
@@ -239,7 +229,16 @@ class MyRecipes extends Component {
 
         </Grid>
 
-        <Notifications options={{ zIndex: 5000 }} />
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          pauseOnHover
+        />
       </div>
     );
   }

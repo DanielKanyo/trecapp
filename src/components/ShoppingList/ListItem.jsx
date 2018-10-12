@@ -10,7 +10,8 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-import Notifications, { notify } from 'react-notify-toast';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
   paper: {
@@ -40,6 +41,17 @@ class ListItem extends Component {
     };
   }
 
+  componentDidMount() {
+    this.mounted = true;
+  }
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   /**
    * pass id to parent component to delete item
    * 
@@ -59,28 +71,17 @@ class ListItem extends Component {
 
     db.updateItemInBasketValue(this.state.loggedInUserId, itemId, !inBasket);
 
-    this.setState({
-      inBasket: !inBasket
-    });
+    if (this.mounted) {
+      this.setState({
+        inBasket: !inBasket
+      });
 
-    if (inBasket) {
-      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.notInBasket, '#4BB543');
-    } else {
-      this.toastr(this.props.languageObjectProp.data.ShoppingList.toaster.inBasket, '#4BB543');
+      if (inBasket) {
+        toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.notInBasket);
+      } else {
+        toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.inBasket);
+      }
     }
-
-  }
-
-  /**
-   * Show notification
-   * 
-   * @param {string} msg 
-   * @param {string} bgColor 
-   */
-  toastr(msg, bgColor) {
-    let style = { background: bgColor, text: "#FFFFFF" };
-
-    notify.show(msg, 'custom', 3000, style);
   }
 
   render() {
@@ -111,8 +112,6 @@ class ListItem extends Component {
             </IconButton>
           </div>
         </div>
-
-        <Notifications options={{ zIndex: 5000 }} />
       </Paper>
     );
   }

@@ -56,7 +56,7 @@ export const dataHun = {
       toaster: {
         recipeSaved: 'Recept elmentve!',
         recipeRemoved: 'Recept törölve!',
-        warningFillReq: 'Vigyázat! Töltse ki a kötelező mezőket...',
+        warningFillReq: 'Töltse ki a beviteli mezőket...',
         addedToPublic: 'Receptje mostantól nyilvános!',
         removedFromPublic: 'Receptje mostantól privát!',
         addedToFav: 'Recept hozzáadva a kedvencekhez!',

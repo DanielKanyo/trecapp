@@ -56,7 +56,7 @@ export const dataEng = {
       toaster: {
         recipeSaved: 'Recipe saved!',
         recipeRemoved: 'Recipe deleted!',
-        warningFillReq: 'Warning! Fill the required fields...',
+        warningFillReq: 'Fill the input fields...',
         addedToPublic: 'Your recipe is now public!',
         removedFromPublic: 'Your recipe is no longer public!',
         addedToFav: 'Recipe added to favourites!',

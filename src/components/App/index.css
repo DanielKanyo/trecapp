@@ -415,7 +415,7 @@ input[type=time]::-webkit-clear-button {
   color: #444444;
 }
 
-.ShoppingList .grid-component > div:last-of-type {
+.ShoppingList .grid-component>div:last-of-type {
   margin-bottom: 24px !important;
 }
 
@@ -436,6 +436,19 @@ input[type=time]::-webkit-clear-button {
 .res-prod-chip-item {
   margin: 0px 6px 6px 0px !important;
   background: #d1d1d1 !important;
+}
+
+.Toastify__toast--success,
+.Toastify__toast--warning {
+  border-radius: 4px !important;
+}
+
+.Toastify__toast--success {
+  background: #03c457 !important;
+}
+
+.Toastify__toast-body {
+  text-align: center !important;
 }
 
 @media only screen and (max-width: 950px) {
@@ -461,11 +474,11 @@ input[type=time]::-webkit-clear-button {
     padding-left: 0px !important;
   }
 
-  .ShoppingList .new-shopping-list-grid > div:last-of-type {
+  .ShoppingList .new-shopping-list-grid>div:last-of-type {
     margin-bottom: 0px !important;
   }
 
-  .ShoppingList .recent-product-grid > div:last-of-type {
+  .ShoppingList .recent-product-grid>div:last-of-type {
     margin-bottom: 14px !important;
   }
 }
