@@ -8,6 +8,10 @@ button a {
   color: white;
 }
 
+.app-bar-nav>div {
+  min-height: 56px !important;
+}
+
 .sign-form {
   display: flex;
   flex-direction: column;
@@ -58,8 +62,8 @@ button a {
 }
 
 .ComponentContent {
-  height: calc(100vh - 80px);
-  padding-top: 80px;
+  height: calc(100vh - 70px);
+  padding-top: 70px;
   padding-left: 12px;
   padding-right: 12px;
   display: flex;
@@ -358,7 +362,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .recipe-content:last-of-type {
-  margin-bottom: 24px;
+  margin-bottom: 21px;
 }
 
 .language-currency-container {
@@ -460,6 +464,10 @@ input[type=time]::-webkit-clear-button {
     width: 100% !important;
     max-width: 100% !important;
     flex-basis: 100% !important;
+  }
+
+  .recipe-content:last-of-type {
+    margin-bottom: 13px;
   }
 
   .main-grid {

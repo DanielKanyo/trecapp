@@ -92,5 +92,9 @@ export const dataEng = {
 }
 
 export const suggestionsEng = [
-  { label: 'Apple' }
+  { label: 'Apple' },
+  { label: 'Pineapple' },
+  { label: 'Avocado' },
+  { label: 'Banana' },
+  { label: 'Pepper' },
 ];

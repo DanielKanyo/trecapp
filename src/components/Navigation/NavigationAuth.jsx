@@ -136,7 +136,7 @@ class NavigationAuth extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={classes.appbar} position="static">
+        <AppBar className={classes.appbar + ' app-bar-nav'} position="static">
           <Toolbar>
             <IconButton onClick={this.toggleLeftMenu} className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />

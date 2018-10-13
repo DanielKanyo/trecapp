@@ -92,5 +92,9 @@ export const dataHun = {
 }
 
 export const suggestionsHun = [
-  { label: 'Alma' }
+  { label: 'Alma' },
+  { label: 'Ananász' },
+  { label: 'Avokádó' },
+  { label: 'Banán' },
+  { label: 'Bors' },
 ];
