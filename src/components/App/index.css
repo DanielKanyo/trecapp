@@ -458,6 +458,11 @@ input[type=time]::-webkit-clear-button {
   margin: 8px 0px !important;
 }
 
+.progress-container {
+  padding: 10px 0px;
+  text-align: center;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

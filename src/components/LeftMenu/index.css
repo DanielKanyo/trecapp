@@ -88,7 +88,9 @@
 @media only screen and (max-width: 750px) {
   .LeftMenu {
     position: absolute;
-    z-index: 20;
+    z-index: 20; 
+    -webkit-transition: 0s;
+    transition: 0s;
   }
 
   .left-menu-background-image {
