@@ -60,7 +60,8 @@ export const dataEng = {
         addedToPublic: 'Your recipe is now public!',
         removedFromPublic: 'Your recipe is no longer public!',
         addedToFav: 'Recipe added to favourites!',
-        removedFromFav: 'Recipe removed from favourites!'
+        removedFromFav: 'Recipe removed from favourites!',
+        warningSmallerThanOne: 'You can not enter a negative value!'
       }
     },
     Account: {

@@ -128,9 +128,14 @@ class NewRecipe extends Component {
     if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || data.dose === '' || data.cost === '' || !data.category) {
       toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.warningFillReq);
     } else {
-      this.props.saveRecipeProps(data);
+      if (data.dose < 1 || data.cost < 1) {
+        toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.warningSmallerThanOne);
+      } else {
+        this.props.saveRecipeProps(data);
 
-      this.setState({ ...INITIAL_STATE });
+        this.setState({ ...INITIAL_STATE });
+      }
+
     }
   }
 

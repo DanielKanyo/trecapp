@@ -60,7 +60,8 @@ export const dataHun = {
         addedToPublic: 'Receptje mostantól nyilvános!',
         removedFromPublic: 'Receptje mostantól privát!',
         addedToFav: 'Recept hozzáadva a kedvencekhez!',
-        removedFromFav: 'Recept eltávolítva a kedvencekből!'
+        removedFromFav: 'Recept eltávolítva a kedvencekből!',
+        warningSmallerThanOne: 'Nem írhat be negatív értéket!'
       }
     },
     Account: {
