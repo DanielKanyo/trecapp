@@ -115,7 +115,7 @@ class LeftMenu extends Component {
               <ListItemText primary={languageObjectProp.data.menuItems[2]} />
             </ListItem>
 
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.CATEGORIES}>
               <ListItemIcon>
                 <Dashboard />
               </ListItemIcon>

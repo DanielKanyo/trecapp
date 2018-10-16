@@ -64,6 +64,7 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit,
+    backgroundColor: "#efefef"
   },
 });
 
@@ -137,7 +138,7 @@ class Recipe extends Component {
    * @param {strin} recipeId 
    * @param {string} userId 
    */
-  handleAddOrRemoveToFavorites(recipeId, userId) {
+  handleToggleFavourite(recipeId, userId) {
     let isFav = this.state.isFavourite;
     let newValue = !isFav;
 
@@ -145,20 +146,29 @@ class Recipe extends Component {
       isFavourite: newValue
     });
 
+    db.toggleFavourite(userId, recipeId).then(recipe => {
+      let recipeNew = recipe.snapshot.val();
+
+      this.setState({
+        favouriteCounter: recipeNew.favouriteCounter
+      });
+    });
+
     if (newValue) {
       toast.success(this.props.languageObjectProp.data.myRecipes.toaster.addedToFav);
     } else {
       toast.success(this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav);
     }
+  }
 
-    db.toggleFavourite(userId, recipeId).then(recipe => {
-      let recipeNew = recipe.snapshot.val();
-      
-      this.setState({
-        favouriteCounter: recipeNew.favouriteCounter
-      });
-
-    });
+  numberFormatter(number) {
+    if (number > 1000000) {
+      return (number/1000000).toFixed(1) + 'M';
+    } else if (number > 1000) {
+      return (number/1000).toFixed(1) + 'k';
+    } else {
+      return number;
+    }
   }
 
   /**
@@ -205,52 +215,26 @@ class Recipe extends Component {
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
 
-            {this.state.isFavourite ?
-              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.removeFromFav}>
-                <div className="fav-icon-and-counter">
-                  <IconButton
-                    aria-label="Remove from favorites"
-                    onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
-                  >
-                    <FavoriteIcon />
-                  </IconButton>
-                  <div className="fav-counter">{this.state.favouriteCounter}</div>
-                </div>
-              </Tooltip>
-              :
-              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.addToFav}>
-                <div className="fav-icon-and-counter">
-                  <IconButton
-                    aria-label="Add to favorites"
-                    onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
-                  >
-                    <FavoriteBorderIcon className="icon-outlined" />
-                  </IconButton>
-                  <div className="fav-counter">{this.state.favouriteCounter}</div>
-                </div>
-              </Tooltip>
-            }
-
-            {this.state.visibility ?
-              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.publicRecipe}>
+            <Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
+              <div className="fav-icon-and-counter">
                 <IconButton
-                  aria-label="Public recipe"
-                  onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
+                  aria-label="Remove from favorites"
+                  onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.userId) }}
                 >
+                  {this.state.isFavourite ? <FavoriteIcon className="fav-icon" /> : <FavoriteBorderIcon className="icon-outlined" />}
+                </IconButton>
+                {this.state.favouriteCounter ? <div className="fav-counter"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
+              </div>
+            </Tooltip>
 
-                  <Visibility />
-                </IconButton>
-              </Tooltip>
-              :
-              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.privateRecipe}>
-                <IconButton
-                  aria-label="Private recipe"
-                  onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
-                >
-                  <VisibilityOutlined className="icon-outlined" />
-                </IconButton>
-              </Tooltip>
-            }
+            <Tooltip title={this.state.visibility ? languageObjectProp.data.myRecipes.tooltips.publicRecipe : languageObjectProp.data.myRecipes.tooltips.privateRecipe}>
+              <IconButton
+                aria-label="Public recipe"
+                onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
+              >
+                {this.state.visibility ? <Visibility className="visibility-icon" /> : <VisibilityOutlined className="icon-outlined" />}
+              </IconButton>
+            </Tooltip>
 
             <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
 
@@ -283,19 +267,12 @@ class Recipe extends Component {
                 {data.longDes}
               </Typography>
               <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content" />
-              {
-                hour === '0' ?
-                  <Chip
-                    label={`${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
-                    className="chip-card-content"
-                  />
-                  :
-                  <Chip
-                    label={`${hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText} 
-                        ${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
-                    className="chip-card-content"
-                  />
-              }
+              <Chip
+                label={hour === '0' ?
+                  `${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}` :
+                  `${hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText} ${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
+                className="chip-card-content"
+              />
               <Chip label={`${data.cost} ${data.currency}`} className="chip-card-content" />
             </CardContent>
           </Collapse>

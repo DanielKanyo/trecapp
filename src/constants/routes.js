@@ -7,3 +7,4 @@ export const ACCOUNT = '/account';
 export const MYRECIPES = '/myrecipes';
 export const FAVOURITES = '/favourites';
 export const SHOPPINGLIST = '/shoppinglist';
+export const CATEGORIES = '/categories';

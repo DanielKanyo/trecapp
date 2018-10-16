@@ -32,6 +32,7 @@
 
 .LeftMenu.closed {
   margin-left: -250px;
+  box-shadow: none;
 }
 
 .LeftMenu .left-menu-content {
@@ -89,8 +90,8 @@
   .LeftMenu {
     position: absolute;
     z-index: 20; 
-    -webkit-transition: 0s;
-    transition: 0s;
+    /* -webkit-transition: 0s;
+    transition: 0s; */
   }
 
   .left-menu-background-image {

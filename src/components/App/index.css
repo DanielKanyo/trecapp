@@ -138,6 +138,10 @@ button a {
   background: #01c1c4 !important;
 }
 
+.paper-title-categories {
+  background: #d2d60a !important;
+}
+
 .paper-title-icon {
   padding: 16px 20px;
 }
@@ -376,6 +380,7 @@ input[type=time]::-webkit-clear-button {
 
 .chip-card-content {
   margin-right: 8px;
+  background: #efefef !important;
 }
 
 .list-add-container {
@@ -470,10 +475,15 @@ input[type=time]::-webkit-clear-button {
 }
 
 .fav-counter {
-  color: #b1b1b1;
-  line-height: 48px;
-  font-size: 14px;
-  padding: 0px 10px 0px 2px;
+  font-size: 12px;
+  margin-left: -13px;
+}
+
+.fav-counter>div {
+  padding: 2px 6px;
+    background: #ebebeb;
+    color: #8a8a8a;
+    border-radius: 11px;
 }
 
 @media only screen and (max-width: 950px) {
