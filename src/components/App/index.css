@@ -463,6 +463,19 @@ input[type=time]::-webkit-clear-button {
   text-align: center;
 }
 
+.fav-icon-and-counter {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.fav-counter {
+  color: #b1b1b1;
+  line-height: 48px;
+  font-size: 14px;
+  padding: 0px 10px 0px 2px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

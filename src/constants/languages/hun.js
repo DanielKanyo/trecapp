@@ -24,7 +24,7 @@ export const dataHun = {
           titlePlaceholder: 'Recept címe...',
           storyPlaceholder: 'Csak néhány mondatot...',
           ingredientsPlaceholder: 'Sorolja fel...',
-          longDesPlaceholder: 'Elkészítési metódus...',
+          longDesPlaceholder: 'Elkészítési folyamat...',
           dosePlaceholder: 'Mennyiség...',
           costPlaceholder: 'Ár...'
         },
@@ -33,7 +33,7 @@ export const dataHun = {
       myRecipes: {
         title: 'Receptjeim',
         ingredients: 'Hozzávalók',
-        method: 'Metódus',
+        method: 'Elkészítési folyamat',
         numDose: 'adag',
         hourText: 'óra',
         minuteText: 'perc',
@@ -161,6 +161,7 @@ export const suggestionsHun = [
   { label: 'Szalámi' },
   { label: 'Szemeteszsák' },
   { label: 'Szájvíz' },
+  { label: 'Szörp' },
   { label: 'Szőlő' },
   { label: 'Só' },
   { label: 'Sör' },
@@ -181,5 +182,4 @@ export const suggestionsHun = [
   { label: 'Zsemle' },
   { label: 'Zöldbab' },
   { label: 'Zöldség' },
-  { label: 'Üdítő' },
 ];

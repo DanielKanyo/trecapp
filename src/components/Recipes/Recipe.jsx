@@ -76,8 +76,8 @@ class Recipe extends Component {
       expanded: false,
       dialogOpen: false,
       visibility: this.props.dataProp.publicChecked,
-      favourite: this.props.dataProp.isFavourite,
-      favouriteId: this.props.dataProp.favouriteId
+      isFavourite: this.props.dataProp.isFavourite,
+      favouriteCounter: this.props.dataProp.favouriteCounter,
     };
   }
 
@@ -138,28 +138,27 @@ class Recipe extends Component {
    * @param {string} userId 
    */
   handleAddOrRemoveToFavorites(recipeId, userId) {
-    let isFav = this.state.favourite;
+    let isFav = this.state.isFavourite;
     let newValue = !isFav;
 
     this.setState({
-      favourite: newValue
+      isFavourite: newValue
     });
 
     if (newValue) {
-      db.addRecipeToFavourites(userId, recipeId).then(snap => {
-        let favouriteId = snap.key;
-
-        this.setState({
-          favouriteId
-        });
-
-        toast.success(this.props.languageObjectProp.data.myRecipes.toaster.addedToFav);
-      });
+      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.addedToFav);
     } else {
-      db.removeRecipeFromFavourites(userId, this.state.favouriteId);
-
       toast.success(this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav);
     }
+
+    db.toggleFavourite(userId, recipeId).then(recipe => {
+      let recipeNew = recipe.snapshot.val();
+      
+      this.setState({
+        favouriteCounter: recipeNew.favouriteCounter
+      });
+
+    });
   }
 
   /**
@@ -206,23 +205,29 @@ class Recipe extends Component {
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
 
-            {this.state.favourite ?
+            {this.state.isFavourite ?
               <Tooltip title={languageObjectProp.data.myRecipes.tooltips.removeFromFav}>
-                <IconButton
-                  aria-label="Remove from favorites"
-                  onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
-                >
-                  <FavoriteIcon />
-                </IconButton>
+                <div className="fav-icon-and-counter">
+                  <IconButton
+                    aria-label="Remove from favorites"
+                    onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
+                  >
+                    <FavoriteIcon />
+                  </IconButton>
+                  <div className="fav-counter">{this.state.favouriteCounter}</div>
+                </div>
               </Tooltip>
               :
               <Tooltip title={languageObjectProp.data.myRecipes.tooltips.addToFav}>
-                <IconButton
-                  aria-label="Add to favorites"
-                  onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
-                >
-                  <FavoriteBorderIcon className="icon-outlined" />
-                </IconButton>
+                <div className="fav-icon-and-counter">
+                  <IconButton
+                    aria-label="Add to favorites"
+                    onClick={() => { this.handleAddOrRemoveToFavorites(data.recipeId, this.state.userId) }}
+                  >
+                    <FavoriteBorderIcon className="icon-outlined" />
+                  </IconButton>
+                  <div className="fav-counter">{this.state.favouriteCounter}</div>
+                </div>
               </Tooltip>
             }
 

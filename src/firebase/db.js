@@ -41,7 +41,8 @@ export const addRecipe = (id, recipe) => {
     ingredients: recipe.ingredients,
     sliderValue: recipe.sliderValue,
     title: recipe.title,
-    currency: recipe.currency
+    currency: recipe.currency,
+    favouriteCounter: recipe.favouriteCounter,
   });
 
   return recipeRef;
@@ -85,23 +86,26 @@ export const getFavouriteRecipesByUserId = (userId) => {
   return db.ref(`users/${userId}/favourites`).once('value');
 }
 
-// Add recipe to favourites
-export const addRecipeToFavourites = (userId, recipeId) => {
-  let favouritesRef = db.ref(`users/${userId}/favourites`);
-  let favouriteRef = favouritesRef.push();
+// Toggle favourites
+export function toggleFavourite(userId, recipeId) {
+  let recipeRef = db.ref(`recipes/${recipeId}`);
 
-  favouriteRef.set({
-    userId,
-    recipeId
+  return recipeRef.transaction(function(recipe) {
+    if (recipe) {
+      if (recipe.favouriteCounter && recipe.favourites[userId]) {
+        recipe.favouriteCounter--;
+        recipe.favourites[userId] = null;
+      } else {
+        recipe.favouriteCounter++;
+        if (!recipe.favourites) {
+          recipe.favourites = {};
+        }
+        recipe.favourites[userId] = true;
+      }
+    }
+
+    return recipe;
   });
-
-  return favouriteRef;
-}
-
-// Remove recipe from favourites
-export const removeRecipeFromFavourites = (userId, favouriteId) => {
-  let favouriteRef = db.ref(`users/${userId}/favourites/${favouriteId}`);
-  favouriteRef.remove();
 }
 
 // Save shopping list item

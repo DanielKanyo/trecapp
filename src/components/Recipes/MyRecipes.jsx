@@ -44,7 +44,8 @@ class MyRecipes extends Component {
     this.state = {
       recipes: [],
       loggedInUserId: '',
-      currency: ''
+      currency: '',
+      favouriteCounter: 0
     };
 
     this.deleteRecipe = this.deleteRecipe.bind(this);
@@ -59,62 +60,50 @@ class MyRecipes extends Component {
 
     let loggedInUserId = auth.getCurrentUserId();
     let previousRecipes = this.state.recipes;
-    let favRecipeIdArray = [];
-    let favouriteId;
     let isFavourite = false;
 
     db.getUserInfo(loggedInUserId).then(resUserInfo => {
       this.setState({
-        currency: resUserInfo.currency
+        currency: resUserInfo.currency,
+        loggedInUserId: loggedInUserId
       });
     });
 
-    this.setState({ loggedInUserId: loggedInUserId });
+    db.getUsersRecipes().then(resRecipes => {
+      if (this.mounted) {
+        let recipes = resRecipes;
 
-    db.getFavouriteRecipesByUserId(loggedInUserId).then(resFavourites => {
-      if (resFavourites.val()) {
-        let fav = resFavourites.val();
-        for (var key in fav) {
-          if (fav[key]) {
-            favouriteId = key;
-
-            favRecipeIdArray.push(fav[key].recipeId);
-          }
-        }
-      }
-
-      db.getUsersRecipes().then(resRecipes => {
-        if (this.mounted) {
-          let recipes = resRecipes;
-
-          for (var key in recipes) {
-            if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
-
-              if (favRecipeIdArray.includes(key)) isFavourite = true;
-              else isFavourite = false;
-
-              let data = recipes[key];
-
-              data.recipeId = key;
-              data.isFavourite = isFavourite;
-              data.favouriteId = isFavourite ? favouriteId : null;
-
-              previousRecipes.unshift(
-                <Recipe
-                  key={key}
-                  dataProp={data}
-                  deleteRecipeProp={this.deleteRecipe.bind(this)}
-                  languageObjectProp={this.props.languageObjectProp}
-                />
-              )
+        for (var key in recipes) {
+          if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
+            let favouritesObject = recipes[key].favourites;
+            
+            if (favouritesObject) {
+              if (favouritesObject.hasOwnProperty(loggedInUserId)) {
+                isFavourite = true;
+              }
             }
-          }
+            
+            let data = recipes[key];
 
-          this.setState({
-            recipes: previousRecipes
-          });
+            data.recipeId = key;
+            data.isFavourite = isFavourite;
+            data.favouriteCounter = recipes[key].favouriteCounter;
+
+            previousRecipes.unshift(
+              <Recipe
+                key={key}
+                dataProp={data}
+                deleteRecipeProp={this.deleteRecipe.bind(this)}
+                languageObjectProp={this.props.languageObjectProp}
+              />
+            )
+          }
         }
-      });
+
+        this.setState({
+          recipes: previousRecipes
+        });
+      }
     });
   }
 
@@ -137,7 +126,10 @@ class MyRecipes extends Component {
     dataToSend.userId = this.state.loggedInUserId;
     dataToSend.ownRecipe = true;
     dataToSend.currency = this.state.currency;
+    dataToSend.favouriteCounter = this.state.favouriteCounter;
+
     obj.currency = this.state.currency;
+    obj.favouriteCounter = this.state.favouriteCounter;
 
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {
       dataToSend.recipeId = snap.key;
