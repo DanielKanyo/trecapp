@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-// import { auth, db } from '../../firebase';
+import { auth, db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
+import FavRecipeItem from './FavRecipeItem';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -14,10 +15,49 @@ class Favourites extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      loggedInUserId: '',
+    }
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+    this.mounted = true;
+
+    let loggedInUserId = auth.getCurrentUserId();
+
+    this.setState({
+      loggedInUserId
+    });
+
+
+    db.getUsersRecipes().then(resRecipes => {
+      if (this.mounted) {
+        let recipes = resRecipes;
+
+        for (var key in recipes) {
+          if (recipes.hasOwnProperty(key)) {
+
+            let favouritesObject = recipes[key].favourites;
+
+            if (favouritesObject) {
+              if (favouritesObject.hasOwnProperty(loggedInUserId)) {
+
+                console.log(recipes[key]);
+                
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount() {
+    this.mounted = false;
+  }
 
   render() {
     const { classes } = this.props;
@@ -25,7 +65,6 @@ class Favourites extends Component {
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
-
           <Grid item className="grid-component" xs={12}>
             <Paper className={classes.paper + ' paper-title paper-title-favourites'}>
               <div className="paper-title-icon">
@@ -35,8 +74,15 @@ class Favourites extends Component {
                 {languageObjectProp.data.menuItems[2]}
               </div>
             </Paper>
-          </Grid>
 
+            <Grid item className="grid-component" xs={12}>
+              <Grid className="sub-grid fav-recipes-grid" container spacing={16}>
+
+                <FavRecipeItem />
+
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
       </div>
     );

@@ -199,12 +199,12 @@ button a {
   padding: 0px !important;
 }
 
-.sub-grid .grid-left {
+.sub-grid .grid-component:nth-child(odd) {
   margin-bottom: 14px;
   padding-right: 8px !important;
 }
 
-.sub-grid .grid-right {
+.sub-grid .grid-component:nth-child(even) {
   padding-left: 8px !important;
 }
 
@@ -481,9 +481,19 @@ input[type=time]::-webkit-clear-button {
 
 .fav-counter>div {
   padding: 2px 6px;
-    background: #ebebeb;
-    color: #8a8a8a;
-    border-radius: 11px;
+  background: #ebebeb;
+  color: #8a8a8a;
+  border-radius: 11px;
+}
+
+.fav-recipes-grid .grid-component:nth-child(even) {
+  margin-bottom: 14px;
+  padding-left: 8px !important;
+}
+
+.fav-recipes-grid .grid-component:nth-child(odd) {
+  margin-bottom: 14px;
+  padding-right: 8px !important;
 }
 
 @media only screen and (max-width: 950px) {
@@ -505,12 +515,10 @@ input[type=time]::-webkit-clear-button {
     margin-bottom: 0px !important;
   }
 
-  .sub-grid .grid-left {
-    padding-right: 0px !important;
-  }
-
-  .sub-grid .grid-right {
+  .sub-grid .grid-component:nth-child(odd),
+  .sub-grid .grid-component:nth-child(even) {
     padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 
   .ShoppingList .new-shopping-list-grid>div:last-of-type {

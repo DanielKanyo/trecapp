@@ -105,7 +105,7 @@ class AccountPage extends Component {
                 <Grid item className="grid-component" xs={12}>
                   <Grid className="sub-grid" container spacing={16}>
 
-                    <Grid item className="grid-component grid-left" xs={6}>
+                    <Grid item className="grid-component" xs={6}>
                       <AccountDetails
                         handleInputChangeProp={this.handleInputChange}
                         handleChangeLanguageProp={this.handleChangeLanguage}
@@ -120,7 +120,7 @@ class AccountPage extends Component {
                       />
                     </Grid>
 
-                    <Grid item className="grid-component grid-right" xs={6}>
+                    <Grid item className="grid-component" xs={6}>
                       <Paper className={classes.paper}>
                         <PasswordForgetForm />
                         <PasswordChangeForm />

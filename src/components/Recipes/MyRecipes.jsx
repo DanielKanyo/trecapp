@@ -76,13 +76,15 @@ class MyRecipes extends Component {
         for (var key in recipes) {
           if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
             let favouritesObject = recipes[key].favourites;
-            
+
             if (favouritesObject) {
               if (favouritesObject.hasOwnProperty(loggedInUserId)) {
                 isFavourite = true;
               }
+            } else {
+              isFavourite = false;
             }
-            
+
             let data = recipes[key];
 
             data.recipeId = key;
