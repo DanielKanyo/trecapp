@@ -17,6 +17,7 @@ class Favourites extends Component {
     super(props);
     this.state = {
       loggedInUserId: '',
+      recipes: [],
     }
   }
 
@@ -24,6 +25,8 @@ class Favourites extends Component {
     this.mounted = true;
 
     let loggedInUserId = auth.getCurrentUserId();
+    let previousRecipes = this.state.recipes;
+    let isMine;
 
     this.setState({
       loggedInUserId
@@ -36,14 +39,28 @@ class Favourites extends Component {
 
         for (var key in recipes) {
           if (recipes.hasOwnProperty(key)) {
+            let data = recipes[key];
+            
+            isMine = data.userId === loggedInUserId ? true : false;
 
-            let favouritesObject = recipes[key].favourites;
+            data.isMine = isMine;
+            
+            let favouritesObject = data.favourites;
 
             if (favouritesObject) {
-              if (favouritesObject.hasOwnProperty(loggedInUserId)) {
+              if (favouritesObject.hasOwnProperty(loggedInUserId) && data.publicChecked) {
 
-                console.log(recipes[key]);
-                
+                previousRecipes.push(
+                  <FavRecipeItem 
+                    key={key}
+                    dataProp={data}
+                    languageObjectProp={this.props.languageObjectProp}
+                  />
+                );
+
+                this.setState({
+                  recipes: previousRecipes
+                });
               }
             }
           }
@@ -62,6 +79,8 @@ class Favourites extends Component {
   render() {
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
+    let { recipes } = this.state;
+  
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
@@ -78,7 +97,11 @@ class Favourites extends Component {
             <Grid item className="grid-component" xs={12}>
               <Grid className="sub-grid fav-recipes-grid" container spacing={16}>
 
-                <FavRecipeItem />
+                {
+                  recipes.map((recipe, index) => {
+                    return recipe;
+                  })
+                }
 
               </Grid>
             </Grid>

@@ -496,6 +496,10 @@ input[type=time]::-webkit-clear-button {
   padding-right: 8px !important;
 }
 
+.card-fav-username-and-datetime-container {
+  padding: 16px 24px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
