@@ -486,18 +486,17 @@ input[type=time]::-webkit-clear-button {
   border-radius: 11px;
 }
 
+.card-fav-username-and-datetime-container {
+  padding: 16px 24px;
+}
+
 .fav-recipes-grid .grid-component:nth-child(even) {
-  margin-bottom: 14px;
-  padding-left: 8px !important;
+  padding-left: 0px !important;
 }
 
 .fav-recipes-grid .grid-component:nth-child(odd) {
   margin-bottom: 14px;
-  padding-right: 8px !important;
-}
-
-.card-fav-username-and-datetime-container {
-  padding: 16px 24px;
+  padding-right: 0px !important;
 }
 
 @media only screen and (max-width: 950px) {

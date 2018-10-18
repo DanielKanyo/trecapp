@@ -40,18 +40,18 @@ class Favourites extends Component {
         for (var key in recipes) {
           if (recipes.hasOwnProperty(key)) {
             let data = recipes[key];
-            
+
             isMine = data.userId === loggedInUserId ? true : false;
 
             data.isMine = isMine;
-            
+
             let favouritesObject = data.favourites;
 
             if (favouritesObject) {
               if (favouritesObject.hasOwnProperty(loggedInUserId) && data.publicChecked) {
 
                 previousRecipes.push(
-                  <FavRecipeItem 
+                  <FavRecipeItem
                     key={key}
                     dataProp={data}
                     languageObjectProp={this.props.languageObjectProp}
@@ -80,7 +80,7 @@ class Favourites extends Component {
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
     let { recipes } = this.state;
-  
+
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
