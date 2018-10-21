@@ -24,6 +24,7 @@ const styles = theme => ({
   },
   actions: {
     display: 'flex',
+    padding: '8px 12px 8px 12px'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -42,7 +43,7 @@ const styles = theme => ({
     backgroundColor: '#9b42f4',
   },
   chip: {
-    marginRight: theme.spacing.unit,
+    margin: theme.spacing.unit,
   },
 });
 
