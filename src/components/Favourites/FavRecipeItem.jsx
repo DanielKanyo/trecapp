@@ -14,7 +14,6 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Chip from '@material-ui/core/Chip';
@@ -40,10 +39,10 @@ const styles = theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: '#9b42f4',
   },
   chip: {
-    margin: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -52,7 +51,7 @@ class FavRecipeItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false
+      expanded: false,
     }
   }
 
@@ -63,6 +62,7 @@ class FavRecipeItem extends Component {
   render() {
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
+    const { userProp } = this.props;
     let data = this.props.dataProp;
 
     let year = new Date(data.creationTime).getFullYear();
@@ -76,7 +76,7 @@ class FavRecipeItem extends Component {
     let minute = data.minute;
 
     return (
-      <Grid item className="grid-component" xs={12}>
+      <Grid item className="grid-component recipe-content" xs={12}>
         <Card className={classes.card}>
           <CardHeader
             avatar={
@@ -92,16 +92,20 @@ class FavRecipeItem extends Component {
             title={data.title}
             subheader={creationTime}
           />
-          <CardContent>
+          <CardContent className="recipe-story-card-content">
             <Typography component="p">{data.story}</Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
             <div>
-              <Chip
-                avatar={<Avatar>U</Avatar>}
-                label="Username"
-                className={classes.chip}
-              />
+              {data.isMine ?
+                <Chip
+                  label={languageObjectProp.data.Favourites.yourRecipe}
+                  className={classes.chip + ' chip-card-content-mine'}
+                /> :
+                <Chip
+                  label={userProp.username}
+                  className={classes.chip + ' chip-card-content'}
+                />}
             </div>
             <IconButton
               className={classnames(classes.expand, {

@@ -88,7 +88,10 @@ export const dataEng = {
         cancel: 'Cancel',
         do: 'Delete'
       }
-    }
+    },
+    Favourites: {
+      yourRecipe: 'One of your recipes!'
+    },
   }
 }
 

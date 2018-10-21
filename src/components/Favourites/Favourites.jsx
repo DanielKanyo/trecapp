@@ -37,7 +37,7 @@ class Favourites extends Component {
       if (this.mounted) {
         let recipes = resRecipes;
 
-        for (var key in recipes) {
+        for (let key in recipes) {
           if (recipes.hasOwnProperty(key)) {
             let data = recipes[key];
 
@@ -50,16 +50,21 @@ class Favourites extends Component {
             if (favouritesObject) {
               if (favouritesObject.hasOwnProperty(loggedInUserId) && data.publicChecked) {
 
-                previousRecipes.push(
-                  <FavRecipeItem
-                    key={key}
-                    dataProp={data}
-                    languageObjectProp={this.props.languageObjectProp}
-                  />
-                );
+                db.getUserInfo(loggedInUserId).then(resUserInfo => {
+                  let userInfo = resUserInfo;
+                  
+                  previousRecipes.push(
+                    <FavRecipeItem
+                      key={key}
+                      dataProp={data}
+                      userProp={userInfo}
+                      languageObjectProp={this.props.languageObjectProp}
+                    />
+                  );
 
-                this.setState({
-                  recipes: previousRecipes
+                  this.setState({
+                    recipes: previousRecipes
+                  });
                 });
               }
             }

@@ -88,7 +88,7 @@ class AccountPage extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser =>
-          <div className="ComponentContent">
+          <div className="ComponentContent Account">
             <Grid className="main-grid" container spacing={16}>
 
               <Grid item className="grid-component" xs={12}>
