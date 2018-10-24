@@ -176,12 +176,6 @@ class ShoppingList extends Component {
       dialogOpen: false,
       suggestions: [],
     }
-
-    this.saveItem = this.saveItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.deleteAllItem = this.deleteAllItem.bind(this);
-    this.handleClearResentProducts = this.handleClearResentProducts.bind(this);
-    this.handleAddItemFromRecentProduct = this.handleAddItemFromRecentProduct.bind(this);
   }
 
   handleSuggestionsFetchRequested = ({ value }) => {
@@ -291,7 +285,7 @@ class ShoppingList extends Component {
   /**
    * Save shopping list item
    */
-  saveItem(e, newValue) {
+  saveItem = (e, newValue) => {
     let items = this.state.items;
     let recentProducts = this.state.recentProducts;
 
@@ -364,7 +358,7 @@ class ShoppingList extends Component {
    * 
    * @param {String} itemId 
    */
-  deleteItem(itemId) {
+  deleteItem = (itemId) => {
     let previousItems = this.state.items;
 
     db.removeShoppingListItem(this.state.loggedInUserId, itemId);
@@ -387,7 +381,7 @@ class ShoppingList extends Component {
   /**
    * Delete all shopping list item
    */
-  deleteAllItem() {
+  deleteAllItem = () => {
     if (this.state.items.length === 0) {
       toast.warn(this.props.languageObjectProp.data.ShoppingList.toaster.noItemInList);
     } else {
@@ -404,7 +398,7 @@ class ShoppingList extends Component {
   /**
    * Clear all recent products
    */
-  handleClearResentProducts() {
+  handleClearResentProducts = () => {
     db.clearRecentProducts(this.state.loggedInUserId);
 
     this.setState({
@@ -418,7 +412,7 @@ class ShoppingList extends Component {
    * @param {Object} e 
    * @param {String} value 
    */
-  handleAddItemFromRecentProduct(e, value) {
+  handleAddItemFromRecentProduct = (e, value) => {
     this.saveItem(e, value);
   }
 

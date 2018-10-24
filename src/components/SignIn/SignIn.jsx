@@ -47,8 +47,6 @@ class SignInForm extends Component {
     super(props);
 
     this.state = { ...INITIAL_STATE };
-
-    this.changeInputType = this.changeInputType.bind(this);
   }
 
   onSubmit = (event) => {
@@ -73,7 +71,7 @@ class SignInForm extends Component {
     event.preventDefault();
   }
 
-  changeInputType() {
+  changeInputType = () => {
     let temp = this.state.showPassword;
 
     this.setState({

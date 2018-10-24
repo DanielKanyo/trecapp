@@ -92,9 +92,6 @@ class NewRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-
-    this.handleSaveRecipe = this.handleSaveRecipe.bind(this);
-    this.clearForm = this.clearForm.bind(this);
   }
 
   handleChangeCheckbox = name => event => {
@@ -154,7 +151,7 @@ class NewRecipe extends Component {
   /**
    * Clear input fields
    */
-  clearForm() {
+  clearForm = () => {
     this.setState({ ...INITIAL_STATE });
   }
 

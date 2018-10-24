@@ -39,7 +39,6 @@ class App extends Component {
       languageObject: dataEng,
       suggestionsObject: suggestionsEng,
     };
-    this.setLanguage = this.setLanguage.bind(this);
   }
 
   /**
@@ -47,7 +46,7 @@ class App extends Component {
    * 
    * @param {string} language 
    */
-  setLanguage(language) {
+  setLanguage = (language) => {
     switch (language) {
       case 'eng':
         this.setState({ 
@@ -73,7 +72,7 @@ class App extends Component {
         <div className="app">
           <Navigation
             languageObjectProp={this.state.languageObject}
-            setLanguageProp={this.setLanguage.bind(this)}
+            setLanguageProp={this.setLanguage}
           />
 
           <Route exact path={routes.LANDING}

@@ -34,16 +34,12 @@ class LeftMenu extends Component {
     this.state = {
       isMinimized: true
     };
-
-    // This binding is necessary to make `this` work in the callback
-    this.minimizeLeftMenu = this.minimizeLeftMenu.bind(this);
-    this.handleLeftMenuItemClicked = this.handleLeftMenuItemClicked.bind(this);
   }
 
   /**
    * Minimize the left menu, show only the icons
    */
-  minimizeLeftMenu() {
+  minimizeLeftMenu = () => {
     this.setState(state => ({
       isMinimized: !state.isMinimized
     }));
@@ -54,7 +50,7 @@ class LeftMenu extends Component {
    * 
    * @param {Object} e 
    */
-  handleLeftMenuItemClicked(e) {
+  handleLeftMenuItemClicked = (e) => {
     const w = window.innerWidth;
     let menuItems = document.getElementsByClassName('menuItem');
     let leftMenu = document.getElementsByClassName('LeftMenu');

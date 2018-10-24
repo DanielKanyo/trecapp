@@ -47,8 +47,6 @@ class MyRecipes extends Component {
       currency: '',
       favouriteCounter: 0
     };
-
-    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   /**
@@ -95,7 +93,7 @@ class MyRecipes extends Component {
               <Recipe
                 key={key}
                 dataProp={data}
-                deleteRecipeProp={this.deleteRecipe.bind(this)}
+                deleteRecipeProp={this.deleteRecipe}
                 languageObjectProp={this.props.languageObjectProp}
               />
             )
@@ -121,7 +119,7 @@ class MyRecipes extends Component {
    * 
    * @param {Object} obj 
    */
-  saveRecipe(obj) {
+  saveRecipe = (obj) => {
     let dataToSend = obj;
     let recipes = this.state.recipes;
 
@@ -159,7 +157,7 @@ class MyRecipes extends Component {
    * 
    * @param {string} recipeId 
    */
-  deleteRecipe(recipeId) {
+  deleteRecipe = (recipeId) => {
     let previousRecipes = this.state.recipes;
 
     db.removeRecipe(recipeId);
@@ -193,7 +191,7 @@ class MyRecipes extends Component {
           <Grid item className="grid-component" xs={6}>
             <NewRecipe
               currencyProp={this.state.currency}
-              saveRecipeProps={this.saveRecipe.bind(this)}
+              saveRecipeProps={this.saveRecipe}
               languageObjectProp={languageObjectProp} />
           </Grid>
 

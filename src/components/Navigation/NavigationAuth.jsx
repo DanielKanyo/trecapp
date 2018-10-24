@@ -70,15 +70,12 @@ class NavigationAuth extends Component {
       user: {},
       openAccountDropdown: false,
     };
-
-    // This binding is necessary to make `this` work in the callback
-    this.toggleLeftMenu = this.toggleLeftMenu.bind(this);
   }
 
   /**
    * Toggle left menu function, set isToggleOn state
    */
-  toggleLeftMenu() {
+  toggleLeftMenu = () => {
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));
