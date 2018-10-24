@@ -38,26 +38,21 @@ class AccountPage extends Component {
       loggedInUserId: '',
       accountCurrency: '',
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
-    this.handleChangeCurrency = this.handleChangeCurrency.bind(this);
-    this.setLanguageProp = this.props.setLanguageProp.bind(this);
-    this.handleSaveNewAccountData = this.handleSaveNewAccountData.bind(this);
   }
 
-  handleInputChange(name, event) {
+  handleInputChange = (name, event) => {
     this.setState({ [name]: event.target.value });
   }
 
-  handleChangeLanguage(event) {
+  handleChangeLanguage = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleChangeCurrency(event) {
+  handleChangeCurrency = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSaveNewAccountData(name, language, currency) {
+  handleSaveNewAccountData = (name, language, currency) => {
     this.setState({
       accountName: name,
       accountLanguage: language,
