@@ -90,7 +90,7 @@ export const dataHun = {
       }
     },
     Favourites: {
-      yourRecipe: 'Az egyik receptje!'
+      yourRecipe: 'Az egyik recepted!'
     },
   }
 }

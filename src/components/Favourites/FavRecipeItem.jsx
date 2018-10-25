@@ -20,7 +20,8 @@ import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
   card: {
-    width: '100%'
+    width: '100%',
+    marginBottom: '14px',
   },
   actions: {
     display: 'flex',

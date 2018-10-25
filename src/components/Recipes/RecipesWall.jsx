@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Public from '@material-ui/icons/Public';
-import EventNote from '@material-ui/icons/EventNote';
+import Grade from '@material-ui/icons/Grade';
 
 const styles = theme => ({
   paper: {
@@ -57,12 +57,12 @@ class RecipesWall extends Component {
 
           <Grid item className="grid-component" xs={6}>
 
-            <Paper className={classes.paper + ' paper-title paper-title-world'}>
+            <Paper className={classes.paper + ' paper-title paper-title-wall'}>
               <div className="paper-title-icon">
                 <Public />
               </div>
               <div className="paper-title-text">
-                Recipes World
+                Latest Recipes
               </div>
             </Paper>
             <Paper className={classes.paper + ' paper-recipe'}>
@@ -77,16 +77,16 @@ class RecipesWall extends Component {
 
           <Grid item className="grid-component" xs={6}>
 
-            <Paper className={classes.paper + ' paper-title paper-title-events'}>
+            <Paper className={classes.paper + ' paper-title paper-title-top'}>
               <div className="paper-title-icon">
-                <EventNote />
+                <Grade />
               </div>
               <div className="paper-title-text">
-                Events
+                Top 10 Recipes
               </div>
             </Paper>
             <Paper className={classes.paper + ' paper-events'}>
-              <p>Events</p>
+              <p>Top 10 Recipes</p>
             </Paper>
 
           </Grid>

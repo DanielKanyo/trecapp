@@ -90,7 +90,7 @@ export const dataEng = {
       }
     },
     Favourites: {
-      yourRecipe: 'One of your recipes!'
+      yourRecipe: "It's your recipe!"
     },
   }
 }

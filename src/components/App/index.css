@@ -102,11 +102,11 @@ button a {
   margin-bottom: 14px;
 }
 
-.paper-title-world {
+.paper-title-wall {
   background: #008E3D !important;
 }
 
-.paper-title-events {
+.paper-title-top {
   background: #2AA7BB !important;
 }
 
@@ -140,6 +140,10 @@ button a {
 
 .paper-title-categories {
   background: #d2d60a !important;
+}
+
+.paper-title-fav-settings {
+  background: #c43e66 !important;
 }
 
 .paper-title-icon {

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const styles = theme => ({});
 
@@ -52,7 +53,7 @@ class Favourites extends Component {
 
                 db.getUserInfo(loggedInUserId).then(resUserInfo => {
                   let userInfo = resUserInfo;
-                  
+
                   previousRecipes.push(
                     <FavRecipeItem
                       key={key}
@@ -89,7 +90,19 @@ class Favourites extends Component {
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
-          <Grid item className="grid-component" xs={12}>
+
+          <Grid item className="grid-component" xs={6}>
+            <Paper className={classes.paper + ' paper-title paper-title-fav-settings'}>
+              <div className="paper-title-icon">
+                <SettingsIcon />
+              </div>
+              <div className="paper-title-text">
+                Settings
+              </div>
+            </Paper>
+          </Grid>
+
+          <Grid item className="grid-component" xs={6}>
             <Paper className={classes.paper + ' paper-title paper-title-favourites'}>
               <div className="paper-title-icon">
                 <FavoriteIcon />
@@ -99,19 +112,15 @@ class Favourites extends Component {
               </div>
             </Paper>
 
-            <Grid item className="grid-component" xs={12}>
-              <Grid className="sub-grid fav-recipes-grid" container spacing={16}>
-
-                {
-                  recipes.map((recipe, index) => {
-                    return recipe;
-                  })
-                }
-
-              </Grid>
-            </Grid>
+            {
+              recipes.map((recipe, index) => {
+                return recipe;
+              })
+            }
           </Grid>
+
         </Grid>
+
       </div>
     );
   }
