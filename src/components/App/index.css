@@ -361,7 +361,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .recipe-story-card-content {
-  padding: 8px 24px !important;
+  padding: 16px 24px 16px 24px !important;
 }
 
 .recipe-content {
@@ -506,6 +506,40 @@ input[type=time]::-webkit-clear-button {
 
 .fav-recipes-grid .grid-component:last-of-type {
   margin-bottom: 21px;
+}
+
+.file-upload-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.file-upload-overlap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 80px;
+  width: 100%;
+  background: #eeeeee;
+  pointer-events: none;
+}
+
+.file-upload-overlap > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+}
+
+.file-upload-overlap svg {
+  fill: #bdbdbd;
+  font-size: 30px;
+}
+
+.file-upload-input {
+  height: 80px;
+  width: 100%;
+  outline: none;
 }
 
 @media only screen and (max-width: 950px) {

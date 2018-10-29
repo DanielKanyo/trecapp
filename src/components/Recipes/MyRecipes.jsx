@@ -83,11 +83,16 @@ class MyRecipes extends Component {
               isFavourite = false;
             }
 
+            let isMine = true;
+            let withPhoto = false;
+
             let data = recipes[key];
 
             data.recipeId = key;
             data.isFavourite = isFavourite;
             data.favouriteCounter = recipes[key].favouriteCounter;
+            data.isMine = isMine;
+            data.withPhoto = withPhoto;
 
             previousRecipes.unshift(
               <Recipe
@@ -124,7 +129,7 @@ class MyRecipes extends Component {
     let recipes = this.state.recipes;
 
     dataToSend.userId = this.state.loggedInUserId;
-    dataToSend.ownRecipe = true;
+    dataToSend.imageUrl = '';
     dataToSend.currency = this.state.currency;
     dataToSend.favouriteCounter = this.state.favouriteCounter;
 

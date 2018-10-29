@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 
@@ -11,6 +11,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import CardMedia from '@material-ui/core/CardMedia';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,6 +20,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SaveIcon from '@material-ui/icons/Save';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import Chip from '@material-ui/core/Chip';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOutlined from '@material-ui/icons/VisibilityOutlined';
@@ -29,6 +32,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -41,10 +45,6 @@ const styles = theme => ({
     marginBottom: '14px'
   },
   card: {},
-  media: {
-    height: 0,
-    paddingTop: '120px',
-  },
   actions: {
     display: 'flex',
   },
@@ -62,9 +62,23 @@ const styles = theme => ({
     backgroundColor: '#F8B000',
     textTransform: 'uppercase'
   },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
   chip: {
     margin: theme.spacing.unit,
     backgroundColor: "#efefef"
+  },
+  uploadButton: {
+    position: 'absolute',
+    right: '3px',
+    bottom: '3px',
+    color: '#03c457'
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+    color: '#F8B000',
   },
 });
 
@@ -79,6 +93,11 @@ class Recipe extends Component {
       visibility: this.props.dataProp.publicChecked,
       isFavourite: this.props.dataProp.isFavourite,
       favouriteCounter: this.props.dataProp.favouriteCounter,
+      isMine: this.props.dataProp.isMine,
+      uploadReady: false,
+      file: '',
+      imageUrl: this.props.dataProp.imageUrl,
+      uploading: false
     };
   }
 
@@ -161,11 +180,58 @@ class Recipe extends Component {
     }
   }
 
+  fileAdded = (e) => {
+    // max 10 MB
+    const maxFileSize = 10485760;
+
+    let file = e.target.files[0];
+    let fileType = file.type;
+
+    if (fileType.includes("image") && file.size < maxFileSize) {
+      this.setState({
+        file,
+        uploadReady: true
+      });
+    } else {
+
+      if (file.size > maxFileSize) {
+        toast.warn("The selected file is too large!");
+      } else {
+        toast.warn("Choose an image!");
+      }
+
+      this.setState({
+        file: '',
+        uploadReady: false
+      });
+
+    }
+  }
+
+  saveImage = () => {
+    this.setState({
+      uploading: true
+    });
+
+    storage.uploadImage(this.state.file).then(fileObject => {
+      let fullPath = fileObject.metadata.fullPath;
+
+      storage.getImageDownloadUrl(fullPath).then(url => {
+        this.setState({
+          imageUrl: url,
+          uploading: false
+        });
+
+        db.updateRecipeImageUrl(this.props.dataProp.recipeId, url);
+      });
+    });
+  }
+
   numberFormatter(number) {
     if (number > 1000000) {
-      return (number/1000000).toFixed(1) + 'M';
+      return (number / 1000000).toFixed(1) + 'M';
     } else if (number > 1000) {
-      return (number/1000).toFixed(1) + 'k';
+      return (number / 1000).toFixed(1) + 'k';
     } else {
       return number;
     }
@@ -198,16 +264,36 @@ class Recipe extends Component {
                 {titleCharacters[0]}
               </Avatar>
             }
-            action={
+            action={this.state.isMine ?
               <Tooltip title={languageObjectProp.data.myRecipes.tooltips.deleteRecipe}>
                 <IconButton className="delete-recipe-btn" onClick={this.handleClickOpenDialog}>
                   <DeleteIcon />
                 </IconButton>
-              </Tooltip>
+              </Tooltip> : ''
             }
             title={data.title}
             subheader={creationTime}
           />
+          {this.state.imageUrl !== "" ?
+            <CardMedia
+              className={classes.media}
+              image={this.state.imageUrl}
+              title="Recipe image"
+            /> :
+            <div className="file-upload-container">
+              <div className="file-upload-overlap">
+                <div>
+                  {this.state.uploading ? <CircularProgress className={classes.progress} /> : <AddPhotoAlternateIcon />}
+                </div>
+              </div>
+              {this.state.uploadReady ?
+                <IconButton className={classes.uploadButton} aria-label="Delete">
+                  <SaveIcon onClick={this.saveImage} />
+                </IconButton> : ''}
+              <input type="file" onChange={(e) => { this.fileAdded(e) }} className="file-upload-input" />
+            </div>
+          }
+
           <CardContent className="recipe-story-card-content">
             <Typography component="p">
               {data.story}

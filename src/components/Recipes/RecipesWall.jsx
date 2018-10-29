@@ -85,6 +85,7 @@ class RecipesWall extends Component {
                 Top 10 Recipes
               </div>
             </Paper>
+
             <Paper className={classes.paper + ' paper-events'}>
               <p>Top 10 Recipes</p>
             </Paper>
