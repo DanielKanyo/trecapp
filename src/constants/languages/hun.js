@@ -37,6 +37,7 @@ export const dataHun = {
         numDose: 'adag',
         hourText: 'óra',
         minuteText: 'perc',
+        recipeImage: 'A végeredmény!',
         modal: {
           title: 'Biztos benne?',
           content: 'Biztosan törölni akarja a receptet?',
@@ -51,7 +52,8 @@ export const dataHun = {
         removeFromFav: 'Törlés a kedvencekből',
         deleteRecipe: 'Recept törlése',
         more: 'Több',
-        numOfRecipes: 'Receptjeinek száma'
+        numOfRecipes: 'Receptjeinek száma',
+        saveImage: 'Kép mentése',
       },
       toaster: {
         recipeSaved: 'Recept elmentve!',
@@ -61,7 +63,9 @@ export const dataHun = {
         removedFromPublic: 'Receptje mostantól privát!',
         addedToFav: 'Recept hozzáadva a kedvencekhez!',
         removedFromFav: 'Recept eltávolítva a kedvencekből!',
-        warningSmallerThanOne: 'Nem írhat be negatív értéket!'
+        warningSmallerThanOne: 'Nem írhat be negatív értéket!',
+        fileTooBig: 'A kiválasztott fájl túl nagy!',
+        chooseAnImage: 'Egy képet válassz!',
       }
     },
     Account: {

@@ -251,7 +251,7 @@ class NewRecipe extends Component {
                 <Typography id="slider-label">
                   {languageObjectProp.data.myRecipes.newRecipe.form.difficulty}
                 </Typography>
-                <Slider className="slider" value={sliderValue} min={0} max={5} step={1} onChange={this.handleChangeSlider} />
+                <Slider className="slider" value={sliderValue} min={0} max={2} step={1} onChange={this.handleChangeSlider} />
               </div>
               <div className="space-between"></div>
               <div className="timepicker-container">

@@ -195,9 +195,9 @@ class Recipe extends Component {
     } else {
 
       if (file.size > maxFileSize) {
-        toast.warn("The selected file is too large!");
+        toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.fileTooBig);
       } else {
-        toast.warn("Choose an image!");
+        toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseAnImage);
       }
 
       this.setState({
@@ -278,7 +278,7 @@ class Recipe extends Component {
             <CardMedia
               className={classes.media}
               image={this.state.imageUrl}
-              title="Recipe image"
+              title={languageObjectProp.data.myRecipes.myRecipes.recipeImage}
             /> :
             <div className="file-upload-container">
               <div className="file-upload-overlap">
@@ -287,9 +287,11 @@ class Recipe extends Component {
                 </div>
               </div>
               {this.state.uploadReady ?
-                <IconButton className={classes.uploadButton} aria-label="Delete">
-                  <SaveIcon onClick={this.saveImage} />
-                </IconButton> : ''}
+                <Tooltip title={languageObjectProp.data.myRecipes.tooltips.saveImage}>
+                  <IconButton className={classes.uploadButton} aria-label="Delete">
+                    <SaveIcon onClick={this.saveImage} />
+                  </IconButton>
+                </Tooltip> : ''}
               <input type="file" onChange={(e) => { this.fileAdded(e) }} className="file-upload-input" />
             </div>
           }

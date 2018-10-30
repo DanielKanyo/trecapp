@@ -37,6 +37,7 @@ export const dataEng = {
         numDose: 'dose',
         hourText: 'hour',
         minuteText: 'minutes',
+        recipeImage: 'The result!',
         modal: {
           title: 'Are you sure?',
           content: 'Are you sure you want to delete the recipe?',
@@ -51,7 +52,8 @@ export const dataEng = {
         removeFromFav: 'Remove from favourites',
         deleteRecipe: 'Delete recipe',
         more: 'More',
-        numOfRecipes: 'Number of recipes'
+        numOfRecipes: 'Number of recipes',
+        saveImage: 'Save image',
       },
       toaster: {
         recipeSaved: 'Recipe saved!',
@@ -61,7 +63,9 @@ export const dataEng = {
         removedFromPublic: 'Your recipe is no longer public!',
         addedToFav: 'Recipe added to favourites!',
         removedFromFav: 'Recipe removed from favourites!',
-        warningSmallerThanOne: 'You can not enter a negative value!'
+        warningSmallerThanOne: 'You can not enter a negative value!',
+        fileTooBig: 'The selected file is too large!',
+        chooseAnImage: 'Choose an image!',
       }
     },
     Account: {
