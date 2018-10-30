@@ -361,7 +361,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .recipe-story-card-content {
-  padding: 16px 24px 16px 24px !important;
+  padding: 16px 24px 6px 24px !important;
 }
 
 .recipe-content {

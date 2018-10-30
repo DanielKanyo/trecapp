@@ -4,21 +4,17 @@ import 'firebase/database';
 import 'firebase/storage';
 
 const prodConfig = {
-  apiKey: "AIzaSyDfuJ2DuKlJv_AsbRUpXcz6jNALpfZBHCE",
-  authDomain: "my-recipes-app-f8c1b.firebaseapp.com",
-  databaseURL: "https://my-recipes-app-f8c1b.firebaseio.com",
-  projectId: "my-recipes-app-f8c1b",
-  storageBucket: "my-recipes-app-f8c1b.appspot.com",
-  messagingSenderId: "343275356168"
+  apiKey: '<your-api-key>',
+  authDomain: '<your-auth-domain>',
+  databaseURL: '<your-database-url>',
+  storageBucket: '<your-storage-bucket>'
 };
 
 const devConfig = {
-  apiKey: "AIzaSyDfuJ2DuKlJv_AsbRUpXcz6jNALpfZBHCE",
-  authDomain: "my-recipes-app-f8c1b.firebaseapp.com",
-  databaseURL: "https://my-recipes-app-f8c1b.firebaseio.com",
-  projectId: "my-recipes-app-f8c1b",
-  storageBucket: "my-recipes-app-f8c1b.appspot.com",
-  messagingSenderId: "343275356168"
+  apiKey: '<your-api-key>',
+  authDomain: '<your-auth-domain>',
+  databaseURL: '<your-database-url>',
+  storageBucket: '<your-storage-bucket>'
 };
 
 const config = process.env.NODE_ENV === 'production' ?
