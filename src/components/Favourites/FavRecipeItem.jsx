@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Chip from '@material-ui/core/Chip';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const styles = theme => ({
   card: {
@@ -25,7 +26,7 @@ const styles = theme => ({
   },
   actions: {
     display: 'flex',
-    padding: '8px 12px 8px 12px'
+    padding: '16px 12px 8px 12px'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -45,6 +46,11 @@ const styles = theme => ({
   },
   chip: {
     margin: theme.spacing.unit,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+    marginBottom: '16px'
   },
 });
 
@@ -94,6 +100,15 @@ class FavRecipeItem extends Component {
             title={data.title}
             subheader={creationTime}
           />
+          {
+            data.imageUrl !== '' ?
+              <CardMedia
+                className={classes.media}
+                image={data.imageUrl}
+                title={languageObjectProp.data.myRecipes.myRecipes.recipeImage}
+              /> : ''
+          }
+
           <CardContent className="recipe-story-card-content">
             <Typography component="p">{data.story}</Typography>
           </CardContent>

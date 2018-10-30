@@ -361,7 +361,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .recipe-story-card-content {
-  padding: 16px 24px 6px 24px !important;
+  padding: 0px 24px !important;
 }
 
 .recipe-content {
@@ -511,6 +511,7 @@ input[type=time]::-webkit-clear-button {
 .file-upload-container {
   position: relative;
   cursor: pointer;
+  margin-bottom: 16px;
 }
 
 .file-upload-overlap {

@@ -34,7 +34,7 @@ class Favourites extends Component {
     });
 
 
-    db.getUsersRecipes().then(resRecipes => {
+    db.getRecipes().then(resRecipes => {
       if (this.mounted) {
         let recipes = resRecipes;
 

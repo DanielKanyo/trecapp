@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
 import withAuthorization from '../Session/withAuthorization';
-import { db } from '../../firebase';
+import { db, auth } from '../../firebase';
 import compose from 'recompose/compose';
+
+import Recipe from './Recipe';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -24,17 +26,81 @@ class RecipesWall extends Component {
     super(props);
 
     this.state = {
-      users: {}
+      recipes: [],
+      loggedInUserId: '',
+      numberOfRecipesDisplayed: 15
     };
   }
 
   componentDidMount() {
     this.mounted = true;
 
-    db.onceGetUsers().then(snapshot => {
-      if (this.mounted) {
-        this.setState(() => ({ users: snapshot.val() }));
+    let loggedInUserId = auth.getCurrentUserId();
+    let previousRecipes = this.state.recipes;
+
+    db.getUserInfo(loggedInUserId).then(resUserInfo => {
+      this.setState({
+        loggedInUserId
+      });
+    });
+
+    db.getRecipes().then(resRecipes => {
+
+      var arrangedRecipesBasedOnTimestamp = [];
+      var keys = [];
+
+      for (var key in resRecipes) {
+        if (resRecipes.hasOwnProperty(key)) {
+          arrangedRecipesBasedOnTimestamp.push(resRecipes[key]);
+          keys.push(key);
+        }
       }
+
+      if (arrangedRecipesBasedOnTimestamp.length) {
+        arrangedRecipesBasedOnTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
+
+        if (this.mounted) {
+          let recipes = arrangedRecipesBasedOnTimestamp;
+
+          for (var i = 0; i < recipes.length; i++) {
+            
+            if (i < this.state.numberOfRecipesDisplayed) {
+              let favouritesObject = recipes[i].favourites;
+
+              let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+              let visibilityEditable = false;
+              let recipeDeletable = false;
+              let withPhoto = recipes[i].imageUrl !== '' ? true : false;
+              let favouriteCounter = recipes[i].favouriteCounter;
+
+              let data = recipes[i];
+
+              data.recipeId = keys[i];
+              data.isFavourite = isFavourite;
+              data.favouriteCounter = favouriteCounter;
+              data.recipeDeletable = recipeDeletable;
+              data.withPhoto = withPhoto;
+              data.visibilityEditable = visibilityEditable;
+
+              previousRecipes.push(
+                <Recipe
+                  key={keys[i]}
+                  dataProp={data}
+                  deleteRecipeProp={this.deleteRecipe}
+                  languageObjectProp={this.props.languageObjectProp}
+                />
+              )
+            } else break
+          }
+
+          this.setState({
+            recipes: previousRecipes
+          });
+        }
+      }
+
+
+
     });
   }
 
@@ -42,13 +108,14 @@ class RecipesWall extends Component {
   /**
    * Sets 'mounted' property to false to ignore warning 
    */
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.mounted = false;
   }
 
   render() {
-    const { users } = this.state;
     const { classes } = this.props;
+
+    let recipes = this.state.recipes;
 
     return (
       <div className="ComponentContent">
@@ -65,13 +132,10 @@ class RecipesWall extends Component {
                 Latest Recipes
               </div>
             </Paper>
-            <Paper className={classes.paper + ' paper-recipe'}>
-              <div>
-                <p>The Recipes World Page is accessible by every signed in user.</p>
 
-                {!!users && <UserList users={users} />}
-              </div>
-            </Paper>
+            {recipes.map((recipe, index) => {
+              return recipe;
+            })}
 
           </Grid>
 
@@ -98,16 +162,6 @@ class RecipesWall extends Component {
     );
   }
 }
-
-const UserList = ({ users }) =>
-  <div>
-    <h2>List of Usernames of Users</h2>
-    <p>(Saved on Sign Up in Firebase Database)</p>
-
-    {Object.keys(users).map(key =>
-      <div key={key}>{users[key].username}</div>
-    )}
-  </div>
 
 const authCondition = (authUser) => !!authUser;
 

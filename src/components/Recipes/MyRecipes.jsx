@@ -67,7 +67,7 @@ class MyRecipes extends Component {
       });
     });
 
-    db.getUsersRecipes().then(resRecipes => {
+    db.getRecipes().then(resRecipes => {
       if (this.mounted) {
         let recipes = resRecipes;
 
@@ -75,15 +75,10 @@ class MyRecipes extends Component {
           if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
             let favouritesObject = recipes[key].favourites;
 
-            if (favouritesObject) {
-              if (favouritesObject.hasOwnProperty(loggedInUserId)) {
-                isFavourite = true;
-              }
-            } else {
-              isFavourite = false;
-            }
+            isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
 
-            let isMine = true;
+            let recipeDeletable = true;
+            let visibilityEditable = true;
             let withPhoto = false;
 
             let data = recipes[key];
@@ -91,8 +86,9 @@ class MyRecipes extends Component {
             data.recipeId = key;
             data.isFavourite = isFavourite;
             data.favouriteCounter = recipes[key].favouriteCounter;
-            data.isMine = isMine;
+            data.recipeDeletable = recipeDeletable;
             data.withPhoto = withPhoto;
+            data.visibilityEditable = visibilityEditable;
 
             previousRecipes.unshift(
               <Recipe

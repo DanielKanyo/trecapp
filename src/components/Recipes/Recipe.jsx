@@ -47,6 +47,7 @@ const styles = theme => ({
   card: {},
   actions: {
     display: 'flex',
+    padding: '16px 12px 8px 12px',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -59,12 +60,12 @@ const styles = theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: '#F8B000',
     textTransform: 'uppercase'
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    marginBottom: '16px'
   },
   chip: {
     margin: theme.spacing.unit,
@@ -82,6 +83,8 @@ const styles = theme => ({
   },
 });
 
+const difficultyColors = ['#008E3D', '#F8B000', '#ff1414']
+
 class Recipe extends Component {
 
   constructor(props) {
@@ -93,7 +96,8 @@ class Recipe extends Component {
       visibility: this.props.dataProp.publicChecked,
       isFavourite: this.props.dataProp.isFavourite,
       favouriteCounter: this.props.dataProp.favouriteCounter,
-      isMine: this.props.dataProp.isMine,
+      recipeDeletable: this.props.dataProp.recipeDeletable,
+      visibilityEditable: this.props.dataProp.visibilityEditable,
       uploadReady: false,
       file: '',
       imageUrl: this.props.dataProp.imageUrl,
@@ -260,11 +264,11 @@ class Recipe extends Component {
         <Card className={classes.card + ' card-recipe'}>
           <CardHeader className="recipe-card-header"
             avatar={
-              <Avatar aria-label="Recipe" className={classes.avatar}>
+              <Avatar aria-label="Recipe" className={classes.avatar} style={{backgroundColor: difficultyColors[data.sliderValue]}}>
                 {titleCharacters[0]}
               </Avatar>
             }
-            action={this.state.isMine ?
+            action={this.state.recipeDeletable ?
               <Tooltip title={languageObjectProp.data.myRecipes.tooltips.deleteRecipe}>
                 <IconButton className="delete-recipe-btn" onClick={this.handleClickOpenDialog}>
                   <DeleteIcon />
@@ -315,14 +319,17 @@ class Recipe extends Component {
               </div>
             </Tooltip>
 
-            <Tooltip title={this.state.visibility ? languageObjectProp.data.myRecipes.tooltips.publicRecipe : languageObjectProp.data.myRecipes.tooltips.privateRecipe}>
-              <IconButton
-                aria-label="Public recipe"
-                onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
-              >
-                {this.state.visibility ? <Visibility className="visibility-icon" /> : <VisibilityOutlined className="icon-outlined" />}
-              </IconButton>
-            </Tooltip>
+            {this.state.visibilityEditable ?
+              <Tooltip title={this.state.visibility ? languageObjectProp.data.myRecipes.tooltips.publicRecipe : languageObjectProp.data.myRecipes.tooltips.privateRecipe}>
+                <IconButton
+                  aria-label="Public recipe"
+                  onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
+                >
+                  {this.state.visibility ? <Visibility className="visibility-icon" /> : <VisibilityOutlined className="icon-outlined" />}
+                </IconButton>
+              </Tooltip> : ''
+            }
+
 
             <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
 
