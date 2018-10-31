@@ -120,7 +120,7 @@ class FavRecipeItem extends Component {
                   className={classes.chip + ' chip-card-content-mine'}
                 /> :
                 <Chip
-                  label={userProp.username}
+                  label={`${languageObjectProp.data.Favourites.uploadedBy} ${userProp.username}`}
                   className={classes.chip + ' chip-card-content'}
                 />}
             </div>

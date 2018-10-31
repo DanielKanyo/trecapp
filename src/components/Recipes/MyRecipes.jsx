@@ -125,10 +125,15 @@ class MyRecipes extends Component {
     let dataToSend = obj;
     let recipes = this.state.recipes;
 
+    let recipeDeletable = true;
+    let visibilityEditable = true;
+
     dataToSend.userId = this.state.loggedInUserId;
     dataToSend.imageUrl = '';
     dataToSend.currency = this.state.currency;
     dataToSend.favouriteCounter = this.state.favouriteCounter;
+    dataToSend.recipeDeletable = recipeDeletable;
+    dataToSend.visibilityEditable = visibilityEditable;
 
     obj.currency = this.state.currency;
     obj.favouriteCounter = this.state.favouriteCounter;
