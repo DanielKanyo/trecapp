@@ -91,6 +91,7 @@ class Recipe extends Component {
     super(props);
     this.state = {
       userId: this.props.dataProp.userId,
+      loggedInUserId: this.props.dataProp.loggedInUserId,
       expanded: false,
       dialogOpen: false,
       visibility: this.props.dataProp.publicChecked,
@@ -118,7 +119,9 @@ class Recipe extends Component {
    * @param {string} id
    */
   handleDeleteRecipe = (id) => {
-    this.props.deleteRecipeProp(id);
+    if (this.props.dataProp.recipeDeletable) {
+      this.props.deleteRecipeProp(id);
+    }
   }
 
   /**
@@ -264,7 +267,7 @@ class Recipe extends Component {
         <Card className={classes.card + ' card-recipe'}>
           <CardHeader className="recipe-card-header"
             avatar={
-              <Avatar aria-label="Recipe" className={classes.avatar} style={{backgroundColor: difficultyColors[data.sliderValue]}}>
+              <Avatar aria-label="Recipe" className={classes.avatar} style={{ backgroundColor: difficultyColors[data.sliderValue] }}>
                 {titleCharacters[0]}
               </Avatar>
             }
@@ -311,7 +314,7 @@ class Recipe extends Component {
               <div className="fav-icon-and-counter">
                 <IconButton
                   aria-label="Remove from favorites"
-                  onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.userId) }}
+                  onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.loggedInUserId) }}
                 >
                   {this.state.isFavourite ? <FavoriteIcon className="fav-icon" /> : <FavoriteBorderIcon className="icon-outlined" />}
                 </IconButton>

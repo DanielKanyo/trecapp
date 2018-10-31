@@ -51,7 +51,7 @@ class Favourites extends Component {
             if (favouritesObject) {
               if (favouritesObject.hasOwnProperty(loggedInUserId) && data.publicChecked) {
 
-                db.getUserInfo(loggedInUserId).then(resUserInfo => {
+                db.getUserInfo(data.userId).then(resUserInfo => {
                   let userInfo = resUserInfo;
 
                   previousRecipes.push(

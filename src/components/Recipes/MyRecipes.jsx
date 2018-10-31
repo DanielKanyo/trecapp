@@ -83,6 +83,7 @@ class MyRecipes extends Component {
 
             let data = recipes[key];
 
+            data.loggedInUserId = loggedInUserId;
             data.recipeId = key;
             data.isFavourite = isFavourite;
             data.favouriteCounter = recipes[key].favouriteCounter;

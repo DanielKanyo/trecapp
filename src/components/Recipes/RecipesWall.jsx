@@ -13,6 +13,9 @@ import Grid from '@material-ui/core/Grid';
 import Public from '@material-ui/icons/Public';
 import Grade from '@material-ui/icons/Grade';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 const styles = theme => ({
   paper: {
     padding: theme.spacing.unit * 2,
@@ -47,12 +50,13 @@ class RecipesWall extends Component {
     db.getRecipes().then(resRecipes => {
 
       var arrangedRecipesBasedOnTimestamp = [];
-      var keys = [];
+      let index = 0;
 
       for (var key in resRecipes) {
         if (resRecipes.hasOwnProperty(key)) {
           arrangedRecipesBasedOnTimestamp.push(resRecipes[key]);
-          keys.push(key);
+          arrangedRecipesBasedOnTimestamp[index].recipeId = key;
+          ++index;
         }
       }
 
@@ -63,7 +67,7 @@ class RecipesWall extends Component {
           let recipes = arrangedRecipesBasedOnTimestamp;
 
           for (var i = 0; i < recipes.length; i++) {
-            
+
             if (i < this.state.numberOfRecipesDisplayed) {
               let favouritesObject = recipes[i].favourites;
 
@@ -75,7 +79,7 @@ class RecipesWall extends Component {
 
               let data = recipes[i];
 
-              data.recipeId = keys[i];
+              data.loggedInUserId = loggedInUserId;
               data.isFavourite = isFavourite;
               data.favouriteCounter = favouriteCounter;
               data.recipeDeletable = recipeDeletable;
@@ -84,7 +88,7 @@ class RecipesWall extends Component {
 
               previousRecipes.push(
                 <Recipe
-                  key={keys[i]}
+                  key={data.recipeId}
                   dataProp={data}
                   deleteRecipeProp={this.deleteRecipe}
                   languageObjectProp={this.props.languageObjectProp}
@@ -98,8 +102,6 @@ class RecipesWall extends Component {
           });
         }
       }
-
-
 
     });
   }
@@ -133,6 +135,8 @@ class RecipesWall extends Component {
               </div>
             </Paper>
 
+            {recipes.length === 0 ? <EmptyList /> : ''}
+
             {recipes.map((recipe, index) => {
               return recipe;
             })}
@@ -158,10 +162,26 @@ class RecipesWall extends Component {
 
         </Grid>
 
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          pauseOnHover
+        />
+
       </div>
     );
   }
 }
+
+const EmptyList = () =>
+  <div className="empty-container">
+    Empty
+  </div>
 
 const authCondition = (authUser) => !!authUser;
 
