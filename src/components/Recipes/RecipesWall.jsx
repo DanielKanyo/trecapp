@@ -48,17 +48,14 @@ class RecipesWall extends Component {
     });
 
     db.getRecipes().then(resRecipes => {
-
       var arrangedRecipesBasedOnTimestamp = [];
-      let index = 0;
 
-      for (var key in resRecipes) {
+      Object.entries(resRecipes).forEach(([key, value], i) => {
         if (resRecipes.hasOwnProperty(key)) {
-          arrangedRecipesBasedOnTimestamp.push(resRecipes[key]);
-          arrangedRecipesBasedOnTimestamp[index].recipeId = key;
-          ++index;
+          arrangedRecipesBasedOnTimestamp.push(value);
+          arrangedRecipesBasedOnTimestamp[i].recipeId = key;
         }
-      }
+      });
 
       if (arrangedRecipesBasedOnTimestamp.length) {
         arrangedRecipesBasedOnTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
