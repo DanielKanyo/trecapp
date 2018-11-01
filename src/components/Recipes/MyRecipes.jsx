@@ -61,51 +61,59 @@ class MyRecipes extends Component {
     let isFavourite = false;
 
     db.getUserInfo(loggedInUserId).then(resUserInfo => {
+      let username = resUserInfo.username;
+
       this.setState({
         currency: resUserInfo.currency,
         loggedInUserId: loggedInUserId
       });
-    });
 
-    db.getRecipes().then(resRecipes => {
-      if (this.mounted) {
-        let recipes = resRecipes;
+      db.getRecipes().then(resRecipes => {
+        if (this.mounted) {
+          let recipes = resRecipes;
 
-        for (var key in recipes) {
-          if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
-            let favouritesObject = recipes[key].favourites;
+          for (var key in recipes) {
+            if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
+              let favouritesObject = recipes[key].favourites;
 
-            isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+              isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
 
-            let recipeDeletable = true;
-            let visibilityEditable = true;
-            let withPhoto = false;
+              let recipeDeletable = true;
+              let visibilityEditable = true;
+              let displayUserInfo = false;
+              let withPhoto = false;
+              let isMine = true;
 
-            let data = recipes[key];
+              let data = recipes[key];
 
-            data.loggedInUserId = loggedInUserId;
-            data.recipeId = key;
-            data.isFavourite = isFavourite;
-            data.favouriteCounter = recipes[key].favouriteCounter;
-            data.recipeDeletable = recipeDeletable;
-            data.withPhoto = withPhoto;
-            data.visibilityEditable = visibilityEditable;
+              data.loggedInUserId = loggedInUserId;
+              data.username = username;
+              data.isMine = isMine;
+              data.recipeId = key;
+              data.isFavourite = isFavourite;
+              data.favouriteCounter = recipes[key].favouriteCounter;
+              data.recipeDeletable = recipeDeletable;
+              data.withPhoto = withPhoto;
+              data.visibilityEditable = visibilityEditable;
+              data.displayUserInfo = displayUserInfo;
 
-            previousRecipes.unshift(
-              <Recipe
-                key={key}
-                dataProp={data}
-                deleteRecipeProp={this.deleteRecipe}
-                languageObjectProp={this.props.languageObjectProp}
-              />
-            )
+              previousRecipes.unshift(
+                <Recipe
+                  key={key}
+                  dataProp={data}
+                  deleteRecipeProp={this.deleteRecipe}
+                  languageObjectProp={this.props.languageObjectProp}
+                />
+              )
+            }
           }
-        }
 
-        this.setState({
-          recipes: previousRecipes
-        });
-      }
+          this.setState({
+            recipes: previousRecipes
+          });
+        }
+      });
+
     });
   }
 
@@ -127,6 +135,7 @@ class MyRecipes extends Component {
 
     let recipeDeletable = true;
     let visibilityEditable = true;
+    let displayUserInfo = false;
 
     dataToSend.userId = this.state.loggedInUserId;
     dataToSend.imageUrl = '';
@@ -134,6 +143,7 @@ class MyRecipes extends Component {
     dataToSend.favouriteCounter = this.state.favouriteCounter;
     dataToSend.recipeDeletable = recipeDeletable;
     dataToSend.visibilityEditable = visibilityEditable;
+    dataToSend.displayUserInfo = displayUserInfo;
 
     obj.currency = this.state.currency;
     obj.favouriteCounter = this.state.favouriteCounter;

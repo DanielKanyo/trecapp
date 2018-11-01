@@ -18,6 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Chip from '@material-ui/core/Chip';
 import CardMedia from '@material-ui/core/CardMedia';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   card: {
@@ -119,10 +120,12 @@ class FavRecipeItem extends Component {
                   label={languageObjectProp.data.Favourites.yourRecipe}
                   className={classes.chip + ' chip-card-content-mine'}
                 /> :
-                <Chip
-                  label={`${languageObjectProp.data.Favourites.uploadedBy} ${userProp.username}`}
-                  className={classes.chip + ' chip-card-content'}
-                />}
+                <Tooltip title={languageObjectProp.data.Favourites.uploadedBy}>
+                  <Chip
+                    label={userProp.username}
+                    className={classes.chip + ' chip-card-content'}
+                  />
+                </Tooltip>}
             </div>
             <IconButton
               className={classnames(classes.expand, {

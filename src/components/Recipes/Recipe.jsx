@@ -90,6 +90,7 @@ class Recipe extends Component {
     super(props);
     this.state = {
       userId: this.props.dataProp.userId,
+      username: this.props.dataProp.username,
       loggedInUserId: this.props.dataProp.loggedInUserId,
       expanded: false,
       dialogOpen: false,
@@ -98,10 +99,12 @@ class Recipe extends Component {
       favouriteCounter: this.props.dataProp.favouriteCounter,
       recipeDeletable: this.props.dataProp.recipeDeletable,
       visibilityEditable: this.props.dataProp.visibilityEditable,
+      displayUserInfo: this.props.dataProp.displayUserInfo,
       uploadReady: false,
       file: '',
       imageUrl: this.props.dataProp.imageUrl,
-      uploading: false
+      uploading: false,
+      isMine: this.props.dataProp.isMine,
     };
   }
 
@@ -280,6 +283,15 @@ class Recipe extends Component {
             title={data.title}
             subheader={creationTime}
           />
+          {
+            this.state.displayUserInfo ?
+              <div className="user-container">
+                <span>
+                  {this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
+                </span>
+                <div className="user-picture"></div>
+              </div> : ''
+          }
           {this.state.imageUrl !== "" ?
             <CardMedia
               className={classes.media}

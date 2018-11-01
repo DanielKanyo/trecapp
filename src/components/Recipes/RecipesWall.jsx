@@ -41,12 +41,6 @@ class RecipesWall extends Component {
     let loggedInUserId = auth.getCurrentUserId();
     let previousRecipes = this.state.recipes;
 
-    db.getUserInfo(loggedInUserId).then(resUserInfo => {
-      this.setState({
-        loggedInUserId
-      });
-    });
-
     db.getRecipes().then(resRecipes => {
       var arrangedRecipesBasedOnTimestamp = [];
 
@@ -63,34 +57,48 @@ class RecipesWall extends Component {
         if (this.mounted) {
           let recipes = arrangedRecipesBasedOnTimestamp;
 
-          for (var i = 0; i < recipes.length; i++) {
+          for (let i = 0; i < recipes.length; i++) {
 
             if (i < this.state.numberOfRecipesDisplayed) {
-              let favouritesObject = recipes[i].favourites;
+              db.getUserInfo(recipes[i].userId).then(resUserInfo => {
+                let username = resUserInfo.username;
 
-              let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
-              let visibilityEditable = false;
-              let recipeDeletable = false;
-              let withPhoto = recipes[i].imageUrl !== '' ? true : false;
-              let favouriteCounter = recipes[i].favouriteCounter;
+                this.setState({
+                  loggedInUserId
+                });
+                
+                let favouritesObject = recipes[i].favourites;
 
-              let data = recipes[i];
+                let isMine = recipes[i].userId === loggedInUserId ? true : false;
+                let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+                let visibilityEditable = false;
+                let recipeDeletable = false;
+                let displayUserInfo = true;
+                let withPhoto = recipes[i].imageUrl !== '' ? true : false;
+                let favouriteCounter = recipes[i].favouriteCounter;
 
-              data.loggedInUserId = loggedInUserId;
-              data.isFavourite = isFavourite;
-              data.favouriteCounter = favouriteCounter;
-              data.recipeDeletable = recipeDeletable;
-              data.withPhoto = withPhoto;
-              data.visibilityEditable = visibilityEditable;
+                let data = recipes[i];
 
-              previousRecipes.push(
-                <Recipe
-                  key={data.recipeId}
-                  dataProp={data}
-                  deleteRecipeProp={this.deleteRecipe}
-                  languageObjectProp={this.props.languageObjectProp}
-                />
-              )
+                data.loggedInUserId = loggedInUserId;
+                data.username = username;
+                data.isMine = isMine;
+                data.isFavourite = isFavourite;
+                data.favouriteCounter = favouriteCounter;
+                data.recipeDeletable = recipeDeletable;
+                data.withPhoto = withPhoto;
+                data.visibilityEditable = visibilityEditable;
+                data.displayUserInfo = displayUserInfo;
+
+                previousRecipes.push(
+                  <Recipe
+                    key={data.recipeId}
+                    dataProp={data}
+                    deleteRecipeProp={this.deleteRecipe}
+                    languageObjectProp={this.props.languageObjectProp}
+                  />
+                )
+
+              });
             } else break
           }
 

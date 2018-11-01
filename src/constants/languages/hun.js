@@ -95,7 +95,7 @@ export const dataHun = {
     },
     Favourites: {
       yourRecipe: 'Az egyik recepted!',
-      uploadedBy: 'feltöltötte',
+      uploadedBy: 'Feltöltő',
     },
   }
 }

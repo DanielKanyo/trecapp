@@ -523,7 +523,7 @@ input[type=time]::-webkit-clear-button {
   pointer-events: none;
 }
 
-.file-upload-overlap > div {
+.file-upload-overlap>div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -541,6 +541,31 @@ input[type=time]::-webkit-clear-button {
   width: 100%;
   outline: none;
   cursor: pointer;
+}
+
+.user-container {
+  font-size: 12px;
+  padding: 10px 16px 10px 16px;
+  margin-bottom: 10px;
+  background: #ececec;
+  position: relative;
+  text-align: right;
+}
+
+.user-container > span {
+  color: #383838;
+  margin-right: 55px;
+}
+
+.user-picture {
+  position: absolute;
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  background: #818181;
+  top: -20px;
+  right: 10px;
+  border: 5px solid white;
 }
 
 @media only screen and (max-width: 950px) {

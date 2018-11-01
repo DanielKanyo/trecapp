@@ -95,7 +95,7 @@ export const dataEng = {
     },
     Favourites: {
       yourRecipe: "It's your recipe!",
-      uploadedBy: 'uploaded by',
+      uploadedBy: 'Uploader',
     },
   }
 }
