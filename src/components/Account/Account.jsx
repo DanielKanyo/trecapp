@@ -4,7 +4,7 @@ import AccountDetails from './AccountDetails';
 import AuthUserContext from '../Session/AuthUserContext';
 import { PasswordForgetForm } from '../PasswordForget/PasswordForget';
 import PasswordChangeForm from '../PasswordChange/PasswordChange';
-import { auth, db } from '../../firebase';
+import { auth, db, storage } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
@@ -12,6 +12,18 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Face from '@material-ui/icons/Face';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+
+import ReactCrop from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 const styles = theme => ({
   textField: {
@@ -24,7 +36,19 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     marginBottom: '14px'
   },
+  appBar: {
+    position: 'relative',
+    backgroundColor: '#F8B000',
+  },
+  flex: {
+    flex: 1,
+    fontSize: 16
+  },
 });
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 class AccountPage extends Component {
 
@@ -37,6 +61,16 @@ class AccountPage extends Component {
       accountLanguage: '',
       loggedInUserId: '',
       accountCurrency: '',
+      open: false,
+      src: null,
+      blob: '',
+      crop: {
+        x: 10,
+        y: 10,
+        aspect: 1,
+        height: 80
+      },
+      profilePicUrl: ''
     };
   }
 
@@ -71,8 +105,96 @@ class AccountPage extends Component {
         accountEmail: snapshot.email,
         accountCurrency: snapshot.currency,
         accountLanguage: snapshot.language,
-        loggedInUserId: loggedInUserId
+        profilePicUrl: snapshot.profilePicUrl,
+        loggedInUserId: loggedInUserId,
       }));
+    });
+  }
+
+  openUploadDialog = () => {
+    this.setState({ open: true });
+  };
+
+  closeUploadDialog = () => {
+    this.setState({ open: false });
+  };
+
+  onSelectFile = e => {
+    if (e.target.files && e.target.files.length > 0) {
+      document.getElementsByClassName("profile-input-container")[0].classList.add("hide");
+      const reader = new FileReader();
+      reader.addEventListener("load", () =>
+        this.setState({ src: reader.result })
+      );
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  onImageLoaded = (image, pixelCrop) => {
+    this.imageRef = image;
+  };
+
+  onCropComplete = async (crop, pixelCrop) => {
+    let timestamp = new Date().getTime();
+
+    const croppedImageUrl = await this.getCroppedImg(
+      this.imageRef,
+      pixelCrop,
+      `profile-picture-${this.state.accountName}-${timestamp}`
+    );
+
+    this.setState({ croppedImageUrl });
+  };
+
+  onCropChange = crop => {
+    this.setState({ crop });
+  };
+
+  getCroppedImg(image, pixelCrop, fileName) {
+    const canvas = document.createElement("canvas");
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+      image,
+      pixelCrop.x,
+      pixelCrop.y,
+      pixelCrop.width,
+      pixelCrop.height,
+      0,
+      0,
+      pixelCrop.width,
+      pixelCrop.height
+    );
+
+    return new Promise((resolve, reject) => {
+      canvas.toBlob(file => {
+        file.name = fileName;
+        window.URL.revokeObjectURL(this.fileUrl);
+        this.fileUrl = window.URL.createObjectURL(file);
+        resolve(this.fileUrl);
+
+        this.setState({
+          blob: file
+        });
+
+      }, "image/jpeg");
+    });
+  }
+
+  saveProfilePicture() {
+    storage.uploadProfileImage(this.state.blob).then(fileObject => {
+      let fullPath = fileObject.metadata.fullPath;
+
+      storage.getImageDownloadUrl(fullPath).then(url => {
+
+        this.setState({
+          profilePicUrl: url,
+        });
+
+        db.updateUsersProfilePictureUrl(this.state.loggedInUserId, url);
+      });
     });
   }
 
@@ -101,16 +223,23 @@ class AccountPage extends Component {
                   <Grid className="sub-grid" container spacing={16}>
 
                     <Grid item className="grid-component" xs={6}>
+                      <Paper className={classes.paper + ' profile-picture-container'}>
+                        <div>
+                          <div className="profile-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
+                          <div className="profile-picture-upload-btn">
+                            <button className="upload-profile-pic-btn" onClick={this.openUploadDialog}>
+                              <AddPhotoAlternateIcon className="add-profile-picture-icon" />
+                            </button>
+                          </div>
+                        </div>
+                      </Paper>
                       <AccountDetails
                         handleInputChangeProp={this.handleInputChange}
                         handleChangeLanguageProp={this.handleChangeLanguage}
                         handleChangeCurrencyProp={this.handleChangeCurrency}
                         setLanguageProp={this.props.setLanguageProp}
                         handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
-                        accountNameProp={this.state.accountName}
-                        accountEmailProp={this.state.accountEmail}
-                        accountLanguageProp={this.state.accountLanguage}
-                        accountCurrencyProp={this.state.accountCurrency}
+                        dataProp={this.state}
                         languageObjectProp={languageObjectProp}
                       />
                     </Grid>
@@ -127,6 +256,45 @@ class AccountPage extends Component {
 
               </Grid>
             </Grid>
+
+            <Dialog
+              fullScreen
+              open={this.state.open}
+              onClose={this.closeUploadDialog}
+              TransitionComponent={Transition}
+              className="upload-profile-image-dialog"
+            >
+              <AppBar className={classes.appBar}>
+                <Toolbar>
+                  <IconButton color="inherit" onClick={this.closeUploadDialog} aria-label="Close">
+                    <CloseIcon />
+                  </IconButton>
+                  <Typography color="inherit" className={classes.flex}>
+                    Upload profile image
+                  </Typography>
+                  <Button color="inherit" onClick={() => { this.closeUploadDialog(); this.saveProfilePicture() }}>
+                    save
+                  </Button>
+                </Toolbar>
+              </AppBar>
+              <div className="uploaded-image-container">
+                {this.state.src && (
+                  <ReactCrop
+                    src={this.state.src}
+                    crop={this.state.crop}
+                    onImageLoaded={this.onImageLoaded}
+                    onComplete={this.onCropComplete}
+                    onChange={this.onCropChange}
+                  />
+                )}
+              </div>
+              <div className="profile-input-container">
+                <div className="profile-input-overlap">
+                  <AddPhotoAlternateIcon className="add-profile-picture-icon" />
+                </div>
+                <input className="profile-input" type="file" onChange={this.onSelectFile} />
+              </div>
+            </Dialog>
           </div>
         }
       </AuthUserContext.Consumer>

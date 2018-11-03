@@ -96,6 +96,7 @@ class MyRecipes extends Component {
               data.withPhoto = withPhoto;
               data.visibilityEditable = visibilityEditable;
               data.displayUserInfo = displayUserInfo;
+              data.profilePicUrl = '';
 
               previousRecipes.unshift(
                 <Recipe

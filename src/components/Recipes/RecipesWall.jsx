@@ -69,6 +69,7 @@ class RecipesWall extends Component {
             for (let i = 0; i < recipes.length; i++) {
               if (recipes[i].publicChecked && counter < this.state.numberOfRecipesDisplayed) {
                 let username = usersObject[recipes[i].userId].username;
+                let profilePicUrl = usersObject[recipes[i].userId].profilePicUrl;
 
                 let favouritesObject = recipes[i].favourites;
 
@@ -84,6 +85,7 @@ class RecipesWall extends Component {
 
                 data.loggedInUserId = loggedInUserId;
                 data.username = username;
+                data.profilePicUrl = profilePicUrl;
                 data.isMine = isMine;
                 data.isFavourite = isFavourite;
                 data.favouriteCounter = favouriteCounter;
@@ -114,7 +116,6 @@ class RecipesWall extends Component {
     });
   }
 
-
   /**
    * Sets 'mounted' property to false to ignore warning 
    */
@@ -124,7 +125,6 @@ class RecipesWall extends Component {
 
   render() {
     const { classes } = this.props;
-
     let { latestRecipes } = this.state;
 
     return (

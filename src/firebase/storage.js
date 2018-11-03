@@ -17,3 +17,10 @@ export const getImageDownloadUrl = (fullPath) => {
   return url;
  });
 }
+
+// Upload profile image
+export const uploadProfileImage = (file) => {
+ let storageRef = storage.ref(`profile_images/${file.name}`);
+
+ return storageRef.put(file);
+}

@@ -112,7 +112,7 @@ class AccountDetails extends Component {
               label={languageObjectProp.data.Account.name}
               onChange={this.handleInputChange('accountName')}
               className={classes.textField}
-              value={this.props.accountNameProp}
+              value={this.props.dataProp.accountName}
               margin="normal"
               placeholder="Your name..."
             />
@@ -121,7 +121,7 @@ class AccountDetails extends Component {
               label="E-mail"
               onChange={this.handleInputChange('email')}
               className={classes.textField}
-              value={this.props.accountEmailProp}
+              value={this.props.dataProp.accountEmail}
               margin="normal"
               disabled
             />
@@ -129,7 +129,7 @@ class AccountDetails extends Component {
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="account-langu-dropdown-label">{languageObjectProp.data.Account.language}</InputLabel>
                 <Select
-                  value={this.props.accountLanguageProp ? this.props.accountLanguageProp : ''}
+                  value={this.props.dataProp.accountLanguage ? this.props.dataProp.accountLanguage : ''}
                   onChange={this.handleChangeLanguage}
                   inputProps={{
                     name: 'accountLanguage',
@@ -145,7 +145,7 @@ class AccountDetails extends Component {
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.currency}</InputLabel>
                 <Select
-                  value={this.props.accountCurrencyProp ? this.props.accountCurrencyProp : ''}
+                  value={this.props.dataProp.accountCurrency ? this.props.dataProp.accountCurrency : ''}
                   onChange={this.handleChangeCurrency}
                   inputProps={{
                     name: 'accountCurrency',
@@ -154,7 +154,6 @@ class AccountDetails extends Component {
                 >
                   <MenuItem value={'USD'}>USD</MenuItem>
                   <MenuItem value={'HUF'}>HUF</MenuItem>
-                  {/* <MenuItem value={30}>German</MenuItem> */}
                 </Select>
               </FormControl>
             </div>

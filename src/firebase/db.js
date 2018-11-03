@@ -3,12 +3,13 @@ import {
 } from './firebase';
 
 // Create user
-export const doCreateUser = (id, username, email, language, currency) => {
+export const doCreateUser = (id, username, email, language, currency, profilePicUrl) => {
   return db.ref(`users/${id}`).set({
     username,
     email,
     language,
-    currency
+    currency,
+    profilePicUrl,
   });
 }
 
@@ -88,6 +89,15 @@ export const updateRecipeImageUrl = (recipeId, url) => {
 
   return recipeRef.update({
     imageUrl: url
+  });
+}
+
+// Update users profile picture url
+export const updateUsersProfilePictureUrl = (userId, url) => {
+  let userRef = db.ref(`users/${userId}`);
+
+  return userRef.update({
+    profilePicUrl: url
   });
 }
 

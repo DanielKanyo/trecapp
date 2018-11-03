@@ -105,6 +105,7 @@ class Recipe extends Component {
       imageUrl: this.props.dataProp.imageUrl,
       uploading: false,
       isMine: this.props.dataProp.isMine,
+      profilePicUrl: this.props.dataProp.profilePicUrl,
     };
   }
 
@@ -289,7 +290,7 @@ class Recipe extends Component {
                 <span>
                   {this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
                 </span>
-                <div className="user-picture"></div>
+                <div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
               </div> : ''
           }
           {this.state.imageUrl !== "" ?
