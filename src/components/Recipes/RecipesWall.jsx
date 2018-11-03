@@ -29,7 +29,8 @@ class RecipesWall extends Component {
     super(props);
 
     this.state = {
-      recipes: [],
+      latestRecipes: [],
+      topRecipes: [],
       loggedInUserId: '',
       numberOfRecipesDisplayed: 15
     };
@@ -39,34 +40,36 @@ class RecipesWall extends Component {
     this.mounted = true;
 
     let loggedInUserId = auth.getCurrentUserId();
-    let previousRecipes = this.state.recipes;
+    let previousRecipes = this.state.latestRecipes;
+    let counter = 0;
+
+    this.setState({
+      loggedInUserId
+    });
 
     db.getRecipes().then(resRecipes => {
-      var arrangedRecipesBasedOnTimestamp = [];
+      var sortedRecipesByTimestamp = [];
 
       Object.entries(resRecipes).forEach(([key, value], i) => {
         if (resRecipes.hasOwnProperty(key)) {
-          arrangedRecipesBasedOnTimestamp.push(value);
-          arrangedRecipesBasedOnTimestamp[i].recipeId = key;
+          sortedRecipesByTimestamp.push(value);
+          sortedRecipesByTimestamp[i].recipeId = key;
         }
       });
 
-      if (arrangedRecipesBasedOnTimestamp.length) {
-        arrangedRecipesBasedOnTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
+      db.onceGetUsers().then(users => {
+        let usersObject = users.val();
 
-        if (this.mounted) {
-          let recipes = arrangedRecipesBasedOnTimestamp;
+        if (sortedRecipesByTimestamp.length) {
+          sortedRecipesByTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
 
-          for (let i = 0; i < recipes.length; i++) {
+          if (this.mounted) {
+            let recipes = sortedRecipesByTimestamp;
 
-            if (i < this.state.numberOfRecipesDisplayed) {
-              db.getUserInfo(recipes[i].userId).then(resUserInfo => {
-                let username = resUserInfo.username;
+            for (let i = 0; i < recipes.length; i++) {
+              if (recipes[i].publicChecked && counter < this.state.numberOfRecipesDisplayed) {
+                let username = usersObject[recipes[i].userId].username;
 
-                this.setState({
-                  loggedInUserId
-                });
-                
                 let favouritesObject = recipes[i].favourites;
 
                 let isMine = recipes[i].userId === loggedInUserId ? true : false;
@@ -98,16 +101,16 @@ class RecipesWall extends Component {
                   />
                 )
 
-              });
-            } else break
+                this.setState({
+                  latestRecipes: previousRecipes
+                });
+
+                counter++;
+              }
+            }
           }
-
-          this.setState({
-            recipes: previousRecipes
-          });
         }
-      }
-
+      });
     });
   }
 
@@ -122,7 +125,7 @@ class RecipesWall extends Component {
   render() {
     const { classes } = this.props;
 
-    let recipes = this.state.recipes;
+    let { latestRecipes } = this.state;
 
     return (
       <div className="ComponentContent">
@@ -140,9 +143,9 @@ class RecipesWall extends Component {
               </div>
             </Paper>
 
-            {recipes.length === 0 ? <EmptyList /> : ''}
+            {latestRecipes.length === 0 ? <EmptyList /> : ''}
 
-            {recipes.map((recipe, index) => {
+            {latestRecipes.map((recipe, index) => {
               return recipe;
             })}
 
