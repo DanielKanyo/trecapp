@@ -45,6 +45,10 @@ export const dataHun = {
           do: 'Törlés'
         }
       },
+      RecipesWall: {
+        latestRecipes: 'Legújabb Receptek',
+        topRecipes: 'Top Receptek',
+      },
       tooltips: {
         privateRecipe: 'Privát recept',
         publicRecipe: 'Nyilvános recept',

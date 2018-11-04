@@ -40,48 +40,56 @@ class RecipesWall extends Component {
     this.mounted = true;
 
     let loggedInUserId = auth.getCurrentUserId();
-    let previousRecipes = this.state.latestRecipes;
-    let counter = 0;
+    let previousLatestRecipes = this.state.latestRecipes;
+    let previousTopRecipes = this.state.topRecipes;
+    let counter1 = 0;
+    let counter2 = 0;
 
     this.setState({
       loggedInUserId
     });
 
     db.getRecipes().then(resRecipes => {
-      var sortedRecipesByTimestamp = [];
+      let sortedRecipesByTimestamp = [];
+      let sortedRecipesByFavCounter = [];
 
       Object.entries(resRecipes).forEach(([key, value], i) => {
         if (resRecipes.hasOwnProperty(key)) {
           sortedRecipesByTimestamp.push(value);
           sortedRecipesByTimestamp[i].recipeId = key;
+
+          sortedRecipesByFavCounter.push(value);
+          sortedRecipesByFavCounter[i].recipeId = key;
         }
       });
 
       db.onceGetUsers().then(users => {
         let usersObject = users.val();
 
-        if (sortedRecipesByTimestamp.length) {
+        if (sortedRecipesByTimestamp.length && sortedRecipesByFavCounter.length) {
           sortedRecipesByTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
+          sortedRecipesByFavCounter.sort((a, b) => (a.favouriteCounter < b.favouriteCounter) ? 1 : ((b.favouriteCounter < a.favouriteCounter) ? -1 : 0));
 
           if (this.mounted) {
-            let recipes = sortedRecipesByTimestamp;
+            let latestRecipes = sortedRecipesByTimestamp;
+            let topRecipes = sortedRecipesByFavCounter;
 
-            for (let i = 0; i < recipes.length; i++) {
-              if (recipes[i].publicChecked && counter < this.state.numberOfRecipesDisplayed) {
-                let username = usersObject[recipes[i].userId].username;
-                let profilePicUrl = usersObject[recipes[i].userId].profilePicUrl;
+            for (let i = 0; i < latestRecipes.length; i++) {
+              if (latestRecipes[i].publicChecked && counter1 < this.state.numberOfRecipesDisplayed) {
+                let username = usersObject[latestRecipes[i].userId].username;
+                let profilePicUrl = usersObject[latestRecipes[i].userId].profilePicUrl;
 
-                let favouritesObject = recipes[i].favourites;
+                let favouritesObject = latestRecipes[i].favourites;
 
-                let isMine = recipes[i].userId === loggedInUserId ? true : false;
+                let isMine = latestRecipes[i].userId === loggedInUserId ? true : false;
                 let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
                 let visibilityEditable = false;
                 let recipeDeletable = false;
                 let displayUserInfo = true;
-                let withPhoto = recipes[i].imageUrl !== '' ? true : false;
-                let favouriteCounter = recipes[i].favouriteCounter;
+                let withPhoto = latestRecipes[i].imageUrl !== '' ? true : false;
+                let favouriteCounter = latestRecipes[i].favouriteCounter;
 
-                let data = recipes[i];
+                let data = latestRecipes[i];
 
                 data.loggedInUserId = loggedInUserId;
                 data.username = username;
@@ -94,7 +102,7 @@ class RecipesWall extends Component {
                 data.visibilityEditable = visibilityEditable;
                 data.displayUserInfo = displayUserInfo;
 
-                previousRecipes.push(
+                previousLatestRecipes.push(
                   <Recipe
                     key={data.recipeId}
                     dataProp={data}
@@ -104,10 +112,55 @@ class RecipesWall extends Component {
                 )
 
                 this.setState({
-                  latestRecipes: previousRecipes
+                  latestRecipes: previousLatestRecipes
                 });
 
-                counter++;
+                counter1++;
+              }
+            }
+
+            for (let j = 0; j < topRecipes.length; j++) {
+              if (topRecipes[j].publicChecked && counter2 < this.state.numberOfRecipesDisplayed) {
+                let username = usersObject[topRecipes[j].userId].username;
+                let profilePicUrl = usersObject[topRecipes[j].userId].profilePicUrl;
+
+                let favouritesObject = topRecipes[j].favourites;
+
+                let isMine = topRecipes[j].userId === loggedInUserId ? true : false;
+                let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+                let visibilityEditable = false;
+                let recipeDeletable = false;
+                let displayUserInfo = true;
+                let withPhoto = topRecipes[j].imageUrl !== '' ? true : false;
+                let favouriteCounter = topRecipes[j].favouriteCounter;
+
+                let data = topRecipes[j];
+
+                data.loggedInUserId = loggedInUserId;
+                data.username = username;
+                data.profilePicUrl = profilePicUrl;
+                data.isMine = isMine;
+                data.isFavourite = isFavourite;
+                data.favouriteCounter = favouriteCounter;
+                data.recipeDeletable = recipeDeletable;
+                data.withPhoto = withPhoto;
+                data.visibilityEditable = visibilityEditable;
+                data.displayUserInfo = displayUserInfo;
+
+                previousTopRecipes.push(
+                  <Recipe
+                    key={data.recipeId}
+                    dataProp={data}
+                    deleteRecipeProp={this.deleteRecipe}
+                    languageObjectProp={this.props.languageObjectProp}
+                  />
+                )
+
+                this.setState({
+                  topRecipes: previousTopRecipes
+                });
+
+                counter2++;
               }
             }
           }
@@ -125,21 +178,23 @@ class RecipesWall extends Component {
 
   render() {
     const { classes } = this.props;
+    const { languageObjectProp } = this.props;
     let { latestRecipes } = this.state;
+    let { topRecipes } = this.state;
 
     return (
       <div className="ComponentContent">
 
         <Grid className="main-grid" container spacing={16}>
 
-          <Grid item className="grid-component" xs={6}>
+          <Grid item className="grid-component recipes-wall" xs={6}>
 
             <Paper className={classes.paper + ' paper-title paper-title-wall'}>
               <div className="paper-title-icon">
                 <Public />
               </div>
               <div className="paper-title-text">
-                Latest Recipes
+                {languageObjectProp.data.myRecipes.RecipesWall.latestRecipes}
               </div>
             </Paper>
 
@@ -158,13 +213,15 @@ class RecipesWall extends Component {
                 <Grade />
               </div>
               <div className="paper-title-text">
-                Top 10 Recipes
+                {languageObjectProp.data.myRecipes.RecipesWall.topRecipes}
               </div>
             </Paper>
 
-            <Paper className={classes.paper + ' paper-events'}>
-              <p>Top 10 Recipes</p>
-            </Paper>
+            {topRecipes.length === 0 ? <EmptyList /> : ''}
+
+            {topRecipes.map((recipe, index) => {
+              return recipe;
+            })}
 
           </Grid>
 

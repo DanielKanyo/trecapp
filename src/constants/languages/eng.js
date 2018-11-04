@@ -45,6 +45,10 @@ export const dataEng = {
           do: 'Delete'
         }
       },
+      RecipesWall: {
+        latestRecipes: 'Latest Recipes',
+        topRecipes: 'Top Recipes',
+      },
       tooltips: {
         privateRecipe: 'Private recipe',
         publicRecipe: 'Public recipe',
