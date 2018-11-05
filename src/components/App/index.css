@@ -665,6 +665,10 @@ input[type=time]::-webkit-clear-button {
   display: none;
 }
 
+.if-no-image-placeholder {
+  padding: 6px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

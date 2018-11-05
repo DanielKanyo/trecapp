@@ -23,7 +23,7 @@ export const dataHun = {
         placeholder: {
           titlePlaceholder: 'Recept címe...',
           storyPlaceholder: 'Csak néhány mondatot...',
-          ingredientsPlaceholder: 'Sorolja fel...',
+          ingredientsPlaceholder: 'Sorold fel...',
           longDesPlaceholder: 'Elkészítési folyamat...',
           dosePlaceholder: 'Mennyiség...',
           costPlaceholder: 'Ár...'
@@ -39,8 +39,8 @@ export const dataHun = {
         minuteText: 'perc',
         recipeImage: 'A végeredmény!',
         modal: {
-          title: 'Biztos benne?',
-          content: 'Biztosan törölni akarja a receptet?',
+          title: 'Biztos vagy benne?',
+          content: 'Biztosan törölni akarod a receptet?',
           cancel: 'Mégse',
           do: 'Törlés'
         }
@@ -56,18 +56,18 @@ export const dataHun = {
         removeFromFav: 'Törlés a kedvencekből',
         deleteRecipe: 'Recept törlése',
         more: 'Több',
-        numOfRecipes: 'Receptjeinek száma',
+        numOfRecipes: 'Receptjeid száma',
         saveImage: 'Kép mentése',
       },
       toaster: {
         recipeSaved: 'Recept elmentve!',
         recipeRemoved: 'Recept törölve!',
-        warningFillReq: 'Töltse ki a beviteli mezőket...',
-        addedToPublic: 'Receptje mostantól nyilvános!',
-        removedFromPublic: 'Receptje mostantól privát!',
+        warningFillReq: 'Töltsd ki a beviteli mezőket...',
+        addedToPublic: 'Recepted mostantól nyilvános!',
+        removedFromPublic: 'Recepted mostantól privát!',
         addedToFav: 'Recept hozzáadva a kedvencekhez!',
         removedFromFav: 'Recept eltávolítva a kedvencekből!',
-        warningSmallerThanOne: 'Nem írhat be negatív értéket!',
+        warningSmallerThanOne: 'Nem írhatsz be negatív értéket!',
         fileTooBig: 'A kiválasztott fájl túl nagy!',
         chooseAnImage: 'Egy képet válassz!',
       }
@@ -84,15 +84,15 @@ export const dataHun = {
       toaster: {
         inBasket: 'Termék a kosárban!',
         notInBasket: 'A termék nincs a kosárban!',
-        inputWarning: 'Töltse ki a beviteli mezőt!',
+        inputWarning: 'Töltsd ki a beviteli mezőt!',
         itemAdded: 'Termék hozzáadva!',
         productDel: 'A termék törölve!',
         allItemDeleted: 'Minden termék törölve!',
         noItemInList: 'Nincs termék a listán!'
       },
       modal: {
-        title: 'Biztos benne?',
-        content: 'Biztosan törölni akarja a listában szereplő összes terméket?',
+        title: 'Biztos vagy benne?',
+        content: 'Biztosan törölni akarod a listában szereplő összes terméket?',
         cancel: 'Mégse',
         do: 'Törlés'
       }

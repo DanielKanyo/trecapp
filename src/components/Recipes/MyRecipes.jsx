@@ -81,7 +81,7 @@ class MyRecipes extends Component {
               let recipeDeletable = true;
               let visibilityEditable = true;
               let displayUserInfo = false;
-              let withPhoto = false;
+              let withPhoto = true;
               let isMine = true;
 
               let data = recipes[key];
@@ -137,6 +137,7 @@ class MyRecipes extends Component {
     let recipeDeletable = true;
     let visibilityEditable = true;
     let displayUserInfo = false;
+    let withPhoto = true;
 
     dataToSend.userId = this.state.loggedInUserId;
     dataToSend.imageUrl = '';
@@ -145,6 +146,7 @@ class MyRecipes extends Component {
     dataToSend.recipeDeletable = recipeDeletable;
     dataToSend.visibilityEditable = visibilityEditable;
     dataToSend.displayUserInfo = displayUserInfo;
+    dataToSend.withPhoto = withPhoto;
 
     obj.currency = this.state.currency;
     obj.favouriteCounter = this.state.favouriteCounter;

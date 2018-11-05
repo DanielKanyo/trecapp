@@ -106,6 +106,7 @@ class Recipe extends Component {
       uploading: false,
       isMine: this.props.dataProp.isMine,
       profilePicUrl: this.props.dataProp.profilePicUrl,
+      withPhoto: this.props.dataProp.withPhoto,
     };
   }
 
@@ -298,21 +299,25 @@ class Recipe extends Component {
               className={classes.media}
               image={this.state.imageUrl}
               title={languageObjectProp.data.myRecipes.myRecipes.recipeImage}
-            /> :
-            <div className="file-upload-container">
-              <div className="file-upload-overlap">
-                <div>
-                  {this.state.uploading ? <CircularProgress className={classes.progress} /> : <AddPhotoAlternateIcon />}
+            />
+            :
+            this.state.withPhoto ?
+              <div className="file-upload-container">
+                <div className="file-upload-overlap">
+                  <div>
+                    {this.state.uploading ? <CircularProgress className={classes.progress} /> : <AddPhotoAlternateIcon />}
+                  </div>
                 </div>
+                {this.state.uploadReady ?
+                  <Tooltip title={languageObjectProp.data.myRecipes.tooltips.saveImage}>
+                    <IconButton className={classes.uploadButton} aria-label="Delete">
+                      <SaveIcon onClick={this.saveImage} />
+                    </IconButton>
+                  </Tooltip> : ''}
+                <input type="file" onChange={(e) => { this.fileAdded(e) }} className="file-upload-input" />
               </div>
-              {this.state.uploadReady ?
-                <Tooltip title={languageObjectProp.data.myRecipes.tooltips.saveImage}>
-                  <IconButton className={classes.uploadButton} aria-label="Delete">
-                    <SaveIcon onClick={this.saveImage} />
-                  </IconButton>
-                </Tooltip> : ''}
-              <input type="file" onChange={(e) => { this.fileAdded(e) }} className="file-upload-input" />
-            </div>
+              :
+              <div className="if-no-image-placeholder"></div>
           }
 
           <CardContent className="recipe-story-card-content">
