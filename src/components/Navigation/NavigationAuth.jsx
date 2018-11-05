@@ -172,8 +172,12 @@ class NavigationAuth extends Component {
                   <Paper className="account-dropdown">
                     <ClickAwayListener onClickAway={this.handleCloseAccountDropdown}>
                       <MenuList>
-                        <MenuItem component={Link} to={routes.ACCOUNT} onClick={this.handleCloseAccountDropdown}>My Account</MenuItem>
-                        <MenuItem onClick={auth.doSignOut}>Logout</MenuItem>
+                        <MenuItem component={Link} to={routes.ACCOUNT} onClick={this.handleCloseAccountDropdown}>
+                          {languageObjectProp.data.Navigation.dropdownValues[0]}
+                        </MenuItem>
+                        <MenuItem onClick={auth.doSignOut}>
+                          {languageObjectProp.data.Navigation.dropdownValues[1]}
+                        </MenuItem>
                       </MenuList>
                     </ClickAwayListener>
                   </Paper>

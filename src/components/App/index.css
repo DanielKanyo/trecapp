@@ -598,15 +598,8 @@ input[type=time]::-webkit-clear-button {
 
 .upload-profile-pic-btn {
   height: 100%;
-  width: calc(100% - 10px);
-  margin-left: 10px;
-  font-family: 'Roboto', sans-serif;
-  background: none;
-  border: 2px dashed #d8d8d8;
-  border-radius: 4px;
-  outline: none;
-  color: #7c7c7c;
-  cursor: pointer;
+  width: 100% !important;
+  margin-left: 10px !important;
 }
 
 .add-profile-picture-icon {
@@ -704,6 +697,10 @@ input[type=time]::-webkit-clear-button {
 
   .recipes-wall .recipe-content:last-of-type>div {
     margin-bottom: 0px !important;
+  }
+
+  .uploaded-image-container>div {
+    height: auto;
   }
 }
 

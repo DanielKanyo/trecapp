@@ -3,6 +3,9 @@ export const dataEng = {
     appTitle: 'My Recipes',
     menuItems: ['My Recipes', 'Recipes Wall', 'Favourites', 'Categories', 'Shopping List', 'My Account', 'Logout'],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    Navigation: {
+      dropdownValues: ['My Account', 'Logout']
+    },
     myRecipes: {
       newRecipe: {
         clearBtn: 'Empty',
@@ -73,9 +76,13 @@ export const dataEng = {
       }
     },
     Account: {
+      title: 'My Account',
+      profileImageUpload: 'Upload profile image',
+      profileImageChange: 'Change profile image',
       name: 'Name',
       language: 'Language',
       currency: 'Currency',
+      save: 'Save',
     },
     ShoppingList: {
       input: 'Product...',

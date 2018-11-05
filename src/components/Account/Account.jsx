@@ -215,7 +215,7 @@ class AccountPage extends Component {
                     <Face />
                   </div>
                   <div className="paper-title-text">
-                    Account Details
+                    {languageObjectProp.data.Account.title}
                   </div>
                 </Paper>
 
@@ -227,9 +227,11 @@ class AccountPage extends Component {
                         <div>
                           <div className="profile-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
                           <div className="profile-picture-upload-btn">
-                            <button className="upload-profile-pic-btn" onClick={this.openUploadDialog}>
-                              <AddPhotoAlternateIcon className="add-profile-picture-icon" />
-                            </button>
+                            <Button color="inherit" onClick={this.openUploadDialog} className="upload-profile-pic-btn">
+                              {this.state.profilePicUrl === "" ?
+                                languageObjectProp.data.Account.profileImageUpload : languageObjectProp.data.Account.profileImageChange
+                              }
+                            </Button>
                           </div>
                         </div>
                       </Paper>
@@ -270,10 +272,10 @@ class AccountPage extends Component {
                     <CloseIcon />
                   </IconButton>
                   <Typography color="inherit" className={classes.flex}>
-                    Upload profile image
+                    {languageObjectProp.data.Account.profileImageUpload}
                   </Typography>
                   <Button color="inherit" onClick={() => { this.closeUploadDialog(); this.saveProfilePicture() }}>
-                    save
+                    {languageObjectProp.data.Account.save}
                   </Button>
                 </Toolbar>
               </AppBar>

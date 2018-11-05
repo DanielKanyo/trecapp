@@ -3,7 +3,7 @@ import { auth, db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
-import FavRecipeItem from './FavRecipeItem';
+import Recipe from '../Recipes/Recipe';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -18,7 +18,7 @@ class Favourites extends Component {
     super(props);
     this.state = {
       loggedInUserId: '',
-      recipes: [],
+      favRecipes: [],
     }
   }
 
@@ -26,51 +26,69 @@ class Favourites extends Component {
     this.mounted = true;
 
     let loggedInUserId = auth.getCurrentUserId();
-    let previousRecipes = this.state.recipes;
-    let isMine;
+    let previousRecipes = this.state.favRecipes;
 
     this.setState({
       loggedInUserId
     });
 
-
     db.getRecipes().then(resRecipes => {
       if (this.mounted) {
-        let recipes = resRecipes;
+        let favRecipes = resRecipes;
 
-        for (let key in recipes) {
-          if (recipes.hasOwnProperty(key)) {
-            let data = recipes[key];
+        db.onceGetUsers().then(users => {
+          let usersObject = users.val();
 
-            isMine = data.userId === loggedInUserId ? true : false;
+          for (let key in favRecipes) {
+            if (favRecipes.hasOwnProperty(key)) {
+              let item = favRecipes[key];
 
-            data.isMine = isMine;
+              let favouritesObject = item.favourites;
 
-            let favouritesObject = data.favourites;
+              if (favouritesObject) {
+                if (favouritesObject.hasOwnProperty(loggedInUserId) && item.publicChecked) {
+                  let username = usersObject[favRecipes[key].userId].username;
+                  let profilePicUrl = usersObject[favRecipes[key].userId].profilePicUrl;
 
-            if (favouritesObject) {
-              if (favouritesObject.hasOwnProperty(loggedInUserId) && data.publicChecked) {
+                  let isMine = favRecipes[key].userId === loggedInUserId ? true : false;
 
-                db.getUserInfo(data.userId).then(resUserInfo => {
-                  let userInfo = resUserInfo;
+                  let visibilityEditable = false;
+                  let recipeDeletable = false;
+                  let displayUserInfo = true;
+                  let withPhoto = favRecipes[key].imageUrl !== '' ? true : false;
+                  let favouriteCounter = favRecipes[key].favouriteCounter;
+
+                  let data = favRecipes[key];
+
+                  data.recipeId = key;
+                  data.loggedInUserId = loggedInUserId;
+                  data.username = username;
+                  data.profilePicUrl = profilePicUrl;
+                  data.isMine = isMine;
+                  data.isFavourite = true;
+                  data.favouriteCounter = favouriteCounter;
+                  data.recipeDeletable = recipeDeletable;
+                  data.withPhoto = withPhoto;
+                  data.visibilityEditable = visibilityEditable;
+                  data.displayUserInfo = displayUserInfo;
 
                   previousRecipes.push(
-                    <FavRecipeItem
-                      key={key}
+                    <Recipe
+                      key={data.recipeId}
                       dataProp={data}
-                      userProp={userInfo}
+                      deleteRecipeProp={this.deleteRecipe}
                       languageObjectProp={this.props.languageObjectProp}
                     />
-                  );
+                  )
 
                   this.setState({
-                    recipes: previousRecipes
+                    favRecipes: previousRecipes
                   });
-                });
+                }
               }
             }
           }
-        }
+        });
       }
     });
   }
@@ -85,7 +103,7 @@ class Favourites extends Component {
   render() {
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
-    let { recipes } = this.state;
+    let { favRecipes } = this.state;
 
     return (
       <div className="ComponentContent">
@@ -113,7 +131,7 @@ class Favourites extends Component {
             </Paper>
 
             {
-              recipes.map((recipe, index) => {
+              favRecipes.map((recipe, index) => {
                 return recipe;
               })
             }
