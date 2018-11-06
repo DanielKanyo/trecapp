@@ -237,7 +237,6 @@ class RecipesWall extends Component {
           pauseOnVisibilityChange
           pauseOnHover
         />
-
       </div>
     );
   }
