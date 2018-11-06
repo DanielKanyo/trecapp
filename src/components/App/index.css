@@ -650,6 +650,22 @@ input[type=time]::-webkit-clear-button {
   padding: 6px;
 }
 
+::-webkit-scrollbar-track {
+  margin-top: 0px;
+}
+
+.ComponentContent::-webkit-scrollbar-track {
+  margin-top: 56px;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9b9b9b;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -761,5 +777,21 @@ input[type=time]::-webkit-clear-button {
 
   .divider-toggle {
     display: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    margin-top: 0px;
+  }
+
+  .ComponentContent::-webkit-scrollbar-track {
+    margin-top: 56px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #9b9b9b;
   }
 }
