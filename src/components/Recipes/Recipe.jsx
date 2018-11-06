@@ -271,9 +271,11 @@ class Recipe extends Component {
         <Card className={classes.card + ' card-recipe'}>
           <CardHeader className="recipe-card-header"
             avatar={
-              <Avatar aria-label="Recipe" className={classes.avatar} style={{ backgroundColor: difficultyColors[data.sliderValue] }}>
-                {titleCharacters[0]}
-              </Avatar>
+              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.recipeDifficulty[data.sliderValue]}>
+                <Avatar aria-label="Recipe" className={classes.avatar} style={{ backgroundColor: difficultyColors[data.sliderValue] }}>
+                  {titleCharacters[0]}
+                </Avatar>
+              </Tooltip>
             }
             action={this.state.recipeDeletable ?
               <Tooltip title={languageObjectProp.data.myRecipes.tooltips.deleteRecipe}>

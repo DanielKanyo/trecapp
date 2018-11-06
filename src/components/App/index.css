@@ -163,18 +163,6 @@ button a {
   margin-top: 16px;
 }
 
-::-webkit-scrollbar {
-  width: 2px;
-}
-
-::-webkit-scrollbar-track {
-  background: #cfcfcf;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #aaaaaa;
-}
-
 .empty-container {
   border-radius: 4px;
   padding: 16px 26px;
