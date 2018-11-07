@@ -61,7 +61,7 @@ button a {
 }
 
 .ComponentContent {
-  height: calc(100vh - 108px);
+  height: calc(100vh - 70px);
   position: relative;
   padding-top: 70px;
   padding-left: 12px;
@@ -551,13 +551,22 @@ input[type=time]::-webkit-clear-button {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-  background: #818181;
+  background: #b5b5b5;
   top: -20px;
   right: 10px;
   border: 4px solid white;
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.if-no-profile-image {
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 .profile-picture-container {
@@ -668,28 +677,6 @@ input[type=time]::-webkit-clear-button {
   background-color: #9b9b9b;
 }
 
-.Footer {
-  position: fixed;
-  z-index: 40;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #F8B000;
-  height: 38px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  box-shadow: 0px 2px 10px 3px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-}
-
-.Footer>div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 14px;
-  color: white;
-}
-
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -734,7 +721,7 @@ input[type=time]::-webkit-clear-button {
 
 @media only screen and (max-width: 600px) {
   .ComponentContent {
-    height: calc(100vh - 95px);
+    height: calc(100vh - 57px);
     padding-top: 57px;
     padding-left: 0px;
     padding-right: 0px;

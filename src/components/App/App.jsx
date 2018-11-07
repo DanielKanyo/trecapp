@@ -16,7 +16,6 @@ import MyRecipes from '../Recipes/MyRecipes';
 import ShoppingList from '../ShoppingList/ShoppingList';
 import withAuthentication from '../Session/withAuthentication';
 import Favourites from '../Favourites/Favourites';
-import Footer from '../Footer/Footer';
 import * as routes from '../../constants/routes';
 
 import { dataHun } from '../../constants/languages/hun';
@@ -106,7 +105,6 @@ class App extends Component {
           <Route exact path={routes.CATEGORIES}
             component={() => <Categories languageObjectProp={this.state.languageObject} />}
           />
-          <Footer />
         </div>
       </Router>
     );

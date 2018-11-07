@@ -33,6 +33,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Face from '@material-ui/icons/Face';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -293,7 +294,9 @@ class Recipe extends Component {
                 <span>
                   {this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
                 </span>
-                <div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
+                <div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}>
+                  {this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
+                </div>
               </div> : ''
           }
           {this.state.imageUrl !== "" ?

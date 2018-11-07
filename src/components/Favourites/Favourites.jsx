@@ -130,11 +130,11 @@ class Favourites extends Component {
               </div>
             </Paper>
 
-            {
-              favRecipes.map((recipe, index) => {
-                return recipe;
-              })
-            }
+            {favRecipes.length === 0 ? <EmptyList /> : ''}
+
+            {favRecipes.map((recipe, index) => {
+              return recipe;
+            })}
           </Grid>
 
         </Grid>
@@ -143,6 +143,11 @@ class Favourites extends Component {
     );
   }
 }
+
+const EmptyList = () =>
+  <div className="empty-container">
+    Empty
+  </div>
 
 const authCondition = (authUser) => !!authUser;
 

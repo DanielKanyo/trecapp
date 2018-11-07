@@ -88,11 +88,11 @@ class AccountDetails extends Component {
    * @param {Object} event
    */
   handleSaveAccount = (event) => {
-    if (this.props.accountNameProp === '' || this.props.accountEmailProp === '' || this.props.accountLanguageProp === '') {
+    if (this.props.dataProp.accountName === '' || this.props.dataProp.accountEmail === '' || this.props.dataProp.accountLanguage === '') {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
-      this.props.handleSaveNewAccountDataProp(this.props.accountNameProp, this.props.accountLanguageProp, this.props.accountCurrencyProp);
-      this.props.setLanguageProp(this.props.accountLanguageProp);
+      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName, this.props.dataProp.accountLanguage, this.props.dataProp.accountCurrency);
+      this.props.setLanguageProp(this.props.dataProp.accountLanguage);
     }
   }
 
