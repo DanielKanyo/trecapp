@@ -580,14 +580,30 @@ input[type=time]::-webkit-clear-button {
   padding: 12px 20px;
 }
 
-.profile-picture {
+.profile-picture,
+.profile-picture-with-no-image {
   width: 100px;
   height: 100px;
-  background: #cccccc;
+  background: #a8a8a8;
   border-radius: 4px;
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: center;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+}
+
+.profile-picture-with-no-image>div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.profile-picture-with-no-image .no-image-text {
+  font-size: 12px;
+  padding-top: 6px;
 }
 
 .profile-picture-upload-btn {
@@ -610,7 +626,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .uploaded-image-container>div {
-  height: calc(100vh - 108px);
+  max-height: calc(100vh - 108px);
   background: transparent;
   border-radius: 4px;
   margin: 20px
@@ -675,6 +691,19 @@ input[type=time]::-webkit-clear-button {
 
 ::-webkit-scrollbar-thumb {
   background-color: #9b9b9b;
+}
+
+.password-forget-input {
+  width: 100%;
+}
+
+.reset-passwd-btn {
+  width: 100% !important;
+  margin-top: 8px !important;
+}
+
+.reset-passwd-btn.last-reset-btn {
+  margin-bottom: 8px !important;
 }
 
 @media only screen and (max-width: 950px) {

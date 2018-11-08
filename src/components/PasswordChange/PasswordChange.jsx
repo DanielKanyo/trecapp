@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 
 import { auth } from '../../firebase';
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({});
+
 const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
 });
@@ -44,28 +51,46 @@ class PasswordChangeForm extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === '';
 
+    let languageObjectProp;
+
+    if (this.props.languageObjectProp) {
+      languageObjectProp = this.props.languageObjectProp;
+    }
+
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <TextField
+          id="forget-page-password-1"
+          label={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPassword : "New password"}
+          className="password-forget-input"
           value={passwordOne}
           onChange={event => this.setState(updateByPropertyName('passwordOne', event.target.value))}
+          margin="normal"
           type="password"
-          placeholder="New Password"
+          placeholder={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPasswordPlaceholder : "New password..."}
         />
-        <input
+        <TextField
+          id="forget-page-password-2"
+          label={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPasswordConfirm : "New password confirm"}
+          className="password-forget-input"
           value={passwordTwo}
           onChange={event => this.setState(updateByPropertyName('passwordTwo', event.target.value))}
+          margin="normal"
           type="password"
-          placeholder="Confirm New Password"
+          placeholder={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPasswordConfirmPlaceholder : "Confirm new password..."}
         />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
+        <Button disabled={isInvalid} color="inherit" variant="contained" type="submit" className="reset-passwd-btn last-reset-btn">
+          {languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.resetBtn : "Reset password"}
+        </Button>
 
-        { error && <p>{error.message}</p> }
+        {error && <p>{error.message}</p>}
       </form>
     );
   }
 }
 
-export default PasswordChangeForm;
+PasswordChangeForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(PasswordChangeForm);

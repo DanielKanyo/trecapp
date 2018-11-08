@@ -84,6 +84,7 @@ export const dataEng = {
       language: 'Language',
       currency: 'Currency',
       save: 'Save',
+      noImageText: 'No image',
     },
     ShoppingList: {
       input: 'Product...',
@@ -108,6 +109,14 @@ export const dataEng = {
     Favourites: {
       yourRecipe: "It's your recipe!",
       uploadedBy: 'Uploader',
+    },
+    PasswordResetAndForget: {
+      newPassword: 'New password',
+      newPasswordConfirm: 'New password confirm',
+      emailPlaceholder: 'Your e-mail address...',
+      newPasswordPlaceholder: 'New password...',
+      newPasswordConfirmPlaceholder: 'Confirm new password...',
+      resetBtn: 'Reset password',
     },
   }
 }

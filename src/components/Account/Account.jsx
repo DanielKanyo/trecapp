@@ -21,6 +21,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -116,7 +117,12 @@ class AccountPage extends Component {
   };
 
   closeUploadDialog = () => {
-    this.setState({ open: false });
+    this.setState({ 
+      open: false,
+      src: ''
+     });
+
+     document.getElementsByClassName("profile-input-container")[0].classList.remove("hide");
   };
 
   onSelectFile = e => {
@@ -225,7 +231,15 @@ class AccountPage extends Component {
                     <Grid item className="grid-component" xs={6}>
                       <Paper className={classes.paper + ' profile-picture-container'}>
                         <div>
-                          <div className="profile-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
+                          {
+                            this.state.profilePicUrl === "" ?
+                              <div className="profile-picture-with-no-image">
+                                <div>
+                                  <BrokenImageIcon />
+                                  <div className="no-image-text">{languageObjectProp.data.Account.noImageText}</div>
+                                </div>
+                              </div> : <div className="profile-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
+                          }
                           <div className="profile-picture-upload-btn">
                             <Button color="inherit" onClick={this.openUploadDialog} className="upload-profile-pic-btn">
                               {this.state.profilePicUrl === "" ?
@@ -247,9 +261,9 @@ class AccountPage extends Component {
                     </Grid>
 
                     <Grid item className="grid-component" xs={6}>
-                      <Paper className={classes.paper}>
-                        <PasswordForgetForm />
-                        <PasswordChangeForm />
+                      <Paper className={classes.paper + ' account-details-container'}>
+                        <PasswordForgetForm languageObjectProp={languageObjectProp} />
+                        <PasswordChangeForm languageObjectProp={languageObjectProp} />
                       </Paper>
                     </Grid>
 

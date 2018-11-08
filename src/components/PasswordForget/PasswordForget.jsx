@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({});
 
 const PasswordForgetPage = () =>
   <div>
@@ -22,6 +28,8 @@ const INITIAL_STATE = {
 class PasswordForgetForm extends Component {
   constructor(props) {
     super(props);
+
+
 
     this.state = { ...INITIAL_STATE };
   }
@@ -48,19 +56,29 @@ class PasswordForgetForm extends Component {
 
     const isInvalid = email === '';
 
+    let languageObjectProp;
+
+    if (this.props.languageObjectProp) {
+      languageObjectProp = this.props.languageObjectProp;
+    }
+
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <TextField
+          id="forget-page-email"
+          label={"E-mail"}
+          className="password-forget-input"
           value={this.state.email}
           onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
+          margin="normal"
           type="text"
-          placeholder="Email Address"
+          placeholder={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.emailPlaceholder : "Your e-mail address..."}
         />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
+        <Button disabled={isInvalid} color="inherit" variant="contained" type="submit" className="reset-passwd-btn">
+          {languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.resetBtn : "Reset password"}
+        </Button>
 
-        { error && <p>{error.message}</p> }
+        {error && <p>{error.message}</p>}
       </form>
     );
   }
@@ -71,7 +89,11 @@ const PasswordForgetLink = () =>
     <Link to={routes.PASSWORD_FORGET}>Forgot Password?</Link>
   </div>
 
-export default PasswordForgetPage;
+PasswordForgetPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(PasswordForgetPage);
 
 export {
   PasswordForgetForm,

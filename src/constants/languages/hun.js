@@ -84,6 +84,7 @@ export const dataHun = {
       language: 'Nyelv',
       currency: 'Valuta',
       save: 'Mentés',
+      noImageText: 'Nincs kép',
     },
     ShoppingList: {
       input: 'Termék...',
@@ -108,6 +109,14 @@ export const dataHun = {
     Favourites: {
       yourRecipe: 'Az egyik recepted!',
       uploadedBy: 'Feltöltő',
+    },
+    PasswordResetAndForget: {
+      newPassword: 'Új jelszó',
+      newPasswordConfirm: 'Új jelszó megerősítése',
+      emailPlaceholder: 'Az e-mail címed...',
+      newPasswordPlaceholder: 'Új jelszó...',
+      newPasswordConfirmPlaceholder: 'Új jelszó megerősítése...',
+      resetBtn: 'Jelszó visszaállítása',
     },
   }
 }

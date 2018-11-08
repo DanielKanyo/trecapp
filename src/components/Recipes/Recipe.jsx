@@ -196,27 +196,34 @@ class Recipe extends Component {
     // max 10 MB
     const maxFileSize = 10485760;
 
-    let file = e.target.files[0];
-    let fileType = file.type;
+    if (e.target.files.length) {
+      let file = e.target.files[0];
+      let fileType = file.type;
 
-    if (fileType.includes("image") && file.size < maxFileSize) {
-      this.setState({
-        file,
-        uploadReady: true
-      });
-    } else {
-
-      if (file.size > maxFileSize) {
-        toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.fileTooBig);
+      if (fileType.includes("image") && file.size < maxFileSize) {
+        this.setState({
+          file,
+          uploadReady: true
+        });
       } else {
-        toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseAnImage);
-      }
 
+        if (file.size > maxFileSize) {
+          toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.fileTooBig);
+        } else {
+          toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseAnImage);
+        }
+
+        this.setState({
+          file: '',
+          uploadReady: false
+        });
+
+      }
+    } else {
       this.setState({
         file: '',
         uploadReady: false
       });
-
     }
   }
 
