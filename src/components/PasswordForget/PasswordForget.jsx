@@ -7,13 +7,16 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({});
 
 const PasswordForgetPage = () =>
-  <div>
-    <h1>PasswordForget</h1>
-    <PasswordForgetForm />
+  <div className="forget-form">
+    <Paper className="forget-paper" elevation={1}>
+      <div className="forget-title">Reset password</div>
+      <PasswordForgetForm />
+    </Paper>
   </div>
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -28,8 +31,6 @@ const INITIAL_STATE = {
 class PasswordForgetForm extends Component {
   constructor(props) {
     super(props);
-
-
 
     this.state = { ...INITIAL_STATE };
   }
@@ -74,7 +75,7 @@ class PasswordForgetForm extends Component {
           type="text"
           placeholder={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.emailPlaceholder : "Your e-mail address..."}
         />
-        <Button disabled={isInvalid} color="inherit" variant="contained" type="submit" className="reset-passwd-btn">
+        <Button disabled={isInvalid} color="primary" variant="contained" type="submit" className="reset-passwd-btn">
           {languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.resetBtn : "Reset password"}
         </Button>
 

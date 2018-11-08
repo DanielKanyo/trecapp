@@ -79,7 +79,7 @@ class PasswordChangeForm extends Component {
           type="password"
           placeholder={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPasswordConfirmPlaceholder : "Confirm new password..."}
         />
-        <Button disabled={isInvalid} color="inherit" variant="contained" type="submit" className="reset-passwd-btn last-reset-btn">
+        <Button disabled={isInvalid} color="primary" variant="contained" type="submit" className="reset-passwd-btn last-reset-btn">
           {languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.resetBtn : "Reset password"}
         </Button>
 

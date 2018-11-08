@@ -12,7 +12,8 @@ button a {
   min-height: 56px !important;
 }
 
-.sign-form {
+.sign-form,
+.forget-form {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -20,14 +21,16 @@ button a {
   justify-content: center;
 }
 
-.sign-paper {
+.sign-paper,
+.forget-paper {
   padding: 16px;
   position: relative;
   width: 380px;
   margin: 0 auto;
 }
 
-.sign-title {
+.sign-title,
+.forget-title {
   text-align: center;
 }
 
@@ -706,6 +709,10 @@ input[type=time]::-webkit-clear-button {
   margin-bottom: 8px !important;
 }
 
+.sign-up-form>div {
+  margin: 8px 0px 8px 0px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -793,13 +800,15 @@ input[type=time]::-webkit-clear-button {
     padding-bottom: 0px !important;
   }
 
-  .sign-form {
+  .sign-form,
+  .forget-form {
     display: block;
     padding-top: 40px;
     min-height: calc(100vh - 96px);
   }
 
-  .sign-paper {
+  .sign-paper,
+  .forget-paper {
     width: 260px;
   }
 
