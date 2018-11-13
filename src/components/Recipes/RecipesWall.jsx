@@ -53,119 +53,121 @@ class RecipesWall extends Component {
       let sortedRecipesByTimestamp = [];
       let sortedRecipesByFavCounter = [];
 
-      Object.entries(resRecipes).forEach(([key, value], i) => {
-        if (resRecipes.hasOwnProperty(key)) {
-          sortedRecipesByTimestamp.push(value);
-          sortedRecipesByTimestamp[i].recipeId = key;
+      if (resRecipes) {
+        Object.entries(resRecipes).forEach(([key, value], i) => {
+          if (resRecipes.hasOwnProperty(key)) {
+            sortedRecipesByTimestamp.push(value);
+            sortedRecipesByTimestamp[i].recipeId = key;
 
-          sortedRecipesByFavCounter.push(value);
-          sortedRecipesByFavCounter[i].recipeId = key;
-        }
-      });
+            sortedRecipesByFavCounter.push(value);
+            sortedRecipesByFavCounter[i].recipeId = key;
+          }
+        });
 
-      db.onceGetUsers().then(users => {
-        let usersObject = users.val();
+        db.onceGetUsers().then(users => {
+          let usersObject = users.val();
 
-        if (sortedRecipesByTimestamp.length && sortedRecipesByFavCounter.length) {
-          sortedRecipesByTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
-          sortedRecipesByFavCounter.sort((a, b) => (a.favouriteCounter < b.favouriteCounter) ? 1 : ((b.favouriteCounter < a.favouriteCounter) ? -1 : 0));
+          if (sortedRecipesByTimestamp.length && sortedRecipesByFavCounter.length) {
+            sortedRecipesByTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
+            sortedRecipesByFavCounter.sort((a, b) => (a.favouriteCounter < b.favouriteCounter) ? 1 : ((b.favouriteCounter < a.favouriteCounter) ? -1 : 0));
 
-          if (this.mounted) {
-            let latestRecipes = sortedRecipesByTimestamp;
-            let topRecipes = sortedRecipesByFavCounter;
+            if (this.mounted) {
+              let latestRecipes = sortedRecipesByTimestamp;
+              let topRecipes = sortedRecipesByFavCounter;
 
-            for (let i = 0; i < latestRecipes.length; i++) {
-              if (latestRecipes[i].publicChecked && counter1 < this.state.numberOfRecipesDisplayed) {
-                let username = usersObject[latestRecipes[i].userId].username;
-                let profilePicUrl = usersObject[latestRecipes[i].userId].profilePicUrl;
+              for (let i = 0; i < latestRecipes.length; i++) {
+                if (latestRecipes[i].publicChecked && counter1 < this.state.numberOfRecipesDisplayed) {
+                  let username = usersObject[latestRecipes[i].userId].username;
+                  let profilePicUrl = usersObject[latestRecipes[i].userId].profilePicUrl;
 
-                let favouritesObject = latestRecipes[i].favourites;
+                  let favouritesObject = latestRecipes[i].favourites;
 
-                let isMine = latestRecipes[i].userId === loggedInUserId ? true : false;
-                let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
-                let visibilityEditable = false;
-                let recipeDeletable = false;
-                let displayUserInfo = true;
-                let withPhoto = latestRecipes[i].imageUrl !== '' ? true : false;
-                let favouriteCounter = latestRecipes[i].favouriteCounter;
+                  let isMine = latestRecipes[i].userId === loggedInUserId ? true : false;
+                  let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+                  let visibilityEditable = false;
+                  let recipeDeletable = false;
+                  let displayUserInfo = true;
+                  let withPhoto = latestRecipes[i].imageUrl !== '' ? true : false;
+                  let favouriteCounter = latestRecipes[i].favouriteCounter;
 
-                let data = latestRecipes[i];
+                  let data = latestRecipes[i];
 
-                data.loggedInUserId = loggedInUserId;
-                data.username = username;
-                data.profilePicUrl = profilePicUrl;
-                data.isMine = isMine;
-                data.isFavourite = isFavourite;
-                data.favouriteCounter = favouriteCounter;
-                data.recipeDeletable = recipeDeletable;
-                data.withPhoto = withPhoto;
-                data.visibilityEditable = visibilityEditable;
-                data.displayUserInfo = displayUserInfo;
+                  data.loggedInUserId = loggedInUserId;
+                  data.username = username;
+                  data.profilePicUrl = profilePicUrl;
+                  data.isMine = isMine;
+                  data.isFavourite = isFavourite;
+                  data.favouriteCounter = favouriteCounter;
+                  data.recipeDeletable = recipeDeletable;
+                  data.withPhoto = withPhoto;
+                  data.visibilityEditable = visibilityEditable;
+                  data.displayUserInfo = displayUserInfo;
 
-                previousLatestRecipes.push(
-                  <Recipe
-                    key={data.recipeId}
-                    dataProp={data}
-                    deleteRecipeProp={this.deleteRecipe}
-                    languageObjectProp={this.props.languageObjectProp}
-                  />
-                )
+                  previousLatestRecipes.push(
+                    <Recipe
+                      key={data.recipeId}
+                      dataProp={data}
+                      deleteRecipeProp={this.deleteRecipe}
+                      languageObjectProp={this.props.languageObjectProp}
+                    />
+                  )
 
-                this.setState({
-                  latestRecipes: previousLatestRecipes
-                });
+                  this.setState({
+                    latestRecipes: previousLatestRecipes
+                  });
 
-                counter1++;
+                  counter1++;
+                }
               }
-            }
 
-            for (let j = 0; j < topRecipes.length; j++) {
-              if (topRecipes[j].publicChecked && counter2 < this.state.numberOfRecipesDisplayed) {
-                let username = usersObject[topRecipes[j].userId].username;
-                let profilePicUrl = usersObject[topRecipes[j].userId].profilePicUrl;
+              for (let j = 0; j < topRecipes.length; j++) {
+                if (topRecipes[j].publicChecked && counter2 < this.state.numberOfRecipesDisplayed) {
+                  let username = usersObject[topRecipes[j].userId].username;
+                  let profilePicUrl = usersObject[topRecipes[j].userId].profilePicUrl;
 
-                let favouritesObject = topRecipes[j].favourites;
+                  let favouritesObject = topRecipes[j].favourites;
 
-                let isMine = topRecipes[j].userId === loggedInUserId ? true : false;
-                let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
-                let visibilityEditable = false;
-                let recipeDeletable = false;
-                let displayUserInfo = true;
-                let withPhoto = topRecipes[j].imageUrl !== '' ? true : false;
-                let favouriteCounter = topRecipes[j].favouriteCounter;
+                  let isMine = topRecipes[j].userId === loggedInUserId ? true : false;
+                  let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+                  let visibilityEditable = false;
+                  let recipeDeletable = false;
+                  let displayUserInfo = true;
+                  let withPhoto = topRecipes[j].imageUrl !== '' ? true : false;
+                  let favouriteCounter = topRecipes[j].favouriteCounter;
 
-                let data = topRecipes[j];
+                  let data = topRecipes[j];
 
-                data.loggedInUserId = loggedInUserId;
-                data.username = username;
-                data.profilePicUrl = profilePicUrl;
-                data.isMine = isMine;
-                data.isFavourite = isFavourite;
-                data.favouriteCounter = favouriteCounter;
-                data.recipeDeletable = recipeDeletable;
-                data.withPhoto = withPhoto;
-                data.visibilityEditable = visibilityEditable;
-                data.displayUserInfo = displayUserInfo;
+                  data.loggedInUserId = loggedInUserId;
+                  data.username = username;
+                  data.profilePicUrl = profilePicUrl;
+                  data.isMine = isMine;
+                  data.isFavourite = isFavourite;
+                  data.favouriteCounter = favouriteCounter;
+                  data.recipeDeletable = recipeDeletable;
+                  data.withPhoto = withPhoto;
+                  data.visibilityEditable = visibilityEditable;
+                  data.displayUserInfo = displayUserInfo;
 
-                previousTopRecipes.push(
-                  <Recipe
-                    key={data.recipeId}
-                    dataProp={data}
-                    deleteRecipeProp={this.deleteRecipe}
-                    languageObjectProp={this.props.languageObjectProp}
-                  />
-                )
+                  previousTopRecipes.push(
+                    <Recipe
+                      key={data.recipeId}
+                      dataProp={data}
+                      deleteRecipeProp={this.deleteRecipe}
+                      languageObjectProp={this.props.languageObjectProp}
+                    />
+                  )
 
-                this.setState({
-                  topRecipes: previousTopRecipes
-                });
+                  this.setState({
+                    topRecipes: previousTopRecipes
+                  });
 
-                counter2++;
+                  counter2++;
+                }
               }
             }
           }
-        }
-      });
+        });
+      }
     });
   }
 
