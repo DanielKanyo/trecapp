@@ -713,8 +713,8 @@ input[type=time]::-webkit-clear-button {
   margin: 8px 0px 8px 0px;
 }
 
-.category-item>div {
-  min-width: 100% !important;
+.category-item:last-of-type {
+  margin-bottom: 12px;
 }
 
 .category-item-title {
@@ -833,7 +833,6 @@ input[type=time]::-webkit-clear-button {
   }
 
   .category-item {
-    flex-grow: 0;
     max-width: 50% !important;
     flex-basis: 50% !important;
   }
@@ -841,7 +840,6 @@ input[type=time]::-webkit-clear-button {
 
 @media only screen and (max-width: 400px) {
   .category-item {
-    flex-grow: 0;
     max-width: 100% !important;
     flex-basis: 100% !important;
   }

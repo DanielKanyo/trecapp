@@ -31,7 +31,7 @@ export const dataEng = {
           dosePlaceholder: 'Quantity...',
           costPlaceholder: 'Price...'
         },
-        categoryItems: ['None', 'Breakfast', 'Brunch', 'Lunch', 'Dinner', 'Snacks', 'Appetisers', 'Soups', 'Salads', 'Sides', 'Rice', 'Pasta', 'Pies', 'Pizzas', 'Burgers', 'Mince', 'Sausages', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meat', 'Fish', 'Seafood', 'Stir Fry', 'Sauces', 'Vegetarian', 'Desserts', 'Baking', 'Drinks']
+        categoryItems: ['None', 'Appetizer', 'Sandwich', 'Soup', 'Salad', 'Side', 'Pasta', 'Pie', 'Pizza', 'Burger', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meatball', 'Fish', 'Seafood', 'Sauce', 'Vegetarian', 'Specialty', 'Dessert', 'Baking', 'Drink']
       },
       myRecipes: {
         title: 'My Recipes',

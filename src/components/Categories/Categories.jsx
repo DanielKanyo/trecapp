@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-// import { auth, db } from '../../firebase';
+import { auth, db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
@@ -8,14 +8,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+
+import CategoryItem from './CategoryItem';
 
 const styles = theme => ({
   card: {
-    maxWidth: 345,
+    maxWidth: '100%',
   },
   media: {
     height: 140,
@@ -31,11 +29,47 @@ class Categories extends Component {
     */
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      categories: []
+    };
   }
 
   componentDidMount() {
     this.mounted = true;
+
+    let previousCategories = this.state.categories;
+    let loggedInUserId = auth.getCurrentUserId();
+    let recipeCategorys = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems;
+
+    this.setState({
+      loggedInUserId: loggedInUserId
+    });
+
+    db.getRecipes().then(resRecipes => {
+      if (this.mounted) {
+        
+        for (let i = 1; i < recipeCategorys.length - 1; i++) {
+          let categoryName = recipeCategorys[i];
+
+          let data = {
+            categoryName: categoryName,
+            imageNumber: i
+          }
+
+          previousCategories.push(
+            <CategoryItem
+              key={i}
+              dataProp={data}
+            />
+          )
+        }
+
+        this.setState({
+          categories: previousCategories
+        });
+
+      }
+    });
   }
 
   /**
@@ -48,6 +82,7 @@ class Categories extends Component {
   render() {
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
+
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
@@ -64,48 +99,9 @@ class Categories extends Component {
 
             <Grid container spacing={16} className="category-items-container">
 
-              <Grid item xs={4} className="category-item">
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.media}
-                    image={"https://firebasestorage.googleapis.com/v0/b/my-recipes-app-f8c1b.appspot.com/o/recipe_images%2Fcloud.itextreme.hu5a9fa9eeae23b8.32934778.jpg?alt=media&token=21557bbe-720d-4d7c-995f-ed10231f2f67"}
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent className="category-item-title">
-                    <Typography gutterBottom>
-                      Pizzák
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={4} className="category-item">
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.media}
-                    image={"https://firebasestorage.googleapis.com/v0/b/my-recipes-app-f8c1b.appspot.com/o/recipe_images%2Fcloud.itextreme.hu5a9fa9eeae23b8.32934778.jpg?alt=media&token=21557bbe-720d-4d7c-995f-ed10231f2f67"}
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent className="category-item-title">
-                    <Typography gutterBottom>
-                      Pizzák
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={4} className="category-item">
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.media}
-                    image={"https://firebasestorage.googleapis.com/v0/b/my-recipes-app-f8c1b.appspot.com/o/recipe_images%2Fcloud.itextreme.hu5a9fa9eeae23b8.32934778.jpg?alt=media&token=21557bbe-720d-4d7c-995f-ed10231f2f67"}
-                    title="Contemplative Reptile"
-                  />
-                  <CardContent className="category-item-title">
-                    <Typography gutterBottom>
-                      Pizzák
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+              {this.state.categories.map((category, index) => {
+                return category;
+              })}
 
             </Grid>
           </Grid>

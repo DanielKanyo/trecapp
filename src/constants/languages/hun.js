@@ -31,7 +31,7 @@ export const dataHun = {
           dosePlaceholder: 'Mennyiség...',
           costPlaceholder: 'Ár...'
         },
-        categoryItems: ['Egyik sem', 'Reggeli', 'Tízórai', 'Ebéd', 'Vacsora', 'Harapnivaló', 'Előételek', 'Levesek', 'Saláták', 'Köretek', 'Rizs', 'Tészta', 'Piték', 'Pizzák', 'Burgerek', 'Vagdalt', 'Kolbász', 'Csirke', 'Pulyka', 'Kacsa', 'Szárnyas', 'Sertés', 'Bárány', 'Marha', 'Fasírt', 'Hal', 'Tenger Gyümölcsei', 'Keverjük - Sütjük', 'Szószok', 'Vegetáriánus', 'Desszertek', 'Sütik', 'Italok']
+        categoryItems: ['Egyik sem', 'Előétel', 'Szendvics', 'Leves', 'Saláta', 'Köret', 'Tészta', 'Pite', 'Pizza', 'Burger', 'Csirke', 'Pulyka', 'Kacsa', 'Szárnyas', 'Sertés', 'Bárány', 'Marha', 'Fasírt', 'Hal', 'Tenger Gyümölcsei', 'Szósz', 'Vegetáriánus', 'Különlegesség', 'Desszert', 'Süti', 'Ital']
       },
       myRecipes: {
         title: 'Receptjeim',
