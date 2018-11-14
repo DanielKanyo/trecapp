@@ -713,6 +713,10 @@ input[type=time]::-webkit-clear-button {
   margin: 8px 0px 8px 0px;
 }
 
+.category-item>div {
+  min-width: 100% !important;
+}
+
 .category-item-title {
   padding: 8px 15px !important;
 }
