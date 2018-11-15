@@ -44,13 +44,27 @@ class Categories extends Component {
 
     db.getRecipes().then(resRecipes => {
       if (this.mounted) {
+        let recipes = resRecipes;
+        let categoryNumbersInArray = [];
+        let counter = 0; 
+
+        for (var key in recipes) {
+          categoryNumbersInArray.push(recipes[key].category);
+        }
         
         for (let i = 1; i < recipeCategorys.length; i++) {
           let categoryName = recipeCategorys[i];
 
+          for (let j = 0; j < categoryNumbersInArray.length; j++) {
+            if (categoryNumbersInArray[j] === i) {
+              counter += 1;
+            }
+          }
+
           let data = {
             categoryName: categoryName,
-            imageNumber: i
+            imageNumber: i,
+            numberOfRecipe: counter
           }
 
           previousCategories.push(
@@ -59,6 +73,8 @@ class Categories extends Component {
               dataProp={data}
             />
           )
+
+          counter = 0;
         }
 
         this.setState({

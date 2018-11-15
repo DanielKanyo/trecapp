@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
   card: {
@@ -14,7 +15,7 @@ const styles = theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '50%', // 16:9
+    paddingTop: '50%',
   },
 });
 
@@ -37,6 +38,9 @@ class CategoryItem extends Component {
             </Typography>
           </CardContent>
         </Card>
+        <div className="recipe-counter">
+          <Chip label={dataProp.numberOfRecipe} />
+        </div>
       </Grid>
     )
   }

@@ -713,6 +713,10 @@ input[type=time]::-webkit-clear-button {
   margin: 8px 0px 8px 0px;
 }
 
+.category-item {
+  position: relative;
+}
+
 .category-item:last-of-type {
   margin-bottom: 12px;
 }
@@ -725,6 +729,16 @@ input[type=time]::-webkit-clear-button {
   text-align: center !important;
   font-size: 14px !important;
   margin-bottom: 0px !important;
+}
+
+.recipe-counter {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+
+.recipe-counter>div {
+  background: rgba(255, 255, 255, 0.7) !important;
 }
 
 @media only screen and (max-width: 950px) {
@@ -835,6 +849,10 @@ input[type=time]::-webkit-clear-button {
   .category-item {
     max-width: 50% !important;
     flex-basis: 50% !important;
+  }
+
+  .category-item:last-of-type {
+    margin-bottom: 0px;
   }
 }
 
