@@ -14,10 +14,7 @@ import CategoryItem from './CategoryItem';
 const styles = theme => ({
   card: {
     maxWidth: '100%',
-  },
-  media: {
-    height: 140,
-  },
+  }
 });
 
 class Categories extends Component {
@@ -48,7 +45,7 @@ class Categories extends Component {
     db.getRecipes().then(resRecipes => {
       if (this.mounted) {
         
-        for (let i = 1; i < recipeCategorys.length - 1; i++) {
+        for (let i = 1; i < recipeCategorys.length; i++) {
           let categoryName = recipeCategorys[i];
 
           let data = {

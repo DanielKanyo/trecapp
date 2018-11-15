@@ -13,7 +13,8 @@ const styles = theme => ({
     maxWidth: '100%',
   },
   media: {
-    height: 140,
+    height: 0,
+    paddingTop: '50%', // 16:9
   },
 });
 
