@@ -36,12 +36,14 @@ class CategoryItem extends Component {
     const { languageObjectProp } = this.props;
     const { classes } = this.props;
     let { dataProp } = this.props;
+    console.log(classes.media);
+    
 
     return (
       <Grid item xs={4} className="category-item">
         <Card className={classes.card}>
           <CardMedia
-            className={classes.media}
+            className={classes.media + `${dataProp.numberOfRecipe ? '' : ' no-recipe-in-category'}`}
             image={require(`../../images/categories/img${dataProp.imageNumber}.jpg`)}
             title={dataProp.categoryName}
           />
