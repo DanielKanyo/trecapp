@@ -118,6 +118,12 @@ export const dataHun = {
       newPasswordConfirmPlaceholder: 'Új jelszó megerősítése...',
       resetBtn: 'Jelszó visszaállítása',
     },
+    Categories: {
+      tooltip: {
+        zeroRecipeInCategory: 'Nincs recept ebben a kategóriában',
+        numOfRecipe: 'recept van a kategóriában',
+      }
+    },
   }
 }
 

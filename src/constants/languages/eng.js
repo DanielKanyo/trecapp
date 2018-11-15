@@ -118,6 +118,12 @@ export const dataEng = {
       newPasswordConfirmPlaceholder: 'Confirm new password...',
       resetBtn: 'Reset password',
     },
+    Categories: {
+      tooltip: {
+        zeroRecipeInCategory: 'No recipe in this category',
+        numOfRecipe: 'recipes in the category',
+      }
+    },
   }
 }
 

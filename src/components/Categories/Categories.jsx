@@ -71,6 +71,7 @@ class Categories extends Component {
             <CategoryItem
               key={i}
               dataProp={data}
+              languageObjectProp={this.props.languageObjectProp}
             />
           )
 

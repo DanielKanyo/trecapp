@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   card: {
@@ -20,7 +21,19 @@ const styles = theme => ({
 });
 
 class CategoryItem extends Component {
+
+  numberFormatter(number) {
+    if (number > 1000000) {
+      return (number / 1000000).toFixed(1) + 'M';
+    } else if (number > 1000) {
+      return (number / 1000).toFixed(1) + 'k';
+    } else {
+      return number;
+    }
+  }
+
   render() {
+    const { languageObjectProp } = this.props;
     const { classes } = this.props;
     let { dataProp } = this.props;
 
@@ -38,9 +51,16 @@ class CategoryItem extends Component {
             </Typography>
           </CardContent>
         </Card>
-        <div className="recipe-counter">
-          <Chip label={dataProp.numberOfRecipe} />
-        </div>
+        <Tooltip
+          title={dataProp.numberOfRecipe ?
+            `${dataProp.numberOfRecipe} ${languageObjectProp.data.Categories.tooltip.numOfRecipe}` :
+            languageObjectProp.data.Categories.tooltip.zeroRecipeInCategory
+          }
+        >
+          <div className="recipe-counter">
+            <Chip label={this.numberFormatter(dataProp.numberOfRecipe)} />
+          </div>
+        </Tooltip>
       </Grid>
     )
   }
