@@ -143,7 +143,7 @@ button a {
 }
 
 .paper-title-categories {
-  background: #d2d60a !important;
+  background: #66bf00 !important;
 }
 
 .paper-title-fav-settings {
@@ -715,6 +715,10 @@ input[type=time]::-webkit-clear-button {
 
 .category-item {
   position: relative;
+}
+
+.category-item a {
+  text-decoration: none !important;
 }
 
 .category-item:last-of-type {

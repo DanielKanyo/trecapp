@@ -12,6 +12,7 @@ import PasswordForgetPage from '../PasswordForget/PasswordForget';
 import RecipesWall from '../Recipes/RecipesWall';
 import AccountPage from '../Account/Account';
 import Categories from '../Categories/Categories';
+import CategoryRecipes from '../Categories/CategoryRecipes';
 import MyRecipes from '../Recipes/MyRecipes';
 import ShoppingList from '../ShoppingList/ShoppingList';
 import withAuthentication from '../Session/withAuthentication';
@@ -104,6 +105,9 @@ class App extends Component {
           />
           <Route exact path={routes.CATEGORIES}
             component={() => <Categories languageObjectProp={this.state.languageObject} />}
+          />
+          <Route exact path={routes.CATEGORIES + '/:category'}
+            component={() => <CategoryRecipes languageObjectProp={this.state.languageObject} />}
           />
         </div>
       </Router>

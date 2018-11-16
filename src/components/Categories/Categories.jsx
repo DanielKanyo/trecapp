@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 
-import CategoryItem from './CategoryItem';
+import CategoryListItem from './CategoryListItem';
 
 const styles = theme => ({
   card: {
@@ -63,12 +63,14 @@ class Categories extends Component {
 
           let data = {
             categoryName: categoryName,
+            categoryNumber: i,
             imageNumber: i,
-            numberOfRecipe: counter
+            numberOfRecipe: counter,
+            url: this.props.match.path
           }
 
           previousCategories.push(
-            <CategoryItem
+            <CategoryListItem
               key={i}
               dataProp={data}
               languageObjectProp={this.props.languageObjectProp}
