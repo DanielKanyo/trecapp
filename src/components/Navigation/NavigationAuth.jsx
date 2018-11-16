@@ -139,7 +139,7 @@ class NavigationAuth extends Component {
               <MenuIcon />
             </IconButton>
 
-            <Typography component={Link} to={routes.LANDING} variant="title" color="inherit" className={classes.grow}>
+            <Typography component={Link} to={routes.LANDING} variant="h6" color="inherit" className={classes.grow}>
               {languageObjectProp.data.appTitle}
             </Typography>
             <div className="navigation-right-side">

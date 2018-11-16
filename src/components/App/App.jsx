@@ -4,6 +4,8 @@ import {
   Route,
 } from 'react-router-dom';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 import Navigation from '../Navigation/Navigation';
 import SignUpPage from '../SignUp/SignUp';
 import LandingPage from '../Landing/Landing';
@@ -28,6 +30,13 @@ import { suggestionsEng } from '../../constants/languages/eng';
 
 import './index.css';
 
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  }
+});
+
 class App extends Component {
 
   /**
@@ -51,13 +60,13 @@ class App extends Component {
   setLanguage = (language) => {
     switch (language) {
       case 'eng':
-        this.setState({ 
+        this.setState({
           languageObject: dataEng,
           suggestionsObject: suggestionsEng
         });
         break;
       default:
-        this.setState({ 
+        this.setState({
           languageObject: dataHun,
           suggestionsObject: suggestionsHun
         });
@@ -72,47 +81,50 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
-          <Navigation
-            languageObjectProp={this.state.languageObject}
-            setLanguageProp={this.setLanguage}
-          />
 
-          <Route exact path={routes.LANDING}
-            component={() => <LandingPage languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.SIGN_UP}
-            component={() => <SignUpPage languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.SIGN_IN}
-            component={() => <SignInPage languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.PASSWORD_FORGET}
-            component={() => <PasswordForgetPage languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.WALL}
-            component={() => <RecipesWall languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.PROFILE}
-            component={() => <Profile setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.ACCOUNT}
-            component={() => <AccountPage setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.MYRECIPES}
-            component={() => <MyRecipes languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.FAVOURITES}
-            component={() => <Favourites languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.SHOPPINGLIST}
-            component={() => <ShoppingList languageObjectProp={this.state.languageObject} suggestionsObjectProp={this.state.suggestionsObject} />}
-          />
-          <Route exact path={routes.CATEGORIES}
-            component={() => <Categories languageObjectProp={this.state.languageObject} />}
-          />
-          <Route exact path={routes.CATEGORIES + '/:category'}
-            component={() => <CategoryRecipes languageObjectProp={this.state.languageObject} />}
-          />
+          <MuiThemeProvider theme={theme}>
+            <Navigation
+              languageObjectProp={this.state.languageObject}
+              setLanguageProp={this.setLanguage}
+            />
+
+            <Route exact path={routes.LANDING}
+              component={() => <LandingPage languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.SIGN_UP}
+              component={() => <SignUpPage languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.SIGN_IN}
+              component={() => <SignInPage languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.PASSWORD_FORGET}
+              component={() => <PasswordForgetPage languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.WALL}
+              component={() => <RecipesWall languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.PROFILE}
+              component={() => <Profile setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.ACCOUNT}
+              component={() => <AccountPage setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.MYRECIPES}
+              component={() => <MyRecipes languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.FAVOURITES}
+              component={() => <Favourites languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.SHOPPINGLIST}
+              component={() => <ShoppingList languageObjectProp={this.state.languageObject} suggestionsObjectProp={this.state.suggestionsObject} />}
+            />
+            <Route exact path={routes.CATEGORIES}
+              component={() => <Categories languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.CATEGORIES + '/:category'}
+              component={() => <CategoryRecipes languageObjectProp={this.state.languageObject} />}
+            />
+          </MuiThemeProvider>
         </div>
       </Router>
     );
