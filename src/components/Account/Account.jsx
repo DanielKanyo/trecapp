@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Face from '@material-ui/icons/Face';
+import Settings from '@material-ui/icons/Settings';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
@@ -218,7 +218,7 @@ class AccountPage extends Component {
 
                 <Paper className={classes.paper + ' paper-title paper-title-profile'}>
                   <div className="paper-title-icon">
-                    <Face />
+                    <Settings />
                   </div>
                   <div className="paper-title-text">
                     {languageObjectProp.data.Account.title}

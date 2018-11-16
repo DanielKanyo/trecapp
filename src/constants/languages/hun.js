@@ -1,10 +1,10 @@
 export const dataHun = {
   data: {
     appTitle: 'Receptjeim',
-    menuItems: ['Receptjeim', 'Receptek Fal', 'Kedvencek', 'Kategóriák', 'Bevásárló Lista', 'Fiókom', 'Kijelentkezés'],
+    menuItems: ['Receptjeim', 'Receptek Fal', 'Kedvencek', 'Kategóriák', 'Bevásárló Lista', 'Fiókom', 'Beállítások', 'Kijelentkezés'],
     months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
     Navigation: {
-      dropdownValues: ['Fiókom', 'Kijelentkezés']
+      dropdownValues: ['Fiókom', 'Beállítások', 'Kijelentkezés']
     },
     myRecipes: {
       newRecipe: {
@@ -77,7 +77,7 @@ export const dataHun = {
       }
     },
     Account: {
-      title: 'Fiókom',
+      title: 'Beállítások',
       profileImageUpload: 'Profilkép feltöltése',
       profileImageChange: 'Profilkép módosítása',
       name: 'Név',

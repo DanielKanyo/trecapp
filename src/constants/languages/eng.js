@@ -1,10 +1,10 @@
 export const dataEng = {
   data: {
     appTitle: 'My Recipes',
-    menuItems: ['My Recipes', 'Recipes Wall', 'Favourites', 'Categories', 'Shopping List', 'My Account', 'Logout'],
+    menuItems: ['My Recipes', 'Recipes Wall', 'Favourites', 'Categories', 'Shopping List', 'My Account', 'Settings', 'Logout'],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     Navigation: {
-      dropdownValues: ['My Account', 'Logout']
+      dropdownValues: ['My Account', 'Settings', 'Logout']
     },
     myRecipes: {
       newRecipe: {
@@ -77,7 +77,7 @@ export const dataEng = {
       }
     },
     Account: {
-      title: 'My Account',
+      title: 'Settings',
       profileImageUpload: 'Upload profile image',
       profileImageChange: 'Change profile image',
       name: 'Name',

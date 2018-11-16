@@ -4,6 +4,7 @@ export const SIGN_IN = '/signin';
 export const PASSWORD_FORGET = '/pw-forget';
 export const WALL = '/recipeswall';
 export const ACCOUNT = '/account';
+export const PROFILE = '/profile';
 export const MYRECIPES = '/myrecipes';
 export const FAVOURITES = '/favourites';
 export const SHOPPINGLIST = '/shoppinglist';

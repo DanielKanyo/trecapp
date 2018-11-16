@@ -17,6 +17,7 @@ import Public from '@material-ui/icons/Public';
 import Receipt from '@material-ui/icons/Receipt';
 import Dashboard from '@material-ui/icons/Dashboard';
 import Face from '@material-ui/icons/Face';
+import Settings from '@material-ui/icons/Settings';
 import Lock from '@material-ui/icons/Lock';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 
@@ -130,18 +131,25 @@ class LeftMenu extends Component {
 
           <List component="nav" className="nav-toggle">
 
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ACCOUNT}>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.PROFILE}>
               <ListItemIcon>
                 <Face />
               </ListItemIcon>
               <ListItemText primary={languageObjectProp.data.menuItems[5]} />
             </ListItem>
 
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ACCOUNT}>
+              <ListItemIcon>
+                <Settings />
+              </ListItemIcon>
+              <ListItemText primary={languageObjectProp.data.menuItems[6]} />
+            </ListItem>
+
             <ListItem className="menuItem" button onClick={auth.doSignOut}>
               <ListItemIcon>
                 <Lock />
               </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[6]} />
+              <ListItemText primary={languageObjectProp.data.menuItems[7]} />
             </ListItem>
 
           </List>

@@ -70,6 +70,7 @@ class CategoryListItem extends Component {
             </div>
           </Tooltip>
         </Link>
+        
       </Grid>
     )
   }
