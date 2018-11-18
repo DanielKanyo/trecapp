@@ -109,7 +109,7 @@ class Categories extends Component {
                 <DashboardIcon />
               </div>
               <div className="paper-title-text">
-                {languageObjectProp.data.menuItems[3]}
+                {languageObjectProp.data.menuItems[4]}
               </div>
             </Paper>
 

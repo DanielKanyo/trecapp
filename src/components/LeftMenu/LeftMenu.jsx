@@ -13,10 +13,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Favorite from '@material-ui/icons/Favorite';
 import SwapHoriz from '@material-ui/icons/SwapHoriz';
-import Public from '@material-ui/icons/Public';
+import Home from '@material-ui/icons/Home';
 import Receipt from '@material-ui/icons/Receipt';
 import Dashboard from '@material-ui/icons/Dashboard';
-import Face from '@material-ui/icons/Face';
 import Settings from '@material-ui/icons/Settings';
 import Lock from '@material-ui/icons/Lock';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
@@ -90,17 +89,17 @@ class LeftMenu extends Component {
         <div className="left-menu-content">
           <div className="left-menu-background-image"></div>
           <List component="nav">
-
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
+            
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.WALL}>
               <ListItemIcon>
-                <Receipt />
+                <Home />
               </ListItemIcon>
               <ListItemText primary={languageObjectProp.data.menuItems[0]} />
             </ListItem>
 
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.WALL}>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
               <ListItemIcon>
-                <Public />
+                <Receipt />
               </ListItemIcon>
               <ListItemText primary={languageObjectProp.data.menuItems[1]} />
             </ListItem>
@@ -112,16 +111,16 @@ class LeftMenu extends Component {
               <ListItemText primary={languageObjectProp.data.menuItems[2]} />
             </ListItem>
 
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.CATEGORIES}>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.SHOPPINGLIST}>
               <ListItemIcon>
-                <Dashboard />
+                <PlaylistAdd />
               </ListItemIcon>
               <ListItemText primary={languageObjectProp.data.menuItems[3]} />
             </ListItem>
 
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.SHOPPINGLIST}>
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.CATEGORIES}>
               <ListItemIcon>
-                <PlaylistAdd />
+                <Dashboard />
               </ListItemIcon>
               <ListItemText primary={languageObjectProp.data.menuItems[4]} />
             </ListItem>
@@ -131,25 +130,18 @@ class LeftMenu extends Component {
 
           <List component="nav" className="nav-toggle">
 
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.PROFILE}>
-              <ListItemIcon>
-                <Face />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[5]} />
-            </ListItem>
-
             <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ACCOUNT}>
               <ListItemIcon>
                 <Settings />
               </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[6]} />
+              <ListItemText primary={languageObjectProp.data.menuItems[5]} />
             </ListItem>
 
             <ListItem className="menuItem" button onClick={auth.doSignOut}>
               <ListItemIcon>
                 <Lock />
               </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[7]} />
+              <ListItemText primary={languageObjectProp.data.menuItems[6]} />
             </ListItem>
 
           </List>

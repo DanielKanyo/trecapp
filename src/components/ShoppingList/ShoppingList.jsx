@@ -445,7 +445,7 @@ class ShoppingList extends Component {
                   <PlaylistAdd />
                 </div>
                 <div className="paper-title-text">
-                  {languageObjectProp.data.menuItems[4]}
+                  {languageObjectProp.data.menuItems[3]}
                 </div>
                 <div className="delete-items-container">
                   <Button

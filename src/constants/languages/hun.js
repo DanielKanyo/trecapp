@@ -1,10 +1,10 @@
 export const dataHun = {
   data: {
     appTitle: 'Receptjeim',
-    menuItems: ['Receptjeim', 'Receptek Fal', 'Kedvencek', 'Kategóriák', 'Bevásárló Lista', 'Fiókom', 'Beállítások', 'Kijelentkezés'],
+    menuItems: ['Kezdőlap', 'Receptjeim', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Beállítások', 'Kijelentkezés'],
     months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
     Navigation: {
-      dropdownValues: ['Fiókom', 'Beállítások', 'Kijelentkezés']
+      dropdownValues: ['Beállítások', 'Kijelentkezés']
     },
     myRecipes: {
       newRecipe: {

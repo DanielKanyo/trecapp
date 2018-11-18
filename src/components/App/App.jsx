@@ -12,7 +12,6 @@ import LandingPage from '../Landing/Landing';
 import SignInPage from '../SignIn/SignIn';
 import PasswordForgetPage from '../PasswordForget/PasswordForget';
 import RecipesWall from '../Recipes/RecipesWall';
-import Profile from '../Profile/Profile';
 import AccountPage from '../Account/Account';
 import Categories from '../Categories/Categories';
 import CategoryRecipes from '../Categories/CategoryRecipes';
@@ -102,9 +101,6 @@ class App extends Component {
             />
             <Route exact path={routes.WALL}
               component={() => <RecipesWall languageObjectProp={this.state.languageObject} />}
-            />
-            <Route exact path={routes.PROFILE}
-              component={() => <Profile setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
             />
             <Route exact path={routes.ACCOUNT}
               component={() => <AccountPage setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
