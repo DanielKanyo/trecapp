@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Face from '@material-ui/icons/Face';
-import Public from '@material-ui/icons/Public';
+import Home from '@material-ui/icons/Home';
 import Button from '@material-ui/core/Button';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -144,7 +144,7 @@ class NavigationAuth extends Component {
             </Typography>
             <div className="navigation-right-side">
               <Button component={Link} to={routes.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
-                <Public />
+                <Home />
               </Button>
 
               <Button
