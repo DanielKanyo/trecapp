@@ -66,7 +66,8 @@ const styles = theme => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-    marginBottom: '16px'
+    marginBottom: '16px',
+    backgroundRepeat: 'unset'
   },
   chip: {
     margin: theme.spacing.unit,

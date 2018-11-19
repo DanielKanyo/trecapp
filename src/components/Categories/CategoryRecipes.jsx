@@ -7,16 +7,20 @@ import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { dataEng } from '../../constants/languages/eng';
+import Paper from '@material-ui/core/Paper';
+import RoomService from '@material-ui/icons/RoomService';
+import Grid from '@material-ui/core/Grid';
 
-const styles = theme => ({
+import RecipePreview from './RecipePreview';
 
-});
+const styles = theme => ({});
 
 class CategoryRecipes extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      recipes: [],
       categoryName: '',
       categoryNumber: null,
     };
@@ -24,6 +28,7 @@ class CategoryRecipes extends Component {
 
   componentDidMount = () => {
     this.mounted = true;
+    let previousRecipes = this.state.recipes;
 
     let loggedInUserId = auth.getCurrentUserId();
 
@@ -34,21 +39,48 @@ class CategoryRecipes extends Component {
     db.getRecipes().then(resRecipes => {
 
       if (this.mounted) {
-        let recipes = resRecipes;
-        console.log(recipes);
-        
-        let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-        let categoryNameEng = this.props.match.params.category;
-        let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
-        let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber]
+        if (resRecipes) {
+          let recipes = resRecipes;
 
-        this.setState({
-          categoryNumber,
-          categoryName
-        });
+          let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+          let categoryNameEng = this.props.match.params.category;
+          let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
+          let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber]
+
+          this.setState({
+            categoryNumber,
+            categoryName
+          });
+
+          for (var key in recipes) {
+            let recipe = recipes[key];
+
+            if (recipe.category === categoryNumber) {
+              let data = {
+                recipeId: key,
+                imageUrl: recipe.imageUrl,
+                title: recipe.title,
+                creationTime: recipe.creationTime,
+                sliderValue: recipe.sliderValue
+              }
+
+              previousRecipes.unshift(
+                <RecipePreview
+                  key={key}
+                  dataProp={data}
+                  languageObjectProp={this.props.languageObjectProp}
+                />
+              )
+            }
+          }
+
+          this.setState({
+            recipes: previousRecipes
+          });
+
+        }
       }
     });
-
 
   }
 
@@ -60,16 +92,43 @@ class CategoryRecipes extends Component {
   }
 
   render() {
-    // const { classes } = this.props;
-    // const { languageObjectProp } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className="ComponentContent">
-        {this.state.categoryName}
+        <Grid className="main-grid" container spacing={16}>
+
+          <Grid item className="grid-component" xs={12}>
+            <Paper className={classes.paper + ' paper-title paper-title-category-recipe'}>
+              <div className="paper-title-icon">
+                <RoomService />
+              </div>
+              <div className="paper-title-text">
+                {this.state.categoryName}
+              </div>
+            </Paper>
+
+            <Grid container spacing={16}>
+              {this.state.recipes.length === 0 ? <EmptyList /> : ''}
+
+              {this.state.recipes.map((recipe, index) => {
+                return recipe;
+              })}
+            </Grid>
+
+          </Grid>
+        </Grid>
       </div>
     )
   }
 }
+
+const EmptyList = () =>
+  <Grid item xs={12}>
+    <div className="empty-container">
+      Empty
+    </div>
+  </Grid>
 
 const authCondition = (authUser) => !!authUser;
 
