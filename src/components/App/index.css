@@ -757,6 +757,11 @@ input[type=time]::-webkit-clear-button {
   filter: grayscale(100%)
 }
 
+.recipe-preview-item .user-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

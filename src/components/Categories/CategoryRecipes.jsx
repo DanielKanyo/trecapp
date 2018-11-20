@@ -40,44 +40,57 @@ class CategoryRecipes extends Component {
 
       if (this.mounted) {
         if (resRecipes) {
-          let recipes = resRecipes;
+          db.onceGetUsers().then(users => {
+            let usersObject = users.val();
 
-          let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-          let categoryNameEng = this.props.match.params.category;
-          let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
-          let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber]
+            let recipes = resRecipes;
 
-          this.setState({
-            categoryNumber,
-            categoryName
-          });
+            let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+            let categoryNameEng = this.props.match.params.category;
+            let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
+            let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber]
 
-          for (var key in recipes) {
-            let recipe = recipes[key];
+            this.setState({
+              categoryNumber,
+              categoryName
+            });
 
-            if (recipe.category === categoryNumber) {
-              let data = {
-                recipeId: key,
-                imageUrl: recipe.imageUrl,
-                title: recipe.title,
-                creationTime: recipe.creationTime,
-                sliderValue: recipe.sliderValue
+            for (var key in recipes) {
+              let recipe = recipes[key];
+              let recipeUserId = recipe.userId;
+              
+              let username = usersObject[recipeUserId].username;
+              let profilePicUrl = usersObject[recipeUserId].profilePicUrl;
+              
+              let isMine = recipeUserId === loggedInUserId ? true : false;
+
+              if (recipe.category === categoryNumber) {
+                let data = {
+                  recipeId: key,
+                  imageUrl: recipe.imageUrl,
+                  title: recipe.title,
+                  creationTime: recipe.creationTime,
+                  sliderValue: recipe.sliderValue,
+                  displayUserInfo: true,
+                  username: username,
+                  isMine: isMine,
+                  profilePicUrl: profilePicUrl
+                }
+
+                previousRecipes.unshift(
+                  <RecipePreview
+                    key={key}
+                    dataProp={data}
+                    languageObjectProp={this.props.languageObjectProp}
+                  />
+                )
               }
-
-              previousRecipes.unshift(
-                <RecipePreview
-                  key={key}
-                  dataProp={data}
-                  languageObjectProp={this.props.languageObjectProp}
-                />
-              )
             }
-          }
 
-          this.setState({
-            recipes: previousRecipes
+            this.setState({
+              recipes: previousRecipes
+            });
           });
-
         }
       }
     });

@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import OpenInNew from '@material-ui/icons/OpenInNew';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
+import Face from '@material-ui/icons/Face';
 
 const styles = theme => ({
 	card: {
@@ -38,7 +39,10 @@ class RecipePreview extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
+			displayUserInfo: this.props.dataProp.displayUserInfo,
+			username: this.props.dataProp.username,
+			isMine: this.props.dataProp.isMine,
+      profilePicUrl: this.props.dataProp.profilePicUrl,
 		};
 	}
 
@@ -78,6 +82,17 @@ class RecipePreview extends Component {
 						image={data.imageUrl}
 						title={data.title}
 					/>
+					{
+            this.state.displayUserInfo ?
+              <div className="user-container">
+                <span>
+                  {this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
+                </span>
+                <div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}>
+                  {this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
+                </div>
+              </div> : ''
+          }
 				</Card>
 			</Grid>
 		)
