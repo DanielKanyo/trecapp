@@ -46,12 +46,14 @@ class Categories extends Component {
       if (this.mounted) {
         let recipes = resRecipes;
         let categoryNumbersInArray = [];
-        let counter = 0; 
+        let counter = 0;
 
         for (var key in recipes) {
-          categoryNumbersInArray.push(recipes[key].category);
+          if (recipes[key].publicChecked) {
+            categoryNumbersInArray.push(recipes[key].category);
+          }
         }
-        
+
         for (let i = 1; i < recipeCategorys.length; i++) {
           let categoryName = recipeCategorys[i];
 

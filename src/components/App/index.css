@@ -762,6 +762,10 @@ input[type=time]::-webkit-clear-button {
   margin-bottom: 5px;
 }
 
+.recipe-preview-item:last-of-type {
+  margin-bottom: 14px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -873,7 +877,11 @@ input[type=time]::-webkit-clear-button {
   }
 
   .category-item:last-of-type {
-    margin-bottom: 0px;
+    margin-bottom: 6px;
+  }
+
+  .recipe-preview-item:last-of-type {
+    margin-bottom: 6px;
   }
 }
 
@@ -911,7 +919,7 @@ input[type=time]::-webkit-clear-button {
   }
 }
 
-@media only screen and (min-width: 1100px) {
+@media only screen and (min-width: 1000px) {
   .recipe-preview-item {
     max-width: 50% !important;
     flex-basis: 50% !important;
