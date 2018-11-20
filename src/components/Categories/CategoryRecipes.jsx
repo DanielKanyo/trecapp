@@ -64,7 +64,7 @@ class CategoryRecipes extends Component {
               
               let isMine = recipeUserId === loggedInUserId ? true : false;
 
-              if (recipe.category === categoryNumber) {
+              if (recipe.category === categoryNumber && recipe.publicChecked) {
                 let data = {
                   recipeId: key,
                   imageUrl: recipe.imageUrl,
