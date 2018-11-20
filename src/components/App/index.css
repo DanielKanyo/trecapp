@@ -905,3 +905,17 @@ input[type=time]::-webkit-clear-button {
     border-radius: 2px;
   }
 }
+
+@media only screen and (min-width: 1100px) {
+  .recipe-preview-item {
+    max-width: 50% !important;
+    flex-basis: 50% !important;
+  }
+}
+
+@media only screen and (min-width: 1450px) {
+  .recipe-preview-item {
+    max-width: 33.333% !important;
+    flex-basis: 33.333% !important;
+  }
+}

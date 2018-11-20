@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../App/index.css';
 // import { db, auth } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
@@ -54,7 +55,7 @@ class RecipePreview extends Component {
 		let titleCharacters = data.title.split('');
 
 		return (
-			<Grid item xs={6} className="category-item">
+			<Grid item xs={12} className="recipe-preview-item">
 				<Card className={classes.card}>
 					<CardHeader
 						avatar={
