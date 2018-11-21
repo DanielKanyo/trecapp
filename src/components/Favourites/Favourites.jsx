@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import { ToastContainer } from 'react-toastify';
+
 const styles = theme => ({});
 
 class Favourites extends Component {
@@ -138,6 +140,17 @@ class Favourites extends Component {
           </Grid>
 
         </Grid>
+
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          pauseOnHover
+        />
 
       </div>
     );

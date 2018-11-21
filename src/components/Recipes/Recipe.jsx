@@ -343,8 +343,9 @@ class Recipe extends Component {
             <Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
               <div className="fav-icon-and-counter">
                 <IconButton
-                  aria-label="Remove from favorites"
+                  aria-label="heart"
                   onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.loggedInUserId) }}
+                  color="secondary"
                 >
                   {this.state.isFavourite ? <FavoriteIcon className="fav-icon" /> : <FavoriteBorderIcon className="icon-outlined" />}
                 </IconButton>
@@ -355,7 +356,7 @@ class Recipe extends Component {
             {this.state.visibilityEditable ?
               <Tooltip title={this.state.visibility ? languageObjectProp.data.myRecipes.tooltips.publicRecipe : languageObjectProp.data.myRecipes.tooltips.privateRecipe}>
                 <IconButton
-                  aria-label="Public recipe"
+                  aria-label="eye"
                   onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
                 >
                   {this.state.visibility ? <Visibility className="visibility-icon" /> : <VisibilityOutlined className="icon-outlined" />}

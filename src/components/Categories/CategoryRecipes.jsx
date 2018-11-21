@@ -37,7 +37,6 @@ class CategoryRecipes extends Component {
     });
 
     db.getRecipes().then(resRecipes => {
-
       if (this.mounted) {
         if (resRecipes) {
           db.onceGetUsers().then(users => {
@@ -58,14 +57,18 @@ class CategoryRecipes extends Component {
             for (var key in recipes) {
               let recipe = recipes[key];
               let recipeUserId = recipe.userId;
-              
+
               let username = usersObject[recipeUserId].username;
               let profilePicUrl = usersObject[recipeUserId].profilePicUrl;
-              
+
               let isMine = recipeUserId === loggedInUserId ? true : false;
 
               if (recipe.category === categoryNumber && recipe.publicChecked) {
+                let favouritesObject = recipes[key].favourites;
+                let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+
                 let data = {
+                  loggedInUserId: loggedInUserId,
                   recipeId: key,
                   imageUrl: recipe.imageUrl,
                   title: recipe.title,
@@ -74,7 +77,9 @@ class CategoryRecipes extends Component {
                   displayUserInfo: true,
                   username: username,
                   isMine: isMine,
-                  profilePicUrl: profilePicUrl
+                  profilePicUrl: profilePicUrl,
+                  isFavourite: isFavourite,
+                  favouriteCounter: recipes[key].favouriteCounter
                 }
 
                 previousRecipes.unshift(
