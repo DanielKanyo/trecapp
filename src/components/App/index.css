@@ -783,11 +783,15 @@ input[type=time]::-webkit-clear-button {
   justify-content: center;
   align-items: center;
   height: 100%;
-  color: #dadada;
+  color: #d5d5d5;
 }
 
 .no-image-icon-container svg {
   font-size: 50px;
+}
+
+.no-image-text-and-icon {
+  text-align: center;
 }
 
 @media only screen and (max-width: 950px) {

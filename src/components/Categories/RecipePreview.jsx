@@ -88,7 +88,10 @@ class RecipePreview extends Component {
 							<div className="no-image-container">
 								<div className="recipe-preview-no-image"></div>
 								<div className="no-image-icon-container" title={languageObjectProp.data.Categories.noPreviewImage}>
-									<BrokenImageIcon />
+									<div className="no-image-text-and-icon">
+										<BrokenImageIcon />
+										<div>{languageObjectProp.data.Categories.noPreviewImage}</div>
+									</div>
 								</div>
 							</div>
 					}
