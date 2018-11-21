@@ -48,6 +48,7 @@ class App extends Component {
     this.state = {
       languageObject: dataEng,
       suggestionsObject: suggestionsEng,
+      isAuthenticated: false,
     };
   }
 
@@ -73,6 +74,12 @@ class App extends Component {
     }
   }
 
+  setIsUserAuthenticated = (isAuthenticated) => {
+    this.setState({
+      isAuthenticated
+    });
+  }
+
   /**
    * Render function
    */
@@ -85,10 +92,11 @@ class App extends Component {
             <Navigation
               languageObjectProp={this.state.languageObject}
               setLanguageProp={this.setLanguage}
+              setIsUserAuthenticatedProp={this.setIsUserAuthenticated}
             />
 
             <Route exact path={routes.LANDING}
-              component={() => <LandingPage languageObjectProp={this.state.languageObject} />}
+              component={() => <LandingPage languageObjectProp={this.state.languageObject} isAuthenticatedProp={this.state.isAuthenticated} />}
             />
             <Route exact path={routes.SIGN_UP}
               component={() => <SignUpPage languageObjectProp={this.state.languageObject} />}

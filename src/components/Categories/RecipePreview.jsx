@@ -15,6 +15,7 @@ import OpenInNew from '@material-ui/icons/OpenInNew';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import Face from '@material-ui/icons/Face';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 
 const styles = theme => ({
 	card: {
@@ -42,7 +43,7 @@ class RecipePreview extends Component {
 			displayUserInfo: this.props.dataProp.displayUserInfo,
 			username: this.props.dataProp.username,
 			isMine: this.props.dataProp.isMine,
-      profilePicUrl: this.props.dataProp.profilePicUrl,
+			profilePicUrl: this.props.dataProp.profilePicUrl,
 		};
 	}
 
@@ -77,22 +78,31 @@ class RecipePreview extends Component {
 						title={data.title}
 						subheader={creationTime}
 					/>
-					<CardMedia
-						className={classes.media}
-						image={data.imageUrl}
-						title={data.title}
-					/>
 					{
-            this.state.displayUserInfo ?
-              <div className="user-container">
-                <span>
-                  {this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
-                </span>
-                <div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}>
-                  {this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
-                </div>
-              </div> : ''
-          }
+						data.imageUrl ?
+							<CardMedia
+								className={classes.media}
+								image={data.imageUrl}
+								title={data.title}
+							/> :
+							<div className="no-image-container">
+								<div className="recipe-preview-no-image"></div>
+								<div className="no-image-icon-container" title={languageObjectProp.data.Categories.noPreviewImage}>
+									<BrokenImageIcon />
+								</div>
+							</div>
+					}
+					{
+						this.state.displayUserInfo ?
+							<div className="user-container">
+								<span>
+									{this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
+								</span>
+								<div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}>
+									{this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
+								</div>
+							</div> : ''
+					}
 				</Card>
 			</Grid>
 		)

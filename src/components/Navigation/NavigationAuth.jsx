@@ -117,6 +117,7 @@ class NavigationAuth extends Component {
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
       this.props.setLanguageProp(snapshot.language);
+      this.props.setIsUserAuthenticatedProp(loggedInUserId ? true : false)
       this.setState(() => ({ user: snapshot }))
     });
   }

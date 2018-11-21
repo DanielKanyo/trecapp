@@ -119,6 +119,7 @@ export const dataEng = {
       resetBtn: 'Reset password',
     },
     Categories: {
+      noPreviewImage: 'No image',
       tooltip: {
         zeroRecipeInCategory: 'No recipe in this category',
         numOfRecipe: 'recipes in the category',

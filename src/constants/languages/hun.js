@@ -119,6 +119,7 @@ export const dataHun = {
       resetBtn: 'Jelszó visszaállítása',
     },
     Categories: {
+      noPreviewImage: 'Nincs kép',
       tooltip: {
         zeroRecipeInCategory: 'Nincs recept ebben a kategóriában',
         numOfRecipe: 'recept van a kategóriában',

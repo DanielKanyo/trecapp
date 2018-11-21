@@ -15,7 +15,11 @@ class Navigation extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => authUser
-          ? <NavigationAuth languageObjectProp={this.props.languageObjectProp} setLanguageProp={this.props.setLanguageProp} />
+          ? <NavigationAuth 
+              languageObjectProp={this.props.languageObjectProp} 
+              setLanguageProp={this.props.setLanguageProp}
+              setIsUserAuthenticatedProp={this.props.setIsUserAuthenticatedProp}
+            />
           : <NavigationNonAuth />
         }
       </AuthUserContext.Consumer>

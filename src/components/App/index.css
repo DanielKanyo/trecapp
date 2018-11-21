@@ -766,6 +766,30 @@ input[type=time]::-webkit-clear-button {
   margin-bottom: 14px;
 }
 
+.no-image-container {
+  position: relative;
+}
+
+.recipe-preview-no-image {
+  padding-top: 50%;
+  background: #b1b1b1;
+}
+
+.no-image-icon-container {
+  position: absolute;
+  top: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #dadada;
+}
+
+.no-image-icon-container svg {
+  font-size: 50px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
