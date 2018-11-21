@@ -3,12 +3,11 @@ import { auth, db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
-import Recipe from '../Recipes/Recipe';
+import RecipePreview from '../Categories/RecipePreview';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import SettingsIcon from '@material-ui/icons/Settings';
 
 import { ToastContainer } from 'react-toastify';
 
@@ -75,7 +74,7 @@ class Favourites extends Component {
                   data.displayUserInfo = displayUserInfo;
 
                   previousRecipes.push(
-                    <Recipe
+                    <RecipePreview
                       key={data.recipeId}
                       dataProp={data}
                       deleteRecipeProp={this.deleteRecipe}
@@ -111,18 +110,7 @@ class Favourites extends Component {
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
 
-          <Grid item className="grid-component" xs={6}>
-            <Paper className={classes.paper + ' paper-title paper-title-fav-settings'}>
-              <div className="paper-title-icon">
-                <SettingsIcon />
-              </div>
-              <div className="paper-title-text">
-                Settings
-              </div>
-            </Paper>
-          </Grid>
-
-          <Grid item className="grid-component" xs={6}>
+          <Grid item className="grid-component" xs={12}>
             <Paper className={classes.paper + ' paper-title paper-title-favourites'}>
               <div className="paper-title-icon">
                 <FavoriteIcon />
@@ -131,12 +119,14 @@ class Favourites extends Component {
                 {languageObjectProp.data.menuItems[2]}
               </div>
             </Paper>
+            
+            <Grid container spacing={16}>
+              {favRecipes.length === 0 ? <EmptyList /> : ''}
 
-            {favRecipes.length === 0 ? <EmptyList /> : ''}
-
-            {favRecipes.map((recipe, index) => {
-              return recipe;
-            })}
+              {favRecipes.map((recipe, index) => {
+                return recipe;
+              })}
+            </Grid>
           </Grid>
 
         </Grid>

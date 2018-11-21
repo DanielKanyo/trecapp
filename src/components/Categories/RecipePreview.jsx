@@ -172,6 +172,7 @@ class RecipePreview extends Component {
 						</div> : ''
 					}
 				</Card>
+				
 				<ToastContainer
 					position="top-right"
 					autoClose={2500}
