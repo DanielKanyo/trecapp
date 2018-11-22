@@ -3,6 +3,7 @@ import '../App/index.css';
 import { db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
+import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -109,6 +110,8 @@ class RecipePreview extends Component {
 
 		let titleCharacters = data.title.split('');
 
+		let urlToRecipe = `${this.props.dataProp.url}/${this.props.dataProp.recipeId}`;
+		
 		return (
 			<Grid item xs={12} className="recipe-preview-item">
 				<Card className={classes.card}>
@@ -121,7 +124,7 @@ class RecipePreview extends Component {
 							</Tooltip>
 						}
 						action={
-							<IconButton>
+							<IconButton component={Link} to={urlToRecipe}>
 								<OpenInNew />
 							</IconButton>
 						}

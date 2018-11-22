@@ -154,6 +154,10 @@ button a {
   background: #F55300 !important;
 }
 
+.paper-title-fullrecipe {
+  background: #00af6f !important;
+}
+
 .paper-title-icon {
   padding: 16px 20px;
 }
@@ -311,8 +315,11 @@ input[type=time]::-webkit-clear-button {
 }
 
 #delete-recipe-dialog div:nth-child(2) {
-  min-width: 280px !important;
   overflow: hidden;
+}
+
+#delete-recipe-dialog div:nth-child(2)>div {
+  margin: 0px !important;
 }
 
 .account-details-container {
@@ -926,6 +933,10 @@ input[type=time]::-webkit-clear-button {
 
   .recipe-preview-item:last-of-type {
     margin-bottom: 6px;
+  }
+
+  #delete-recipe-dialog div:nth-child(2)>div {
+    width: 90%;
   }
 }
 

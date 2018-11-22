@@ -79,7 +79,8 @@ class CategoryRecipes extends Component {
                   isMine: isMine,
                   profilePicUrl: profilePicUrl,
                   isFavourite: isFavourite,
-                  favouriteCounter: recipes[key].favouriteCounter
+                  favouriteCounter: recipes[key].favouriteCounter,
+                  url: this.props.match.url
                 }
 
                 previousRecipes.unshift(

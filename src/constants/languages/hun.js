@@ -62,6 +62,7 @@ export const dataHun = {
         numOfRecipes: 'Receptjeid száma',
         saveImage: 'Kép mentése',
         recipeDifficulty: ["Könnyű a receptet elkészíteni", "Mérsékelten nehéz a receptet elkészíteni", "Nehéz a receptet elkészíteni"],
+        categoryText: 'Kategória',
       },
       toaster: {
         recipeSaved: 'Recept elmentve!',

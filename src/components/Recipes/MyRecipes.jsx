@@ -63,13 +63,14 @@ class MyRecipes extends Component {
     db.getUserInfo(loggedInUserId).then(resUserInfo => {
       let username = resUserInfo.username;
 
-      this.setState({
-        currency: resUserInfo.currency,
-        loggedInUserId: loggedInUserId
-      });
-
       db.getRecipes().then(resRecipes => {
         if (this.mounted) {
+          
+          this.setState({
+            currency: resUserInfo.currency,
+            loggedInUserId: loggedInUserId
+          });
+
           let recipes = resRecipes;
 
           for (var key in recipes) {

@@ -62,6 +62,7 @@ export const dataEng = {
         numOfRecipes: 'Number of recipes',
         saveImage: 'Save image',
         recipeDifficulty: ["It's easy to make the recipe", "Moderately difficult to prepare the recipe", "It's hard to make the recipe"],
+        categoryText: 'Category',
       },
       toaster: {
         recipeSaved: 'Recipe saved!',
