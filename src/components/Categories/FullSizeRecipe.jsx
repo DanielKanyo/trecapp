@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-// import { auth, db } from '../../firebase';
+import { auth, db } from '../../firebase';
 import PropTypes from 'prop-types';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import LocalDining from '@material-ui/icons/LocalDining';
-import Chip from '@material-ui/core/Chip';
-import Tooltip from '@material-ui/core/Tooltip';
+
+import Recipe from '../Recipes/Recipe';
 
 const styles = theme => ({
 	paper: {
@@ -34,6 +32,7 @@ class FullSizeRecipe extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			recipe: '',
 			category: this.props.match.params.category,
 			recipeId: this.props.match.params.id,
 			recipeTitle: 'Recipe Title',
@@ -43,10 +42,53 @@ class FullSizeRecipe extends Component {
 
 	componentDidMount() {
 		this.mounted = true;
+		let loggedInUserId = auth.getCurrentUserId();
 
-		if (this.mounted) {
-			// console.log('asd');
-		}
+		db.getUserInfo(loggedInUserId).then(resUserInfo => {
+			let username = resUserInfo.username;
+			let profilePicUrl = resUserInfo.profilePicUrl;
+
+			db.getRecipeById(this.props.match.params.id).then(resRecipe => {
+
+        if (this.mounted) {
+					let recipe = resRecipe.val()
+
+					this.setState({
+						loggedInUserId: loggedInUserId
+					});
+					
+					let favouritesObject = recipe.favourites;
+					
+					let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+					let recipeDeletable = false;
+					let visibilityEditable = false;
+					let displayUserInfo = true;
+					let isMine = recipe.userId === loggedInUserId ? true : false;
+					let withPhoto = recipe.imageUrl !== '' ? true : false;
+					let favouriteCounter = recipe.favouriteCounter;
+
+					let data = recipe;
+
+					data.loggedInUserId = loggedInUserId;
+					data.username = username;
+					data.profilePicUrl = profilePicUrl;
+					data.isMine = isMine;
+					data.isFavourite = isFavourite;
+					data.favouriteCounter = favouriteCounter;
+					data.recipeDeletable = recipeDeletable;
+					data.withPhoto = withPhoto;
+					data.visibilityEditable = visibilityEditable;
+					data.displayUserInfo = displayUserInfo;
+					
+					let recipeComponent = <Recipe key={data.recipeId} dataProp={data} languageObjectProp={this.props.languageObjectProp} />
+					
+					this.setState({
+						recipe: recipeComponent
+					})
+					
+				}
+			});
+		});
 	}
 
 	/**
@@ -65,23 +107,8 @@ class FullSizeRecipe extends Component {
 
 				<Grid className="main-grid" container spacing={16}>
 					<Grid item className="grid-component" xs={12}>
-						<Paper className={classes.paper + ' paper-title paper-title-fullrecipe'}>
-							<div className="paper-title-icon">
-								<LocalDining />
-							</div>
-							<div className="paper-title-text">
-								{this.state.recipeTitle}
-							</div>
-							<div className="number-of-recipes">
-								<Tooltip title={languageObjectProp.data.myRecipes.tooltips.categoryText}>
-									<Chip
-										label={this.state.recipeCategory}
-										className={classes.chip} />
-								</Tooltip>
-							</div>
-						</Paper>
-
-						{this.state.category + ', ' + this.state.recipeId}
+						{this.state.recipe}
+						{/* {this.state.category + ', ' + this.state.recipeId} */}
 					</Grid>
 				</Grid>
 			</div>

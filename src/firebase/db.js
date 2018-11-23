@@ -56,6 +56,12 @@ export const getRecipes = () =>
     return snap.val();
   });
 
+// Get recipe by id
+export const getRecipeById = (recipeId) => {
+  return db.ref(`recipes/${recipeId}`).once('value');
+}
+
+
 
 // Remove recipe
 export const removeRecipe = (recipeId) => {
@@ -110,7 +116,7 @@ export const getFavouriteRecipesByUserId = (userId) => {
 export function toggleFavourite(userId, recipeId) {
   let recipeRef = db.ref(`recipes/${recipeId}`);
 
-  return recipeRef.transaction(function(recipe) {
+  return recipeRef.transaction(function (recipe) {
     if (recipe) {
       if (recipe.favouriteCounter && recipe.favourites[userId]) {
         recipe.favouriteCounter--;

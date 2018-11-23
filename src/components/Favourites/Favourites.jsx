@@ -148,9 +148,11 @@ class Favourites extends Component {
 }
 
 const EmptyList = () =>
-  <div className="empty-container">
-    Empty
-  </div>
+  <Grid item xs={12}>
+    <div className="empty-container">
+      Empty
+    </div>
+  </Grid>
 
 const authCondition = (authUser) => !!authUser;
 
