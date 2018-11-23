@@ -44,21 +44,22 @@ class FullSizeRecipe extends Component {
 		this.mounted = true;
 		let loggedInUserId = auth.getCurrentUserId();
 
-		db.getUserInfo(loggedInUserId).then(resUserInfo => {
-			let username = resUserInfo.username;
-			let profilePicUrl = resUserInfo.profilePicUrl;
+		db.onceGetUsers().then(users => {
+			let usersObject = users.val();
 
 			db.getRecipeById(this.props.match.params.id).then(resRecipe => {
+				if (this.mounted) {
+					let recipe = resRecipe.val();
 
-        if (this.mounted) {
-					let recipe = resRecipe.val()
+					let username = usersObject[recipe.userId].username;
+					let profilePicUrl = usersObject[recipe.userId].profilePicUrl;
 
 					this.setState({
 						loggedInUserId: loggedInUserId
 					});
-					
+
 					let favouritesObject = recipe.favourites;
-					
+
 					let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
 					let recipeDeletable = false;
 					let visibilityEditable = false;
@@ -66,6 +67,7 @@ class FullSizeRecipe extends Component {
 					let isMine = recipe.userId === loggedInUserId ? true : false;
 					let withPhoto = recipe.imageUrl !== '' ? true : false;
 					let favouriteCounter = recipe.favouriteCounter;
+					let showMore = true;
 
 					let data = recipe;
 
@@ -79,13 +81,14 @@ class FullSizeRecipe extends Component {
 					data.withPhoto = withPhoto;
 					data.visibilityEditable = visibilityEditable;
 					data.displayUserInfo = displayUserInfo;
-					
+					data.showMore = showMore;
+					data.fullSizeRecipe = 'fullSizeRecipe';
+
 					let recipeComponent = <Recipe key={data.recipeId} dataProp={data} languageObjectProp={this.props.languageObjectProp} />
-					
+
 					this.setState({
 						recipe: recipeComponent
-					})
-					
+					});
 				}
 			});
 		});
@@ -99,8 +102,6 @@ class FullSizeRecipe extends Component {
 	}
 
 	render() {
-		const { classes } = this.props;
-		const { languageObjectProp } = this.props;
 
 		return (
 			<div className="ComponentContent">
@@ -108,7 +109,6 @@ class FullSizeRecipe extends Component {
 				<Grid className="main-grid" container spacing={16}>
 					<Grid item className="grid-component" xs={12}>
 						{this.state.recipe}
-						{/* {this.state.category + ', ' + this.state.recipeId} */}
 					</Grid>
 				</Grid>
 			</div>

@@ -84,6 +84,7 @@ class MyRecipes extends Component {
               let displayUserInfo = false;
               let withPhoto = true;
               let isMine = true;
+              let showMore = false;
 
               let data = recipes[key];
 
@@ -98,6 +99,7 @@ class MyRecipes extends Component {
               data.visibilityEditable = visibilityEditable;
               data.displayUserInfo = displayUserInfo;
               data.profilePicUrl = '';
+              data.showMore = showMore;
 
               previousRecipes.unshift(
                 <Recipe
@@ -139,6 +141,7 @@ class MyRecipes extends Component {
     let visibilityEditable = true;
     let displayUserInfo = false;
     let withPhoto = true;
+    let showMore = false;
 
     dataToSend.userId = this.state.loggedInUserId;
     dataToSend.imageUrl = '';
@@ -148,6 +151,7 @@ class MyRecipes extends Component {
     dataToSend.visibilityEditable = visibilityEditable;
     dataToSend.displayUserInfo = displayUserInfo;
     dataToSend.withPhoto = withPhoto;
+    dataToSend.showMore = showMore;
 
     obj.currency = this.state.currency;
     obj.favouriteCounter = this.state.favouriteCounter;

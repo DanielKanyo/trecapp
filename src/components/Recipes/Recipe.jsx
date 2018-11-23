@@ -94,7 +94,7 @@ class Recipe extends Component {
       userId: this.props.dataProp.userId,
       username: this.props.dataProp.username,
       loggedInUserId: this.props.dataProp.loggedInUserId,
-      expanded: false,
+      expanded: this.props.dataProp.showMore,
       dialogOpen: false,
       visibility: this.props.dataProp.publicChecked,
       isFavourite: this.props.dataProp.isFavourite,
@@ -309,7 +309,7 @@ class Recipe extends Component {
           }
           {this.state.imageUrl !== "" ?
             <CardMedia
-              className={classes.media}
+              className={`${classes.media} ${data.fullSizeRecipe ? data.fullSizeRecipe : ''}`}
               image={this.state.imageUrl}
               title={languageObjectProp.data.myRecipes.myRecipes.recipeImage}
             />

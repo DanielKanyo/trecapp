@@ -89,6 +89,7 @@ class RecipesWall extends Component {
                   let displayUserInfo = true;
                   let withPhoto = latestRecipes[i].imageUrl !== '' ? true : false;
                   let favouriteCounter = latestRecipes[i].favouriteCounter;
+                  let showMore = false;
 
                   let data = latestRecipes[i];
 
@@ -102,6 +103,7 @@ class RecipesWall extends Component {
                   data.withPhoto = withPhoto;
                   data.visibilityEditable = visibilityEditable;
                   data.displayUserInfo = displayUserInfo;
+                  data.showMore = showMore;
 
                   previousLatestRecipes.push(
                     <Recipe
