@@ -3,6 +3,7 @@ import '../App/index.css';
 import { db, storage } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
+import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -34,6 +35,12 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Face from '@material-ui/icons/Face';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Menu from '@material-ui/core/Menu';
+import OpenInNew from '@material-ui/icons/OpenInNew';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -66,7 +73,7 @@ const styles = theme => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-    marginBottom: '16px',
+    marginBottom: '6px',
     backgroundRepeat: 'unset'
   },
   chip: {
@@ -82,6 +89,9 @@ const styles = theme => ({
     margin: theme.spacing.unit * 2,
     color: '#F8B000',
   },
+  menuItem: {},
+  primary: {},
+  icon: {},
 });
 
 const difficultyColors = ['#008E3D', '#F8B000', '#ff1414']
@@ -109,6 +119,7 @@ class Recipe extends Component {
       isMine: this.props.dataProp.isMine,
       profilePicUrl: this.props.dataProp.profilePicUrl,
       withPhoto: this.props.dataProp.withPhoto,
+      anchorEl: null,
     };
   }
 
@@ -131,17 +142,25 @@ class Recipe extends Component {
   }
 
   /**
-   * Open dialog
+   * Open delete dialog
    */
-  handleClickOpenDialog = () => {
+  handleClickOpenDeleteDialog = () => {
     this.setState({ dialogOpen: true });
   };
 
   /**
-   * Close dialog
+   * Close delete dialog
    */
-  handleCloseDialog = () => {
+  handleCloseDeleteDialog = () => {
     this.setState({ dialogOpen: false });
+  };
+
+  handleRecipeMenuClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleRecipeMenuClose = () => {
+    this.setState({ anchorEl: null });
   };
 
   /**
@@ -261,6 +280,7 @@ class Recipe extends Component {
    * Render function
    */
   render() {
+    const { anchorEl } = this.state;
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
     const data = this.props.dataProp;
@@ -275,6 +295,8 @@ class Recipe extends Component {
     let hour = data.hour;
     let minute = data.minute;
 
+    let urlToRecipe = `${data.url}/fullsize/${data.recipeId}`
+
     return (
       <div className="recipe-content">
         <Card className={classes.card + ' card-recipe'}>
@@ -286,27 +308,19 @@ class Recipe extends Component {
                 </Avatar>
               </Tooltip>
             }
-            action={this.state.recipeDeletable ?
-              <Tooltip title={languageObjectProp.data.myRecipes.tooltips.deleteRecipe}>
-                <IconButton className="delete-recipe-btn" onClick={this.handleClickOpenDialog}>
-                  <DeleteIcon />
+            action={
+              data.fullSizeRecipe === 'fullSizeRecipe' ? '' :
+                <IconButton
+                  aria-owns={anchorEl ? 'recipe-menu' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleRecipeMenuClick}
+                >
+                  <MoreVertIcon />
                 </IconButton>
-              </Tooltip> : ''
             }
             title={data.title}
             subheader={creationTime}
           />
-          {
-            this.state.displayUserInfo ?
-              <div className="user-container">
-                <span>
-                  {this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
-                </span>
-                <div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}>
-                  {this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
-                </div>
-              </div> : ''
-          }
           {this.state.imageUrl !== "" ?
             <CardMedia
               className={`${classes.media} ${data.fullSizeRecipe ? data.fullSizeRecipe : ''}`}
@@ -331,6 +345,20 @@ class Recipe extends Component {
               </div>
               :
               <div className="if-no-image-placeholder"></div>
+          }
+
+          {
+            this.state.displayUserInfo ?
+              <div className="user-container">
+                <span>
+                  {this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe :
+                    `${this.state.username}${languageObjectProp.data.Favourites.usersRecipe}`
+                  }
+                </span>
+                <div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}>
+                  {this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
+                </div>
+              </div> : ''
           }
 
           <CardContent className="recipe-story-card-content">
@@ -363,7 +391,6 @@ class Recipe extends Component {
                 </IconButton>
               </Tooltip> : ''
             }
-
 
             <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
 
@@ -406,9 +433,41 @@ class Recipe extends Component {
             </CardContent>
           </Collapse>
         </Card>
+
+        <Menu
+          id="recipe-menu"
+          className="recipe-more-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleRecipeMenuClose}
+        >
+          {
+            this.state.recipeDeletable ?
+              <MenuItem className={classes.menuItem}
+                onClick={() => { this.handleClickOpenDeleteDialog(); this.handleRecipeMenuClose() }}
+              >
+                <ListItemIcon
+                  className={classes.icon + ' delete-recipe-btn'}
+                >
+                  <DeleteIcon />
+                </ListItemIcon>
+                <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.deleteRecipe} />
+              </MenuItem> : ''
+          }
+          <MenuItem className={classes.menuItem} component={Link} to={urlToRecipe}>
+            <ListItemIcon
+              className={classes.icon}
+            >
+              <OpenInNew />
+            </ListItemIcon>
+            <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.openRecipeFullSize} />
+          </MenuItem>
+
+        </Menu>
+
         <Dialog
           open={this.state.dialogOpen}
-          onClose={this.handleCloseDialog}
+          onClose={this.handleCloseDeleteDialog}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           id='delete-recipe-dialog'
@@ -420,10 +479,10 @@ class Recipe extends Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseDialog} color="primary">
+            <Button onClick={this.handleCloseDeleteDialog} color="primary">
               {languageObjectProp.data.myRecipes.myRecipes.modal.cancel}
             </Button>
-            <Button onClick={() => { this.handleCloseDialog(); this.handleDeleteRecipe(data.recipeId) }} color="primary" autoFocus>
+            <Button onClick={() => { this.handleCloseDeleteDialog(); this.handleDeleteRecipe(data.recipeId) }} color="primary" autoFocus>
               {languageObjectProp.data.myRecipes.myRecipes.modal.do}
             </Button>
           </DialogActions>

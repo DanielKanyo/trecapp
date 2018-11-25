@@ -129,7 +129,7 @@ class App extends Component {
             <Route exact path={routes.CATEGORIES + '/:category'}
               component={() => <CategoryRecipes languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.CATEGORIES + '/:category/:id'}
+            <Route exact path={routes.CATEGORIES + '/:category/fullsize/:id'}
               component={(routerProps) => <FullSizeRecipe {...routerProps} languageObjectProp={this.state.languageObject} />}
             />
           </MuiThemeProvider>

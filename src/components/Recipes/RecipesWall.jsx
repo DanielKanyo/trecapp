@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import withAuthorization from '../Session/withAuthorization';
 import { db, auth } from '../../firebase';
 import compose from 'recompose/compose';
+import { dataEng } from '../../constants/languages/eng';
 
 import Recipe from './Recipe';
 
@@ -82,6 +83,10 @@ class RecipesWall extends Component {
 
                   let favouritesObject = latestRecipes[i].favourites;
 
+                  let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+                  let categoryNameEng = categoryItems[latestRecipes[i].category];
+                  let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+
                   let isMine = latestRecipes[i].userId === loggedInUserId ? true : false;
                   let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
                   let visibilityEditable = false;
@@ -104,6 +109,7 @@ class RecipesWall extends Component {
                   data.visibilityEditable = visibilityEditable;
                   data.displayUserInfo = displayUserInfo;
                   data.showMore = showMore;
+                  data.url = url;
 
                   previousLatestRecipes.push(
                     <Recipe
@@ -129,6 +135,10 @@ class RecipesWall extends Component {
 
                   let favouritesObject = topRecipes[j].favourites;
 
+                  let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+                  let categoryNameEng = categoryItems[topRecipes[j].category];
+                  let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+
                   let isMine = topRecipes[j].userId === loggedInUserId ? true : false;
                   let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
                   let visibilityEditable = false;
@@ -149,6 +159,7 @@ class RecipesWall extends Component {
                   data.withPhoto = withPhoto;
                   data.visibilityEditable = visibilityEditable;
                   data.displayUserInfo = displayUserInfo;
+                  data.url = url;
 
                   previousTopRecipes.push(
                     <Recipe

@@ -110,12 +110,12 @@ class RecipePreview extends Component {
 
 		let titleCharacters = data.title.split('');
 
-		let urlToRecipe = `${this.props.dataProp.url}/${this.props.dataProp.recipeId}`;
-		
+		let urlToRecipe = `${this.props.dataProp.url}/fullsize/${this.props.dataProp.recipeId}`;
+
 		return (
 			<Grid item xs={12} className="recipe-preview-item">
 				<Card className={classes.card}>
-					<CardHeader
+					<CardHeader className="recipe-card-header"
 						avatar={
 							<Tooltip title={languageObjectProp.data.myRecipes.tooltips.recipeDifficulty[data.sliderValue]}>
 								<Avatar aria-label="Recipe" className={classes.avatar} style={{ backgroundColor: difficultyColors[data.sliderValue] }}>
@@ -124,9 +124,11 @@ class RecipePreview extends Component {
 							</Tooltip>
 						}
 						action={
-							<IconButton component={Link} to={urlToRecipe}>
-								<OpenInNew />
-							</IconButton>
+							<Tooltip title={languageObjectProp.data.myRecipes.tooltips.openRecipeFullSize}>
+								<IconButton component={Link} to={urlToRecipe}>
+									<OpenInNew />
+								</IconButton>
+							</Tooltip>
 						}
 						title={data.title}
 						subheader={creationTime}
@@ -175,7 +177,7 @@ class RecipePreview extends Component {
 						</div> : ''
 					}
 				</Card>
-				
+
 				<ToastContainer
 					position="top-right"
 					autoClose={2500}

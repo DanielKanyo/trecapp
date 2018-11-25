@@ -57,7 +57,8 @@ export const dataHun = {
         publicRecipe: 'Nyilvános recept',
         addToFav: 'Hozzáadás a kedvencekhez',
         removeFromFav: 'Törlés a kedvencekből',
-        deleteRecipe: 'Recept törlése',
+        deleteRecipe: 'Törlés',
+        openRecipeFullSize: 'Megnyitás',
         more: 'Több',
         numOfRecipes: 'Receptjeid száma',
         saveImage: 'Kép mentése',
@@ -109,7 +110,7 @@ export const dataHun = {
     },
     Favourites: {
       yourRecipe: 'Az egyik recepted!',
-      uploadedBy: 'Feltöltő',
+      usersRecipe: " receptje",
     },
     PasswordResetAndForget: {
       newPassword: 'Új jelszó',

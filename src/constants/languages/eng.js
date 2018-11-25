@@ -57,7 +57,8 @@ export const dataEng = {
         publicRecipe: 'Public recipe',
         addToFav: 'Add to favourites',
         removeFromFav: 'Remove from favourites',
-        deleteRecipe: 'Delete recipe',
+        deleteRecipe: 'Delete',
+        openRecipeFullSize: 'Open',
         more: 'More',
         numOfRecipes: 'Number of recipes',
         saveImage: 'Save image',
@@ -109,7 +110,7 @@ export const dataEng = {
     },
     Favourites: {
       yourRecipe: "It's your recipe!",
-      uploadedBy: 'Uploader',
+      usersRecipe: "'s recipe",
     },
     PasswordResetAndForget: {
       newPassword: 'New password',

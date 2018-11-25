@@ -98,7 +98,7 @@
     background-image: url('../../images/bg2.jpg');
     background-position: center;
     background-size: auto 100%;
-    opacity: 0.15;
+    opacity: 0.2;
   }
 }
 
@@ -114,5 +114,9 @@
   .LeftMenu .left-menu-content {
     padding-top: 56px;
     width: 100%;
+  }
+
+  .LeftMenu .bottom {
+    display: none;
   }
 }

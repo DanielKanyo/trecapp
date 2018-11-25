@@ -3,6 +3,7 @@ import '../App/index.css';
 import { auth, db } from '../../firebase';
 import compose from 'recompose/compose';
 import withAuthorization from '../Session/withAuthorization';
+import { dataEng } from '../../constants/languages/eng';
 
 import NewRecipe from './NewRecipe';
 import Recipe from './Recipe';
@@ -65,7 +66,7 @@ class MyRecipes extends Component {
 
       db.getRecipes().then(resRecipes => {
         if (this.mounted) {
-          
+
           this.setState({
             currency: resUserInfo.currency,
             loggedInUserId: loggedInUserId
@@ -78,6 +79,10 @@ class MyRecipes extends Component {
               let favouritesObject = recipes[key].favourites;
 
               isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+
+              let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+              let categoryNameEng = categoryItems[recipes[key].category];
+              let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
 
               let recipeDeletable = true;
               let visibilityEditable = true;
@@ -100,6 +105,7 @@ class MyRecipes extends Component {
               data.displayUserInfo = displayUserInfo;
               data.profilePicUrl = '';
               data.showMore = showMore;
+              data.url = url;
 
               previousRecipes.unshift(
                 <Recipe
@@ -143,6 +149,10 @@ class MyRecipes extends Component {
     let withPhoto = true;
     let showMore = false;
 
+    let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+    let categoryNameEng = categoryItems[dataToSend.category];
+    let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+
     dataToSend.userId = this.state.loggedInUserId;
     dataToSend.imageUrl = '';
     dataToSend.currency = this.state.currency;
@@ -152,6 +162,7 @@ class MyRecipes extends Component {
     dataToSend.displayUserInfo = displayUserInfo;
     dataToSend.withPhoto = withPhoto;
     dataToSend.showMore = showMore;
+    dataToSend.url = url;
 
     obj.currency = this.state.currency;
     obj.favouriteCounter = this.state.favouriteCounter;

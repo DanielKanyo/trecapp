@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { dataEng } from '../../constants/languages/eng';
 
 import { ToastContainer } from 'react-toastify';
 
@@ -59,6 +60,10 @@ class Favourites extends Component {
                   let withPhoto = favRecipes[key].imageUrl !== '' ? true : false;
                   let favouriteCounter = favRecipes[key].favouriteCounter;
 
+                  let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+                  let categoryNameEng = categoryItems[favRecipes[key].category];
+                  let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+
                   let data = favRecipes[key];
 
                   data.recipeId = key;
@@ -72,6 +77,7 @@ class Favourites extends Component {
                   data.withPhoto = withPhoto;
                   data.visibilityEditable = visibilityEditable;
                   data.displayUserInfo = displayUserInfo;
+                  data.url = url;
 
                   previousRecipes.push(
                     <RecipePreview
@@ -119,7 +125,7 @@ class Favourites extends Component {
                 {languageObjectProp.data.menuItems[2]}
               </div>
             </Paper>
-            
+
             <Grid container spacing={16}>
               {favRecipes.length === 0 ? <EmptyList /> : ''}
 
