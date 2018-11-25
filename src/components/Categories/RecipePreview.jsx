@@ -111,6 +111,7 @@ class RecipePreview extends Component {
 		let titleCharacters = data.title.split('');
 
 		let urlToRecipe = `${this.props.dataProp.url}/recipe/${this.props.dataProp.recipeId}`;
+		let urlToUser = `/user/${data.userId}`;
 
 		return (
 			<Grid item xs={12} className="recipe-preview-item">
@@ -171,8 +172,13 @@ class RecipePreview extends Component {
 							<span>
 								{this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
 							</span>
-							<div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}>
-								{this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
+							<div
+								className="user-picture"
+								style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}
+							>
+								<Button className="user-btn" mini variant="fab" aria-label="User" component={Link} to={urlToUser}>
+									{this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
+								</Button>
 							</div>
 						</div> : ''
 					}

@@ -221,7 +221,7 @@ class MyRecipes extends Component {
     let recipes = this.state.recipes;
 
     return (
-      <div className="ComponentContent">
+      <div className="ComponentContent MyRecipes">
         <Grid className="main-grid" container spacing={16}>
 
           <Grid item className="grid-component" xs={6}>

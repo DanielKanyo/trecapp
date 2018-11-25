@@ -294,9 +294,9 @@ class Recipe extends Component {
 
     let hour = data.hour;
     let minute = data.minute;
-
+    
     let urlToRecipe = `${data.url}/recipe/${data.recipeId}`;
-    let urlToUser = `user/${data.userId}`
+    let urlToUser = `/user/${data.userId}`;
 
     return (
       <div className="recipe-content">
@@ -324,7 +324,7 @@ class Recipe extends Component {
           />
           {this.state.imageUrl !== "" ?
             <CardMedia
-              className={`${classes.media} ${data.fullSizeRecipe ? data.fullSizeRecipe : ''}`}
+              className={`${classes.media} card-media-recipe ${data.fullSizeRecipe ? data.fullSizeRecipe : ''}`}
               image={this.state.imageUrl}
               title={languageObjectProp.data.myRecipes.myRecipes.recipeImage}
             />

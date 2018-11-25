@@ -822,6 +822,10 @@ input[type=time]::-webkit-clear-button {
   background: none !important;
 }
 
+.MyRecipes .card-media-recipe {
+  margin-bottom: 16px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
