@@ -110,7 +110,7 @@ class RecipePreview extends Component {
 
 		let titleCharacters = data.title.split('');
 
-		let urlToRecipe = `${this.props.dataProp.url}/fullsize/${this.props.dataProp.recipeId}`;
+		let urlToRecipe = `${this.props.dataProp.url}/recipe/${this.props.dataProp.recipeId}`;
 
 		return (
 			<Grid item xs={12} className="recipe-preview-item">

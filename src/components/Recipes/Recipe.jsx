@@ -73,7 +73,7 @@ const styles = theme => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-    marginBottom: '6px',
+    marginBottom: '4px',
     backgroundRepeat: 'unset'
   },
   chip: {
@@ -295,7 +295,8 @@ class Recipe extends Component {
     let hour = data.hour;
     let minute = data.minute;
 
-    let urlToRecipe = `${data.url}/fullsize/${data.recipeId}`
+    let urlToRecipe = `${data.url}/recipe/${data.recipeId}`;
+    let urlToUser = `user/${data.userId}`
 
     return (
       <div className="recipe-content">
@@ -355,8 +356,14 @@ class Recipe extends Component {
                     `${this.state.username}${languageObjectProp.data.Favourites.usersRecipe}`
                   }
                 </span>
-                <div className="user-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}>
-                  {this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
+
+                <div
+                  className="user-picture"
+                  style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}
+                >
+                  <Button className="user-btn" mini variant="fab" aria-label="User" component={Link} to={urlToUser}>
+                    {this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
+                  </Button>
                 </div>
               </div> : ''
           }

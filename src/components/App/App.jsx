@@ -20,6 +20,7 @@ import ShoppingList from '../ShoppingList/ShoppingList';
 import withAuthentication from '../Session/withAuthentication';
 import Favourites from '../Favourites/Favourites';
 import FullSizeRecipe from '../Categories/FullSizeRecipe';
+import User from '../User/User';
 import * as routes from '../../constants/routes';
 
 import { dataHun } from '../../constants/languages/hun';
@@ -129,8 +130,11 @@ class App extends Component {
             <Route exact path={routes.CATEGORIES + '/:category'}
               component={() => <CategoryRecipes languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.CATEGORIES + '/:category/fullsize/:id'}
+            <Route exact path={routes.CATEGORIES + '/:category/recipe/:id'}
               component={(routerProps) => <FullSizeRecipe {...routerProps} languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={routes.USER + '/:id'}
+              component={() => <User languageObjectProp={this.state.languageObject} />}
             />
           </MuiThemeProvider>
         </div>
