@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LeftMenu from '../LeftMenu/LeftMenu';
 
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
 import { auth, db } from '../../firebase';
 import compose from 'recompose/compose';
 import withAuthorization from '../Session/withAuthorization';
@@ -15,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Face from '@material-ui/icons/Face';
+import SupervisorAccount from '@material-ui/icons/Security';
 import Home from '@material-ui/icons/Home';
 import Button from '@material-ui/core/Button';
 import Grow from '@material-ui/core/Grow';
@@ -129,6 +131,7 @@ class NavigationAuth extends Component {
     const { classes } = this.props;
     const { openAccountDropdown } = this.state;
     const userename = this.state.user.username;
+    const { authUser } = this.props;
 
     const { languageObjectProp } = this.props;
 
@@ -147,6 +150,11 @@ class NavigationAuth extends Component {
               <Button component={Link} to={ROUTES.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
                 <Home />
               </Button>
+              {authUser.roles.includes(ROLES.ADMIN) && (
+                <Button component={Link} to={ROUTES.ADMIN} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
+                  <SupervisorAccount />
+                </Button>
+              )}
 
               <Button
                 variant="contained"
