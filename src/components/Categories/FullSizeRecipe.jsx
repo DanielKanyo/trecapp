@@ -45,7 +45,7 @@ class FullSizeRecipe extends Component {
 		let authObject = JSON.parse(localStorage.getItem('authUser'));
 		let loggedInUserId = authObject.id;
 
-		db.onceGetUsers().then(users => {
+		db.users().once('value').then(users => {
 			let usersObject = users.val();
 
 			db.getRecipeById(this.props.match.params.id).then(resRecipe => {

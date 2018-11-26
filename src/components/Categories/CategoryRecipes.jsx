@@ -40,7 +40,7 @@ class CategoryRecipes extends Component {
     db.getRecipes().then(resRecipes => {
       if (this.mounted) {
         if (resRecipes) {
-          db.onceGetUsers().then(users => {
+          db.users().once('value').then(users => {
             let usersObject = users.val();
 
             let recipes = resRecipes;

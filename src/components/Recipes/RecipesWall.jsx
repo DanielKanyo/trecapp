@@ -66,7 +66,7 @@ class RecipesWall extends Component {
           }
         });
 
-        db.onceGetUsers().then(users => {
+        db.users().once('value').then(users => {
           let usersObject = users.val();
 
           if (sortedRecipesByTimestamp.length && sortedRecipesByFavCounter.length) {

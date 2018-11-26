@@ -39,7 +39,7 @@ class Favourites extends Component {
       if (this.mounted) {
         let favRecipes = resRecipes;
 
-        db.onceGetUsers().then(users => {
+        db.users().once('value').then(users => {
           let usersObject = users.val();
 
           for (let key in favRecipes) {
