@@ -163,6 +163,7 @@ class MyRecipes extends Component {
     dataToSend.withPhoto = withPhoto;
     dataToSend.showMore = showMore;
     dataToSend.url = url;
+    dataToSend.loggedInUserId = this.state.loggedInUserId;
 
     obj.currency = this.state.currency;
     obj.favouriteCounter = this.state.favouriteCounter;
