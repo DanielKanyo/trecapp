@@ -80,6 +80,7 @@ class CategoryRecipes extends Component {
                   profilePicUrl: profilePicUrl,
                   isFavourite: isFavourite,
                   favouriteCounter: recipes[key].favouriteCounter,
+                  userId: recipe.userId,
                   url: this.props.match.url
                 }
 

@@ -83,6 +83,7 @@ class FullSizeRecipe extends Component {
 					data.displayUserInfo = displayUserInfo;
 					data.showMore = showMore;
 					data.fullSizeRecipe = 'fullSizeRecipe';
+					data.recipeId = this.props.match.params.id;
 
 					let recipeComponent = <Recipe key={data.recipeId} dataProp={data} languageObjectProp={this.props.languageObjectProp} />
 
@@ -105,7 +106,6 @@ class FullSizeRecipe extends Component {
 
 		return (
 			<div className="ComponentContent">
-
 				<Grid className="main-grid" container spacing={16}>
 					<Grid item className="grid-component" xs={12}>
 						{this.state.recipe}
