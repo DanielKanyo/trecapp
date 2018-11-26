@@ -6,6 +6,7 @@ import {
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+import AdminPage from '../Admin/Admin';
 import Navigation from '../Navigation/Navigation';
 import SignUpPage from '../SignUp/SignUp';
 import LandingPage from '../Landing/Landing';
@@ -99,6 +100,9 @@ class App extends Component {
 
             <Route exact path={ROUTES.LANDING}
               component={() => <LandingPage languageObjectProp={this.state.languageObject} isAuthenticatedProp={this.state.isAuthenticated} />}
+            />
+            <Route exact path={ROUTES.ADMIN}
+              component={() => <AdminPage languageObjectProp={this.state.languageObject} />}
             />
             <Route exact path={ROUTES.SIGN_UP}
               component={() => <SignUpPage languageObjectProp={this.state.languageObject} />}

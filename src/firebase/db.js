@@ -18,6 +18,8 @@ export const doCreateUser = (id, username, email, language, currency, profilePic
 export const onceGetUsers = () =>
   db.ref('users').once('value');
 
+export const onceGetUser = id => db.ref(`users/${id}`).once('value');
+
 // Get user data
 export const getUserInfo = (id) =>
   db.ref(`users/${id}`).once('value').then(function (snap) {
