@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-import { db, auth } from '../../firebase';
+import { db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 
@@ -30,7 +30,8 @@ class CategoryRecipes extends Component {
     this.mounted = true;
     let previousRecipes = this.state.recipes;
 
-    let loggedInUserId = auth.getCurrentUserId();
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
 
     this.setState({
       loggedInUserId: loggedInUserId

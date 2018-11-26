@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import PropTypes from 'prop-types';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
@@ -42,7 +42,8 @@ class FullSizeRecipe extends Component {
 
 	componentDidMount() {
 		this.mounted = true;
-		let loggedInUserId = auth.getCurrentUserId();
+		let authObject = JSON.parse(localStorage.getItem('authUser'));
+		let loggedInUserId = authObject.id;
 
 		db.onceGetUsers().then(users => {
 			let usersObject = users.val();

@@ -4,7 +4,7 @@ import AccountDetails from './AccountDetails';
 import AuthUserContext from '../Session/AuthUserContext';
 import { PasswordForgetForm } from '../PasswordForget/PasswordForget';
 import PasswordChangeForm from '../PasswordChange/PasswordChange';
-import { auth, db, storage } from '../../firebase';
+import { db, storage } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
@@ -99,7 +99,9 @@ class AccountPage extends Component {
 
   componentDidMount() {
     this.mounted = true;
-    let loggedInUserId = auth.getCurrentUserId();
+
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
       if (this.mounted) {

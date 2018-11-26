@@ -115,7 +115,8 @@ class NavigationAuth extends Component {
    * Get user info to set language and then save user object
    */
   componentDidMount() {
-    let loggedInUserId = auth.getCurrentUserId();
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
       this.props.setLanguageProp(snapshot.language);

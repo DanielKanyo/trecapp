@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import compose from 'recompose/compose';
 import withAuthorization from '../Session/withAuthorization';
 import { dataEng } from '../../constants/languages/eng';
@@ -57,7 +57,8 @@ class MyRecipes extends Component {
   componentDidMount() {
     this.mounted = true;
 
-    let loggedInUserId = auth.getCurrentUserId();
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
     let previousRecipes = this.state.recipes;
     let isFavourite = false;
 

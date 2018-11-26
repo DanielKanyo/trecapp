@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
@@ -35,7 +35,8 @@ class Categories extends Component {
     this.mounted = true;
 
     let previousCategories = this.state.categories;
-    let loggedInUserId = auth.getCurrentUserId();
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
     let recipeCategorys = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems;
 
     this.setState({

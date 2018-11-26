@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import withAuthorization from '../Session/withAuthorization';
-import { db, auth } from '../../firebase';
+import { db } from '../../firebase';
 import compose from 'recompose/compose';
 import { dataEng } from '../../constants/languages/eng';
 
@@ -40,7 +40,8 @@ class RecipesWall extends Component {
   componentDidMount() {
     this.mounted = true;
 
-    let loggedInUserId = auth.getCurrentUserId();
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
     let previousLatestRecipes = this.state.latestRecipes;
     let previousTopRecipes = this.state.topRecipes;
     let counter1 = 0;

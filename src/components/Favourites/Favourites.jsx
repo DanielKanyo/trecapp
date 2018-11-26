@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
@@ -27,7 +27,8 @@ class Favourites extends Component {
   componentDidMount() {
     this.mounted = true;
 
-    let loggedInUserId = auth.getCurrentUserId();
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
     let previousRecipes = this.state.favRecipes;
 
     this.setState({

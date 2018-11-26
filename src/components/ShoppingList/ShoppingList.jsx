@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
@@ -205,7 +205,8 @@ class ShoppingList extends Component {
   componentDidMount() {
     this.mounted = true;
 
-    let loggedInUserId = auth.getCurrentUserId();
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
     let previousItems = this.state.items;
     let previousResentProducts = this.state.recentProducts;
 
@@ -214,29 +215,29 @@ class ShoppingList extends Component {
     });
 
     db.getShoppingListItems(loggedInUserId).then(resItem => {
+      if (this.mounted) {
+        for (var key in resItem) {
+          if (resItem.hasOwnProperty(key)) {
+            let data = resItem[key];
 
-      for (var key in resItem) {
-        if (resItem.hasOwnProperty(key)) {
-          let data = resItem[key];
+            data.itemId = key;
 
-          data.itemId = key;
-
-          previousItems.push(
-            <ListItem
-              key={key}
-              dataProp={data}
-              languageObjectProp={this.props.languageObjectProp}
-              loggedInUserIdProp={loggedInUserId}
-              deleteItemProp={this.deleteItem}
-            />
-          )
+            previousItems.push(
+              <ListItem
+                key={key}
+                dataProp={data}
+                languageObjectProp={this.props.languageObjectProp}
+                loggedInUserIdProp={loggedInUserId}
+                deleteItemProp={this.deleteItem}
+              />
+            )
+          }
         }
+
+        this.setState({
+          items: previousItems
+        });
       }
-
-      this.setState({
-        items: previousItems
-      });
-
     });
 
     db.getResentProducts(loggedInUserId).then(resResProd => {
