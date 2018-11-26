@@ -98,18 +98,28 @@ class AccountPage extends Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     let loggedInUserId = auth.getCurrentUserId();
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
-      this.setState(() => ({
-        accountName: snapshot.username,
-        accountEmail: snapshot.email,
-        accountCurrency: snapshot.currency,
-        accountLanguage: snapshot.language,
-        profilePicUrl: snapshot.profilePicUrl,
-        loggedInUserId: loggedInUserId,
-      }));
+      if (this.mounted) {
+        this.setState(() => ({
+          accountName: snapshot.username,
+          accountEmail: snapshot.email,
+          accountCurrency: snapshot.currency,
+          accountLanguage: snapshot.language,
+          profilePicUrl: snapshot.profilePicUrl,
+          loggedInUserId: loggedInUserId,
+        }));
+      }
     });
+  }
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   openUploadDialog = () => {
@@ -117,12 +127,12 @@ class AccountPage extends Component {
   };
 
   closeUploadDialog = () => {
-    this.setState({ 
+    this.setState({
       open: false,
       src: ''
-     });
+    });
 
-     document.getElementsByClassName("profile-input-container")[0].classList.remove("hide");
+    document.getElementsByClassName("profile-input-container")[0].classList.remove("hide");
   };
 
   onSelectFile = e => {

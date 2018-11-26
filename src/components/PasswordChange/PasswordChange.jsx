@@ -9,10 +9,6 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({});
 
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-});
-
 const INITIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
@@ -29,27 +25,27 @@ class PasswordChangeForm extends Component {
   onSubmit = (event) => {
     const { passwordOne } = this.state;
 
-    auth.doPasswordUpdate(passwordOne)
+    auth
+      .doPasswordUpdate(passwordOne)
       .then(() => {
-        this.setState(() => ({ ...INITIAL_STATE }));
+        this.setState({ ...INITIAL_STATE });
       })
       .catch(error => {
-        this.setState(updateByPropertyName('error', error));
+        this.setState({ error });
       });
 
     event.preventDefault();
   }
 
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
   render() {
-    const {
-      passwordOne,
-      passwordTwo,
-      error,
-    } = this.state;
+    const { passwordOne, passwordTwo, error } = this.state;
 
     const isInvalid =
-      passwordOne !== passwordTwo ||
-      passwordOne === '';
+      passwordOne !== passwordTwo || passwordOne === '';
 
     let languageObjectProp;
 
@@ -60,21 +56,23 @@ class PasswordChangeForm extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <TextField
+          name="passwordOne"
           id="forget-page-password-1"
           label={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPassword : "New password"}
           className="password-forget-input"
           value={passwordOne}
-          onChange={event => this.setState(updateByPropertyName('passwordOne', event.target.value))}
+          onChange={this.onChange}
           margin="normal"
           type="password"
           placeholder={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPasswordPlaceholder : "New password..."}
         />
         <TextField
+          name="passwordTwo"
           id="forget-page-password-2"
           label={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPasswordConfirm : "New password confirm"}
           className="password-forget-input"
           value={passwordTwo}
-          onChange={event => this.setState(updateByPropertyName('passwordTwo', event.target.value))}
+          onChange={this.onChange}
           margin="normal"
           type="password"
           placeholder={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.newPasswordConfirmPlaceholder : "Confirm new password..."}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import * as routes from '../../constants/routes';
+import * as ROUTES from '../../constants/routes';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -35,13 +35,13 @@ const NavigationAuth = (props) => {
     <div className={classes.root}>
       <AppBar className={classes.appbar} position="static">
         <Toolbar>
-          <Typography component={Link} to={routes.WALL} variant="h6" color="inherit" className={classes.grow}>
+          <Typography component={Link} to={ROUTES.WALL} variant="h6" color="inherit" className={classes.grow}>
             My Recipes
           </Typography>
-          <IconButton component={Link} to={routes.LANDING} className={classes.menuButton} color="inherit" aria-label="Menu">
+          <IconButton component={Link} to={ROUTES.LANDING} className={classes.menuButton} color="inherit" aria-label="Menu">
             <Home />
           </IconButton>
-          <IconButton component={Link} to={routes.SIGN_IN} className={classes.menuButton} color="inherit" aria-label="Menu">
+          <IconButton component={Link} to={ROUTES.SIGN_IN} className={classes.menuButton} color="inherit" aria-label="Menu">
             <LockOpen />
           </IconButton>
         </Toolbar>

@@ -21,7 +21,7 @@ import withAuthentication from '../Session/withAuthentication';
 import Favourites from '../Favourites/Favourites';
 import FullSizeRecipe from '../Categories/FullSizeRecipe';
 import User from '../User/User';
-import * as routes from '../../constants/routes';
+import * as ROUTES from '../../constants/routes';
 
 import { dataHun } from '../../constants/languages/hun';
 import { dataEng } from '../../constants/languages/eng';
@@ -97,43 +97,43 @@ class App extends Component {
               setIsUserAuthenticatedProp={this.setIsUserAuthenticated}
             />
 
-            <Route exact path={routes.LANDING}
+            <Route exact path={ROUTES.LANDING}
               component={() => <LandingPage languageObjectProp={this.state.languageObject} isAuthenticatedProp={this.state.isAuthenticated} />}
             />
-            <Route exact path={routes.SIGN_UP}
+            <Route exact path={ROUTES.SIGN_UP}
               component={() => <SignUpPage languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.SIGN_IN}
+            <Route exact path={ROUTES.SIGN_IN}
               component={() => <SignInPage languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.PASSWORD_FORGET}
+            <Route exact path={ROUTES.PASSWORD_FORGET}
               component={() => <PasswordForgetPage languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.WALL}
+            <Route exact path={ROUTES.WALL}
               component={() => <RecipesWall languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.ACCOUNT}
+            <Route exact path={ROUTES.ACCOUNT}
               component={() => <AccountPage setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.MYRECIPES}
+            <Route exact path={ROUTES.MYRECIPES}
               component={() => <MyRecipes languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.FAVOURITES}
+            <Route exact path={ROUTES.FAVOURITES}
               component={() => <Favourites languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.SHOPPINGLIST}
+            <Route exact path={ROUTES.SHOPPINGLIST}
               component={() => <ShoppingList languageObjectProp={this.state.languageObject} suggestionsObjectProp={this.state.suggestionsObject} />}
             />
-            <Route exact path={routes.CATEGORIES}
+            <Route exact path={ROUTES.CATEGORIES}
               component={() => <Categories languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.CATEGORIES + '/:category'}
+            <Route exact path={ROUTES.CATEGORIES + '/:category'}
               component={() => <CategoryRecipes languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.CATEGORIES + '/:category/recipe/:id'}
+            <Route exact path={ROUTES.CATEGORIES + '/:category/recipe/:id'}
               component={(routerProps) => <FullSizeRecipe {...routerProps} languageObjectProp={this.state.languageObject} />}
             />
-            <Route exact path={routes.USER + '/:id'}
+            <Route exact path={ROUTES.USER + '/:id'}
               component={() => <User languageObjectProp={this.state.languageObject} />}
             />
           </MuiThemeProvider>

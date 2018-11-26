@@ -3,13 +3,14 @@ import {
 } from './firebase';
 
 // Create user
-export const doCreateUser = (id, username, email, language, currency, profilePicUrl) => {
+export const doCreateUser = (id, username, email, language, currency, profilePicUrl, roles) => {
   return db.ref(`users/${id}`).set({
     username,
     email,
     language,
     currency,
     profilePicUrl,
+    roles,
   });
 }
 

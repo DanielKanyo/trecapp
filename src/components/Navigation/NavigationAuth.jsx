@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import LeftMenu from '../LeftMenu/LeftMenu';
 
-import * as routes from '../../constants/routes';
+import * as ROUTES from '../../constants/routes';
 import { auth, db } from '../../firebase';
 import compose from 'recompose/compose';
 import withAuthorization from '../Session/withAuthorization';
@@ -140,11 +140,11 @@ class NavigationAuth extends Component {
               <MenuIcon />
             </IconButton>
 
-            <Typography component={Link} to={routes.LANDING} variant="h6" color="inherit" className={classes.grow}>
+            <Typography component={Link} to={ROUTES.LANDING} variant="h6" color="inherit" className={classes.grow}>
               {languageObjectProp.data.appTitle}
             </Typography>
             <div className="navigation-right-side">
-              <Button component={Link} to={routes.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
+              <Button component={Link} to={ROUTES.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
                 <Home />
               </Button>
 
@@ -173,7 +173,7 @@ class NavigationAuth extends Component {
                   <Paper className="account-dropdown">
                     <ClickAwayListener onClickAway={this.handleCloseAccountDropdown}>
                       <MenuList>
-                        <MenuItem component={Link} to={routes.ACCOUNT} onClick={this.handleCloseAccountDropdown}>
+                        <MenuItem component={Link} to={ROUTES.ACCOUNT} onClick={this.handleCloseAccountDropdown}>
                           {languageObjectProp.data.Navigation.dropdownValues[0]}
                         </MenuItem>
                         <MenuItem onClick={auth.doSignOut}>

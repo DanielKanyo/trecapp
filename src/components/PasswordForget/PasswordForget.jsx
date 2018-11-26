@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { auth } from '../../firebase';
-import * as routes from '../../constants/routes';
+import * as ROUTES from '../../constants/routes';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -11,17 +11,14 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({});
 
-const PasswordForgetPage = () =>
+const PasswordForgetPage = () => (
   <div className="forget-form">
     <Paper className="forget-paper" elevation={1}>
       <div className="forget-title">Reset password</div>
       <PasswordForgetForm />
     </Paper>
   </div>
-
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-});
+);
 
 const INITIAL_STATE = {
   email: '',
@@ -35,25 +32,27 @@ class PasswordForgetForm extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = (event) => {
+  onSubmit = event => {
     const { email } = this.state;
 
-    auth.doPasswordReset(email)
+    auth
+      .doPasswordReset(email)
       .then(() => {
         this.setState(() => ({ ...INITIAL_STATE }));
       })
       .catch(error => {
-        this.setState(updateByPropertyName('error', error));
+        this.setState({ error });
       });
 
     event.preventDefault();
-  }
+  };
+
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
   render() {
-    const {
-      email,
-      error,
-    } = this.state;
+    const { email, error } = this.state;
 
     const isInvalid = email === '';
 
@@ -66,11 +65,12 @@ class PasswordForgetForm extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <TextField
+          name="email"
           id="forget-page-email"
           label={"E-mail"}
           className="password-forget-input"
           value={this.state.email}
-          onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
+          onChange={this.onChange}
           margin="normal"
           type="text"
           placeholder={languageObjectProp ? languageObjectProp.data.PasswordResetAndForget.emailPlaceholder : "Your e-mail address..."}
@@ -85,10 +85,11 @@ class PasswordForgetForm extends Component {
   }
 }
 
-const PasswordForgetLink = () =>
+const PasswordForgetLink = () => (
   <div className="forgot-password-container">
-    <Link to={routes.PASSWORD_FORGET}>Forgot Password?</Link>
+    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
   </div>
+);
 
 PasswordForgetPage.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -96,7 +97,4 @@ PasswordForgetPage.propTypes = {
 
 export default withStyles(styles)(PasswordForgetPage);
 
-export {
-  PasswordForgetForm,
-  PasswordForgetLink,
-};
+export { PasswordForgetForm, PasswordForgetLink };
