@@ -837,6 +837,15 @@ input[type=time]::-webkit-clear-button {
   box-shadow: -10px 0px 10px -2px rgba(255, 255, 255, 1);
 }
 
+.google-btn {
+  background: #008744 !important;
+  color: white !important;
+}
+
+.google-btn:hover {
+  background: #00773c !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

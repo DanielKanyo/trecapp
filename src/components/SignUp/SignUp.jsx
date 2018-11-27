@@ -185,12 +185,14 @@ class SignUpForm extends Component {
           />
           <Button disabled={isInvalid} color="primary" variant="contained" type="submit" className="reset-passwd-btn last-reset-btn">
             Sign Up
-        </Button>
+          </Button>
 
           {error && <p>{error.message}</p>}
         </form>
 
-        <button onClick={this.singUpWithGoogle}>Google</button>
+        <Button variant="contained" onClick={this.singUpWithGoogle} className="reset-passwd-btn google-btn">
+          Google
+        </Button>
       </div>
     );
   }
