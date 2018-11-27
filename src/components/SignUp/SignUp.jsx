@@ -65,7 +65,6 @@ class SignUpForm extends Component {
             profilePicUrl,
             roles,
           })
-          // db.doCreateUser(authUser.user.uid, username, email, language, currency, profilePicUrl, roles)
           .then(() => {
             if (this.mounted) {
               this.setState(() => ({ ...INITIAL_STATE }));
@@ -98,6 +97,46 @@ class SignUpForm extends Component {
     this.mounted = false;
   }
 
+  singUpWithGoogle = () => {
+    const { isAdmin } = this.state;
+    const roles = [];
+
+    if (isAdmin) {
+      roles.push(ROLES.ADMIN);
+    }
+
+    const { history } = this.props;
+
+    const language = 'eng';
+    const currency = 'USD';
+
+    auth.doCreateUserWithGoogle()
+      .then(authUser => {
+        // Create a user in your own accessible Firebase Database too
+        db.user(authUser.uid, authUser.displayName, authUser.email, language, currency, authUser.photoURL, roles)
+          .set({
+            username: authUser.displayName,
+            email: authUser.email,
+            language,
+            currency,
+            profilePicUrl: authUser.photoURL,
+            roles,
+          })
+          .then(() => {
+            if (this.mounted) {
+              this.setState(() => ({ ...INITIAL_STATE }));
+            }
+            history.push(ROUTES.WALL);
+          })
+          .catch(error => {
+            this.setState({ error });
+          });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  }
+
   render() {
     const {
       username,
@@ -114,53 +153,57 @@ class SignUpForm extends Component {
       email === '';
 
     return (
-      <form onSubmit={this.onSubmit} className="sign-up-form">
-        <TextField
-          name="username"
-          id="sign-up-username"
-          label={"Full name"}
-          className="password-forget-input"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Your name..."
-        />
-        <TextField
-          name="email"
-          id="sign-up-email"
-          label={"Email address"}
-          className="password-forget-input"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Your e-mail address..."
-        />
-        <TextField
-          name="passwordOne"
-          id="sign-up-password1"
-          label={"Password"}
-          className="password-forget-input"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password..."
-        />
-        <TextField
-          name="passwordTwo"
-          id="sign-up-password2"
-          label={"Password"}
-          className="password-forget-input"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm password..."
-        />
-        <Button disabled={isInvalid} color="primary" variant="contained" type="submit" className="reset-passwd-btn last-reset-btn">
-          Sign Up
+      <div>
+        <form onSubmit={this.onSubmit} className="sign-up-form">
+          <TextField
+            name="username"
+            id="sign-up-username"
+            label={"Full name"}
+            className="password-forget-input"
+            value={username}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Your name..."
+          />
+          <TextField
+            name="email"
+            id="sign-up-email"
+            label={"Email address"}
+            className="password-forget-input"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Your e-mail address..."
+          />
+          <TextField
+            name="passwordOne"
+            id="sign-up-password1"
+            label={"Password"}
+            className="password-forget-input"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password..."
+          />
+          <TextField
+            name="passwordTwo"
+            id="sign-up-password2"
+            label={"Password"}
+            className="password-forget-input"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Confirm password..."
+          />
+          <Button disabled={isInvalid} color="primary" variant="contained" type="submit" className="reset-passwd-btn last-reset-btn">
+            Sign Up
         </Button>
 
-        {error && <p>{error.message}</p>}
-      </form>
+          {error && <p>{error.message}</p>}
+        </form>
+
+        <button onClick={this.singUpWithGoogle}>Google</button>
+      </div>
     );
   }
 }
