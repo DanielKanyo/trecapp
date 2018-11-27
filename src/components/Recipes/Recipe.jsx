@@ -32,6 +32,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Face from '@material-ui/icons/Face';
@@ -361,9 +362,9 @@ class Recipe extends Component {
                   className="user-picture"
                   style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}
                 >
-                  <Button className="user-btn" mini variant="fab" aria-label="User" component={Link} to={urlToUser}>
+                  <Fab className="user-btn" size="small" aria-label="User" component={Link} to={urlToUser}>
                     {this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
-                  </Button>
+                  </Fab>
                 </div>
               </div> : ''
           }

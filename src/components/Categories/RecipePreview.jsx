@@ -19,7 +19,7 @@ import Face from '@material-ui/icons/Face';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
@@ -153,9 +153,8 @@ class RecipePreview extends Component {
 					}
 					<Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
 						<div className="fav-icon-and-counter icon-and-counter-on-recipe-preview">
-							<Button
-								mini
-								variant="fab"
+							<Fab
+								size="small"
 								color="secondary"
 								aria-label="heart"
 								onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.loggedInUserId) }}
@@ -163,7 +162,7 @@ class RecipePreview extends Component {
 								{this.state.isFavourite ?
 									<FavoriteIcon /> :
 									<FavoriteBorderIcon />}
-							</Button>
+							</Fab>
 							{this.state.favouriteCounter ? <div className="fav-counter fav-counter-rec-preview"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
 						</div>
 					</Tooltip>
@@ -176,9 +175,9 @@ class RecipePreview extends Component {
 								className="user-picture"
 								style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}
 							>
-								<Button className="user-btn" mini variant="fab" aria-label="User" component={Link} to={urlToUser}>
+								<Fab className="user-btn" size="small" aria-label="User" component={Link} to={urlToUser}>
 									{this.state.profilePicUrl ? '' : <div className="if-no-profile-image"><Face /></div>}
-								</Button>
+								</Fab>
 							</div>
 						</div> : ''
 					}
