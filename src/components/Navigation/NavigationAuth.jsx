@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Face from '@material-ui/icons/Face';
-import SupervisorAccount from '@material-ui/icons/Security';
+import Security from '@material-ui/icons/Security';
 import Home from '@material-ui/icons/Home';
 import Button from '@material-ui/core/Button';
 import Grow from '@material-ui/core/Grow';
@@ -153,7 +153,7 @@ class NavigationAuth extends Component {
               </Button>
               {authUser.roles.includes(ROLES.ADMIN) && (
                 <Button component={Link} to={ROUTES.ADMIN} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
-                  <SupervisorAccount />
+                  <Security />
                 </Button>
               )}
 
