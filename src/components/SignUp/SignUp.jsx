@@ -25,11 +25,9 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
+  profilePicUrl: '',
   isAdmin: false,
   error: null,
-  language: 'eng',
-  currency: 'USD',
-  profilePicUrl: '',
 };
 
 class SignUpForm extends Component {
@@ -42,8 +40,9 @@ class SignUpForm extends Component {
   onSubmit = event => {
     this.mounted = true;
 
-    const { username, email, passwordOne, isAdmin, language, currency, profilePicUrl } = this.state;
+    const { username, email, passwordOne, isAdmin, profilePicUrl } = this.state;
     const roles = [];
+    const { history } = this.props;
 
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
@@ -52,7 +51,23 @@ class SignUpForm extends Component {
     auth
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        this.createUser(authUser.user.uid, username, email, language, currency, profilePicUrl, roles);
+        // Create a user in your own accessible Firebase Database too
+        db.user(authUser.user.uid, username, email, profilePicUrl, roles)
+          .set({
+            username,
+            email,
+            profilePicUrl,
+            roles,
+          })
+          .then(() => {
+            if (this.mounted) {
+              this.setState(() => ({ ...INITIAL_STATE }));
+            }
+            history.push(ROUTES.WALL);
+          })
+          .catch(error => {
+            this.setState({ error });
+          });
       })
       .catch(error => {
         this.setState({ error });
@@ -74,55 +89,6 @@ class SignUpForm extends Component {
    */
   componentWillUnmount() {
     this.mounted = false;
-  }
-
-  /**
-   * Sign up with Google account
-   */
-  singUpWithGoogle = () => {
-    this.mounted = true;
-    
-    const { isAdmin, language, currency } = this.state;
-    const roles = [];
-
-    if (isAdmin) {
-      roles.push(ROLES.ADMIN);
-    }
-
-    auth.doCreateUserWithGoogle()
-      .then(authUser => {
-        this.createUser(authUser.uid, authUser.displayName, authUser.email, language, currency, authUser.photoURL, roles);
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
-  }
-
-  /**
-   * Create user in database
-   */
-  createUser = (id, username, email, language, currency, profilePicUrl, roles) => {
-    const { history } = this.props;
-
-    // Create a user in your own accessible Firebase Database too
-    db.user(id, username, email, language, currency, profilePicUrl, roles)
-      .set({
-        username,
-        email,
-        language,
-        currency,
-        profilePicUrl,
-        roles,
-      })
-      .then(() => {
-        if (this.mounted) {
-          this.setState(() => ({ ...INITIAL_STATE }));
-        }
-        history.push(ROUTES.WALL);
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
   }
 
   render() {
@@ -189,10 +155,6 @@ class SignUpForm extends Component {
 
           {error && <p>{error.message}</p>}
         </form>
-
-        <Button variant="contained" onClick={this.singUpWithGoogle} className="reset-passwd-btn google-btn">
-          Google
-        </Button>
       </div>
     );
   }

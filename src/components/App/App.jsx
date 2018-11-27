@@ -62,16 +62,16 @@ class App extends Component {
    */
   setLanguage = (language) => {
     switch (language) {
-      case 'eng':
+      case 'hun':
         this.setState({
-          languageObject: dataEng,
-          suggestionsObject: suggestionsEng
+          languageObject: dataHun,
+          suggestionsObject: suggestionsHun
         });
         break;
       default:
         this.setState({
-          languageObject: dataHun,
-          suggestionsObject: suggestionsHun
+          languageObject: dataEng,
+          suggestionsObject: suggestionsEng
         });
         break;
     }

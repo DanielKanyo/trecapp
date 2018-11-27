@@ -1,5 +1,6 @@
 import {
-  auth, provider
+  auth,
+  provider
 } from './firebase';
 
 // Sign Up
@@ -22,15 +23,13 @@ export const doPasswordReset = (email) =>
 export const doPasswordUpdate = (password) =>
   auth.currentUser.updatePassword(password);
 
-
 // Get Current User
 export const getCurrentUserId = () =>
   auth.currentUser.uid;
 
 // Sign Up with Google
-export const doCreateUserWithGoogle = () =>
+export const doSignInWithGoogle = () =>
   auth.signInWithPopup(provider).then(function (result) {
-    var user = result.user;
-    
+    let user = result.user;
     return user;
   });

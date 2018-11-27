@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import * as ROLES from '../../constants/roles';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -10,7 +11,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import { SignUpLink } from '../SignUp/SignUp';
 import { PasswordForgetLink } from '../PasswordForget/PasswordForget';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import * as ROUTES from '../../constants/routes';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -35,8 +36,10 @@ const SignInPage = ({ history }) => (
 const INITIAL_STATE = {
   email: '',
   password: '',
+  showPassword: false,
+  profilePicUrl: '',
+  isAdmin: false,
   error: null,
-  showPassword: false
 };
 
 class SignInForm extends Component {
@@ -47,14 +50,17 @@ class SignInForm extends Component {
   }
 
   onSubmit = event => {
-    const { email, password } = this.state;
+    this.mounted = true;
 
+    const { email, password } = this.state;
     const { history } = this.props;
 
     auth
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
-        this.setState(() => ({ ...INITIAL_STATE }));
+        if (this.mounted) {
+          this.setState(() => ({ ...INITIAL_STATE }));
+        }
         history.push(ROUTES.WALL);
       })
       .catch(error => {
@@ -74,6 +80,52 @@ class SignInForm extends Component {
     this.setState({
       showPassword: !temp
     });
+  }
+
+  /**
+   * Sign in with Google
+   */
+  singInWithGoogle = () => {
+    this.mounted = true;
+
+    const { history } = this.props;
+    const { isAdmin } = this.state;
+    const roles = [];
+
+    if (isAdmin) {
+      roles.push(ROLES.ADMIN);
+    }
+
+    auth.doSignInWithGoogle()
+      .then((authUser) => {
+        // Create a user in your own accessible Firebase Database too
+        db.user(authUser.uid, authUser.displayName, authUser.email, authUser.photoURL, roles)
+          .update({
+            username: authUser.displayName,
+            email: authUser.email,
+            profilePicUrl: authUser.photoURL,
+            roles,
+          })
+          .then(() => {
+            if (this.mounted) {
+              this.setState(() => ({ ...INITIAL_STATE }));
+            }
+            history.push(ROUTES.WALL);
+          })
+          .catch(error => {
+            this.setState({ error });
+          });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  }
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   render() {
@@ -122,6 +174,9 @@ class SignInForm extends Component {
 
         <Button variant="contained" color="primary" disabled={isInvalid} type="submit" className="sign-btn">
           SIGN IN
+        </Button>
+        <Button variant="contained" onClick={this.singInWithGoogle} className="reset-passwd-btn google-btn">
+          Google
         </Button>
 
         {error && <p>{error.message}</p>}
