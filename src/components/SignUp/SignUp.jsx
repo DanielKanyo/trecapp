@@ -27,6 +27,9 @@ const INITIAL_STATE = {
   passwordTwo: '',
   isAdmin: false,
   error: null,
+  language: 'eng',
+  currency: 'USD',
+  profilePicUrl: '',
 };
 
 class SignUpForm extends Component {
@@ -39,41 +42,17 @@ class SignUpForm extends Component {
   onSubmit = event => {
     this.mounted = true;
 
-    const { username, email, passwordOne, isAdmin } = this.state;
+    const { username, email, passwordOne, isAdmin, language, currency, profilePicUrl } = this.state;
     const roles = [];
 
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
     }
 
-    const { history } = this.props;
-
-    const language = 'eng';
-    const currency = 'USD';
-    const profilePicUrl = '';
-
     auth
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        // Create a user in your own accessible Firebase Database too
-        db.user(authUser.user.uid, username, email, language, currency, profilePicUrl, roles)
-          .set({
-            username,
-            email,
-            language,
-            currency,
-            profilePicUrl,
-            roles,
-          })
-          .then(() => {
-            if (this.mounted) {
-              this.setState(() => ({ ...INITIAL_STATE }));
-            }
-            history.push(ROUTES.WALL);
-          })
-          .catch(error => {
-            this.setState({ error });
-          });
+        this.createUser(authUser.user.uid, username, email, language, currency, profilePicUrl, roles);
       })
       .catch(error => {
         this.setState({ error });
@@ -97,40 +76,49 @@ class SignUpForm extends Component {
     this.mounted = false;
   }
 
+  /**
+   * Sign up with Google account
+   */
   singUpWithGoogle = () => {
-    const { isAdmin } = this.state;
+    this.mounted = true;
+    
+    const { isAdmin, language, currency } = this.state;
     const roles = [];
 
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
     }
 
-    const { history } = this.props;
-
-    const language = 'eng';
-    const currency = 'USD';
-
     auth.doCreateUserWithGoogle()
       .then(authUser => {
-        // Create a user in your own accessible Firebase Database too
-        db.user(authUser.uid, authUser.displayName, authUser.email, language, currency, authUser.photoURL, roles)
-          .set({
-            username: authUser.displayName,
-            email: authUser.email,
-            language,
-            currency,
-            profilePicUrl: authUser.photoURL,
-            roles,
-          })
-          .then(() => {
-            if (this.mounted) {
-              this.setState(() => ({ ...INITIAL_STATE }));
-            }
-            history.push(ROUTES.WALL);
-          })
-          .catch(error => {
-            this.setState({ error });
-          });
+        this.createUser(authUser.uid, authUser.displayName, authUser.email, language, currency, authUser.photoURL, roles);
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  }
+
+  /**
+   * Create user in database
+   */
+  createUser = (id, username, email, language, currency, profilePicUrl, roles) => {
+    const { history } = this.props;
+
+    // Create a user in your own accessible Firebase Database too
+    db.user(id, username, email, language, currency, profilePicUrl, roles)
+      .set({
+        username,
+        email,
+        language,
+        currency,
+        profilePicUrl,
+        roles,
+      })
+      .then(() => {
+        if (this.mounted) {
+          this.setState(() => ({ ...INITIAL_STATE }));
+        }
+        history.push(ROUTES.WALL);
       })
       .catch(error => {
         this.setState({ error });
