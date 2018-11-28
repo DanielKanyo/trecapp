@@ -108,8 +108,8 @@ class AccountPage extends Component {
         this.setState(() => ({
           accountName: snapshot.username,
           accountEmail: snapshot.email,
-          accountCurrency: snapshot.currency,
-          accountLanguage: snapshot.language,
+          accountCurrency: snapshot.currency ? snapshot.currency : 'USD',
+          accountLanguage: snapshot.language ? snapshot.language : 'eng',
           profilePicUrl: snapshot.profilePicUrl,
           loggedInUserId: loggedInUserId,
         }));

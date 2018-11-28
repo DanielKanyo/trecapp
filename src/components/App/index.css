@@ -866,6 +866,10 @@ input[type=time]::-webkit-clear-button {
   line-height: 48px;
 }
 
+.panel-details-container>div:last-of-type {
+  margin-bottom: 0 !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -989,7 +993,7 @@ input[type=time]::-webkit-clear-button {
   }
 
   .panel-details-container {
-    padding: 5px 10px !important;
+    padding: 5px 10px 15px 10px !important;
   }
 }
 

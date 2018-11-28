@@ -37,6 +37,9 @@ const styles = theme => ({
   },
   panelDetails: {
     display: 'block'
+  },
+  progressLine: {
+    borderRadius: '4px'
   }
 });
 
@@ -109,10 +112,10 @@ class AdminPage extends Component {
               </div>
               <div className="paper-title-text">
                 Admin
-                </div>
+              </div>
             </Paper>
 
-            {loading && <LinearProgress />}
+            {loading && <LinearProgress className={classes.progressLine} />}
             {error && <div>Something went wrong ...</div>}
 
             {!loading ? <UserList props={this.props} users={users} onRemove={this.onRemove} /> : ''}
@@ -141,7 +144,7 @@ const UserList = ({ users, onRemove, props }) => {
               </div>
               <div>
                 <IconButton
-                  onClick={() => onRemove(user.id)}
+                  // onClick={() => onRemove(user.id)}
                   className={classes.button}
                   aria-label="delete"
                 >

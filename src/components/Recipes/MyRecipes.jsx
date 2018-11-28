@@ -69,7 +69,7 @@ class MyRecipes extends Component {
         if (this.mounted) {
 
           this.setState({
-            currency: resUserInfo.currency,
+            currency: resUserInfo.currency ? resUserInfo.currency : 'USD',
             loggedInUserId: loggedInUserId
           });
 
