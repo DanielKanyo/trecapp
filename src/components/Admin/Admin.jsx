@@ -16,7 +16,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import MoreVert from '@material-ui/icons/MoreVert';
 
 const styles = theme => ({
   paper: {
@@ -28,13 +28,16 @@ const styles = theme => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
-  userTable: {
-    width: '100%',
-    textAlign: 'left'
-  },
   button: {
     margin: 0,
   },
+  userPaper: {
+    width: '100%',
+    marginBottom: 10,
+  },
+  panelDetails: {
+    display: 'block'
+  }
 });
 
 class AdminPage extends Component {
@@ -129,37 +132,25 @@ const UserList = ({ users, onRemove, props }) => {
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Typography className={classes.heading}>Users List</Typography>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <table className={classes.userTable + ' users-table'}>
-          <thead>
-            <tr>
-              <td>ID</td>
-              <td>E-Mail</td>
-              <td>Username</td>
-              <td>Roles</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.email}</td>
-                <td>{user.username}</td>
-                <td>{(user.roles || []).join('')}</td>
-                <td>
-                  <IconButton
-                    onClick={() => onRemove(user.id)}
-                    className={classes.button}
-                    aria-label="delete"
-                  >
-                    <HighlightOffIcon className="delete-item-btn" />
-                  </IconButton>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
+        {users.map(user => (
+          <Paper key={user.id} className={classes.userPaper}>
+            <div className="user-info-container">
+              <div>
+                {user.username}
+              </div>
+              <div>
+                <IconButton
+                  onClick={() => onRemove(user.id)}
+                  className={classes.button}
+                  aria-label="delete"
+                >
+                  <MoreVert />
+                </IconButton>
+              </div>
+            </div>
+          </Paper>
+        ))}
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )

@@ -3,6 +3,7 @@ import './index.css';
 import * as routes from '../../constants/routes';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase';
+import * as ROLES from '../../constants/roles';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -19,6 +20,7 @@ import Dashboard from '@material-ui/icons/Dashboard';
 import Settings from '@material-ui/icons/Settings';
 import Lock from '@material-ui/icons/Lock';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
+import Security from '@material-ui/icons/Security';
 
 const styles = theme => ({});
 
@@ -32,8 +34,19 @@ class LeftMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMinimized: true
+      isMinimized: true,
+      isAdmin: false,
     };
+  }
+
+  componentDidMount = () => {
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+
+    let isAdmin = authObject.roles.includes(ROLES.ADMIN) ? true : false;
+
+    this.setState({
+      isAdmin
+    });
   }
 
   /**
@@ -89,7 +102,7 @@ class LeftMenu extends Component {
         <div className="left-menu-content">
           <div className="left-menu-background-image"></div>
           <List component="nav">
-            
+
             <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.WALL}>
               <ListItemIcon>
                 <Home />
@@ -145,6 +158,25 @@ class LeftMenu extends Component {
             </ListItem>
 
           </List>
+
+          {
+            this.state.isAdmin ?
+              <div>
+                <Divider className="left-menu-divider divider-toggle" />
+
+                <List component="nav" className="nav-toggle">
+
+                  <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ADMIN}>
+                    <ListItemIcon>
+                      <Security />
+                    </ListItemIcon>
+                    <ListItemText primary={languageObjectProp.data.menuItems[7]} />
+                  </ListItem>
+
+                </List>
+              </div> : ''
+          }
+
 
           <div className="bottom">
             <Divider className="left-menu-divider" />
