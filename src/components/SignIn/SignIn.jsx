@@ -104,7 +104,6 @@ class SignInForm extends Component {
             username: authUser.displayName,
             email: authUser.email,
             profilePicUrl: authUser.photoURL,
-            roles,
           })
           .then(() => {
             if (this.mounted) {
