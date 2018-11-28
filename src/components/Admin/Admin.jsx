@@ -15,8 +15,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
-import MoreVert from '@material-ui/icons/MoreVert';
+
+import UserListItem from './UserListItem';
 
 const styles = theme => ({
   paper: {
@@ -56,6 +56,7 @@ class AdminPage extends Component {
 
   componentDidMount() {
     this.mounted = true;
+    let previousUsers = this.state.users;
 
     if (this.mounted) {
       this.setState({ loading: true });
@@ -63,33 +64,37 @@ class AdminPage extends Component {
       db.users().once('value')
         .then(snapshot => {
           const usersObject = snapshot.val();
-          const users = Object.keys(usersObject).map(key => ({
-            ...usersObject[key],
-            id: key,
-          }));
+
+          for (var key in usersObject) {
+            if (usersObject.hasOwnProperty(key)) {
+              previousUsers.push(
+                <UserListItem
+                  key={key}
+                  dataProp={usersObject[key]}
+                  languageObjectProp={this.props.languageObjectProp}
+                  idProp={key}
+                />
+              )
+            }
+          }
 
           if (this.mounted) {
-            this.setState(state => ({
-              users,
+            this.setState({
+              users: previousUsers,
               loading: false,
-            }));
+            });
           }
+
         })
         .catch(error => {
           this.setState({ error: true, loading: false });
         });
-
-      db.users().on('child_removed', snapshot => {
-        this.setState(state => ({
-          users: state.users.filter(user => user.id !== snapshot.key),
-        }));
-      });
     }
   }
 
-  onRemove = userId => {
-    db.user(userId).remove();
-  };
+  // onRemove = userId => {
+  //   db.user(userId).remove();
+  // };
 
   /**
    * Sets 'mounted' property to false to ignore warning 
@@ -118,7 +123,20 @@ class AdminPage extends Component {
             {loading && <LinearProgress className={classes.progressLine} />}
             {error && <div>Something went wrong ...</div>}
 
-            {!loading ? <UserList props={this.props} users={users} onRemove={this.onRemove} /> : ''}
+            {!loading ?
+              <ExpansionPanel className="expansion-panel">
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography className={classes.heading}>Users List</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
+                  {
+                    users.map(user => {
+                      return user;
+                    })
+                  }
+                </ExpansionPanelDetails>
+              </ExpansionPanel> : ''
+            }
 
           </Grid>
         </Grid>
@@ -126,39 +144,6 @@ class AdminPage extends Component {
     );
   }
 }
-
-const UserList = ({ users, onRemove, props }) => {
-  const { classes } = props;
-
-  return (
-    <ExpansionPanel className="expansion-panel">
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography className={classes.heading}>Users List</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
-        {users.map(user => (
-          <Paper key={user.id} className={classes.userPaper}>
-            <div className="user-info-container">
-              <div>
-                {user.username}
-              </div>
-              <div>
-                <IconButton
-                  // onClick={() => onRemove(user.id)}
-                  className={classes.button}
-                  aria-label="delete"
-                >
-                  <MoreVert />
-                </IconButton>
-              </div>
-            </div>
-          </Paper>
-        ))}
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
-  )
-};
-
 
 AdminPage.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -858,7 +858,7 @@ input[type=time]::-webkit-clear-button {
   display: flex;
   justify-content: space-between;
   padding: 0px 0px 0px 20px;
-  font-size: 14px;
+  font-size: 13px;
   color: #3b3b3b;
 }
 
@@ -868,6 +868,34 @@ input[type=time]::-webkit-clear-button {
 
 .panel-details-container>div:last-of-type {
   margin-bottom: 0 !important;
+}
+
+.dialog-title-name-and-pic {
+  display: flex;
+}
+
+.username-container {
+  line-height: 60px;
+  color: #5a5a5a;
+}
+
+#responsive-dialog-title {
+  border-bottom: 1px solid #dbdbdb;
+  margin-bottom: 20px;
+}
+
+.user-details-container {
+  display: flex;
+  font-size: 15px;
+}
+
+.user-details-container>div {
+  padding: 8px 0px;
+}
+
+.user-details-container>div:first-of-type {
+  min-width: 80px;
+  color: #5a5a5a;
 }
 
 @media only screen and (max-width: 950px) {

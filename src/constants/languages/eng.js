@@ -127,6 +127,9 @@ export const dataEng = {
         numOfRecipe: 'recipes in the category',
       }
     },
+    Admin: {
+      details: 'Details'
+    }
   }
 }
 

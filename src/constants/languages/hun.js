@@ -127,6 +127,9 @@ export const dataHun = {
         numOfRecipe: 'recept van a kategóriában',
       }
     },
+    Admin: {
+      details: 'Részletek'
+    }
   }
 }
 
