@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVert from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Details from '@material-ui/icons/Details';
+import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Button from '@material-ui/core/Button';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -99,7 +99,7 @@ class UserListItem extends Component {
 				>
 					<MenuItem className={classes.menuItem} onClick={() => { this.handleCloseMore(); this.handleClickOpenDialog() }}>
 						<ListItemIcon className={classes.icon}>
-							<Details />
+							<InfoOutlined />
 						</ListItemIcon>
 						<ListItemText
 							classes={{ primary: classes.primary }}

@@ -879,7 +879,8 @@ input[type=time]::-webkit-clear-button {
 }
 
 .username-container {
-  line-height: 60px;
+  display: flex;
+  align-items: center;
   color: #5a5a5a;
 }
 
@@ -893,6 +894,7 @@ input[type=time]::-webkit-clear-button {
   border-bottom: 1px solid #f1f1f1;
   margin-bottom: 20px;
   background: #f1f1f1;
+  padding: 18px 60px 18px 24px !important;
 }
 
 .user-details-container {
