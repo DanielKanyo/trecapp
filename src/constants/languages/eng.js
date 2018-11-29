@@ -128,7 +128,10 @@ export const dataEng = {
       }
     },
     Admin: {
-      details: 'Details'
+      details: 'Details',
+      roles: 'Role',
+      language: 'Language',
+      close: 'Close'
     }
   }
 }

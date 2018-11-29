@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
@@ -19,6 +20,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Avatar from '@material-ui/core/Avatar';
 import FaceIcon from '@material-ui/icons/Face';
+import LaunchIcon from '@material-ui/icons/Launch';
 
 const styles = theme => ({
 	button: {
@@ -38,7 +40,10 @@ const styles = theme => ({
 	},
 	closeBtn: {
 		margin: '6px 12px'
-	}
+	},
+	margin: {
+    margin: 6,
+  },
 });
 
 class UserListItem extends Component {
@@ -66,6 +71,8 @@ class UserListItem extends Component {
 	render() {
 		const { anchorEl } = this.state;
 		const { dataProp, languageObjectProp, classes, fullScreen, idProp } = this.props;
+
+    let urlToUser = `/user/${idProp}`;
 
 		return (
 			<Paper className={classes.userPaper}>
@@ -107,7 +114,13 @@ class UserListItem extends Component {
 					open={this.state.open}
 					onClose={this.handleClose}
 					aria-labelledby="responsive-dialog-title"
+					className="user-dialog"
 				>
+					<div className="open-user-btn-container">
+						<IconButton aria-label="Delete" className={classes.margin} component={Link} to={urlToUser}>
+							<LaunchIcon />
+						</IconButton>
+					</div>
 					<DialogTitle id="responsive-dialog-title">
 						<div className="dialog-title-name-and-pic">
 							<div>
@@ -131,14 +144,18 @@ class UserListItem extends Component {
 							<div>{dataProp.email}</div>
 						</div>
 						<div className="user-details-container">
-							<div>Roles</div>
-							<div>{dataProp.roles ? dataProp.roles[0] : '/'}</div>
+							<div>{languageObjectProp.data.Admin.roles}</div>
+							<div>{dataProp.roles ? dataProp.roles[0] : 'USER'}</div>
+						</div>
+						<div className="user-details-container">
+							<div>{languageObjectProp.data.Admin.language}</div>
+							<div>{dataProp.language ? dataProp.language : 'eng'}</div>
 						</div>
 					</DialogContent>
 					<DialogActions>
 						<Button className={classes.closeBtn} onClick={this.handleCloseDialog} variant="contained" color="primary" autoFocus>
-							Close
-            </Button>
+							{languageObjectProp.data.Admin.close}
+						</Button>
 					</DialogActions>
 				</Dialog>
 

@@ -128,7 +128,10 @@ export const dataHun = {
       }
     },
     Admin: {
-      details: 'Részletek'
+      details: 'Részletek',
+      roles: 'Szerepkör',
+      language: 'Nyelv',
+      close: 'Bezár'
     }
   }
 }

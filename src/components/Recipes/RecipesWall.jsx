@@ -193,14 +193,11 @@ class RecipesWall extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { languageObjectProp } = this.props;
-    let { latestRecipes } = this.state;
-    let { topRecipes } = this.state;
+    const { classes, languageObjectProp } = this.props;
+    let { latestRecipes, topRecipes } = this.state;
 
     return (
       <div className="ComponentContent">
-
         <Grid className="main-grid" container spacing={16}>
 
           <Grid item className="grid-component recipes-wall" xs={6}>
