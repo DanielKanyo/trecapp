@@ -917,6 +917,44 @@ input[type=time]::-webkit-clear-button {
   text-align: right;
 }
 
+.UserContent .header-user-details-container {
+  display: flex;
+}
+
+.UserContent .header-user-details-text-container {
+  margin-left: 20px;
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.UserContent .header-user-details-text-container>div {
+  display: flex;
+  flex-direction: column;
+}
+
+.UserContent .header-user-details-text-container>div {
+  padding: 12px 20px;
+  border-radius: 4px;
+  color: #5c5c5c;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.UserContent .header-user-details-text-container>div:first-of-type {
+  margin-bottom: 10px;
+  font-size: 20px;
+  text-transform: uppercase;
+  align-items: center;
+}
+
+.UserContent .header-user-details-text-container>div:last-of-type {
+  flex-grow: 2;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1049,6 +1087,20 @@ input[type=time]::-webkit-clear-button {
 
   .user-details-container>div:first-of-type {
     min-width: 70px;
+  }
+
+  .UserContent .header-user-details-container {
+    flex-direction: column;
+  }
+
+  .UserContent .header-prof-pic-container {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .UserContent .header-user-details-text-container {
+    margin-left: 0px;
   }
 }
 
