@@ -15,10 +15,14 @@ const styles = theme => ({
 		padding: 20,
 		position: 'relative'
 	},
-	paperProfilePicture: {
+	paperProfilePictureContainer: {
 		width: 220,
 		height: 220,
 		borderRadius: 4,
+	},
+	paperProfilePicture: {
+		width: '100%',
+		height: '100%',
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: 'cover',
 	}
@@ -81,7 +85,7 @@ class User extends Component {
 									title: recipe.title,
 									creationTime: recipe.creationTime,
 									sliderValue: recipe.sliderValue,
-									displayUserInfo: true,
+									displayUserInfo: false,
 									username: username,
 									isMine: isMine,
 									profilePicUrl: profilePicUrl,
@@ -130,18 +134,22 @@ class User extends Component {
 						<div className={'user-cover-container'}>
 							<div className="header-user-details-container">
 								<div className="header-prof-pic-container">
-									<Paper
-										className={classes.paperProfilePicture}
-										style={{ backgroundImage: `url(${userData.profilePicUrl})` }}
-									></Paper>
+									<Paper className={classes.paperProfilePictureContainer}>
+										<div className={classes.paperProfilePicture} style={{ backgroundImage: `url(${userData.profilePicUrl})` }}></div>
+									</Paper>
 								</div>
 								<div className="header-user-details-text-container">
 									<div>
 										<div>
 											<div className="username">{userData.username}</div>
 											<div className="roles-container">
+												{userData.roles ? 
+													<span className="role role-admin">
+														{userData.roles[0]}
+													</span> : ''
+												}
 												<span className="role">
-													{userData.roles ? userData.roles[0] : 'USER'}
+													USER
 												</span>
 											</div>
 										</div>
