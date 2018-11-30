@@ -7,7 +7,8 @@ import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
+import RecipePreview from '../Categories/RecipePreview';
+import { dataEng } from '../../constants/languages/eng';
 
 const styles = theme => ({
 	paper: {
@@ -15,12 +16,12 @@ const styles = theme => ({
 		position: 'relative'
 	},
 	paperProfilePicture: {
-		width: 160,
-		height: 160,
+		width: 220,
+		height: 220,
 		borderRadius: 4,
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: 'cover',
-	},
+	}
 });
 
 class User extends Component {
@@ -31,11 +32,17 @@ class User extends Component {
 			userId: this.props.match.params.id,
 			userData: '',
 			recipes: [],
+			recipeCounter: 0,
 		}
 	}
 
 	componentDidMount = () => {
 		this.mounted = true;
+
+		let recipeCounter = this.state.recipeCounter;
+
+		let authObject = JSON.parse(localStorage.getItem('authUser'));
+		let loggedInUserId = authObject.id;
 
 		let previousRecipes = this.state.recipes;
 
@@ -52,10 +59,53 @@ class User extends Component {
 
 					for (let key in recipes) {
 						if (this.state.userId === recipes[key].userId) {
+							let recipe = recipes[key];
 
-							console.log(recipes[key]);
+							let username = userData.username;
+							let profilePicUrl = userData.profilePicUrl;
 
+							let isMine = false;
+
+							if (recipe.publicChecked) {
+								let favouritesObject = recipes[key].favourites;
+								let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+
+								let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+								let categoryNameEng = categoryItems[recipe.category];
+								let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+
+								let data = {
+									loggedInUserId: loggedInUserId,
+									recipeId: key,
+									imageUrl: recipe.imageUrl,
+									title: recipe.title,
+									creationTime: recipe.creationTime,
+									sliderValue: recipe.sliderValue,
+									displayUserInfo: true,
+									username: username,
+									isMine: isMine,
+									profilePicUrl: profilePicUrl,
+									isFavourite: isFavourite,
+									favouriteCounter: recipes[key].favouriteCounter,
+									userId: recipe.userId,
+									url
+								}
+
+								recipeCounter++;
+
+								previousRecipes.unshift(
+									<RecipePreview
+										key={key}
+										dataProp={data}
+										languageObjectProp={this.props.languageObjectProp}
+									/>
+								)
+							}
 						}
+						this.setState({
+							recipes: previousRecipes,
+							recipeCounter
+            });
 					}
 				})
 			}
@@ -87,19 +137,44 @@ class User extends Component {
 								</div>
 								<div className="header-user-details-text-container">
 									<div>
-										<div>{userData.username}</div>
-										<div><Chip label="15" className={classes.chip} /></div>
+										<div>
+											<div className="username">{userData.username}</div>
+											<div className="roles-container">
+												<span className="role">
+													{userData.roles ? userData.roles[0] : 'USER'}
+												</span>
+											</div>
+										</div>
+										<div>
+											{this.state.recipeCounter}
+										</div>
 									</div>
 									<div>Nincs leírás</div>
 								</div>
 							</div>
 						</div>
+
+						<Grid container spacing={16}>
+							{this.state.recipes.length === 0 ? <EmptyList /> : ''}
+
+							{this.state.recipes.map((recipe, index) => {
+								return recipe;
+							})}
+						</Grid>
+
 					</Grid>
 				</Grid>
 			</div>
 		)
 	}
 }
+
+const EmptyList = () =>
+	<Grid item xs={12}>
+		<div className="empty-container">
+			Empty
+    </div>
+	</Grid>
 
 const authCondition = (authUser) => !!authUser;
 

@@ -917,42 +917,61 @@ input[type=time]::-webkit-clear-button {
   text-align: right;
 }
 
-.UserContent .header-user-details-container {
+.user-cover-container {
+  margin-bottom: 20px;
+}
+
+.header-user-details-container {
   display: flex;
 }
 
-.UserContent .header-user-details-text-container {
+.header-user-details-text-container {
   margin-left: 20px;
   flex-grow: 2;
   display: flex;
   flex-direction: column;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
 }
 
-.UserContent .header-user-details-text-container>div {
+.header-user-details-text-container>div {
   display: flex;
   flex-direction: column;
 }
 
-.UserContent .header-user-details-text-container>div {
-  padding: 12px 20px;
-  border-radius: 4px;
+.header-user-details-text-container>div {
   color: #5c5c5c;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.6);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.UserContent .header-user-details-text-container>div:first-of-type {
-  margin-bottom: 10px;
-  font-size: 20px;
+.header-user-details-text-container>div:first-of-type {
+  font-size: 24px;
   text-transform: uppercase;
   align-items: center;
+  padding: 20px 20px 20px 30px;
+  border-bottom: 1px solid #ebebeb;
+  background: #f5f5f5;
 }
 
-.UserContent .header-user-details-text-container>div:last-of-type {
+.header-user-details-text-container>div:last-of-type {
   flex-grow: 2;
+  padding: 20px 20px 12px 30px;
+}
+
+.roles-container {
+  display: flex;
+}
+
+.role {
+  margin-top: 4px;
+  font-size: 10px;
+  padding: 4px 10px;
+  background: #2196F3;
+  color: white;
+  border-radius: 21px;
 }
 
 @media only screen and (max-width: 950px) {
@@ -1147,9 +1166,10 @@ input[type=time]::-webkit-clear-button {
   .fullSizeRecipe {
     padding-top: 30% !important;
     transition: 0.3s;
+    cursor: pointer;
   }
 
-  .fullSizeRecipe:hover {
+  .fullSizeRecipe:active {
     padding-top: 56.25% !important;
     transition: 0.3s;
   }
