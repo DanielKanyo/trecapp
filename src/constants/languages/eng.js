@@ -1,10 +1,10 @@
 export const dataEng = {
   data: {
     appTitle: 'My Recipes',
-    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'Settings', 'Logout', 'Admin'],
+    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin'],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     Navigation: {
-      dropdownValues: ['Settings', 'Logout']
+      dropdownValues: ['My Profil', 'Settings', 'Logout']
     },
     myRecipes: {
       newRecipe: {

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../App/index.css';
+import * as ROUTES from '../../constants/routes';
+import { Link } from 'react-router-dom';
 import { db } from '../../firebase';
 import PropTypes from 'prop-types';
 import withAuthorization from '../Session/withAuthorization';
@@ -8,6 +10,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import RecipePreview from '../Categories/RecipePreview';
+import Fab from '@material-ui/core/Fab';
+import SettingsIcon from '@material-ui/icons/Settings';
+
 import { dataEng } from '../../constants/languages/eng';
 
 const styles = theme => ({
@@ -25,7 +30,16 @@ const styles = theme => ({
 		height: '100%',
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: 'cover',
-	}
+		borderRadius: 4
+	},
+	settings: {
+		position: 'absolute',
+		bottom: 0
+	},
+	settingsBtn: {
+		margin: 8,
+		color: 'rgba(0, 0, 0, 0.6)'
+	},
 });
 
 class User extends Component {
@@ -37,6 +51,7 @@ class User extends Component {
 			userData: '',
 			recipes: [],
 			recipeCounter: 0,
+			isMe: false,
 		}
 	}
 
@@ -52,6 +67,13 @@ class User extends Component {
 
 		db.user(this.state.userId).once('value').then(snapshot => {
 			if (this.mounted) {
+
+				if (loggedInUserId === this.state.userId) {
+					this.setState({
+						isMe: true
+					});
+				}
+
 				let userData = snapshot.val();
 
 				this.setState({
@@ -109,7 +131,7 @@ class User extends Component {
 						this.setState({
 							recipes: previousRecipes,
 							recipeCounter
-            });
+						});
 					}
 				})
 			}
@@ -124,7 +146,7 @@ class User extends Component {
 	}
 
 	render() {
-		const { classes, languageObjectProp } = this.props;
+		const { classes } = this.props;
 		const { userData } = this.state;
 
 		return (
@@ -137,13 +159,20 @@ class User extends Component {
 									<Paper className={classes.paperProfilePictureContainer}>
 										<div className={classes.paperProfilePicture} style={{ backgroundImage: `url(${userData.profilePicUrl})` }}></div>
 									</Paper>
+									{this.state.isMe ? 
+									<div className={classes.settings}>
+										<Fab component={Link} to={ROUTES.ACCOUNT} size="small" aria-label="Add" className={classes.settingsBtn}>
+											<SettingsIcon />
+										</Fab>
+									</div> : ''
+									}
 								</div>
 								<div className="header-user-details-text-container">
 									<div>
 										<div>
 											<div className="username">{userData.username}</div>
 											<div className="roles-container">
-												{userData.roles ? 
+												{userData.roles ?
 													<span className="role role-admin">
 														{userData.roles[0]}
 													</span> : ''

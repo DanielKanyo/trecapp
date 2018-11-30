@@ -981,6 +981,10 @@ input[type=time]::-webkit-clear-button {
   background: #ff2252
 }
 
+.header-prof-pic-container {
+  position: relative;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1115,17 +1119,17 @@ input[type=time]::-webkit-clear-button {
     min-width: 70px;
   }
 
-  .UserContent .header-user-details-container {
+  .header-user-details-container {
     flex-direction: column;
   }
 
-  .UserContent .header-prof-pic-container {
+  .header-prof-pic-container {
     margin-bottom: 15px;
     display: flex;
     justify-content: center;
   }
 
-  .UserContent .header-user-details-text-container {
+  .header-user-details-text-container {
     margin-left: 0px;
   }
 }

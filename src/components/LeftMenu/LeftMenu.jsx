@@ -21,6 +21,7 @@ import Settings from '@material-ui/icons/Settings';
 import Lock from '@material-ui/icons/Lock';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import Security from '@material-ui/icons/Security';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const styles = theme => ({});
 
@@ -36,15 +37,18 @@ class LeftMenu extends Component {
     this.state = {
       isMinimized: true,
       isAdmin: false,
+      loggedInUserId: ''
     };
   }
 
   componentDidMount = () => {
     let authObject = JSON.parse(localStorage.getItem('authUser'));
+		let loggedInUserId = authObject.id;
 
     let isAdmin = authObject.roles.includes(ROLES.ADMIN) ? true : false;
 
     this.setState({
+      loggedInUserId,
       isAdmin
     });
   }
@@ -143,18 +147,25 @@ class LeftMenu extends Component {
 
           <List component="nav" className="nav-toggle">
 
+            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={`/user/${this.state.loggedInUserId}`}>
+              <ListItemIcon>
+                <AccountCircle />
+              </ListItemIcon>
+              <ListItemText primary={languageObjectProp.data.menuItems[5]} />
+            </ListItem>
+
             <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ACCOUNT}>
               <ListItemIcon>
                 <Settings />
               </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[5]} />
+              <ListItemText primary={languageObjectProp.data.menuItems[6]} />
             </ListItem>
 
             <ListItem className="menuItem" button onClick={auth.doSignOut}>
               <ListItemIcon>
                 <Lock />
               </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[6]} />
+              <ListItemText primary={languageObjectProp.data.menuItems[7]} />
             </ListItem>
 
           </List>
@@ -170,7 +181,7 @@ class LeftMenu extends Component {
                     <ListItemIcon>
                       <Security />
                     </ListItemIcon>
-                    <ListItemText primary={languageObjectProp.data.menuItems[7]} />
+                    <ListItemText primary={languageObjectProp.data.menuItems[8]} />
                   </ListItem>
 
                 </List>
