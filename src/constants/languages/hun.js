@@ -61,6 +61,7 @@ export const dataHun = {
         openRecipeFullSize: 'Megnyitás',
         more: 'Több',
         numOfRecipes: 'Receptjeid száma',
+        numOfHisRecipes: 'Receptjei száma',
         saveImage: 'Kép mentése',
         recipeDifficulty: ["Könnyű a receptet elkészíteni", "Mérsékelten nehéz a receptet elkészíteni", "Nehéz a receptet elkészíteni"],
         categoryText: 'Kategória',
@@ -111,6 +112,7 @@ export const dataHun = {
     Favourites: {
       yourRecipe: 'Az egyik recepted!',
       usersRecipe: " receptje",
+      numOfFavRecipes: 'Kedvenc receptjeid száma',
     },
     PasswordResetAndForget: {
       newPassword: 'Új jelszó',

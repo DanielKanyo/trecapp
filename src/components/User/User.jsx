@@ -13,6 +13,7 @@ import RecipePreview from '../Categories/RecipePreview';
 import Fab from '@material-ui/core/Fab';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FaceIcon from '@material-ui/icons/Face';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { dataEng } from '../../constants/languages/eng';
 
@@ -25,6 +26,7 @@ const styles = theme => ({
 		width: 220,
 		height: 220,
 		borderRadius: 4,
+		background: '#898989',
 	},
 	paperProfilePicture: {
 		width: '100%',
@@ -44,6 +46,14 @@ const styles = theme => ({
 	icon: {
 		fontSize: 180
 	},
+	paperUserDetails: {
+		margin: 8,
+		padding: '10px 15px',
+		background: 'rgba(0, 0, 0, 0.3)',
+		fontSize: 18,
+		textTransform: 'uppercase',
+		color: 'white'
+	}
 });
 
 class User extends Component {
@@ -150,7 +160,7 @@ class User extends Component {
 	}
 
 	render() {
-		const { classes } = this.props;
+		const { classes, languageObjectProp } = this.props;
 		const { userData } = this.state;
 
 		return (
@@ -165,13 +175,36 @@ class User extends Component {
 											<div className="user-prof-pic-in-user-comp"><FaceIcon className={classes.icon} /></div>
 										}
 									</Paper>
-									{this.state.isMe ?
-										<div className={classes.settings}>
-											<Fab component={Link} to={ROUTES.ACCOUNT} size="small" aria-label="Add" className={classes.settingsBtn}>
-												<SettingsIcon />
-											</Fab>
-										</div> : ''
+									{
+										this.state.isMe ?
+											<div className={classes.settings}>
+												<Fab component={Link} to={ROUTES.ACCOUNT} size="small" aria-label="Add" className={classes.settingsBtn}>
+													<SettingsIcon />
+												</Fab>
+											</div> : ''
 									}
+									<div className="user-details-container-for-mobile">
+										<Paper className={classes.paperUserDetails} elevation={1}>
+											{userData.username}
+											<div className="roles-container">
+												{userData.roles ?
+													<span className="role role-admin">
+														{userData.roles[0]}
+													</span> : ''
+												}
+												<span className="role">
+													USER
+												</span>
+												<Tooltip
+													title={this.state.isMe ? languageObjectProp.data.myRecipes.tooltips.numOfRecipes : languageObjectProp.data.myRecipes.tooltips.numOfHisRecipes}
+												>
+													<span className="num-of-recipes-user-chip">
+														{this.state.recipeCounter}
+													</span>
+												</Tooltip>
+											</div>
+										</Paper>
+									</div>
 								</div>
 								<div className="header-user-details-text-container">
 									<div>
@@ -186,10 +219,14 @@ class User extends Component {
 												<span className="role">
 													USER
 												</span>
+												<Tooltip
+													title={this.state.isMe ? languageObjectProp.data.myRecipes.tooltips.numOfRecipes : languageObjectProp.data.myRecipes.tooltips.numOfHisRecipes}
+												>
+													<span className="num-of-recipes-user-chip">
+														{this.state.recipeCounter}
+													</span>
+												</Tooltip>
 											</div>
-										</div>
-										<div>
-											{this.state.recipeCounter}
 										</div>
 									</div>
 									<div>Nincs leírás</div>

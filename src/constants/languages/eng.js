@@ -60,7 +60,8 @@ export const dataEng = {
         deleteRecipe: 'Delete',
         openRecipeFullSize: 'Open',
         more: 'More',
-        numOfRecipes: 'Number of recipes',
+        numOfRecipes: 'Number of your recipes',
+        numOfHisRecipes: 'Number of recipes',
         saveImage: 'Save image',
         recipeDifficulty: ["It's easy to make the recipe", "Moderately difficult to prepare the recipe", "It's hard to make the recipe"],
         categoryText: 'Category',
@@ -111,6 +112,7 @@ export const dataEng = {
     Favourites: {
       yourRecipe: "It's your recipe!",
       usersRecipe: "'s recipe",
+      numOfFavRecipes: 'Number of favourite recipes',
     },
     PasswordResetAndForget: {
       newPassword: 'New password',

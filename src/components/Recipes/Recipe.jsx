@@ -295,7 +295,7 @@ class Recipe extends Component {
 
     let hour = data.hour;
     let minute = data.minute;
-    
+
     let urlToRecipe = `${data.url}/recipe/${data.recipeId}`;
     let urlToUser = `/user/${data.userId}`;
 

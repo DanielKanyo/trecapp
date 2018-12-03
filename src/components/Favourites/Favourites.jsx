@@ -8,11 +8,18 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Chip from '@material-ui/core/Chip';
+import Tooltip from '@material-ui/core/Tooltip';
 import { dataEng } from '../../constants/languages/eng';
 
 import { ToastContainer } from 'react-toastify';
 
-const styles = theme => ({});
+const styles = theme => ({
+  chip: {
+    background: '#7c06ad',
+    color: 'white'
+  }
+});
 
 class Favourites extends Component {
 
@@ -124,6 +131,11 @@ class Favourites extends Component {
               </div>
               <div className="paper-title-text">
                 {languageObjectProp.data.menuItems[2]}
+              </div>
+              <div className="number-of-recipes">
+                <Tooltip title={languageObjectProp.data.Favourites.numOfFavRecipes}>
+                  <Chip label={favRecipes.length} className={classes.chip} />
+                </Tooltip>
               </div>
             </Paper>
 
