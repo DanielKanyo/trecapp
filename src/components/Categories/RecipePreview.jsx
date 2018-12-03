@@ -134,38 +134,40 @@ class RecipePreview extends Component {
 						title={data.title}
 						subheader={creationTime}
 					/>
-					{data.imageUrl ?
-						<CardMedia
-							className={classes.media}
-							image={data.imageUrl}
-							title={data.title}
-						/>
-						:
-						<div className="no-image-container">
-							<div className="recipe-preview-no-image"></div>
-							<div className="no-image-icon-container" title={languageObjectProp.data.Categories.noPreviewImage}>
-								<div className="no-image-text-and-icon">
-									<BrokenImageIcon />
-									<div>{languageObjectProp.data.Categories.noPreviewImage}</div>
+					<div className="image-and-fav-btn-conrainer">
+						{data.imageUrl ?
+							<CardMedia
+								className={classes.media}
+								image={data.imageUrl}
+								title={data.title}
+							/>
+							:
+							<div className="no-image-container">
+								<div className="recipe-preview-no-image"></div>
+								<div className="no-image-icon-container" title={languageObjectProp.data.Categories.noPreviewImage}>
+									<div className="no-image-text-and-icon">
+										<BrokenImageIcon />
+										<div>{languageObjectProp.data.Categories.noPreviewImage}</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					}
-					<Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
-						<div className="fav-icon-and-counter icon-and-counter-on-recipe-preview">
-							<Fab
-								size="small"
-								color="secondary"
-								aria-label="heart"
-								onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.loggedInUserId) }}
-							>
-								{this.state.isFavourite ?
-									<FavoriteIcon /> :
-									<FavoriteBorderIcon />}
-							</Fab>
-							{this.state.favouriteCounter ? <div className="fav-counter fav-counter-rec-preview"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
-						</div>
-					</Tooltip>
+						}
+						<Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
+							<div className="fav-icon-and-counter icon-and-counter-on-recipe-preview">
+								<Fab
+									size="small"
+									color="secondary"
+									aria-label="heart"
+									onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.loggedInUserId) }}
+								>
+									{this.state.isFavourite ?
+										<FavoriteIcon /> :
+										<FavoriteBorderIcon />}
+								</Fab>
+								{this.state.favouriteCounter ? <div className="fav-counter fav-counter-rec-preview"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
+							</div>
+						</Tooltip>
+					</div>
 					{this.state.displayUserInfo ?
 						<div className="user-container">
 							<span>
