@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import RecipePreview from '../Categories/RecipePreview';
 import Fab from '@material-ui/core/Fab';
 import SettingsIcon from '@material-ui/icons/Settings';
+import FaceIcon from '@material-ui/icons/Face';
 
 import { dataEng } from '../../constants/languages/eng';
 
@@ -39,6 +40,9 @@ const styles = theme => ({
 	settingsBtn: {
 		margin: 8,
 		color: 'rgba(0, 0, 0, 0.6)'
+	},
+	icon: {
+		fontSize: 180
 	},
 });
 
@@ -157,14 +161,16 @@ class User extends Component {
 							<div className="header-user-details-container">
 								<div className="header-prof-pic-container">
 									<Paper className={classes.paperProfilePictureContainer}>
-										<div className={classes.paperProfilePicture} style={{ backgroundImage: `url(${userData.profilePicUrl})` }}></div>
+										{userData.profilePicUrl ? <div className={classes.paperProfilePicture} style={{ backgroundImage: `url(${userData.profilePicUrl})` }}></div> :
+											<div className="user-prof-pic-in-user-comp"><FaceIcon className={classes.icon} /></div>
+										}
 									</Paper>
-									{this.state.isMe ? 
-									<div className={classes.settings}>
-										<Fab component={Link} to={ROUTES.ACCOUNT} size="small" aria-label="Add" className={classes.settingsBtn}>
-											<SettingsIcon />
-										</Fab>
-									</div> : ''
+									{this.state.isMe ?
+										<div className={classes.settings}>
+											<Fab component={Link} to={ROUTES.ACCOUNT} size="small" aria-label="Add" className={classes.settingsBtn}>
+												<SettingsIcon />
+											</Fab>
+										</div> : ''
 									}
 								</div>
 								<div className="header-user-details-text-container">

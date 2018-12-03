@@ -985,6 +985,15 @@ input[type=time]::-webkit-clear-button {
   position: relative;
 }
 
+.user-prof-pic-in-user-comp {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c2c2c2;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1124,9 +1133,14 @@ input[type=time]::-webkit-clear-button {
   }
 
   .header-prof-pic-container {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
+  }
+
+  .header-prof-pic-container>div {
+    width: 100%;
+    height: 100vw;
   }
 
   .header-user-details-text-container {

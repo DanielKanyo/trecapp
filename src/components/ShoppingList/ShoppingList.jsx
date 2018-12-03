@@ -455,6 +455,7 @@ class ShoppingList extends Component {
                     aria-label="Delete"
                     className={classes.buttonDelete + ' btn-delete-item'}
                     onClick={this.handleClickOpenDialog}
+                    disabled={items.length === 0 ? true : false}
                   >
                     {languageObjectProp.data.ShoppingList.deleteAllBtn}
                     <DeleteForeverIcon className={classes.rightIcon} />
@@ -519,6 +520,7 @@ class ShoppingList extends Component {
                     aria-label="Clear Products"
                     className={classes.buttonClear + ' clear-all-resent-products'}
                     onClick={this.handleClearResentProducts}
+                    disabled={recentProducts.length === 0 ? true : false}
                   >
                     <ClearIcon />
                   </Button>
