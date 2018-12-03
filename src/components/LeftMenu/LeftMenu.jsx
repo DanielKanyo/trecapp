@@ -43,7 +43,7 @@ class LeftMenu extends Component {
 
   componentDidMount = () => {
     let authObject = JSON.parse(localStorage.getItem('authUser'));
-		let loggedInUserId = authObject.id;
+    let loggedInUserId = authObject.id;
 
     let isAdmin = authObject.roles.includes(ROLES.ADMIN) ? true : false;
 
@@ -60,6 +60,21 @@ class LeftMenu extends Component {
     this.setState(state => ({
       isMinimized: !state.isMinimized
     }));
+  }
+
+  closeMenu = () => {
+    let leftMenu = document.getElementsByClassName('LeftMenu');
+    let blackBg = document.getElementsByClassName('black-background');
+
+    if (leftMenu[0] && leftMenu[0].classList.contains('open')) {
+      leftMenu[0].classList.remove('open');
+      leftMenu[0].classList.add('closed');
+
+      blackBg[0].classList.add('closed');
+      blackBg[0].classList.remove('open');
+
+      this.props.toggleLeftMenuProp(false);
+    }
   }
 
   /**
@@ -102,104 +117,107 @@ class LeftMenu extends Component {
     const { languageObjectProp } = this.props;
 
     return (
-      <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
-        <div className="left-menu-content">
-          <div className="left-menu-background-image"></div>
-          <List component="nav">
-
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.WALL}>
-              <ListItemIcon>
-                <Home />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[0]} />
-            </ListItem>
-
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
-              <ListItemIcon>
-                <Receipt />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[1]} />
-            </ListItem>
-
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.FAVOURITES}>
-              <ListItemIcon>
-                <Favorite />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[2]} />
-            </ListItem>
-
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.SHOPPINGLIST}>
-              <ListItemIcon>
-                <PlaylistAdd />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[3]} />
-            </ListItem>
-
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.CATEGORIES}>
-              <ListItemIcon>
-                <Dashboard />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[4]} />
-            </ListItem>
-          </List>
-
-          <Divider className="left-menu-divider divider-toggle" />
-
-          <List component="nav" className="nav-toggle">
-
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={`/user/${this.state.loggedInUserId}`}>
-              <ListItemIcon>
-                <AccountCircle />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[5]} />
-            </ListItem>
-
-            <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ACCOUNT}>
-              <ListItemIcon>
-                <Settings />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[6]} />
-            </ListItem>
-
-            <ListItem className="menuItem" button onClick={auth.doSignOut}>
-              <ListItemIcon>
-                <Lock />
-              </ListItemIcon>
-              <ListItemText primary={languageObjectProp.data.menuItems[7]} />
-            </ListItem>
-
-          </List>
-
-          {
-            this.state.isAdmin ?
-              <div>
-                <Divider className="left-menu-divider divider-toggle" />
-
-                <List component="nav" className="nav-toggle">
-
-                  <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ADMIN}>
-                    <ListItemIcon>
-                      <Security />
-                    </ListItemIcon>
-                    <ListItemText primary={languageObjectProp.data.menuItems[8]} />
-                  </ListItem>
-
-                </List>
-              </div> : ''
-          }
-
-
-          <div className="bottom">
-            <Divider className="left-menu-divider" />
+      <div>
+        <div className={"black-background " + isOpen} onClick={this.closeMenu}></div>
+        <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
+          <div className="left-menu-content">
+            <div className="left-menu-background-image"></div>
             <List component="nav">
-              <ListItem className="minimize-btn" button onClick={this.minimizeLeftMenu}>
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.WALL}>
                 <ListItemIcon>
-                  <SwapHoriz />
+                  <Home />
                 </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[0]} />
+              </ListItem>
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
+                <ListItemIcon>
+                  <Receipt />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[1]} />
+              </ListItem>
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.FAVOURITES}>
+                <ListItemIcon>
+                  <Favorite />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[2]} />
+              </ListItem>
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.SHOPPINGLIST}>
+                <ListItemIcon>
+                  <PlaylistAdd />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[3]} />
+              </ListItem>
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.CATEGORIES}>
+                <ListItemIcon>
+                  <Dashboard />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[4]} />
               </ListItem>
             </List>
-          </div>
 
+            <Divider className="left-menu-divider divider-toggle" />
+
+            <List component="nav" className="nav-toggle">
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={`/user/${this.state.loggedInUserId}`}>
+                <ListItemIcon>
+                  <AccountCircle />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[5]} />
+              </ListItem>
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ACCOUNT}>
+                <ListItemIcon>
+                  <Settings />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[6]} />
+              </ListItem>
+
+              <ListItem className="menuItem" button onClick={auth.doSignOut}>
+                <ListItemIcon>
+                  <Lock />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[7]} />
+              </ListItem>
+
+            </List>
+
+            {
+              this.state.isAdmin ?
+                <div>
+                  <Divider className="left-menu-divider divider-toggle" />
+
+                  <List component="nav" className="nav-toggle">
+
+                    <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.ADMIN}>
+                      <ListItemIcon>
+                        <Security />
+                      </ListItemIcon>
+                      <ListItemText primary={languageObjectProp.data.menuItems[8]} />
+                    </ListItem>
+
+                  </List>
+                </div> : ''
+            }
+
+
+            <div className="bottom">
+              <Divider className="left-menu-divider" />
+              <List component="nav">
+                <ListItem className="minimize-btn" button onClick={this.minimizeLeftMenu}>
+                  <ListItemIcon>
+                    <SwapHoriz />
+                  </ListItemIcon>
+                </ListItem>
+              </List>
+            </div>
+
+          </div>
         </div>
       </div>
     );
