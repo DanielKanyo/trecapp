@@ -1001,6 +1001,10 @@ input[type=time]::-webkit-clear-button {
   display: none;
 }
 
+.chip-correction {
+  padding-top: 0px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1167,6 +1171,15 @@ input[type=time]::-webkit-clear-button {
     flex-direction: column;
     justify-content: flex-end;
     position: absolute;
+  }
+
+  .role,
+  .num-of-recipes-user-chip {
+    padding: 5px 10px 3px 10px;
+  }
+
+  .chip-correction {
+    padding-top: 2px !important;
   }
 }
 

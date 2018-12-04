@@ -66,7 +66,7 @@ class CategoryListItem extends Component {
             }
           >
             <div className="recipe-counter">
-              <Chip label={this.numberFormatter(dataProp.numberOfRecipe)} />
+              <Chip className="chip-correction" label={this.numberFormatter(dataProp.numberOfRecipe)} />
             </div>
           </Tooltip>
         </Link>

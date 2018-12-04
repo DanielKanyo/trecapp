@@ -134,7 +134,7 @@ class Favourites extends Component {
               </div>
               <div className="number-of-recipes">
                 <Tooltip title={languageObjectProp.data.Favourites.numOfFavRecipes}>
-                  <Chip label={favRecipes.length} className={classes.chip} />
+                  <Chip label={favRecipes.length} className={classes.chip + ' chip-correction'} />
                 </Tooltip>
               </div>
             </Paper>

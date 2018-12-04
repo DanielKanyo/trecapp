@@ -400,7 +400,7 @@ class Recipe extends Component {
               </Tooltip> : ''
             }
 
-            <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
+            <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip + ' chip-correction'} />
 
             <Tooltip title={languageObjectProp.data.myRecipes.tooltips.more}>
               <IconButton
@@ -430,14 +430,14 @@ class Recipe extends Component {
               <Typography paragraph>
                 {data.longDes}
               </Typography>
-              <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content" />
+              <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content chip-correction" />
               <Chip
                 label={hour === '0' ?
                   `${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}` :
                   `${hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText} ${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
-                className="chip-card-content"
+                className="chip-card-content chip-correction"
               />
-              <Chip label={`${data.cost} ${data.currency}`} className="chip-card-content" />
+              <Chip label={`${data.cost} ${data.currency}`} className="chip-card-content chip-correction" />
             </CardContent>
           </Collapse>
         </Card>

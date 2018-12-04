@@ -244,7 +244,7 @@ class MyRecipes extends Component {
               </div>
               <div className="number-of-recipes">
                 <Tooltip title={languageObjectProp.data.myRecipes.tooltips.numOfRecipes}>
-                  <Chip label={recipes.length} className={classes.chip} />
+                  <Chip label={recipes.length} className={classes.chip + ' chip-correction'} />
                 </Tooltip>
               </div>
             </Paper>
