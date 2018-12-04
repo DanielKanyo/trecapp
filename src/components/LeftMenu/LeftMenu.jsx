@@ -15,7 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import Favorite from '@material-ui/icons/Favorite';
 import SwapHoriz from '@material-ui/icons/SwapHoriz';
 import Home from '@material-ui/icons/Home';
-import Receipt from '@material-ui/icons/Receipt';
+import Create from '@material-ui/icons/Create';
 import Dashboard from '@material-ui/icons/Dashboard';
 import Settings from '@material-ui/icons/Settings';
 import Lock from '@material-ui/icons/Lock';
@@ -133,7 +133,7 @@ class LeftMenu extends Component {
 
               <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.MYRECIPES}>
                 <ListItemIcon>
-                  <Receipt />
+                  <Create />
                 </ListItemIcon>
                 <ListItemText primary={languageObjectProp.data.menuItems[1]} />
               </ListItem>

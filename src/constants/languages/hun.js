@@ -59,6 +59,7 @@ export const dataHun = {
         removeFromFav: 'Törlés a kedvencekből',
         deleteRecipe: 'Törlés',
         openRecipeFullSize: 'Megnyitás',
+        printRecipe: 'Nyomtatás',
         more: 'Több',
         numOfRecipes: 'Receptjeid száma',
         numOfHisRecipes: 'Receptjei száma',
