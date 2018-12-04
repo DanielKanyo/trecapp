@@ -1005,6 +1005,10 @@ input[type=time]::-webkit-clear-button {
   padding-top: 0px !important;
 }
 
+.print-btn {
+  outline: none !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

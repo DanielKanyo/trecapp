@@ -480,7 +480,7 @@ class Recipe extends Component {
               </MenuItem>
           }
 
-          <div onClick={this.openDetails}>
+          <div onClick={this.openDetails} className="print-btn">
             <ReactToPrint
               copyStyles={true}
               trigger={() => {
