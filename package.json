@@ -10,6 +10,7 @@
     "@types/lodash": "^4.14.117",
     "autosuggest-highlight": "^3.1.1",
     "firebase": "^5.5.9",
+    "pdfmake": "^0.1.39",
     "react": "^16.6.3",
     "react-autosuggest": "^9.4.2",
     "react-dom": "^16.6.3",

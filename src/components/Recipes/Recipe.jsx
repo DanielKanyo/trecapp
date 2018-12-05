@@ -22,6 +22,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SaveIcon from '@material-ui/icons/Save';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import Print from '@material-ui/icons/Print';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import Chip from '@material-ui/core/Chip';
 import Visibility from '@material-ui/icons/Visibility';
@@ -45,6 +47,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const styles = theme => ({
   paper: {
@@ -277,6 +283,103 @@ class Recipe extends Component {
     }
   }
 
+  generatePdf = (print) => {
+    let { dataProp, languageObjectProp } = this.props;
+
+    let year = new Date(dataProp.creationTime).getFullYear();
+    let month = languageObjectProp.data.months[new Date(dataProp.creationTime).getMonth()];
+    let day = new Date(dataProp.creationTime).getDate();
+    let creationTime = `${month} ${day}, ${year}`;
+
+    let hour = dataProp.hour;
+    let minute = dataProp.minute;
+
+    let fileName = dataProp.title.split(" ").join("_");
+
+    var docDefinition = {
+      content: [
+        { text: dataProp.title, fontSize: 18, style: 'header', margin: [0, 0, 0, 6] },
+        { text: `${this.state.username}${languageObjectProp.data.Favourites.usersRecipe}`, margin: [0, 0, 0, 6] },
+        { text: creationTime, color: 'grey', margin: [0, 0, 0, 6] },
+        { canvas: [{ type: 'line', x1: 0, y1: 5, x2: 595 - 2 * 40, y2: 5, lineWidth: 1 }], margin: [0, 0, 0, 15] },
+        {
+          text: [
+            {
+              text: `${languageObjectProp.data.myRecipes.newRecipe.form.category}: `, bold: true
+            },
+            `${languageObjectProp.data.myRecipes.newRecipe.categoryItems[dataProp.category]}`
+          ],
+          margin: [0, 0, 0, 15]
+        },
+        {
+          text: [
+            {
+              text: `${languageObjectProp.data.myRecipes.newRecipe.form.story}: `, bold: true
+            },
+            `\n\n${dataProp.story}`
+          ],
+          margin: [0, 0, 0, 15]
+        },
+        {
+          text: [
+            {
+              text: `${languageObjectProp.data.myRecipes.newRecipe.form.ingredients}: `, bold: true
+            },
+            `\n\n${dataProp.ingredients}`
+          ],
+          margin: [0, 0, 0, 15]
+        },
+        {
+          text: [
+            {
+              text: `${languageObjectProp.data.myRecipes.newRecipe.form.longDes}: `, bold: true
+            },
+            `\n\n${dataProp.longDes}`
+          ],
+          margin: [0, 0, 0, 15]
+        },
+        {
+          text: [
+            {
+              text: `${languageObjectProp.data.myRecipes.newRecipe.form.prepTimeShort}: `, bold: true
+            },
+            `${hour === '0' ?
+              `${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}` :
+              `${hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText} ${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}`
+          ],
+          margin: [0, 0, 0, 6]
+        },
+        {
+          text: [
+            {
+              text: `${languageObjectProp.data.myRecipes.newRecipe.form.dose}: `, bold: true
+            },
+            `${dataProp.dose}`
+          ],
+          margin: [0, 0, 0, 6]
+        },
+        {
+          text: [
+            {
+              text: `${languageObjectProp.data.myRecipes.newRecipe.form.cost}: `, bold: true
+            },
+            `${dataProp.cost} ${dataProp.currency}`
+          ],
+          margin: [0, 0, 0, 6]
+        },
+      ]
+    };
+
+    setTimeout(() => {
+      if (print) {
+        pdfMake.createPdf(docDefinition).print();
+      } else {
+        pdfMake.createPdf(docDefinition).download(`${fileName}.pdf`);
+      }
+
+    }, 1000);
+  }
+
   /**
    * Render function
    */
@@ -311,14 +414,13 @@ class Recipe extends Component {
               </Tooltip>
             }
             action={
-              data.fullSizeRecipe === 'fullSizeRecipe' ? '' :
-                <IconButton
-                  aria-owns={anchorEl ? 'recipe-menu' : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleRecipeMenuClick}
-                >
-                  <MoreVertIcon />
-                </IconButton>
+              <IconButton
+                aria-owns={anchorEl ? 'recipe-menu' : undefined}
+                aria-haspopup="true"
+                onClick={this.handleRecipeMenuClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
             }
             title={data.title}
             subheader={creationTime}
@@ -462,14 +564,40 @@ class Recipe extends Component {
                 <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.deleteRecipe} />
               </MenuItem> : ''
           }
-          <MenuItem className={classes.menuItem} component={Link} to={urlToRecipe}>
+          {
+            data.fullSizeRecipe === 'fullSizeRecipe' ? '' :
+              <MenuItem className={classes.menuItem} component={Link} to={urlToRecipe}>
+                <ListItemIcon
+                  className={classes.icon}
+                >
+                  <OpenInNew />
+                </ListItemIcon>
+                <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.openRecipeFullSize} />
+              </MenuItem>
+          }
+          <MenuItem
+            className={classes.menuItem}
+            onClick={() => { this.generatePdf(false); this.handleRecipeMenuClose() }}
+          >
             <ListItemIcon
               className={classes.icon}
             >
-              <OpenInNew />
+              <SaveAltIcon />
             </ListItemIcon>
-            <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.openRecipeFullSize} />
+            <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.downloadRecipe} />
           </MenuItem>
+          <MenuItem
+            className={classes.menuItem}
+            onClick={() => { this.generatePdf(true); this.handleRecipeMenuClose() }}
+          >
+            <ListItemIcon
+              className={classes.icon}
+            >
+              <Print />
+            </ListItemIcon>
+            <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.printRecipe} />
+          </MenuItem>
+
         </Menu>
 
         <Dialog
