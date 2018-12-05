@@ -36,14 +36,12 @@ import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Face from '@material-ui/icons/Face';
-import Print from '@material-ui/icons/Print';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import OpenInNew from '@material-ui/icons/OpenInNew';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ReactToPrint from "react-to-print";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -132,11 +130,6 @@ class Recipe extends Component {
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   }
-
-  /**
-   * Open recipe details
-   */
-  openDetails = () => this.setState(({ expanded: true }));
 
   /**
    * Delete recipe prop function
@@ -318,13 +311,14 @@ class Recipe extends Component {
               </Tooltip>
             }
             action={
-              <IconButton
-                aria-owns={anchorEl ? 'recipe-menu' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleRecipeMenuClick}
-              >
-                <MoreVertIcon />
-              </IconButton>
+              data.fullSizeRecipe === 'fullSizeRecipe' ? '' :
+                <IconButton
+                  aria-owns={anchorEl ? 'recipe-menu' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleRecipeMenuClick}
+                >
+                  <MoreVertIcon />
+                </IconButton>
             }
             title={data.title}
             subheader={creationTime}
@@ -468,37 +462,14 @@ class Recipe extends Component {
                 <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.deleteRecipe} />
               </MenuItem> : ''
           }
-          {
-            data.fullSizeRecipe === 'fullSizeRecipe' ? '' :
-              <MenuItem className={classes.menuItem} component={Link} to={urlToRecipe}>
-                <ListItemIcon
-                  className={classes.icon}
-                >
-                  <OpenInNew />
-                </ListItemIcon>
-                <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.openRecipeFullSize} />
-              </MenuItem>
-          }
-
-          <div onClick={this.openDetails} className="print-btn">
-            <ReactToPrint
-              copyStyles={true}
-              trigger={() => {
-                return (
-                  <MenuItem className={classes.menuItem} href="#">
-                    <ListItemIcon
-                      className={classes.icon}
-                    >
-                      <Print />
-                    </ListItemIcon>
-                    <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.printRecipe} />
-                  </MenuItem>
-                )
-              }}
-              content={() => this}
-            />
-          </div>
-
+          <MenuItem className={classes.menuItem} component={Link} to={urlToRecipe}>
+            <ListItemIcon
+              className={classes.icon}
+            >
+              <OpenInNew />
+            </ListItemIcon>
+            <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.openRecipeFullSize} />
+          </MenuItem>
         </Menu>
 
         <Dialog

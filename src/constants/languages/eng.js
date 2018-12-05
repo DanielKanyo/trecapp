@@ -59,7 +59,6 @@ export const dataEng = {
         removeFromFav: 'Remove from favourites',
         deleteRecipe: 'Delete',
         openRecipeFullSize: 'Open',
-        printRecipe: 'Print',
         more: 'More',
         numOfRecipes: 'Number of your recipes',
         numOfHisRecipes: 'Number of recipes',
