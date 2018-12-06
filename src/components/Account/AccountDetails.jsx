@@ -91,7 +91,7 @@ class AccountDetails extends Component {
     if (this.props.dataProp.accountName === '' || this.props.dataProp.accountEmail === '' || this.props.dataProp.accountLanguage === '') {
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
-      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName, this.props.dataProp.accountLanguage, this.props.dataProp.accountCurrency);
+      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName, this.props.dataProp.accountLanguage, this.props.dataProp.accountCurrency, this.props.dataProp.accountAbout);
       this.props.setLanguageProp(this.props.dataProp.accountLanguage);
     }
   }
@@ -100,8 +100,7 @@ class AccountDetails extends Component {
    * Render function
    */
   render() {
-    const { classes } = this.props;
-    const { languageObjectProp } = this.props;
+    const { classes, languageObjectProp } = this.props;
 
     return (
       <div>
@@ -152,11 +151,22 @@ class AccountDetails extends Component {
                     id: 'currency-dropdown',
                   }}
                 >
-                  <MenuItem value={'USD'}>USD</MenuItem>
-                  <MenuItem value={'HUF'}>HUF</MenuItem>
+                  <MenuItem value={'$'}>$</MenuItem>
+                  <MenuItem value={'Ft'}>Ft</MenuItem>
                 </Select>
               </FormControl>
             </div>
+            <TextField
+              id="account-about"
+              label={languageObjectProp.data.Account.about}
+              multiline
+              rows="5"
+              onChange={this.handleInputChange('accountAbout')}
+              className={classes.textField}
+              value={this.props.dataProp.accountAbout}
+              margin="normal"
+              placeholder="About you..."
+            />
 
             <div className="account-save-container">
               <Button

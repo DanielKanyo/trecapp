@@ -116,6 +116,7 @@ class User extends Component {
 								let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
 
 								let data = {
+									...recipes[key],
 									loggedInUserId: loggedInUserId,
 									recipeId: key,
 									imageUrl: recipe.imageUrl,
@@ -230,7 +231,7 @@ class User extends Component {
 											</div>
 										</div>
 									</div>
-									<div>Nincs leírás</div>
+									<div>{userData.about ? userData.about : languageObjectProp.data.User.emptyAbout}</div>
 								</div>
 							</div>
 						</div>

@@ -63,13 +63,14 @@ export const removeRecipe = (recipeId) => {
 }
 
 // Update user info
-export const updateUserInfo = (id, username, language, currency) => {
+export const updateUserInfo = (id, username, language, currency, about) => {
   let userRef = db.ref(`users/${id}`);
 
   return userRef.update({
     username,
     language,
-    currency
+    currency,
+    about
   });
 }
 

@@ -62,6 +62,7 @@ class AccountPage extends Component {
       accountLanguage: '',
       loggedInUserId: '',
       accountCurrency: '',
+      accountAbout: '',
       open: false,
       src: null,
       blob: '',
@@ -87,14 +88,15 @@ class AccountPage extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSaveNewAccountData = (name, language, currency) => {
+  handleSaveNewAccountData = (name, language, currency, about) => {
     this.setState({
       accountName: name,
       accountLanguage: language,
-      accountCurrency: currency
+      accountCurrency: currency,
+      accountAbout: about,
     });
 
-    db.updateUserInfo(this.state.loggedInUserId, name, language, currency);
+    db.updateUserInfo(this.state.loggedInUserId, name, language, currency, about);
   }
 
   componentDidMount() {
@@ -110,6 +112,7 @@ class AccountPage extends Component {
           accountEmail: snapshot.email,
           accountCurrency: snapshot.currency ? snapshot.currency : 'USD',
           accountLanguage: snapshot.language ? snapshot.language : 'eng',
+          accountAbout: snapshot.about ? snapshot.about : '', 
           profilePicUrl: snapshot.profilePicUrl,
           loggedInUserId: loggedInUserId,
         }));

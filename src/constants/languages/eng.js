@@ -91,6 +91,7 @@ export const dataEng = {
       currency: 'Currency',
       save: 'Save',
       noImageText: 'No image',
+      about: 'Tell us about you'
     },
     ShoppingList: {
       input: 'Product...',
@@ -137,6 +138,9 @@ export const dataEng = {
       roles: 'Role',
       language: 'Language',
       close: 'Close'
+    },
+    User: {
+      emptyAbout: 'There is no description about you... You can edit it on the settings page.'
     }
   }
 }

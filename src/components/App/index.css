@@ -958,7 +958,9 @@ input[type=time]::-webkit-clear-button {
 
 .header-user-details-text-container>div:last-of-type {
   flex-grow: 2;
-  padding: 20px 20px 12px 30px;
+  padding: 14px 20px 14px 20px;
+  max-height: 126px;
+  overflow: hidden;
 }
 
 .roles-container {
