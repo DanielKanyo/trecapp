@@ -20,10 +20,15 @@ import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Fab from '@material-ui/core/Fab';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const styles = theme => ({
 	card: {
@@ -98,6 +103,106 @@ class RecipePreview extends Component {
 		}
 	}
 
+	generatePdf = (print) => {
+		let { dataProp, languageObjectProp } = this.props;
+
+		console.log(dataProp);
+		
+
+		let year = new Date(dataProp.creationTime).getFullYear();
+		let month = languageObjectProp.data.months[new Date(dataProp.creationTime).getMonth()];
+		let day = new Date(dataProp.creationTime).getDate();
+		let creationTime = `${month} ${day}, ${year}`;
+
+		let hour = dataProp.hour;
+		let minute = dataProp.minute;
+
+		let fileName = dataProp.title.split(" ").join("_");
+
+		var docDefinition = {
+			content: [
+				{ text: dataProp.title, fontSize: 18, style: 'header', margin: [0, 0, 0, 6] },
+				{ text: `${this.state.username}${languageObjectProp.data.Favourites.usersRecipe}`, margin: [0, 0, 0, 6] },
+				{ text: creationTime, color: 'grey', margin: [0, 0, 0, 6] },
+				{ canvas: [{ type: 'line', x1: 0, y1: 5, x2: 595 - 2 * 40, y2: 5, lineWidth: 1 }], margin: [0, 0, 0, 15] },
+				{
+					text: [
+						{
+							text: `${languageObjectProp.data.myRecipes.newRecipe.form.category}: `, bold: true
+						},
+						`${languageObjectProp.data.myRecipes.newRecipe.categoryItems[dataProp.category]}`
+					],
+					margin: [0, 0, 0, 15]
+				},
+				{
+					text: [
+						{
+							text: `${languageObjectProp.data.myRecipes.newRecipe.form.story}: `, bold: true
+						},
+						`\n\n${dataProp.story}`
+					],
+					margin: [0, 0, 0, 15]
+				},
+				{
+					text: [
+						{
+							text: `${languageObjectProp.data.myRecipes.newRecipe.form.ingredients}: `, bold: true
+						},
+						`\n\n${dataProp.ingredients}`
+					],
+					margin: [0, 0, 0, 15]
+				},
+				{
+					text: [
+						{
+							text: `${languageObjectProp.data.myRecipes.newRecipe.form.longDes}: `, bold: true
+						},
+						`\n\n${dataProp.longDes}`
+					],
+					margin: [0, 0, 0, 15]
+				},
+				{
+					text: [
+						{
+							text: `${languageObjectProp.data.myRecipes.newRecipe.form.prepTimeShort}: `, bold: true
+						},
+						`${hour === '0' ?
+							`${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}` :
+							`${hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText} ${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}`
+					],
+					margin: [0, 0, 0, 6]
+				},
+				{
+					text: [
+						{
+							text: `${languageObjectProp.data.myRecipes.newRecipe.form.dose}: `, bold: true
+						},
+						`${dataProp.dose}`
+					],
+					margin: [0, 0, 0, 6]
+				},
+				{
+					text: [
+						{
+							text: `${languageObjectProp.data.myRecipes.newRecipe.form.cost}: `, bold: true
+						},
+						`${dataProp.cost} ${dataProp.currency}`
+					],
+					margin: [0, 0, 0, 6]
+				},
+			]
+		};
+
+		setTimeout(() => {
+			if (print) {
+				pdfMake.createPdf(docDefinition).print();
+			} else {
+				pdfMake.createPdf(docDefinition).download(`${fileName}.pdf`);
+			}
+
+		}, 1000);
+	}
+
 	render() {
 		const { classes } = this.props;
 		const { languageObjectProp } = this.props;
@@ -153,7 +258,7 @@ class RecipePreview extends Component {
 							</div>
 						}
 						<Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
-							<div className="fav-icon-and-counter icon-and-counter-on-recipe-preview">
+							<div className="fav-icon-and-counter fav-icon-and-counter-on-recipe-preview">
 								<Fab
 									size="small"
 									color="secondary"
@@ -165,6 +270,18 @@ class RecipePreview extends Component {
 										<FavoriteBorderIcon />}
 								</Fab>
 								{this.state.favouriteCounter ? <div className="fav-counter fav-counter-rec-preview"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
+							</div>
+						</Tooltip>
+						<Tooltip title={languageObjectProp.data.myRecipes.tooltips.downloadRecipe}>
+							<div className="download-icon download-icon-on-recipe-preview">
+								<Fab
+									size="small"
+									color="primary"
+									aria-label="download"
+									onClick={() => { this.generatePdf(false) }}
+								>
+									<SaveAltIcon />
+								</Fab>
 							</div>
 						</Tooltip>
 					</div>

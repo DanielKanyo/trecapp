@@ -69,6 +69,7 @@ class CategoryRecipes extends Component {
                 let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
 
                 let data = {
+                  ...recipes[key],
                   loggedInUserId: loggedInUserId,
                   recipeId: key,
                   imageUrl: recipe.imageUrl,
