@@ -22,6 +22,7 @@ import withAuthentication from '../Session/withAuthentication';
 import Favourites from '../Favourites/Favourites';
 import FullSizeRecipe from '../Categories/FullSizeRecipe';
 import User from '../User/User';
+import BugReport from '../BugReport/BugReport';
 import * as ROUTES from '../../constants/routes';
 
 import { dataHun } from '../../constants/languages/hun';
@@ -139,6 +140,9 @@ class App extends Component {
             />
             <Route exact path={ROUTES.USER + '/:id'}
               component={() => <User languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={ROUTES.BUGREPORT}
+              component={() => <BugReport languageObjectProp={this.state.languageObject} />}
             />
           </MuiThemeProvider>
         </div>

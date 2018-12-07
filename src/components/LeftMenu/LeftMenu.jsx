@@ -22,6 +22,7 @@ import Lock from '@material-ui/icons/Lock';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import Security from '@material-ui/icons/Security';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import BugReport from '@material-ui/icons/BugReport';
 
 const styles = theme => ({});
 
@@ -157,6 +158,13 @@ class LeftMenu extends Component {
                   <Dashboard />
                 </ListItemIcon>
                 <ListItemText primary={languageObjectProp.data.menuItems[4]} />
+              </ListItem>
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.BUGREPORT}>
+                <ListItemIcon>
+                  <BugReport />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[9]} />
               </ListItem>
             </List>
 

@@ -1020,6 +1020,15 @@ input[type=time]::-webkit-clear-button {
   outline: none !important;
 }
 
+.bug-report-send-btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.report-send-btn:hover {
+  background: #dd0707 !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

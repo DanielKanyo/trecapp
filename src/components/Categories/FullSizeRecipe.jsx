@@ -26,10 +26,10 @@ const styles = theme => ({
 class FullSizeRecipe extends Component {
 
 	/**
-    * Constructor
-    * 
-    * @param {Object} props 
-    */
+   * Constructor
+   * 
+   * @param {Object} props 
+   */
 	constructor(props) {
 		super(props);
 		this.state = {
