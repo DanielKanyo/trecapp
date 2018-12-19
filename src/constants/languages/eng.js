@@ -141,6 +141,14 @@ export const dataEng = {
     },
     User: {
       emptyAbout: 'There is no description about you... You can edit it on the settings page.'
+    },
+    BugReport: {
+      label: 'Report the bug!',
+      placeholder: 'Write down your observation...',
+      btnText: 'Send report',
+      toaster: {
+        bugSaved: 'Bug report successfully sent!'
+      }
     }
   }
 }

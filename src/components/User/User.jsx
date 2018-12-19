@@ -42,7 +42,7 @@ const styles = theme => ({
 	settingsBtn: {
 		margin: 8,
 		color: 'rgba(0, 0, 0, 0.6)',
-		zIndex: 50
+		zIndex: 10
 	},
 	icon: {
 		fontSize: 180

@@ -140,7 +140,15 @@ export const dataHun = {
       close: 'Bezár'
     },
     User: {
-      emptyAbout: 'Nincs rólad leírás... Szereszteni a beállítások oldalon tudod.'
+      emptyAbout: 'Nincs leírás...'
+    },
+    BugReport: {
+      label: 'Jelentsd be a hibát!',
+      placeholder: 'Írd le a felfedezésed...',
+      btnText: 'Jelentés küldése',
+      toaster: {
+        bugSaved: 'Hibajelentés sikeresen elkülve!'
+      }
     }
   }
 }

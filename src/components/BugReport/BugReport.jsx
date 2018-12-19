@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
+import { db } from '../../firebase';
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +10,10 @@ import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
+
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
 	card: {
@@ -63,8 +68,30 @@ class BugReport extends Component {
 		});
 	};
 
+	sendBugReport = () => {
+		let authObject = JSON.parse(localStorage.getItem('authUser'));
+		let loggedInUserId = authObject.id;
+
+		let text = this.state.bugText;
+		let timestamp = new Date().getTime();
+
+		if (text) {
+			db.saveBugReport(loggedInUserId, text, timestamp).then(res => {
+
+				toast.success(this.props.languageObjectProp.data.BugReport.toaster.bugSaved);
+
+				this.setState({
+					bugText: ''
+				});
+
+			});
+		}
+	}
+
 	render() {
-		const { classes } = this.props;
+		const { classes, languageObjectProp } = this.props;
+
+		let disabled = this.state.bugText === '' ? true : false;
 
 		return (
 			<div className="ComponentContent">
@@ -74,25 +101,42 @@ class BugReport extends Component {
 							<Card className={classes.card}>
 								<TextField
 									id="bugreport-textfield"
-									label="Report a bug"
+									label={languageObjectProp.data.BugReport.label}
 									multiline
 									rows="9"
 									value={this.state.bugText}
 									onChange={this.handleChange('bugText')}
 									className={classes.textField}
 									margin="normal"
-									placeholder="Write your observation here..."
+									placeholder={languageObjectProp.data.BugReport.placeholder}
 								/>
 								<div className="bug-report-send-btn-container">
-									<Button variant="contained" size="small" className={classes.button + ' report-send-btn'}>
+									<Button
+										onClick={this.sendBugReport}
+										variant="contained"
+										size="small"
+										className={classes.button + ' report-send-btn'}
+										disabled={disabled}
+									>
 										<SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
-										Send Report
-      					</Button>
+										{languageObjectProp.data.BugReport.btnText}
+									</Button>
 								</div>
 							</Card>
 						</MuiThemeProvider>
 					</Grid>
 				</Grid>
+
+				<ToastContainer
+					position="top-right"
+					autoClose={2500}
+					hideProgressBar
+					newestOnTop
+					closeOnClick
+					rtl={false}
+					pauseOnVisibilityChange
+					pauseOnHover
+				/>
 			</div>
 		)
 	}

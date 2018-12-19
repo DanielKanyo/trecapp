@@ -192,3 +192,18 @@ export const clearRecentProducts = (userId) => {
   let recProdsRef = db.ref(`users/${userId}/recentProducts`);
   recProdsRef.remove();
 }
+
+
+// Save bug report
+export const saveBugReport = (userId, text, timestamp) => {
+  let bugsRef = db.ref(`bugs`);
+  let bugRef = bugsRef.push();
+
+  bugRef.set({
+    userId,
+    text,
+    timestamp
+  });
+
+  return bugRef;
+}
