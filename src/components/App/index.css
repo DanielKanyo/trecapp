@@ -846,6 +846,7 @@ input[type=time]::-webkit-clear-button {
 
 .expansion-panel {
   border-radius: 4px !important;
+  margin-bottom: 10px !important;
 }
 
 .expansion-panel::before {
@@ -1023,6 +1024,36 @@ input[type=time]::-webkit-clear-button {
 
 .report-send-btn:hover {
   background: #dd0707 !important;
+}
+
+.bug-item {
+  color: #3b3b3b;
+  font-size: 14px;
+}
+
+.bug-header>div {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.reporter-name,
+.report-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bug-body {
+  padding: 14px 12px 14px 12px;
+  color: #777777;
+}
+
+.bug-actions {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 @media only screen and (max-width: 950px) {

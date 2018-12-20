@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import UserListItem from './UserListItem';
+import BugListItem from './BugListItem';
 
 const styles = theme => ({
   paper: {
@@ -51,6 +52,7 @@ class AdminPage extends Component {
       loading: false,
       error: false,
       users: [],
+      bugs: []
     };
   }
 
@@ -92,10 +94,6 @@ class AdminPage extends Component {
     }
   }
 
-  // onRemove = userId => {
-  //   db.user(userId).remove();
-  // };
-
   /**
    * Sets 'mounted' property to false to ignore warning 
    */
@@ -124,18 +122,28 @@ class AdminPage extends Component {
             {error && <div>Something went wrong ...</div>}
 
             {!loading ?
-              <ExpansionPanel className="expansion-panel">
-                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography className={classes.heading}>Users List</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
-                  {
-                    users.map(user => {
-                      return user;
-                    })
-                  }
-                </ExpansionPanelDetails>
-              </ExpansionPanel> : ''
+              <div>
+                <ExpansionPanel className="expansion-panel">
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.heading}>Users List</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
+                    {
+                      users.map(user => {
+                        return user;
+                      })
+                    }
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+                <ExpansionPanel className="expansion-panel">
+                  <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.heading}>Bug Reports</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
+                      <BugListItem />
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              </div> : ''
             }
 
           </Grid>

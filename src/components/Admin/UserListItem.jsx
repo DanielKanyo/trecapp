@@ -160,7 +160,7 @@ class UserListItem extends Component {
 				</Dialog>
 
 			</Paper>
-		)
+		);
 	}
 }
 
