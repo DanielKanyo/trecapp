@@ -124,6 +124,9 @@ class AdminPage extends Component {
     const { classes, languageObjectProp } = this.props;
     const { users, bugs, loading, error } = this.state;
 
+    let usersPanelDisabled = users.length ? false : true;
+    let bugsPanelDisabled = bugs.length ? false : true;
+
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
@@ -142,7 +145,7 @@ class AdminPage extends Component {
 
             {!loading ?
               <div>
-                <ExpansionPanel className="expansion-panel">
+                <ExpansionPanel className="expansion-panel" disabled={usersPanelDisabled}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>{languageObjectProp.data.Admin.usersListTitle}</Typography>
                   </ExpansionPanelSummary>
@@ -154,7 +157,7 @@ class AdminPage extends Component {
                     }
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
-                <ExpansionPanel className="expansion-panel">
+                <ExpansionPanel className="expansion-panel" disabled={bugsPanelDisabled}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography className={classes.heading}>{languageObjectProp.data.Admin.bugReports}</Typography>
                   </ExpansionPanelSummary>
