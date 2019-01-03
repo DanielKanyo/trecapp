@@ -207,3 +207,6 @@ export const saveBugReport = (userId, text, timestamp) => {
 
   return bugRef;
 }
+
+// Get bug reports 
+export const getBugReports = () => db.ref(`bugs`);

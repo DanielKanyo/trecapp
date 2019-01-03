@@ -1029,6 +1029,7 @@ input[type=time]::-webkit-clear-button {
 .bug-item {
   color: #3b3b3b;
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .bug-header>div {

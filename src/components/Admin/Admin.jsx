@@ -59,34 +59,53 @@ class AdminPage extends Component {
   componentDidMount() {
     this.mounted = true;
     let previousUsers = this.state.users;
+    let previousBugs = this.state.bugs;
 
     if (this.mounted) {
       this.setState({ loading: true });
 
       db.users().once('value')
-        .then(snapshot => {
-          const usersObject = snapshot.val();
+        .then(users => {
+          const usersObject = users.val();
 
-          for (var key in usersObject) {
-            if (usersObject.hasOwnProperty(key)) {
+          for (var usersKey in usersObject) {
+            if (usersObject.hasOwnProperty(usersKey)) {
               previousUsers.push(
                 <UserListItem
-                  key={key}
-                  dataProp={usersObject[key]}
+                  key={usersKey}
+                  dataProp={usersObject[usersKey]}
                   languageObjectProp={this.props.languageObjectProp}
-                  idProp={key}
+                  idProp={usersKey}
                 />
               )
             }
           }
 
-          if (this.mounted) {
-            this.setState({
-              users: previousUsers,
-              loading: false,
-            });
-          }
+          db.getBugReports().once('value')
+            .then(bugsRes => {
+              const bugsObject = bugsRes.val();
 
+              for (var bugsKey in bugsObject) {
+                if (bugsObject.hasOwnProperty(bugsKey)) {
+                  previousBugs.push(
+                    <BugListItem
+                      key={bugsKey}
+                      dataProp={bugsObject[bugsKey]}
+                      userData={usersObject[bugsObject[bugsKey].userId]}
+                      languageObjectProp={this.props.languageObjectProp}
+                    />
+                  )
+                }
+              }
+
+              if (this.mounted) {
+                this.setState({
+                  users: previousUsers,
+                  bugs: previousBugs,
+                  loading: false,
+                });
+              }
+            });
         })
         .catch(error => {
           this.setState({ error: true, loading: false });
@@ -103,7 +122,7 @@ class AdminPage extends Component {
 
   render() {
     const { classes, languageObjectProp } = this.props;
-    const { users, loading, error } = this.state;
+    const { users, bugs, loading, error } = this.state;
 
     return (
       <div className="ComponentContent">
@@ -140,12 +159,15 @@ class AdminPage extends Component {
                     <Typography className={classes.heading}>{languageObjectProp.data.Admin.bugReports}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
-                      <BugListItem />
+                    {
+                      bugs.map(bug => {
+                        return bug;
+                      })
+                    }
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </div> : ''
             }
-
           </Grid>
         </Grid>
       </div>

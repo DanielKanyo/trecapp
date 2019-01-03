@@ -28,28 +28,34 @@ class BugListItem extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, dataProp, userData, languageObjectProp } = this.props;
+
+    let year = new Date(dataProp.timestamp).getFullYear();
+    let month = languageObjectProp.data.months[new Date(dataProp.timestamp).getMonth()];
+    let day = new Date(dataProp.timestamp).getDate();
+    let creationTime = `${month} ${day}, ${year}`;
+
     return (
       <div className="bug-item">
         <Paper className={classes.paper} elevation={2}>
           <div className="bug-header">
             <div>
               <Avatar
-                alt="Kanyó Dániel"
-                src="https://lh4.googleusercontent.com/-Avc-81-4QXE/AAAAAAAAAAI/AAAAAAAAIas/6UqJ-ZXYMsM/photo.jpg"
+                alt={userData.username}
+                src={userData.profilePicUrl}
                 className={classes.avatar}
               />
-              <div className="reporter-name">Kanyó Dániel</div>
+              <div className="reporter-name">{userData.username}</div>
             </div>
           </div>
           <Divider />
           <div className="bug-body">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
+            {dataProp.text}
           </div>
           <Divider />
           <div className="bug-actions">
             <div className="bug-date">
-              <Chip label="December 28, 2018" className={classes.chip} />
+              <Chip label={creationTime} className={classes.chip} />
             </div>
           </div>
         </Paper>
