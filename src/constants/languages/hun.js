@@ -91,7 +91,8 @@ export const dataHun = {
       currency: 'Valuta',
       save: 'Mentés',
       noImageText: 'Nincs kép',
-      about: 'Mesélj magadról'
+      about: 'Mesélj magadról',
+      aboutYouPlaceholder: 'Csak néhány mondatot...',
     },
     ShoppingList: {
       input: 'Termék...',
@@ -134,6 +135,8 @@ export const dataHun = {
       }
     },
     Admin: {
+      usersListTitle: 'Felhasználók Listája',
+      bugReports: 'Hibajelentések',
       details: 'Részletek',
       roles: 'Szerepkör',
       language: 'Nyelv',

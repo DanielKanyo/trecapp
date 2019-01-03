@@ -91,7 +91,8 @@ export const dataEng = {
       currency: 'Currency',
       save: 'Save',
       noImageText: 'No image',
-      about: 'Tell us about you'
+      about: 'Tell us about you',
+      aboutYouPlaceholder: 'Just a few sentences...',
     },
     ShoppingList: {
       input: 'Product...',
@@ -134,6 +135,8 @@ export const dataEng = {
       }
     },
     Admin: {
+      usersListTitle: 'Users List',
+      bugReports: 'Bug Reports',
       details: 'Details',
       roles: 'Role',
       language: 'Language',

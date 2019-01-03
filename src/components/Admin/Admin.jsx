@@ -102,7 +102,7 @@ class AdminPage extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, languageObjectProp } = this.props;
     const { users, loading, error } = this.state;
 
     return (
@@ -125,7 +125,7 @@ class AdminPage extends Component {
               <div>
                 <ExpansionPanel className="expansion-panel">
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography className={classes.heading}>Users List</Typography>
+                    <Typography className={classes.heading}>{languageObjectProp.data.Admin.usersListTitle}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
                     {
@@ -137,7 +137,7 @@ class AdminPage extends Component {
                 </ExpansionPanel>
                 <ExpansionPanel className="expansion-panel">
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography className={classes.heading}>Bug Reports</Typography>
+                    <Typography className={classes.heading}>{languageObjectProp.data.Admin.bugReports}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
                       <BugListItem />

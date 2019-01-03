@@ -165,7 +165,7 @@ class AccountDetails extends Component {
               className={classes.textField}
               value={this.props.dataProp.accountAbout}
               margin="normal"
-              placeholder="About you..."
+              placeholder={languageObjectProp.data.Account.aboutYouPlaceholder}
             />
 
             <div className="account-save-container">
