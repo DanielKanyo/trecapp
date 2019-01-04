@@ -249,7 +249,7 @@ class MyRecipes extends Component {
               </div>
             </Paper>
 
-            {recipes.length === 0 ? <EmptyList /> : ''}
+            {recipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             {recipes.map((recipe, index) => {
               return recipe;
@@ -274,9 +274,9 @@ class MyRecipes extends Component {
   }
 }
 
-const EmptyList = () =>
+const EmptyList = (props) =>
   <div className="empty-container">
-    Empty
+    {props.languageObjectProp.data.emptyList}
   </div>
 
 const authCondition = (authUser) => !!authUser;

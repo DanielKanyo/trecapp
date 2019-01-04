@@ -421,10 +421,8 @@ class ShoppingList extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { languageObjectProp } = this.props;
-    let { items } = this.state;
-    let { recentProducts } = this.state;
+    const { classes, languageObjectProp } = this.props;
+    let { items, recentProducts } = this.state;
 
     const autosuggestProps = {
       renderInputComponent,
@@ -497,7 +495,7 @@ class ShoppingList extends Component {
                 </IconButton>
               </Paper>
 
-              {items.length === 0 ? <EmptyList /> : ''}
+              {items.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
               {items.map((item, index) => {
                 return item;
@@ -527,7 +525,7 @@ class ShoppingList extends Component {
                 </div>
               </Paper>
 
-              {recentProducts.length === 0 ? <EmptyList /> : ''}
+              {recentProducts.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
               <div className="recent-products-chips-container">
                 {recentProducts.map((product, index) => {
@@ -579,9 +577,9 @@ class ShoppingList extends Component {
   }
 }
 
-const EmptyList = () =>
+const EmptyList = (props) =>
   <div className="empty-container">
-    Empty
+    {props.languageObjectProp.data.emptyList}
   </div>
 
 const authCondition = (authUser) => !!authUser;

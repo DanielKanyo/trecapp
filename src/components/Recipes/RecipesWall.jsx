@@ -211,7 +211,7 @@ class RecipesWall extends Component {
               </div>
             </Paper>
 
-            {latestRecipes.length === 0 ? <EmptyList /> : ''}
+            {latestRecipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             {latestRecipes.map((recipe, index) => {
               return recipe;
@@ -230,7 +230,7 @@ class RecipesWall extends Component {
               </div>
             </Paper>
 
-            {topRecipes.length === 0 ? <EmptyList /> : ''}
+            {topRecipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             {topRecipes.map((recipe, index) => {
               return recipe;
@@ -255,9 +255,9 @@ class RecipesWall extends Component {
   }
 }
 
-const EmptyList = () =>
+const EmptyList = (props) =>
   <div className="empty-container">
-    Empty
+    {props.languageObjectProp.data.emptyList}
   </div>
 
 const authCondition = (authUser) => !!authUser;

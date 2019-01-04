@@ -237,7 +237,7 @@ class User extends Component {
 						</div>
 
 						<Grid container spacing={16}>
-							{this.state.recipes.length === 0 ? <EmptyList /> : ''}
+							{this.state.recipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
 							{this.state.recipes.map((recipe, index) => {
 								return recipe;
@@ -251,11 +251,11 @@ class User extends Component {
 	}
 }
 
-const EmptyList = () =>
+const EmptyList = (props) =>
 	<Grid item xs={12}>
 		<div className="empty-container">
-			Empty
-    </div>
+			{props.languageObjectProp.data.emptyList}
+		</div>
 	</Grid>
 
 const authCondition = (authUser) => !!authUser;

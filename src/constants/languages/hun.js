@@ -3,6 +3,7 @@ export const dataHun = {
     appTitle: 'Receptjeim',
     menuItems: ['Kezdőlap', 'Új Recept', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés'],
     months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
+    emptyList: 'Üres',
     Navigation: {
       dropdownValues: ['Profilom', 'Beállítások', 'Kijelentkezés']
     },

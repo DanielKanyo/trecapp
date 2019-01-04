@@ -140,7 +140,7 @@ class Favourites extends Component {
             </Paper>
 
             <Grid container spacing={16}>
-              {favRecipes.length === 0 ? <EmptyList /> : ''}
+              {favRecipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
               {favRecipes.map((recipe, index) => {
                 return recipe;
@@ -166,10 +166,10 @@ class Favourites extends Component {
   }
 }
 
-const EmptyList = () =>
+const EmptyList = (props) =>
   <Grid item xs={12}>
     <div className="empty-container">
-      Empty
+    {props.languageObjectProp.data.emptyList}
     </div>
   </Grid>
 
