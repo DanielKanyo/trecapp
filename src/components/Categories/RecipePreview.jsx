@@ -22,7 +22,6 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Fab from '@material-ui/core/Fab';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 
-import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -301,17 +300,6 @@ class RecipePreview extends Component {
 						</div> : ''
 					}
 				</Card>
-
-				<ToastContainer
-					position="top-right"
-					autoClose={2500}
-					hideProgressBar
-					newestOnTop
-					closeOnClick
-					rtl={false}
-					pauseOnVisibilityChange
-					pauseOnHover
-				/>
 			</Grid>
 		)
 	}

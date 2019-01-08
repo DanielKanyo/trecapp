@@ -12,6 +12,7 @@ import RoomService from '@material-ui/icons/RoomService';
 import Grid from '@material-ui/core/Grid';
 
 import RecipePreview from './RecipePreview';
+import { ToastContainer } from 'react-toastify';
 
 const styles = theme => ({});
 
@@ -140,6 +141,17 @@ class CategoryRecipes extends Component {
 
           </Grid>
         </Grid>
+
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          pauseOnHover
+        />
       </div>
     )
   }

@@ -16,6 +16,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { dataEng } from '../../constants/languages/eng';
+import { ToastContainer } from 'react-toastify';
 
 const styles = theme => ({
 	paper: {
@@ -246,6 +247,17 @@ class User extends Component {
 
 					</Grid>
 				</Grid>
+
+				<ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          pauseOnHover
+        />
 			</div>
 		)
 	}
