@@ -1013,6 +1013,10 @@ input[type=time]::-webkit-clear-button {
   display: none;
 }
 
+.user-about-container-for-mobile {
+  display: none;
+}
+
 .print-btn {
   outline: none !important;
 }
@@ -1055,6 +1059,19 @@ input[type=time]::-webkit-clear-button {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+
+.user-about-container {
+  max-height: 98px;
+  overflow-y: auto;
+}
+
+.information-container-to-save-recipe {
+  text-align: left;
+  font-size: 13px;
+  margin-top: 10px;
+  color: #afafaf;
+  padding-bottom: 16px;
 }
 
 @media only screen and (max-width: 950px) {
@@ -1228,6 +1245,10 @@ input[type=time]::-webkit-clear-button {
   .role,
   .num-of-recipes-user-chip {
     padding: 5px 10px 3px 10px;
+  }
+
+  .user-about-container-for-mobile {
+    display: block;
   }
 }
 

@@ -334,6 +334,11 @@ class NewRecipe extends Component {
                 </Select>
               </FormControl>
             </div>
+            {/* TODO */}
+            <div className="information-container-to-save-recipe">
+              A recept nyelve magyar a beállításaid alapján.
+            </div>
+
             <div className="recipe-controller-container">
               <FormControlLabel className="is-recipe-will-be-public-container"
                 control={

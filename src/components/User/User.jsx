@@ -55,6 +55,11 @@ const styles = theme => ({
 		fontSize: 18,
 		textTransform: 'uppercase',
 		color: 'white'
+	},
+	paperUserAbout: {
+		marginTop: 8,
+		padding: '15px 15px',
+		color: '#545454'
 	}
 });
 
@@ -209,6 +214,11 @@ class User extends Component {
 										</Paper>
 									</div>
 								</div>
+								<div className="user-about-container-for-mobile">
+									<Paper className={classes.paperUserAbout} elevation={1}>
+										{userData.about ? userData.about : languageObjectProp.data.User.emptyAbout}
+									</Paper>
+								</div>
 								<div className="header-user-details-text-container">
 									<div>
 										<div>
@@ -232,7 +242,11 @@ class User extends Component {
 											</div>
 										</div>
 									</div>
-									<div>{userData.about ? userData.about : languageObjectProp.data.User.emptyAbout}</div>
+									<div>
+										<div className="user-about-container">
+											{userData.about ? userData.about : languageObjectProp.data.User.emptyAbout}
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -249,15 +263,15 @@ class User extends Component {
 				</Grid>
 
 				<ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          pauseOnHover
-        />
+					position="top-right"
+					autoClose={2500}
+					hideProgressBar
+					newestOnTop
+					closeOnClick
+					rtl={false}
+					pauseOnVisibilityChange
+					pauseOnHover
+				/>
 			</div>
 		)
 	}

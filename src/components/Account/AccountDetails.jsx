@@ -74,10 +74,19 @@ class AccountDetails extends Component {
   }
 
   /**
-     * Change dropdown value
-     * 
-     * @param {Object} event
-     */
+   * Change dropdown value
+   * 
+   * @param {Object} event
+   */
+  handleChangeRecipesLanguage = event => {
+    this.props.handleChangeRecipesLanguageProp(event);
+  }
+
+  /**
+   * Change dropdown value
+   * 
+   * @param {Object} event
+   */
   handleChangeCurrency = event => {
     this.props.handleChangeCurrencyProp(event);
   }
@@ -89,9 +98,10 @@ class AccountDetails extends Component {
    */
   handleSaveAccount = (event) => {
     if (this.props.dataProp.accountName === '' || this.props.dataProp.accountEmail === '' || this.props.dataProp.accountLanguage === '') {
+      // TODO
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
-      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName, this.props.dataProp.accountLanguage, this.props.dataProp.accountCurrency, this.props.dataProp.accountAbout);
+      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName, this.props.dataProp.accountLanguage, this.props.dataProp.accountCurrency, this.props.dataProp.accountAbout, this.props.dataProp.accountRecipesLanguage);
       this.props.setLanguageProp(this.props.dataProp.accountLanguage);
     }
   }
@@ -153,6 +163,23 @@ class AccountDetails extends Component {
                 >
                   <MenuItem value={'$'}>$</MenuItem>
                   <MenuItem value={'Ft'}>Ft</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="account-currency-dropdown-label">Receptjeid nyelve</InputLabel>
+                <Select
+                  value={this.props.dataProp.accountRecipesLanguage ? this.props.dataProp.accountRecipesLanguage : ''}
+                  onChange={this.handleChangeRecipesLanguage}
+                  inputProps={{
+                    name: 'accountRecipesLanguage',
+                    id: 'recipes-language-dropdown',
+                  }}
+                >
+                  {/* TODO - add all languages */}
+                  <MenuItem value={'en'}>English</MenuItem>
+                  <MenuItem value={'hu'}>Magyar</MenuItem>
                 </Select>
               </FormControl>
             </div>
