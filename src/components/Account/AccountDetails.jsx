@@ -78,15 +78,6 @@ class AccountDetails extends Component {
    * 
    * @param {Object} event
    */
-  handleChangeRecipesLanguage = event => {
-    this.props.handleChangeRecipesLanguageProp(event);
-  }
-
-  /**
-   * Change dropdown value
-   * 
-   * @param {Object} event
-   */
   handleChangeCurrency = event => {
     this.props.handleChangeCurrencyProp(event);
   }
@@ -163,23 +154,6 @@ class AccountDetails extends Component {
                 >
                   <MenuItem value={'$'}>$</MenuItem>
                   <MenuItem value={'Ft'}>Ft</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <div>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="account-currency-dropdown-label">Receptjeid nyelve</InputLabel>
-                <Select
-                  value={this.props.dataProp.accountRecipesLanguage ? this.props.dataProp.accountRecipesLanguage : ''}
-                  onChange={this.handleChangeRecipesLanguage}
-                  inputProps={{
-                    name: 'accountRecipesLanguage',
-                    id: 'recipes-language-dropdown',
-                  }}
-                >
-                  {/* TODO - add all languages */}
-                  <MenuItem value={'en'}>English</MenuItem>
-                  <MenuItem value={'hu'}>Magyar</MenuItem>
                 </Select>
               </FormControl>
             </div>
