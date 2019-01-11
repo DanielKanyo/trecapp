@@ -15,10 +15,13 @@ import Paper from '@material-ui/core/Paper';
 import Receipt from '@material-ui/icons/Receipt';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+
+import { isoLanguages } from '../../constants/languages/iso-639';
 
 const styles = theme => ({
   paper: {
@@ -46,7 +49,9 @@ class MyRecipes extends Component {
       recipes: [],
       loggedInUserId: '',
       currency: '',
-      favouriteCounter: 0
+      favouriteCounter: 0,
+      languages: [],
+      recipeLanguage: ''
     };
   }
 
@@ -62,6 +67,8 @@ class MyRecipes extends Component {
     let previousRecipes = this.state.recipes;
     let isFavourite = false;
 
+    let previousLanguages = this.state.languages;
+
     db.getUserInfo(loggedInUserId).then(resUserInfo => {
       let username = resUserInfo.username;
 
@@ -70,10 +77,24 @@ class MyRecipes extends Component {
 
           this.setState({
             currency: resUserInfo.currency ? resUserInfo.currency : 'USD',
+            recipeLanguage: resUserInfo.recipesLanguage ? resUserInfo.recipesLanguage : 'en',
             loggedInUserId: loggedInUserId
           });
 
           let recipes = resRecipes;
+
+          for (let key in isoLanguages) {
+            let nativeName = isoLanguages[key].nativeName;
+            let name = isoLanguages[key].name;
+
+            previousLanguages.push(
+              <MenuItem key={key} value={isoLanguages[key]['639-1']}>{nativeName} ({name})</MenuItem>
+            )
+          }
+
+          this.setState({
+            languages: previousLanguages
+          });
 
           for (var key in recipes) {
             if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
@@ -168,6 +189,7 @@ class MyRecipes extends Component {
 
     obj.currency = this.state.currency;
     obj.favouriteCounter = this.state.favouriteCounter;
+    obj.recipeLanguage = this.state.recipeLanguage;
 
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {
       dataToSend.recipeId = snap.key;
@@ -214,6 +236,15 @@ class MyRecipes extends Component {
   }
 
   /**
+   * Save recipe language to the database
+   */
+  changeRecipeLanguage = (value) => {
+    db.updateRecipesLanguage(this.state.loggedInUserId, value);
+
+    this.setState({ recipeLanguage: value });
+  }
+
+  /**
    * Render function
    */
   render() {
@@ -230,7 +261,11 @@ class MyRecipes extends Component {
             <NewRecipe
               currencyProp={this.state.currency}
               saveRecipeProps={this.saveRecipe}
-              languageObjectProp={languageObjectProp} />
+              languageObjectProp={languageObjectProp}   
+              availableLanguagesProp={this.state.languages}
+              recipeLanguageProp={this.state.recipeLanguage}
+              changeRecipeLanguageProp={this.changeRecipeLanguage}
+            />
           </Grid>
 
           <Grid item className="grid-component" xs={6}>

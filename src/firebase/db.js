@@ -37,7 +37,8 @@ export const addRecipe = (id, recipe) => {
     title: recipe.title,
     currency: recipe.currency,
     favouriteCounter: recipe.favouriteCounter,
-    imageUrl: recipe.imageUrl
+    imageUrl: recipe.imageUrl,
+    recipeLanguage: recipe.recipeLanguage
   });
 
   return recipeRef;
@@ -211,3 +212,12 @@ export const saveBugReport = (userId, text, timestamp) => {
 
 // Get bug reports 
 export const getBugReports = () => db.ref(`bugs`);
+
+// Update recipes language
+export const updateRecipesLanguage = (userId, recipesLanguage) => {
+  let userRef = db.ref(`users/${userId}`);
+
+  return userRef.update({
+    recipesLanguage
+  });
+}

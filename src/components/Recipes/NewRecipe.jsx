@@ -88,13 +88,17 @@ const INITIAL_STATE = {
   dose: '',
   cost: '',
   publicChecked: false,
-  category: ''
+  category: '',
 };
 
 class NewRecipe extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...INITIAL_STATE };
+    this.state = { 
+      ...INITIAL_STATE,
+      languages: this.props.availableLanguagesProp ? this.props.availableLanguagesProp : [],
+      recipeLanguage: ''
+    };
   }
 
   handleChangeCheckbox = name => event => {
@@ -149,6 +153,12 @@ class NewRecipe extends Component {
 
   handleChangeMinute = (event) => {
     this.setState({ minute: event.target.value });
+  }
+
+  handleChangeRecipeLanguage = (event) => {
+    this.props.changeRecipeLanguageProp(event.target.value);
+
+    this.setState({ recipeLanguage: event.target.value });
   }
 
   /**
@@ -335,8 +345,22 @@ class NewRecipe extends Component {
               </FormControl>
             </div>
             {/* TODO */}
-            <div className="information-container-to-save-recipe">
-              A recept nyelve magyar a beállításaid alapján.
+            <div className="recipe-language-select-container">
+              <FormControl className={classes.formControl + ' minute-picker'}>
+                <InputLabel htmlFor="recipe-language">Recept nyelve</InputLabel>
+                <Select
+                  value={this.props.recipeLanguageProp}
+                  onChange={this.handleChangeRecipeLanguage}
+                  inputProps={{
+                    name: 'recipeLanguage',
+                    id: 'language-select',
+                  }}
+                >
+                  {this.state.languages.map(item => {
+                    return item;
+                  })}
+                </Select>
+              </FormControl>
             </div>
 
             <div className="recipe-controller-container">

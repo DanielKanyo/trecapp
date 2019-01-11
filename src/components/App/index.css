@@ -1066,14 +1066,6 @@ input[type=time]::-webkit-clear-button {
   overflow-y: auto;
 }
 
-.information-container-to-save-recipe {
-  text-align: left;
-  font-size: 13px;
-  margin-top: 10px;
-  color: #afafaf;
-  padding-bottom: 16px;
-}
-
 .app-bar-nav {
   height: 56px;
   background-image: url('../../images/MRA005.png') !important;
@@ -1088,6 +1080,11 @@ input[type=time]::-webkit-clear-button {
   background-size:  auto 80%;
   background-repeat: no-repeat;
   background-position: 0px center;
+}
+
+.recipe-language-select-container {
+  text-align: left;
+  margin-bottom: 20px !important;
 }
 
 @media only screen and (max-width: 950px) {
