@@ -62,7 +62,7 @@ class AccountPage extends Component {
       accountLanguage: '',
       loggedInUserId: '',
       accountCurrency: '',
-      // accountRecipesLanguage: '',
+      accountFilterRecipes: '',
       accountAbout: '',
       open: false,
       src: null,
@@ -89,15 +89,20 @@ class AccountPage extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSaveNewAccountData = (name, language, currency, about) => {
+  handleChangeFilterBy = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleSaveNewAccountData = (name, language, currency, about, filterRecipes) => {
     this.setState({
       accountName: name,
       accountLanguage: language,
       accountCurrency: currency,
       accountAbout: about,
+      accountFilterRecipes: filterRecipes
     });
 
-    db.updateUserInfo(this.state.loggedInUserId, name, language, currency, about);
+    db.updateUserInfo(this.state.loggedInUserId, name, language, currency, about, filterRecipes);
   }
 
   componentDidMount() {
@@ -113,6 +118,7 @@ class AccountPage extends Component {
           accountEmail: snapshot.email,
           accountCurrency: snapshot.currency ? snapshot.currency : 'USD',
           accountLanguage: snapshot.language ? snapshot.language : 'eng',
+          accountFilterRecipes: snapshot.filterRecipes ? snapshot.filterRecipes : 'all',
           accountAbout: snapshot.about ? snapshot.about : '', 
           profilePicUrl: snapshot.profilePicUrl,
           loggedInUserId: loggedInUserId,
@@ -269,6 +275,7 @@ class AccountPage extends Component {
                         handleInputChangeProp={this.handleInputChange}
                         handleChangeLanguageProp={this.handleChangeLanguage}
                         handleChangeCurrencyProp={this.handleChangeCurrency}
+                        handleChangeFilterByProp = {this.handleChangeFilterBy}
                         setLanguageProp={this.props.setLanguageProp}
                         handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
                         dataProp={this.state}

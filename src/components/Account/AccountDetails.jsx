@@ -11,6 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import SaveIcon from '@material-ui/icons/Save';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
+import { isoLanguages } from '../../constants/languages/iso-639';
 
 const styles = theme => ({
   textField: {
@@ -51,7 +52,39 @@ class AccountDetails extends Component {
    */
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      languages: []
+    };
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+
+    let previousLanguages = this.state.languages;
+
+    if (this.mounted) {
+      for (let key in isoLanguages) {
+        let nativeName = isoLanguages[key].nativeName;
+        let name = isoLanguages[key].name;
+        
+        previousLanguages.push(
+          <MenuItem key={key} value={isoLanguages[key]['639-1']}>{nativeName} ({name})</MenuItem>
+        )
+      }
+
+      this.setState({
+        languages: previousLanguages
+      });
+      
+    }
+    
+  }
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   /**
@@ -83,6 +116,15 @@ class AccountDetails extends Component {
   }
 
   /**
+   * Change dropdown value
+   * 
+   * @param {Object} event
+   */
+  handleChangeFilterBy = event => {
+    this.props.handleChangeFilterByProp(event);
+  }
+
+  /**
    * Save new data
    * 
    * @param {Object} event
@@ -92,7 +134,12 @@ class AccountDetails extends Component {
       // TODO
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
-      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName, this.props.dataProp.accountLanguage, this.props.dataProp.accountCurrency, this.props.dataProp.accountAbout, this.props.dataProp.accountRecipesLanguage);
+      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName, 
+        this.props.dataProp.accountLanguage, 
+        this.props.dataProp.accountCurrency, 
+        this.props.dataProp.accountAbout, 
+        this.props.dataProp.accountFilterRecipes
+      );
       this.props.setLanguageProp(this.props.dataProp.accountLanguage);
     }
   }
@@ -157,6 +204,29 @@ class AccountDetails extends Component {
                 </Select>
               </FormControl>
             </div>
+
+
+            <div>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.filteringByLanguage}</InputLabel>
+                <Select
+                  value={this.props.dataProp.accountFilterRecipes ? this.props.dataProp.accountFilterRecipes : 'all'}
+                  onChange={this.handleChangeFilterBy}
+                  inputProps={{
+                    name: 'accountFilterRecipes',
+                    id: 'filter-dropdown',
+                  }}
+                >
+                  <MenuItem value={'all'}>{languageObjectProp.data.Account.showAllRecipes}</MenuItem>
+                  {this.state.languages.map(item => {
+                    return item;
+                  })}
+                </Select>
+              </FormControl>
+            </div>
+
+
+
             <TextField
               id="account-about"
               label={languageObjectProp.data.Account.about}
