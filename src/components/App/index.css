@@ -1076,16 +1076,16 @@ input[type=time]::-webkit-clear-button {
 
 .app-bar-nav {
   height: 56px;
-  background-image: url('../../images/MRA001.png') !important;
-  background-size:  auto 100%;
+  background-image: url('../../images/MRA005.png') !important;
+  background-size:  auto 80%;
   background-repeat: no-repeat;
-  background-position: 58px center;
+  background-position: 78px center;
 }
 
 .app-bar-nav-non-auth {
   height: 56px;
-  background-image: url('../../images/MRA001.png') !important;
-  background-size:  auto 100%;
+  background-image: url('../../images/MRA005.png') !important;
+  background-size:  auto 80%;
   background-repeat: no-repeat;
   background-position: 0px center;
 }
