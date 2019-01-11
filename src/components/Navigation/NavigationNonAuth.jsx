@@ -33,10 +33,10 @@ const NavigationAuth = (props) => {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <AppBar className={classes.appbar} position="static">
+      <AppBar className={classes.appbar + ' app-bar-nav-non-auth'} position="static">
         <Toolbar>
           <Typography component={Link} to={ROUTES.WALL} variant="h6" color="inherit" className={classes.grow}>
-            My Recipes
+            {/* My Recipes */}
           </Typography>
           <IconButton component={Link} to={ROUTES.LANDING} className={classes.menuButton} color="inherit" aria-label="Menu">
             <Home />

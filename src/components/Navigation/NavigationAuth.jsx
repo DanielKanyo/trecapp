@@ -150,7 +150,7 @@ class NavigationAuth extends Component {
             </IconButton>
 
             <Typography component={Link} to={ROUTES.LANDING} variant="h6" color="inherit" className={classes.grow}>
-              {languageObjectProp.data.appTitle}
+              {/* myRecipesApp */}
             </Typography>
             <div className="navigation-right-side">
               <Button component={Link} to={ROUTES.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>

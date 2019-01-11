@@ -1074,6 +1074,22 @@ input[type=time]::-webkit-clear-button {
   padding-bottom: 16px;
 }
 
+.app-bar-nav {
+  height: 56px;
+  background-image: url('../../images/MRA001.png') !important;
+  background-size:  auto 100%;
+  background-repeat: no-repeat;
+  background-position: 58px center;
+}
+
+.app-bar-nav-non-auth {
+  height: 56px;
+  background-image: url('../../images/MRA001.png') !important;
+  background-size:  auto 100%;
+  background-repeat: no-repeat;
+  background-position: 0px center;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1249,6 +1265,10 @@ input[type=time]::-webkit-clear-button {
 
   .user-about-container-for-mobile {
     display: block;
+  }
+
+  .app-bar-nav {
+    background-position: center;
   }
 }
 
