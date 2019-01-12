@@ -47,78 +47,76 @@ class CategoryRecipes extends Component {
 
       db.getRecipes().then(resRecipes => {
         if (this.mounted) {
-          if (resRecipes) {
 
-            if (filterRecipes) {
-              for (let prepKey in resRecipes) {
-                if (resRecipes[prepKey].recipeLanguage !== permittedRecipesLanguage) {
-                  delete resRecipes[prepKey];
+          if (filterRecipes) {
+            for (let prepKey in resRecipes) {
+              if (resRecipes[prepKey].recipeLanguage !== permittedRecipesLanguage) {
+                delete resRecipes[prepKey];
+              }
+            }
+          }
+
+          db.users().once('value').then(users => {
+            let usersObject = users.val();
+
+            let recipes = resRecipes;
+
+            let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+            let categoryNameEng = this.props.match.params.category;
+            let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
+            let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber];
+
+            this.setState({
+              categoryNumber,
+              categoryName
+            });
+
+            for (var key in recipes) {
+              let recipe = recipes[key];
+              let recipeUserId = recipe.userId;
+
+              let username = usersObject[recipeUserId].username;
+              let profilePicUrl = usersObject[recipeUserId].profilePicUrl;
+
+              let isMine = recipeUserId === loggedInUserId ? true : false;
+
+              if (recipe.category === categoryNumber && recipe.publicChecked) {
+                let favouritesObject = recipes[key].favourites;
+                let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+
+                let data = {
+                  ...recipes[key],
+                  loggedInUserId: loggedInUserId,
+                  recipeId: key,
+                  imageUrl: recipe.imageUrl,
+                  title: recipe.title,
+                  creationTime: recipe.creationTime,
+                  sliderValue: recipe.sliderValue,
+                  displayUserInfo: true,
+                  username: username,
+                  isMine: isMine,
+                  profilePicUrl: profilePicUrl,
+                  isFavourite: isFavourite,
+                  favouriteCounter: recipes[key].favouriteCounter,
+                  userId: recipe.userId,
+                  url: this.props.match.url
                 }
+
+                previousRecipes.unshift(
+                  <RecipePreview
+                    key={key}
+                    dataProp={data}
+                    languageObjectProp={this.props.languageObjectProp}
+                  />
+                )
               }
             }
 
-            db.users().once('value').then(users => {
-              let usersObject = users.val();
-
-              let recipes = resRecipes;
-
-              let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-              let categoryNameEng = this.props.match.params.category;
-              let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
-              let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber]
-
-              this.setState({
-                categoryNumber,
-                categoryName
-              });
-
-              for (var key in recipes) {
-                let recipe = recipes[key];
-                let recipeUserId = recipe.userId;
-
-                let username = usersObject[recipeUserId].username;
-                let profilePicUrl = usersObject[recipeUserId].profilePicUrl;
-
-                let isMine = recipeUserId === loggedInUserId ? true : false;
-
-                if (recipe.category === categoryNumber && recipe.publicChecked) {
-                  let favouritesObject = recipes[key].favourites;
-                  let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
-
-                  let data = {
-                    ...recipes[key],
-                    loggedInUserId: loggedInUserId,
-                    recipeId: key,
-                    imageUrl: recipe.imageUrl,
-                    title: recipe.title,
-                    creationTime: recipe.creationTime,
-                    sliderValue: recipe.sliderValue,
-                    displayUserInfo: true,
-                    username: username,
-                    isMine: isMine,
-                    profilePicUrl: profilePicUrl,
-                    isFavourite: isFavourite,
-                    favouriteCounter: recipes[key].favouriteCounter,
-                    userId: recipe.userId,
-                    url: this.props.match.url
-                  }
-
-                  previousRecipes.unshift(
-                    <RecipePreview
-                      key={key}
-                      dataProp={data}
-                      languageObjectProp={this.props.languageObjectProp}
-                    />
-                  )
-                }
-              }
-
-              this.setState({
-                recipes: previousRecipes,
-                loggedInUserId
-              });
+            this.setState({
+              recipes: previousRecipes,
+              loggedInUserId
             });
-          }
+          });
         }
       });
     });
