@@ -66,7 +66,7 @@ class AccountDetails extends Component {
       for (let key in isoLanguages) {
         let nativeName = isoLanguages[key].nativeName;
         let name = isoLanguages[key].name;
-        
+
         previousLanguages.push(
           <MenuItem key={key} value={isoLanguages[key]['639-1']}>{nativeName} ({name})</MenuItem>
         )
@@ -75,9 +75,9 @@ class AccountDetails extends Component {
       this.setState({
         languages: previousLanguages
       });
-      
+
     }
-    
+
   }
 
   /**
@@ -134,10 +134,10 @@ class AccountDetails extends Component {
       // TODO
       this.toastr('Warning! Fill the required fields...', '#ffc107');
     } else {
-      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName, 
-        this.props.dataProp.accountLanguage, 
-        this.props.dataProp.accountCurrency, 
-        this.props.dataProp.accountAbout, 
+      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName,
+        this.props.dataProp.accountLanguage,
+        this.props.dataProp.accountCurrency,
+        this.props.dataProp.accountAbout,
         this.props.dataProp.accountFilterRecipes
       );
       this.props.setLanguageProp(this.props.dataProp.accountLanguage);
@@ -224,9 +224,6 @@ class AccountDetails extends Component {
                 </Select>
               </FormControl>
             </div>
-
-
-
             <TextField
               id="account-about"
               label={languageObjectProp.data.Account.about}
@@ -247,7 +244,7 @@ class AccountDetails extends Component {
                 onClick={this.handleSaveAccount}
               >
                 <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
-                Save
+                {languageObjectProp.data.Account.save}
               </Button>
             </div>
           </div>

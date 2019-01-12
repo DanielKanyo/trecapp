@@ -1083,7 +1083,6 @@ input[type=time]::-webkit-clear-button {
 }
 
 .recipe-language-select-container {
-  text-align: left;
   margin-bottom: 20px !important;
 }
 
