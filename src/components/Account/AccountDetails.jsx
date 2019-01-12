@@ -210,6 +210,7 @@ class AccountDetails extends Component {
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.filteringByLanguage}</InputLabel>
                 <Select
+                  className='language-selector'
                   value={this.props.dataProp.accountFilterRecipes ? this.props.dataProp.accountFilterRecipes : 'all'}
                   onChange={this.handleChangeFilterBy}
                   inputProps={{

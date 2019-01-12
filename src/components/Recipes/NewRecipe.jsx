@@ -94,7 +94,7 @@ const INITIAL_STATE = {
 class NewRecipe extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       ...INITIAL_STATE,
       languages: this.props.availableLanguagesProp ? this.props.availableLanguagesProp : [],
       recipeLanguage: ''
@@ -344,11 +344,11 @@ class NewRecipe extends Component {
                 </Select>
               </FormControl>
             </div>
-            {/* TODO */}
             <div className="recipe-language-select-container">
               <FormControl className={classes.formControl + ' minute-picker'}>
                 <InputLabel htmlFor="recipe-language">Recept nyelve</InputLabel>
                 <Select
+                  className='language-selector'
                   value={this.props.recipeLanguageProp}
                   onChange={this.handleChangeRecipeLanguage}
                   inputProps={{

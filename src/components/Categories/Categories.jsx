@@ -39,55 +39,73 @@ class Categories extends Component {
     let loggedInUserId = authObject.id;
     let recipeCategorys = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems;
 
-    this.setState({
-      loggedInUserId: loggedInUserId
-    });
+    db.user(loggedInUserId).once('value').then(snapshot => {
+      let userUptodateData = snapshot.val();
 
-    db.getRecipes().then(resRecipes => {
-      if (this.mounted) {
-        let recipes = resRecipes;
-        let categoryNumbersInArray = [];
-        let counter = 0;
+      let filterRecipes = false;
+      let permittedRecipesLanguage;
 
-        for (var key in recipes) {
-          if (recipes[key].publicChecked) {
-            categoryNumbersInArray.push(recipes[key].category);
-          }
-        }
+      if (userUptodateData.filterRecipes && userUptodateData.filterRecipes !== 'all') {
+        filterRecipes = true;
+        permittedRecipesLanguage = userUptodateData.filterRecipes;
+      }
 
-        for (let i = 1; i < recipeCategorys.length; i++) {
-          let categoryName = recipeCategorys[i];
+      db.getRecipes().then(resRecipes => {
+        if (this.mounted) {
 
-          for (let j = 0; j < categoryNumbersInArray.length; j++) {
-            if (categoryNumbersInArray[j] === i) {
-              counter += 1;
+          if (filterRecipes) {
+            for (let prepKey in resRecipes) {
+              if (resRecipes[prepKey].recipeLanguage !== permittedRecipesLanguage) {
+                delete resRecipes[prepKey];
+              }
             }
           }
 
-          let data = {
-            categoryName: categoryName,
-            categoryNumber: i,
-            imageNumber: i,
-            numberOfRecipe: counter,
-            url: this.props.match.path
+          let recipes = resRecipes;
+          let categoryNumbersInArray = [];
+          let counter = 0;
+
+          for (var key in recipes) {
+            if (recipes[key].publicChecked) {
+              categoryNumbersInArray.push(recipes[key].category);
+            }
           }
 
-          previousCategories.push(
-            <CategoryListItem
-              key={i}
-              dataProp={data}
-              languageObjectProp={this.props.languageObjectProp}
-            />
-          )
+          for (let i = 1; i < recipeCategorys.length; i++) {
+            let categoryName = recipeCategorys[i];
 
-          counter = 0;
+            for (let j = 0; j < categoryNumbersInArray.length; j++) {
+              if (categoryNumbersInArray[j] === i) {
+                counter += 1;
+              }
+            }
+
+            let data = {
+              categoryName: categoryName,
+              categoryNumber: i,
+              imageNumber: i,
+              numberOfRecipe: counter,
+              url: this.props.match.path
+            }
+
+            previousCategories.push(
+              <CategoryListItem
+                key={i}
+                dataProp={data}
+                languageObjectProp={this.props.languageObjectProp}
+              />
+            )
+
+            counter = 0;
+          }
+
+          this.setState({
+            categories: previousCategories,
+            loggedInUserId
+          });
+
         }
-
-        this.setState({
-          categories: previousCategories
-        });
-
-      }
+      });
     });
   }
 

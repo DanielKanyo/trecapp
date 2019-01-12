@@ -34,77 +34,94 @@ class CategoryRecipes extends Component {
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
 
-    this.setState({
-      loggedInUserId: loggedInUserId
-    });
+    db.user(loggedInUserId).once('value').then(snapshot => {
+      let userUptodateData = snapshot.val();
 
-    db.getRecipes().then(resRecipes => {
-      if (this.mounted) {
-        if (resRecipes) {
-          db.users().once('value').then(users => {
-            let usersObject = users.val();
+      let filterRecipes = false;
+      let permittedRecipesLanguage;
 
-            let recipes = resRecipes;
+      if (userUptodateData.filterRecipes && userUptodateData.filterRecipes !== 'all') {
+        filterRecipes = true;
+        permittedRecipesLanguage = userUptodateData.filterRecipes;
+      }
 
-            let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-            let categoryNameEng = this.props.match.params.category;
-            let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
-            let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber]
+      db.getRecipes().then(resRecipes => {
+        if (this.mounted) {
+          if (resRecipes) {
 
-            this.setState({
-              categoryNumber,
-              categoryName
-            });
-
-            for (var key in recipes) {
-              let recipe = recipes[key];
-              let recipeUserId = recipe.userId;
-
-              let username = usersObject[recipeUserId].username;
-              let profilePicUrl = usersObject[recipeUserId].profilePicUrl;
-
-              let isMine = recipeUserId === loggedInUserId ? true : false;
-
-              if (recipe.category === categoryNumber && recipe.publicChecked) {
-                let favouritesObject = recipes[key].favourites;
-                let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
-
-                let data = {
-                  ...recipes[key],
-                  loggedInUserId: loggedInUserId,
-                  recipeId: key,
-                  imageUrl: recipe.imageUrl,
-                  title: recipe.title,
-                  creationTime: recipe.creationTime,
-                  sliderValue: recipe.sliderValue,
-                  displayUserInfo: true,
-                  username: username,
-                  isMine: isMine,
-                  profilePicUrl: profilePicUrl,
-                  isFavourite: isFavourite,
-                  favouriteCounter: recipes[key].favouriteCounter,
-                  userId: recipe.userId,
-                  url: this.props.match.url
+            if (filterRecipes) {
+              for (let prepKey in resRecipes) {
+                if (resRecipes[prepKey].recipeLanguage !== permittedRecipesLanguage) {
+                  delete resRecipes[prepKey];
                 }
-
-                previousRecipes.unshift(
-                  <RecipePreview
-                    key={key}
-                    dataProp={data}
-                    languageObjectProp={this.props.languageObjectProp}
-                  />
-                )
               }
             }
 
-            this.setState({
-              recipes: previousRecipes
-            });
-          });
-        }
-      }
-    });
+            db.users().once('value').then(users => {
+              let usersObject = users.val();
 
+              let recipes = resRecipes;
+
+              let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+              let categoryNameEng = this.props.match.params.category;
+              let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
+              let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber]
+
+              this.setState({
+                categoryNumber,
+                categoryName
+              });
+
+              for (var key in recipes) {
+                let recipe = recipes[key];
+                let recipeUserId = recipe.userId;
+
+                let username = usersObject[recipeUserId].username;
+                let profilePicUrl = usersObject[recipeUserId].profilePicUrl;
+
+                let isMine = recipeUserId === loggedInUserId ? true : false;
+
+                if (recipe.category === categoryNumber && recipe.publicChecked) {
+                  let favouritesObject = recipes[key].favourites;
+                  let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+
+                  let data = {
+                    ...recipes[key],
+                    loggedInUserId: loggedInUserId,
+                    recipeId: key,
+                    imageUrl: recipe.imageUrl,
+                    title: recipe.title,
+                    creationTime: recipe.creationTime,
+                    sliderValue: recipe.sliderValue,
+                    displayUserInfo: true,
+                    username: username,
+                    isMine: isMine,
+                    profilePicUrl: profilePicUrl,
+                    isFavourite: isFavourite,
+                    favouriteCounter: recipes[key].favouriteCounter,
+                    userId: recipe.userId,
+                    url: this.props.match.url
+                  }
+
+                  previousRecipes.unshift(
+                    <RecipePreview
+                      key={key}
+                      dataProp={data}
+                      languageObjectProp={this.props.languageObjectProp}
+                    />
+                  )
+                }
+              }
+
+              this.setState({
+                recipes: previousRecipes,
+                loggedInUserId
+              });
+            });
+          }
+        }
+      });
+    });
   }
 
   /**
