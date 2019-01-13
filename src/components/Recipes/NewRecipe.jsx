@@ -111,10 +111,10 @@ class NewRecipe extends Component {
 
     if (this.mounted) {
       for (let key in isoCurrencies) {
-        let nativeName = isoCurrencies[key].symbol_native;
+        let code = isoCurrencies[key].code;
 
         previousCurrencies.push(
-          <MenuItem key={key} value={isoCurrencies[key].code}>{nativeName}</MenuItem>
+          <MenuItem key={key} value={code}>{code}</MenuItem>
         )
       }
 
