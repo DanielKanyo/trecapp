@@ -61,7 +61,6 @@ class AccountPage extends Component {
       accountEmail: '',
       accountLanguage: '',
       loggedInUserId: '',
-      accountCurrency: '',
       accountFilterRecipes: '',
       accountAbout: '',
       open: false,
@@ -85,24 +84,19 @@ class AccountPage extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleChangeCurrency = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
   handleChangeFilterBy = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSaveNewAccountData = (name, language, currency, about, filterRecipes) => {
+  handleSaveNewAccountData = (name, language, about, filterRecipes) => {
     this.setState({
       accountName: name,
       accountLanguage: language,
-      accountCurrency: currency,
       accountAbout: about,
       accountFilterRecipes: filterRecipes
     });
 
-    db.updateUserInfo(this.state.loggedInUserId, name, language, currency, about, filterRecipes);
+    db.updateUserInfo(this.state.loggedInUserId, name, language, about, filterRecipes);
   }
 
   componentDidMount() {
@@ -116,7 +110,6 @@ class AccountPage extends Component {
         this.setState(() => ({
           accountName: snapshot.username,
           accountEmail: snapshot.email,
-          accountCurrency: snapshot.currency ? snapshot.currency : 'USD',
           accountLanguage: snapshot.language ? snapshot.language : 'eng',
           accountFilterRecipes: snapshot.filterRecipes ? snapshot.filterRecipes : 'all',
           accountAbout: snapshot.about ? snapshot.about : '', 
@@ -274,7 +267,6 @@ class AccountPage extends Component {
                       <AccountDetails
                         handleInputChangeProp={this.handleInputChange}
                         handleChangeLanguageProp={this.handleChangeLanguage}
-                        handleChangeCurrencyProp={this.handleChangeCurrency}
                         handleChangeFilterByProp = {this.handleChangeFilterBy}
                         setLanguageProp={this.props.setLanguageProp}
                         handleSaveNewAccountDataProp={this.handleSaveNewAccountData}

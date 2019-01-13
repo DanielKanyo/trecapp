@@ -156,6 +156,12 @@ class MyRecipes extends Component {
     this.mounted = false;
   }
 
+  handleChangeCurrency = (value) => {
+    db.updateCurrency(this.state.loggedInUserId, value);
+
+    this.setState({ currency: value });
+  }
+
   /**
    * Save new recipe
    * 
@@ -261,10 +267,11 @@ class MyRecipes extends Component {
             <NewRecipe
               currencyProp={this.state.currency}
               saveRecipeProps={this.saveRecipe}
-              languageObjectProp={languageObjectProp}   
+              languageObjectProp={languageObjectProp}
               availableLanguagesProp={this.state.languages}
               recipeLanguageProp={this.state.recipeLanguage}
               changeRecipeLanguageProp={this.changeRecipeLanguage}
+              handleChangeCurrencyProp={this.handleChangeCurrency}
             />
           </Grid>
 

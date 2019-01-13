@@ -111,15 +111,6 @@ class AccountDetails extends Component {
    * 
    * @param {Object} event
    */
-  handleChangeCurrency = event => {
-    this.props.handleChangeCurrencyProp(event);
-  }
-
-  /**
-   * Change dropdown value
-   * 
-   * @param {Object} event
-   */
   handleChangeFilterBy = event => {
     this.props.handleChangeFilterByProp(event);
   }
@@ -136,7 +127,6 @@ class AccountDetails extends Component {
     } else {
       this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName,
         this.props.dataProp.accountLanguage,
-        this.props.dataProp.accountCurrency,
         this.props.dataProp.accountAbout,
         this.props.dataProp.accountFilterRecipes
       );
@@ -172,7 +162,7 @@ class AccountDetails extends Component {
               margin="normal"
               disabled
             />
-            <div className="language-currency-container">
+            <div className="language-container">
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="account-langu-dropdown-label">{languageObjectProp.data.Account.language}</InputLabel>
                 <Select
@@ -185,27 +175,9 @@ class AccountDetails extends Component {
                 >
                   <MenuItem value={'eng'}>English</MenuItem>
                   <MenuItem value={'hun'}>Magyar</MenuItem>
-                  {/* <MenuItem value={'deu'}>Deutsch</MenuItem> */}
-                </Select>
-              </FormControl>
-              <div className="space-between"></div>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.currency}</InputLabel>
-                <Select
-                  value={this.props.dataProp.accountCurrency ? this.props.dataProp.accountCurrency : ''}
-                  onChange={this.handleChangeCurrency}
-                  inputProps={{
-                    name: 'accountCurrency',
-                    id: 'currency-dropdown',
-                  }}
-                >
-                  <MenuItem value={'$'}>$</MenuItem>
-                  <MenuItem value={'Ft'}>Ft</MenuItem>
                 </Select>
               </FormControl>
             </div>
-
-
             <div>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.filteringByLanguage}</InputLabel>

@@ -22,6 +22,8 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
+import { isoCurrencies } from '../../constants/iso-4217';
+
 const styles = theme => ({
   paper: {
     textAlign: 'center',
@@ -97,8 +99,38 @@ class NewRecipe extends Component {
     this.state = {
       ...INITIAL_STATE,
       languages: this.props.availableLanguagesProp ? this.props.availableLanguagesProp : [],
-      recipeLanguage: ''
+      recipeLanguage: '',
+      currencies: []
     };
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+
+    let previousCurrencies = this.state.currencies;
+
+    if (this.mounted) {
+      for (let key in isoCurrencies) {
+        let nativeName = isoCurrencies[key].symbol_native;
+
+        previousCurrencies.push(
+          <MenuItem key={key} value={isoCurrencies[key].code}>{nativeName}</MenuItem>
+        )
+      }
+
+      this.setState({
+        currencies: previousCurrencies
+      });
+
+    }
+
+  }
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   handleChangeCheckbox = name => event => {
@@ -111,6 +143,10 @@ class NewRecipe extends Component {
 
   handleInputChange = name => event => {
     this.setState({ [name]: event.target.value });
+  }
+
+  handleChangeCurrency = event => {
+    this.props.handleChangeCurrencyProp(event.target.value);
   }
 
   handleSaveRecipe = () => {
@@ -228,16 +264,38 @@ class NewRecipe extends Component {
                 type="number"
               />
               <div className="space-between"></div>
-              <TextField
-                id="textfield-recipe-cost"
-                label={`${languageObjectProp.data.myRecipes.newRecipe.form.cost} (${this.props.currencyProp})`}
-                onChange={this.handleInputChange('cost')}
-                className={classes.textField}
-                placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.costPlaceholder}
-                value={this.state.cost}
-                margin="normal"
-                type="number"
-              />
+              <div className="cost-and-currency-container">
+                <div>
+                  <TextField
+                    id="textfield-recipe-cost"
+                    label={`${languageObjectProp.data.myRecipes.newRecipe.form.cost}`}
+                    onChange={this.handleInputChange('cost')}
+                    className={classes.textField}
+                    placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.costPlaceholder}
+                    value={this.state.cost}
+                    margin="normal"
+                    type="number"
+                  />
+                </div>
+                <div className="space-between-cost-and-currency"></div>
+                <div>
+                  <FormControl className={classes.formControl + ' currency-dropdown-container'}>
+                    <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.currency}</InputLabel>
+                    <Select
+                      value={this.props.currencyProp ? this.props.currencyProp : 'USD'}
+                      onChange={this.handleChangeCurrency}
+                      inputProps={{
+                        name: 'currency',
+                        id: 'currency-dropdown',
+                      }}
+                    >
+                      {this.state.currencies.map(item => {
+                        return item;
+                      })}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
             </div>
             <TextField
               id="textfield-recipe-ingredients"

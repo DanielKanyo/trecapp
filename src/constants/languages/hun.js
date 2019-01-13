@@ -1,7 +1,7 @@
 export const dataHun = {
   data: {
     appTitle: 'Receptjeim',
-    menuItems: ['Kezdőlap', 'Új Recept', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés'],
+    menuItems: ['Kezdőlap', 'Receptjeim', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés'],
     months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
     emptyList: 'Üres',
     Navigation: {
@@ -9,7 +9,7 @@ export const dataHun = {
     },
     myRecipes: {
       newRecipe: {
-        title: 'Új Recept',
+        title: 'Receptjeim',
         clearBtn: 'Kiürít',
         form: {
           title: 'Cím',

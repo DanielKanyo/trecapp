@@ -1,7 +1,7 @@
 export const dataEng = {
   data: {
     appTitle: 'My Recipes',
-    menuItems: ['Home', 'New Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin', 'Bug Report'],
+    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin', 'Bug Report'],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     emptyList: 'Empty',
     Navigation: {
@@ -10,7 +10,7 @@ export const dataEng = {
     myRecipes: {
       newRecipe: {
         clearBtn: 'Empty',
-        title: 'New Recipe',
+        title: 'My Recipes',
         form: {
           title: 'Title',
           story: 'Story',
