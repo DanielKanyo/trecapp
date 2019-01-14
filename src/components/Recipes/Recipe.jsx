@@ -48,6 +48,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
+import { isoCurrencies } from '../../constants/iso-4217';
+
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -539,7 +541,7 @@ class Recipe extends Component {
                   `${hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText} ${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
                 className="chip-card-content"
               />
-              <Chip label={`${data.cost} ${data.currency}`} className="chip-card-content" />
+              <Chip label={`${data.cost} ${isoCurrencies[data.currency].symbol_native}`} className="chip-card-content" />
             </CardContent>
           </Collapse>
         </Card>
