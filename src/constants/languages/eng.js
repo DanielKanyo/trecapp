@@ -23,7 +23,11 @@ export const dataEng = {
           dose: 'Dose',
           public: 'Public',
           save: 'Save',
-          cost: 'Cost'
+          cost: 'Cost',
+          emptyList: 'The list is empty'
+        },
+        toaster: {
+          fillTheInput: 'Fill the input field!'
         },
         placeholder: {
           titlePlaceholder: 'Recipe title...',

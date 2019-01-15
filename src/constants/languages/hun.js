@@ -23,7 +23,11 @@ export const dataHun = {
           dose: 'Adag',
           public: 'Nyilvános',
           save: 'Mentés',
-          cost: 'Költség'
+          cost: 'Költség',
+          emptyList: 'A lista üres',
+        },
+        toaster: {
+          fillTheInput: 'Töltsd ki a beviteli mezőt!'
         },
         placeholder: {
           titlePlaceholder: 'Recept címe...',

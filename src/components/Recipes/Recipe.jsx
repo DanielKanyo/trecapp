@@ -45,6 +45,7 @@ import OpenInNew from '@material-ui/icons/OpenInNew';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Paper from '@material-ui/core/Paper';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -532,9 +533,11 @@ class Recipe extends Component {
               <Typography paragraph variant="body2">
                 {languageObjectProp.data.myRecipes.myRecipes.ingredients + ':'}
               </Typography>
-              <Typography paragraph>
-                {data.ingredients}
-              </Typography>
+              <div className="recipe-ingredients-container">
+                {data.ingredients.map((item, index) => {
+                  return <Paper className="recipe-ingredients" key={index}>item</Paper>
+                })}
+              </div>
               <Typography paragraph variant="body2">
                 {languageObjectProp.data.myRecipes.myRecipes.method + ':'}
               </Typography>
