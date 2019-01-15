@@ -19,6 +19,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import ClearIcon from '@material-ui/icons/Clear';
 import IngredientItem from './IngredientItem';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -93,7 +95,6 @@ const INITIAL_STATE = {
   cost: '',
   publicChecked: false,
   category: '',
-  showIngredientsContainer: false,
 };
 
 class NewRecipe extends Component {
@@ -207,16 +208,6 @@ class NewRecipe extends Component {
     this.setState({ ...INITIAL_STATE });
   }
 
-  handleOnFocus = () => {
-    this.setState({ showIngredientsContainer: true });
-  }
-
-  handleOnBlur = () => {
-    if (!this.state.ingredients.length) {
-      this.setState({ showIngredientsContainer: false });
-    }
-  }
-
   onSubmitIngredients = (event) => {
     let previousIngredients = this.state.ingredients;
     let ingredient = this.state.ingredient;
@@ -243,11 +234,8 @@ class NewRecipe extends Component {
 
     previousIngredients.splice(index, 1);
 
-    let hideEmptyContainer = previousIngredients.length ? true : false;
-
     this.setState({
-      ingredients: previousIngredients,
-      showIngredientsContainer: hideEmptyContainer
+      ingredients: previousIngredients
     });
   }
 
@@ -345,31 +333,33 @@ class NewRecipe extends Component {
               </div>
             </div>
             <form onSubmit={this.onSubmitIngredients}>
-              <TextField
-                id="textfield-recipe-ingredients"
-                label={languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
-                onChange={this.handleInputChange('ingredient')}
-                className={classes.textField}
-                placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
-                value={this.state.ingredient}
-                margin="normal"
-                onFocus={this.handleOnFocus}
-                onBlur={this.handleOnBlur}
-                autoComplete='off'
-              />
+              <div className="ingredients-input-and-btn-container">
+                <TextField
+                  id="textfield-recipe-ingredients"
+                  label={languageObjectProp.data.myRecipes.newRecipe.form.ingredients}
+                  onChange={this.handleInputChange('ingredient')}
+                  className={classes.textField}
+                  placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
+                  value={this.state.ingredient}
+                  margin="normal"
+                  autoComplete='off'
+                />
+                <div className="ingredients-add-btn-container">
+                  <IconButton aria-label="Delete" onClick={this.onSubmitIngredients}>
+                    <AddIcon fontSize="small" />
+                  </IconButton>
+                </div>
+              </div>
             </form>
-            {
-              this.state.showIngredientsContainer ?
-                <div className="ingredients-container">
-                  {
-                    this.state.ingredients.length ?
-                      this.state.ingredients.map((item, index) => {
-                        return <IngredientItem key={index} ingredientProp={item} indexProp={index} handleDeleteIngredientProp={this.handleDeleteIngredient} />
-                      })
-                      : <div className="empty-list">{languageObjectProp.data.myRecipes.newRecipe.form.emptyList}</div>
-                  }
-                </div> : ''
-            }
+            <div className="ingredients-container">
+              {
+                this.state.ingredients.length ?
+                  this.state.ingredients.map((item, index) => {
+                    return <IngredientItem key={index} ingredientProp={item} indexProp={index} handleDeleteIngredientProp={this.handleDeleteIngredient} />
+                  })
+                  : <div className="empty-list">{languageObjectProp.data.myRecipes.newRecipe.form.emptyList}</div>
+              }
+            </div>
             <TextField
               id="textfield-recipe-longDes"
               label={languageObjectProp.data.myRecipes.newRecipe.form.longDes}

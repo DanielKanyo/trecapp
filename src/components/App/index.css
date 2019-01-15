@@ -1195,6 +1195,16 @@ input[type=time]::-webkit-clear-button {
   margin-top: 0px;
 }
 
+.ingredients-input-and-btn-container {
+  position: relative;
+}
+
+.ingredients-add-btn-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
