@@ -531,7 +531,7 @@ class Recipe extends Component {
               <Typography paragraph variant="body2">
                 {languageObjectProp.data.myRecipes.myRecipes.method + ':'}
               </Typography>
-              <Typography paragraph>
+              <Typography paragraph className="long-description-container">
                 {data.longDes}
               </Typography>
               <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content" />

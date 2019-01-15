@@ -1113,6 +1113,10 @@ input[type=time]::-webkit-clear-button {
   min-height: 56px !important;
 }
 
+.long-description-container {
+  white-space: pre-line !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
