@@ -12,3 +12,4 @@ export const SHOPPINGLIST = '/shoppinglist';
 export const CATEGORIES = '/categories';
 export const USER = '/user';
 export const BUGREPORT = '/bugreport'
+export const EDIT = '/edit';

@@ -64,6 +64,7 @@ class FullSizeRecipe extends Component {
 
 					let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
 					let recipeDeletable = false;
+					let recipeEditable = false;
 					let visibilityEditable = false;
 					let displayUserInfo = true;
 					let isMine = recipe.userId === loggedInUserId ? true : false;
@@ -80,6 +81,7 @@ class FullSizeRecipe extends Component {
 					data.isFavourite = isFavourite;
 					data.favouriteCounter = favouriteCounter;
 					data.recipeDeletable = recipeDeletable;
+					data.recipeEditable = recipeEditable;
 					data.withPhoto = withPhoto;
 					data.visibilityEditable = visibilityEditable;
 					data.displayUserInfo = displayUserInfo;

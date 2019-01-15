@@ -60,6 +60,7 @@ export const dataEng = {
         addToFav: 'Add to favourites',
         removeFromFav: 'Remove from favourites',
         deleteRecipe: 'Delete',
+        editRecipe: 'Edit',
         openRecipeFullSize: 'Open',
         downloadRecipe: 'Download',
         printRecipe: 'Print',

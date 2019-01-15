@@ -107,6 +107,7 @@ class MyRecipes extends Component {
               let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
 
               let recipeDeletable = true;
+              let recipeEditable = true;
               let visibilityEditable = true;
               let displayUserInfo = false;
               let withPhoto = true;
@@ -122,6 +123,7 @@ class MyRecipes extends Component {
               data.isFavourite = isFavourite;
               data.favouriteCounter = recipes[key].favouriteCounter;
               data.recipeDeletable = recipeDeletable;
+              data.recipeEditable = recipeEditable;
               data.withPhoto = withPhoto;
               data.visibilityEditable = visibilityEditable;
               data.displayUserInfo = displayUserInfo;
@@ -172,6 +174,7 @@ class MyRecipes extends Component {
     let recipes = this.state.recipes;
 
     let recipeDeletable = true;
+    let recipeEditable = true;
     let visibilityEditable = true;
     let displayUserInfo = false;
     let withPhoto = true;
@@ -186,6 +189,7 @@ class MyRecipes extends Component {
     dataToSend.currency = this.state.currency;
     dataToSend.favouriteCounter = this.state.favouriteCounter;
     dataToSend.recipeDeletable = recipeDeletable;
+    dataToSend.recipeEditable = recipeEditable;
     dataToSend.visibilityEditable = visibilityEditable;
     dataToSend.displayUserInfo = displayUserInfo;
     dataToSend.withPhoto = withPhoto;

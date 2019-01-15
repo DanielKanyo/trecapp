@@ -25,10 +25,6 @@ const LandingPage = (props) => {
   )
 }
 
-
-// export default LandingPage;
-
-
 LandingPage.propTypes = {
   classes: PropTypes.object.isRequired,
 };

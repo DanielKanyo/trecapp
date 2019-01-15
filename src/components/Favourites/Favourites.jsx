@@ -64,6 +64,7 @@ class Favourites extends Component {
 
                   let visibilityEditable = false;
                   let recipeDeletable = false;
+                  let recipeEditable = false;
                   let displayUserInfo = true;
                   let withPhoto = favRecipes[key].imageUrl !== '' ? true : false;
                   let favouriteCounter = favRecipes[key].favouriteCounter;
@@ -82,6 +83,7 @@ class Favourites extends Component {
                   data.isFavourite = true;
                   data.favouriteCounter = favouriteCounter;
                   data.recipeDeletable = recipeDeletable;
+                  data.recipeEditable = recipeEditable;
                   data.withPhoto = withPhoto;
                   data.visibilityEditable = visibilityEditable;
                   data.displayUserInfo = displayUserInfo;

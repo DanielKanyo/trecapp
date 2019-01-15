@@ -60,6 +60,7 @@ export const dataHun = {
         addToFav: 'Hozzáadás a kedvencekhez',
         removeFromFav: 'Törlés a kedvencekből',
         deleteRecipe: 'Törlés',
+        editRecipe: 'Szerkesztés',
         openRecipeFullSize: 'Megnyitás',
         downloadRecipe: 'Letöltés',
         printRecipe: 'Nyomtatás',

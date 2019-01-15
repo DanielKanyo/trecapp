@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SaveIcon from '@material-ui/icons/Save';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
@@ -119,6 +120,7 @@ class Recipe extends Component {
       isFavourite: this.props.dataProp.isFavourite,
       favouriteCounter: this.props.dataProp.favouriteCounter,
       recipeDeletable: this.props.dataProp.recipeDeletable,
+      recipeEditable: this.props.dataProp.recipeEditable,
       visibilityEditable: this.props.dataProp.visibilityEditable,
       displayUserInfo: this.props.dataProp.displayUserInfo,
       uploadReady: false,
@@ -156,6 +158,10 @@ class Recipe extends Component {
   handleClickOpenDeleteDialog = () => {
     this.setState({ dialogOpen: true });
   };
+
+  handleClickEditRecipe = () => {
+    console.log('edit recipe');
+  }
 
   /**
    * Close delete dialog
@@ -403,6 +409,7 @@ class Recipe extends Component {
 
     let urlToRecipe = `${data.url}/recipe/${data.recipeId}`;
     let urlToUser = `/user/${data.userId}`;
+    let urlToEdit = `/edit/${data.recipeId}`;
 
     return (
       <div className="recipe-content">
@@ -554,16 +561,14 @@ class Recipe extends Component {
           onClose={this.handleRecipeMenuClose}
         >
           {
-            this.state.recipeDeletable ?
-              <MenuItem className={classes.menuItem}
-                onClick={() => { this.handleClickOpenDeleteDialog(); this.handleRecipeMenuClose() }}
-              >
+            this.state.recipeEditable ?
+              <MenuItem className={classes.menuItem} component={Link} to={urlToEdit}>
                 <ListItemIcon
-                  className={classes.icon + ' delete-recipe-btn'}
+                  className={classes.icon + ' edit-recipe-btn'}
                 >
-                  <DeleteIcon />
+                  <EditIcon />
                 </ListItemIcon>
-                <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.deleteRecipe} />
+                <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.editRecipe} />
               </MenuItem> : ''
           }
           {
@@ -599,6 +604,19 @@ class Recipe extends Component {
             </ListItemIcon>
             <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.printRecipe} />
           </MenuItem>
+          {
+            this.state.recipeDeletable ?
+              <MenuItem className={classes.menuItem}
+                onClick={() => { this.handleClickOpenDeleteDialog(); this.handleRecipeMenuClose() }}
+              >
+                <ListItemIcon
+                  className={classes.icon + ' delete-recipe-btn'}
+                >
+                  <DeleteIcon />
+                </ListItemIcon>
+                <ListItemText className="delete-recipe-text" classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.deleteRecipe} />
+              </MenuItem> : ''
+          }
 
         </Menu>
 
