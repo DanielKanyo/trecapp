@@ -39,6 +39,9 @@ export const dataEng = {
         },
         categoryItems: ['None', 'Appetizer', 'Sandwich', 'Soup', 'Salad', 'Side', 'Pasta', 'Pie', 'Pizza', 'Burger', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meatloaf', 'Fish', 'Seafood', 'Sauce', 'Vegetarian', 'Specialty', 'Dessert', 'Baking', 'Drink']
       },
+      editRecipe: {
+        title: 'Edit'
+      },
       myRecipes: {
         title: 'My Recipes',
         ingredients: 'Ingredients',

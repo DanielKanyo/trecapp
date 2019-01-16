@@ -286,6 +286,8 @@ class NewRecipe extends Component {
               placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.storyPlaceholder}
               value={this.state.story}
               margin="normal"
+              multiline
+              rows="4"
             />
             <div className="dose-cost-container">
               <TextField

@@ -122,6 +122,10 @@ button a {
   background: #F55300 !important;
 }
 
+.paper-title-editrecipe {
+  background: #d33061 !important;
+}
+
 .paper-title-profile {
   background: #3f51b5 !important;
 }
@@ -190,6 +194,11 @@ button a {
 }
 
 .paper-recipe-new {
+  padding: 5px 18px 10px 18px;
+  margin-bottom: 24px !important;
+}
+
+.paper-recipe-edit {
   padding: 5px 18px 10px 18px;
   margin-bottom: 24px !important;
 }
@@ -1226,6 +1235,10 @@ input[type=time]::-webkit-clear-button {
     margin-bottom: 0px !important;
   }
 
+  .paper-recipe-edit {
+    margin-bottom: 0px !important;
+  }
+
   .Account .sub-grid .grid-component:nth-child(odd),
   .Account .sub-grid .grid-component:nth-child(even) {
     padding-left: 0px !important;
@@ -1270,6 +1283,10 @@ input[type=time]::-webkit-clear-button {
   }
 
   .paper-recipe-new {
+    padding: 5px 12px 10px 12px;
+  }
+
+  .paper-recipe-edit {
     padding: 5px 12px 10px 12px;
   }
 
