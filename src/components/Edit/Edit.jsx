@@ -221,6 +221,14 @@ class Edit extends Component {
     this.setState({ [name]: event.target.checked });
   }
 
+  handleChangeHour = (event) => {
+    this.setState({ hour: event.target.value });
+  }
+
+  handleChangeMinute = (event) => {
+    this.setState({ minute: event.target.value });
+  }
+
   handleUpdateRecipe = () => {
     let data = {
       title: this.state.title,
