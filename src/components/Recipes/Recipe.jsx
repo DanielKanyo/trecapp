@@ -535,7 +535,7 @@ class Recipe extends Component {
               </Typography>
               <div className="recipe-ingredients-container">
                 {data.ingredients.map((item, index) => {
-                  return <Paper className="recipe-ingredients" key={index}>item</Paper>
+                  return <Paper className="recipe-ingredients" key={index}>{item}</Paper>
                 })}
               </div>
               <Typography paragraph variant="body2">
