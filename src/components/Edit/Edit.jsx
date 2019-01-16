@@ -6,7 +6,13 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+
 import { db } from '../../firebase';
+import { isoCurrencies } from '../../constants/iso-4217';
 
 const styles = theme => ({
   paper: {
@@ -16,6 +22,8 @@ const styles = theme => ({
   },
   textField: {
     width: '100%',
+    marginTop: 12,
+    marginBottom: 6
   },
 });
 
@@ -44,8 +52,12 @@ class Edit extends Component {
     super(props);
     this.state = {
       recipeId: this.props.match.params.id,
+      currencies: [],
       title: '',
-      story: ''
+      story: '',
+      dose: '',
+      cost: '',
+      currency: ''
     };
   }
 
@@ -63,9 +75,24 @@ class Edit extends Component {
         const recipeData = resRecipe.val();
 
         if (this.mounted) {
+
+          let previousCurrencies = this.state.currencies;
+
+          for (let key in isoCurrencies) {
+            let code = isoCurrencies[key].code;
+
+            previousCurrencies.push(
+              <MenuItem key={key} value={code}>{code}</MenuItem>
+            )
+          }
+
           this.setState({
+            currencies: previousCurrencies,
             title: recipeData.title,
-            story: recipeData.story
+            story: recipeData.story,
+            dose: recipeData.dose,
+            cost: recipeData.cost,
+            currency: recipeData.currency
           });
           console.log(recipeData);
         }
@@ -81,7 +108,7 @@ class Edit extends Component {
     this.mounted = false;
   }
 
-  handleChange = name => event => {
+  handleInputChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
@@ -112,7 +139,7 @@ class Edit extends Component {
                     label={languageObjectProp.data.myRecipes.newRecipe.form.title}
                     className={classes.textField}
                     value={this.state.title}
-                    onChange={this.handleChange('title')}
+                    onChange={this.handleInputChange('title')}
                     margin="normal"
                   />
 
@@ -121,11 +148,59 @@ class Edit extends Component {
                     label={languageObjectProp.data.myRecipes.newRecipe.form.story}
                     className={classes.textField}
                     value={this.state.story}
-                    onChange={this.handleChange('story')}
+                    onChange={this.handleInputChange('story')}
                     margin="normal"
                     multiline
                     rows="4"
                   />
+
+
+                  <div className="dose-cost-container">
+                    <TextField
+                      id="textfield-recipe-dose"
+                      label={languageObjectProp.data.myRecipes.newRecipe.form.dose}
+                      onChange={this.handleInputChange('dose')}
+                      className={classes.textField}
+                      placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.dosePlaceholder}
+                      value={this.state.dose}
+                      margin="normal"
+                      type="number"
+                    />
+                    <div className="space-between"></div>
+                    <div className="cost-and-currency-container">
+                      <div>
+                        <TextField
+                          id="textfield-recipe-cost"
+                          label={`${languageObjectProp.data.myRecipes.newRecipe.form.cost}`}
+                          onChange={this.handleInputChange('cost')}
+                          className={classes.textField}
+                          placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.costPlaceholder}
+                          value={this.state.cost}
+                          margin="normal"
+                          type="number"
+                        />
+                      </div>
+                      <div className="space-between-cost-and-currency"></div>
+                      <div>
+                        <FormControl className={classes.formControl + ' currency-dropdown-container'}>
+                          <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.currency}</InputLabel>
+                          <Select
+                            value={this.state.currency ? this.state.currency : 'USD'}
+                            onChange={this.handleChangeCurrency}
+                            inputProps={{
+                              name: 'currency',
+                              id: 'currency-dropdown',
+                            }}
+                          >
+                            {this.state.currencies.map(item => {
+                              return item;
+                            })}
+                          </Select>
+                        </FormControl>
+                      </div>
+                    </div>
+                  </div>
+
                 </Paper>
               </MuiThemeProvider>
             </Grid>
