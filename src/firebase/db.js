@@ -44,6 +44,27 @@ export const addRecipe = (id, recipe) => {
   return recipeRef;
 }
 
+// Update recipe data
+export const updateRecipe = (recipeId, recipe) => {
+  let recipeRef = db.ref(`recipes/${recipeId}`);
+
+  return recipeRef.update({
+    category: recipe.category,
+    longDes: recipe.longDes,
+    hour: recipe.hour,
+    minute: recipe.minute,
+    publicChecked: recipe.publicChecked,
+    story: recipe.story,
+    dose: recipe.dose,
+    cost: recipe.cost,
+    ingredients: recipe.ingredients,
+    sliderValue: recipe.sliderValue,
+    title: recipe.title,
+    currency: recipe.currency,
+    recipeLanguage: recipe.recipeLanguage
+  });
+}
+
 // Get recipes
 export const getRecipes = () =>
   db.ref(`recipes`).once('value').then(function (snap) {

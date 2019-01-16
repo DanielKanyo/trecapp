@@ -40,7 +40,9 @@ export const dataHun = {
         categoryItems: ['Egyik sem', 'Előétel', 'Szendvics', 'Leves', 'Saláta', 'Köret', 'Tészta', 'Pite', 'Pizza', 'Burger', 'Csirke', 'Pulyka', 'Kacsa', 'Szárnyas', 'Sertés', 'Bárány', 'Marha', 'Fasírt', 'Hal', 'Tenger Gyümölcsei', 'Szósz', 'Vegetáriánus', 'Különlegesség', 'Desszert', 'Süti', 'Ital']
       },
       editRecipe: {
-        title: 'Szerkesztés'
+        title: 'Szerkesztés',
+        saveChanges: 'Mentés',
+        saveSuccess: 'Módosítások mentve!'
       },
       myRecipes: {
         title: 'Receptjeim',

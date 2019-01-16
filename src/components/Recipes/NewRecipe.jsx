@@ -169,7 +169,7 @@ class NewRecipe extends Component {
       creationTime: new Date().getTime()
     };
 
-    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients === '' || data.dose === '' || data.cost === '' || !data.category) {
+    if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients.length === 0 || data.dose === '' || data.cost === '' || !data.category) {
       toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.warningFillReq);
     } else {
       if (data.dose < 1 || data.cost < 1) {
@@ -440,7 +440,7 @@ class NewRecipe extends Component {
               </div>
             </div>
             <div>
-              <FormControl className={classes.formControl}>
+              <FormControl className={classes.formControl + ' category-selector'}>
                 <InputLabel htmlFor="category-dropdown">
                   {languageObjectProp.data.myRecipes.newRecipe.form.category}
                 </InputLabel>
@@ -459,7 +459,7 @@ class NewRecipe extends Component {
               </FormControl>
             </div>
             <div className="recipe-language-select-container">
-              <FormControl className={classes.formControl + ' minute-picker'}>
+              <FormControl className={classes.formControl + ' language-picker'}>
                 <InputLabel htmlFor="recipe-language">Recept nyelve</InputLabel>
                 <Select
                   className='language-selector'

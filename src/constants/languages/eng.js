@@ -40,7 +40,9 @@ export const dataEng = {
         categoryItems: ['None', 'Appetizer', 'Sandwich', 'Soup', 'Salad', 'Side', 'Pasta', 'Pie', 'Pizza', 'Burger', 'Chicken', 'Turkey', 'Duck', 'Poultry', 'Pork', 'Lamb', 'Beef', 'Meatloaf', 'Fish', 'Seafood', 'Sauce', 'Vegetarian', 'Specialty', 'Dessert', 'Baking', 'Drink']
       },
       editRecipe: {
-        title: 'Edit'
+        title: 'Edit',
+        saveChanges: 'Save',
+        saveSuccess: 'Changes saved!'
       },
       myRecipes: {
         title: 'My Recipes',
