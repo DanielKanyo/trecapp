@@ -255,7 +255,7 @@ class Edit extends Component {
     const { classes, languageObjectProp } = this.props;
 
     return (
-      <div className="ComponentContent">
+      <div className="ComponentContent EditComponent">
         <Grid className="main-grid" container spacing={16}>
 
           <Grid item className="grid-component" xs={12}>

@@ -200,7 +200,6 @@ button a {
 
 .paper-recipe-edit {
   padding: 5px 18px 10px 18px;
-  margin-bottom: 24px !important;
 }
 
 .main-grid {
@@ -1223,6 +1222,10 @@ input[type=time]::-webkit-clear-button {
   right: 0;
 }
 
+.paper-recipe-edit {
+  margin-bottom: 20px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1239,10 +1242,6 @@ input[type=time]::-webkit-clear-button {
   }
 
   .paper-recipe-new {
-    margin-bottom: 0px !important;
-  }
-
-  .paper-recipe-edit {
     margin-bottom: 0px !important;
   }
 
@@ -1271,6 +1270,10 @@ input[type=time]::-webkit-clear-button {
   .user-cover-container {
     margin-bottom: 16px;
   }
+
+  .paper-recipe-edit {
+    margin-bottom: 12px !important;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -1279,6 +1282,10 @@ input[type=time]::-webkit-clear-button {
     padding-top: 57px;
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .paper-recipe-edit {
+    margin-bottom: 8px !important;
   }
 
   .card-recipe {
