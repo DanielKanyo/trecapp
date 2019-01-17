@@ -378,6 +378,7 @@ input[type=time]::-webkit-clear-button {
 
 .recipe-story-card-content {
   padding: 0px 24px !important;
+  white-space: pre-line!important;
 }
 
 .recipe-content {
