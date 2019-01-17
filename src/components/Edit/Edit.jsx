@@ -20,8 +20,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Fab from '@material-ui/core/Fab';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import { isoCurrencies } from '../../constants/iso-4217';
 import { isoLanguages } from '../../constants/languages/iso-639';
 
@@ -52,6 +55,20 @@ const styles = theme => ({
   },
   leftIcon: {
     marginRight: theme.spacing.unit,
+  },
+  uploadIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  margin: {
+    margin: 12,
+    marginLeft: 0,
+  },
+  fab: {
+    margin: 5
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+    color: '#d33061',
   },
 });
 
@@ -97,7 +114,11 @@ class Edit extends Component {
       recipeLanguage: '',
       publicChecked: false,
       loggedInUserId: '',
-      imageUrl: ''
+      imageUrl: '',
+      imageName: '',
+      file: '',
+      saveReady: false,
+      fileName: ''
     };
   }
 
@@ -152,6 +173,7 @@ class Edit extends Component {
             recipeLanguage: recipeData.recipeLanguage,
             publicChecked: recipeData.publicChecked,
             imageUrl: recipeData.imageUrl,
+            imageName: recipeData.imageName,
             loggedInUserId,
           });
         }
@@ -261,6 +283,84 @@ class Edit extends Component {
     }
   }
 
+  uploadNewImage = () => {
+    this.inputElement.click();
+  }
+
+  uploadInputChanged = (e) => {
+    // max 10 MB
+    const maxFileSize = 10485760;
+
+    if (e.target.files.length === 1) {
+      let file = e.target.files[0];
+      let fileType = file.type;
+
+      if (fileType.includes("image") && file.size < maxFileSize) {
+        this.setState({
+          file,
+          fileName: '',
+          saveReady: true
+        });
+      } else {
+
+        if (file.size > maxFileSize) {
+          toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.fileTooBig);
+        } else {
+          toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseAnImage);
+        }
+
+        this.setState({
+          file: '',
+          fileName: '',
+          saveReady: false
+        });
+
+      }
+    } else {
+      toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseOnlyOne);
+
+      this.setState({
+        file: '',
+        fileName: '',
+        saveReady: false
+      });
+    }
+  }
+
+  dismissImage = () => {
+    this.inputElement.value = '';
+
+    this.setState({
+      file: '',
+      fileName: '',
+      saveReady: false
+    });
+  }
+
+  saveImage = () => {
+    this.setState({
+      uploading: true
+    });
+
+    storage.deleteRecipeImage(this.state.imageName);
+
+    storage.uploadImage(this.state.file).then(fileObject => {
+      let fullPath = fileObject.metadata.fullPath;
+      let name = fileObject.metadata.name;
+
+      storage.getImageDownloadUrl(fullPath).then(url => {
+        this.setState({
+          imageUrl: url,
+          imageName: name,
+          uploading: false,
+          saveReady: false
+        });
+
+        db.updateRecipeImageUrlAndName(this.state.recipeId, url, name);
+      });
+    });
+  }
+
   render() {
     const { classes, languageObjectProp } = this.props;
 
@@ -291,8 +391,48 @@ class Edit extends Component {
                     placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.titlePlaceholder}
                   />
 
-                  {this.state.imageUrl ? <div className="recipe-image-on-edit-component" style={{ backgroundImage: `url(${this.state.imageUrl})` }}></div> : '' }
-                  
+                  {
+                    this.state.imageUrl ?
+                      <div className="recipe-image-on-edit-component" style={{ backgroundImage: `url(${this.state.imageUrl})` }}>
+                        <div className="upload-new-image-btn-container">
+                          <input
+                            ref={input => this.inputElement = input}
+                            type="file"
+                            id="imgUpload"
+                            onChange={this.uploadInputChanged}
+                          />
+                          <Button
+                            variant="contained"
+                            size="small"
+                            color="primary"
+                            className={classes.margin}
+                            onClick={this.uploadNewImage}
+                          >
+                            Új kép
+                          </Button>
+                          <Button variant="contained" size="small" color="primary" className={classes.margin}>
+                            Törlés
+                          </Button>
+                        </div>
+                        {
+                          this.state.saveReady ?
+                            <div className="ready-to-upload-image">
+                              {
+                                this.state.uploading ? <CircularProgress className={classes.progress} /> :
+                                  <div>
+                                    <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.saveImage}>
+                                      <SaveIcon />
+                                    </Fab>
+                                    <Fab aria-label="Delete" className={classes.fab} onClick={this.dismissImage}>
+                                      <DeleteIcon />
+                                    </Fab>
+                                  </div>
+                              }
+                            </div> : ''
+                        }
+                      </div> : ''
+                  }
+
                   <TextField
                     id="standard-story"
                     label={languageObjectProp.data.myRecipes.newRecipe.form.story}

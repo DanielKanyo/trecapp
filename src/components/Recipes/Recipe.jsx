@@ -161,10 +161,6 @@ class Recipe extends Component {
     this.setState({ dialogOpen: true });
   };
 
-  handleClickEditRecipe = () => {
-    console.log('edit recipe');
-  }
-
   /**
    * Close delete dialog
    */
@@ -233,7 +229,7 @@ class Recipe extends Component {
     // max 10 MB
     const maxFileSize = 10485760;
 
-    if (e.target.files.length) {
+    if (e.target.files.length === 1) {
       let file = e.target.files[0];
       let fileType = file.type;
 
@@ -257,6 +253,8 @@ class Recipe extends Component {
 
       }
     } else {
+      toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseOnlyOne);
+
       this.setState({
         file: '',
         uploadReady: false
@@ -278,11 +276,6 @@ class Recipe extends Component {
           imageUrl: url,
           imageName: name,
           uploading: false
-        });
-
-        this.setState({
-          imageUrl: url,
-          imageName: name
         });
 
         db.updateRecipeImageUrlAndName(this.props.dataProp.recipeId, url, name);

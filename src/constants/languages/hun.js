@@ -91,6 +91,7 @@ export const dataHun = {
         warningSmallerThanOne: 'Nem írhatsz be negatív értéket!',
         fileTooBig: 'A kiválasztott fájl túl nagy!',
         chooseAnImage: 'Egy képet válassz!',
+        chooseOnlyOne: 'Csak egy fáljt tölthetsz fel!',
       }
     },
     Account: {

@@ -91,6 +91,7 @@ export const dataEng = {
         warningSmallerThanOne: 'You can not enter a negative value!',
         fileTooBig: 'The selected file is too large!',
         chooseAnImage: 'Choose an image!',
+        chooseOnlyOne: 'You can upload only one file!',
       }
     },
     Account: {

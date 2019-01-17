@@ -287,6 +287,7 @@ class NewRecipe extends Component {
               value={this.state.story}
               margin="normal"
               multiline
+              rows="6"
             />
             <div className="dose-cost-container">
               <TextField
@@ -365,6 +366,7 @@ class NewRecipe extends Component {
               id="textfield-recipe-longDes"
               label={languageObjectProp.data.myRecipes.newRecipe.form.longDes}
               multiline
+              rows="9"
               placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.longDesPlaceholder}
               onChange={this.handleInputChange('longDes')}
               className={classes.textField}
