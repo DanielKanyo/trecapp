@@ -127,6 +127,7 @@ class Recipe extends Component {
       uploadReady: false,
       file: '',
       imageUrl: this.props.dataProp.imageUrl,
+      imageName: this.props.dataProp.imageName,
       uploading: false,
       isMine: this.props.dataProp.isMine,
       profilePicUrl: this.props.dataProp.profilePicUrl,
@@ -147,9 +148,9 @@ class Recipe extends Component {
    * 
    * @param {string} id
    */
-  handleDeleteRecipe = (id) => {
+  handleDeleteRecipe = (id, image) => {
     if (this.props.dataProp.recipeDeletable) {
-      this.props.deleteRecipeProp(id);
+      this.props.deleteRecipeProp(id, image);
     }
   }
 
@@ -270,14 +271,21 @@ class Recipe extends Component {
 
     storage.uploadImage(this.state.file).then(fileObject => {
       let fullPath = fileObject.metadata.fullPath;
+      let name = fileObject.metadata.name;
 
       storage.getImageDownloadUrl(fullPath).then(url => {
         this.setState({
           imageUrl: url,
+          imageName: name,
           uploading: false
         });
 
-        db.updateRecipeImageUrl(this.props.dataProp.recipeId, url);
+        this.setState({
+          imageUrl: url,
+          imageName: name
+        });
+
+        db.updateRecipeImageUrlAndName(this.props.dataProp.recipeId, url, name);
       });
     });
   }
@@ -411,6 +419,9 @@ class Recipe extends Component {
     let urlToRecipe = `${data.url}/recipe/${data.recipeId}`;
     let urlToUser = `/user/${data.userId}`;
     let urlToEdit = `/edit/${data.recipeId}`;
+
+    console.log(data);
+
 
     return (
       <div className="recipe-content">
@@ -640,7 +651,11 @@ class Recipe extends Component {
             <Button onClick={this.handleCloseDeleteDialog} color="primary">
               {languageObjectProp.data.myRecipes.myRecipes.modal.cancel}
             </Button>
-            <Button onClick={() => { this.handleCloseDeleteDialog(); this.handleDeleteRecipe(data.recipeId) }} color="primary" autoFocus>
+            <Button 
+              onClick={() => { this.handleCloseDeleteDialog(); this.handleDeleteRecipe(data.recipeId, data.imageName ? data.imageName : this.state.imageName) }} 
+              color="primary" 
+              autoFocus
+            >
               {languageObjectProp.data.myRecipes.myRecipes.modal.do}
             </Button>
           </DialogActions>

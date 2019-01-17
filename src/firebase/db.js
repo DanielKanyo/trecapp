@@ -38,6 +38,7 @@ export const addRecipe = (id, recipe) => {
     currency: recipe.currency,
     favouriteCounter: recipe.favouriteCounter,
     imageUrl: recipe.imageUrl,
+    imageName: recipe.imageName,
     recipeLanguage: recipe.recipeLanguage
   });
 
@@ -106,11 +107,12 @@ export const updateRecipeVisibility = (recipeId, visibility) => {
 }
 
 // Update recipe image url value
-export const updateRecipeImageUrl = (recipeId, url) => {
+export const updateRecipeImageUrlAndName = (recipeId, url, name) => {
   let recipeRef = db.ref(`recipes/${recipeId}`);
 
   return recipeRef.update({
-    imageUrl: url
+    imageUrl: url,
+    imageName: name
   });
 }
 

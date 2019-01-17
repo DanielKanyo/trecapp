@@ -108,7 +108,7 @@ class RecipesWall extends Component {
                     let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
                     let visibilityEditable = false;
                     let recipeDeletable = false;
-                    let recipeEditable = false;
+                    let recipeEditable = isMine;
                     let displayUserInfo = true;
                     let withPhoto = latestRecipes[i].imageUrl !== '' ? true : false;
                     let favouriteCounter = latestRecipes[i].favouriteCounter;
@@ -162,7 +162,7 @@ class RecipesWall extends Component {
                     let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
                     let visibilityEditable = false;
                     let recipeDeletable = false;
-                    let recipeEditable = false;
+                    let recipeEditable = isMine;
                     let displayUserInfo = true;
                     let withPhoto = topRecipes[j].imageUrl !== '' ? true : false;
                     let favouriteCounter = topRecipes[j].favouriteCounter;

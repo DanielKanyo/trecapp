@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App/index.css';
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import compose from 'recompose/compose';
 import withAuthorization from '../Session/withAuthorization';
 import { dataEng } from '../../constants/languages/eng';
@@ -186,6 +186,7 @@ class MyRecipes extends Component {
 
     dataToSend.userId = this.state.loggedInUserId;
     dataToSend.imageUrl = '';
+    dataToSend.imageName = '';
     dataToSend.currency = this.state.currency;
     dataToSend.favouriteCounter = this.state.favouriteCounter;
     dataToSend.recipeDeletable = recipeDeletable;
@@ -227,10 +228,11 @@ class MyRecipes extends Component {
    * 
    * @param {string} recipeId 
    */
-  deleteRecipe = (recipeId) => {
+  deleteRecipe = (recipeId, imageName) => {
     let previousRecipes = this.state.recipes;
-
+    
     db.removeRecipe(recipeId);
+    storage.deleteRecipeImage(imageName);
 
     for (let i = 0; i < previousRecipes.length; i++) {
       if (previousRecipes[i].key === recipeId) {
