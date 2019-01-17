@@ -420,9 +420,6 @@ class Recipe extends Component {
     let urlToUser = `/user/${data.userId}`;
     let urlToEdit = `/edit/${data.recipeId}`;
 
-    console.log(data);
-
-
     return (
       <div className="recipe-content">
         <Card className={classes.card + ' card-recipe'}>
