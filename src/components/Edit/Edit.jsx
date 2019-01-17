@@ -96,7 +96,8 @@ class Edit extends Component {
       category: '',
       recipeLanguage: '',
       publicChecked: false,
-      loggedInUserId: ''
+      loggedInUserId: '',
+      imageUrl: ''
     };
   }
 
@@ -150,7 +151,8 @@ class Edit extends Component {
             category: recipeData.category,
             recipeLanguage: recipeData.recipeLanguage,
             publicChecked: recipeData.publicChecked,
-            loggedInUserId
+            imageUrl: recipeData.imageUrl,
+            loggedInUserId,
           });
         }
       });
@@ -286,8 +288,11 @@ class Edit extends Component {
                     value={this.state.title}
                     onChange={this.handleInputChange('title')}
                     margin="normal"
+                    placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.titlePlaceholder}
                   />
 
+                  {this.state.imageUrl ? <div className="recipe-image-on-edit-component" style={{ backgroundImage: `url(${this.state.imageUrl})` }}></div> : '' }
+                  
                   <TextField
                     id="standard-story"
                     label={languageObjectProp.data.myRecipes.newRecipe.form.story}
@@ -296,9 +301,8 @@ class Edit extends Component {
                     onChange={this.handleInputChange('story')}
                     margin="normal"
                     multiline
-                    rows="4"
+                    placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.storyPlaceholder}
                   />
-
 
                   <div className="dose-cost-container">
                     <TextField
@@ -380,14 +384,12 @@ class Edit extends Component {
                     id="textfield-recipe-longDes"
                     label={languageObjectProp.data.myRecipes.newRecipe.form.longDes}
                     multiline
-                    rows="7"
                     placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.longDesPlaceholder}
                     onChange={this.handleInputChange('longDes')}
                     className={classes.textField}
                     value={this.state.longDes}
                     margin="normal"
                   />
-
 
                   <div className="slider-and-timepicker-container">
                     <div className="slider-container">
@@ -456,7 +458,6 @@ class Edit extends Component {
                     </div>
                   </div>
 
-
                   <div>
                     <FormControl className={classes.formControl + ' category-selector'}>
                       <InputLabel htmlFor="category-dropdown">
@@ -476,7 +477,6 @@ class Edit extends Component {
                       </Select>
                     </FormControl>
                   </div>
-
 
                   <div className="recipe-language-select-container">
                     <FormControl className={classes.formControl + ' language-picker'}>
