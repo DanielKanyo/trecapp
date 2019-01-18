@@ -230,9 +230,11 @@ class MyRecipes extends Component {
    */
   deleteRecipe = (recipeId, imageName) => {
     let previousRecipes = this.state.recipes;
-    
+
     db.removeRecipe(recipeId);
-    storage.deleteRecipeImage(imageName);
+    if (imageName) {
+      storage.deleteRecipeImage(imageName);
+    }
 
     for (let i = 0; i < previousRecipes.length; i++) {
       if (previousRecipes[i].key === recipeId) {

@@ -23,6 +23,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 
 import { db, storage } from '../../firebase';
 import { isoCurrencies } from '../../constants/iso-4217';
@@ -342,7 +343,9 @@ class Edit extends Component {
       uploading: true
     });
 
-    storage.deleteRecipeImage(this.state.imageName);
+    if (this.state.imageName) {
+      storage.deleteRecipeImage(this.state.imageName);
+    }
 
     storage.uploadImage(this.state.file).then(fileObject => {
       let fullPath = fileObject.metadata.fullPath;
@@ -361,8 +364,14 @@ class Edit extends Component {
     });
   }
 
+  deleteImage = () => {
+    
+  }
+
   render() {
     const { classes, languageObjectProp } = this.props;
+
+    let imgDeletable = this.state.imageName ? false : true;
 
     return (
       <div className="ComponentContent EditComponent">
@@ -391,47 +400,62 @@ class Edit extends Component {
                     placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.titlePlaceholder}
                   />
 
-                  {
-                    this.state.imageUrl ?
-                      <div className="recipe-image-on-edit-component" style={{ backgroundImage: `url(${this.state.imageUrl})` }}>
-                        <div className="upload-new-image-btn-container">
-                          <input
-                            ref={input => this.inputElement = input}
-                            type="file"
-                            id="imgUpload"
-                            onChange={this.uploadInputChanged}
-                          />
-                          <Button
-                            variant="contained"
-                            size="small"
-                            color="primary"
-                            className={classes.margin}
-                            onClick={this.uploadNewImage}
-                          >
-                            Új kép
-                          </Button>
-                          <Button variant="contained" size="small" color="primary" className={classes.margin}>
-                            Törlés
-                          </Button>
+                  <div className="recipe-image-on-edit-component">
+                    {
+                      this.state.imageUrl ?
+                        <div className="background-with-image" style={{ backgroundImage: `url(${this.state.imageUrl})` }}></div>
+                        :
+                        <div className="background-no-image">
+                          <div className="no-image-text-and-icon">
+                            <BrokenImageIcon />
+                            <div>{languageObjectProp.data.Categories.noPreviewImage}</div>
+                          </div>
                         </div>
-                        {
-                          this.state.saveReady ?
-                            <div className="ready-to-upload-image">
-                              {
-                                this.state.uploading ? <CircularProgress className={classes.progress} /> :
-                                  <div>
-                                    <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.saveImage}>
-                                      <SaveIcon />
-                                    </Fab>
-                                    <Fab aria-label="Delete" className={classes.fab} onClick={this.dismissImage}>
-                                      <DeleteIcon />
-                                    </Fab>
-                                  </div>
-                              }
-                            </div> : ''
-                        }
-                      </div> : ''
-                  }
+                    }
+                    <div className="upload-new-image-btn-container">
+                      <input
+                        ref={input => this.inputElement = input}
+                        type="file"
+                        id="imgUpload"
+                        onChange={this.uploadInputChanged}
+                      />
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        className={classes.margin}
+                        onClick={this.uploadNewImage}
+                      >
+                        Új kép
+                      </Button>
+                      <Button 
+                        variant="contained" 
+                        size="small" 
+                        color="primary" 
+                        disabled={imgDeletable} 
+                        className={classes.margin} 
+                        onClick={this.deleteImage}
+                      >
+                        Törlés
+                      </Button>
+                    </div>
+                    {
+                      this.state.saveReady ?
+                        <div className="ready-to-upload-image">
+                          {
+                            this.state.uploading ? <CircularProgress className={classes.progress} /> :
+                              <div>
+                                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.saveImage}>
+                                  <SaveIcon />
+                                </Fab>
+                                <Fab aria-label="Delete" className={classes.fab} onClick={this.dismissImage}>
+                                  <DeleteIcon />
+                                </Fab>
+                              </div>
+                          }
+                        </div> : ''
+                    }
+                  </div>
 
                   <TextField
                     id="standard-story"
