@@ -42,7 +42,15 @@ export const dataEng = {
       editRecipe: {
         title: 'Edit',
         saveChanges: 'Save',
-        saveSuccess: 'Changes saved!'
+        saveSuccess: 'Changes saved!',
+        newImg: 'New image',
+        deleteImg: 'Remove',
+        modal: {
+          title: 'Are you sure?',
+          content: 'Are you sure you want to delete the image?',
+          cancel: 'Cancel',
+          do: 'Delete'
+        }
       },
       myRecipes: {
         title: 'My Recipes',

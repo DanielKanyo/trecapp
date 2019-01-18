@@ -42,7 +42,15 @@ export const dataHun = {
       editRecipe: {
         title: 'Szerkesztés',
         saveChanges: 'Mentés',
-        saveSuccess: 'Módosítások mentve!'
+        saveSuccess: 'Módosítások mentve!',
+        newImg: 'Új kép',
+        deleteImg: 'Törlés',
+        modal: {
+          title: 'Biztos vagy benne?',
+          content: 'Biztosan törölni akarod a képet?',
+          cancel: 'Mégse',
+          do: 'Törlés'
+        }
       },
       myRecipes: {
         title: 'Receptjeim',

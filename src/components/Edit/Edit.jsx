@@ -24,6 +24,11 @@ import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { db, storage } from '../../firebase';
 import { isoCurrencies } from '../../constants/iso-4217';
@@ -97,6 +102,7 @@ class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      open: false,
       recipeId: this.props.match.params.id,
       currencies: [],
       ingredients: [],
@@ -365,8 +371,24 @@ class Edit extends Component {
   }
 
   deleteImage = () => {
-    
+    if (this.state.imageName) {
+      storage.deleteRecipeImage(this.state.imageName);
+      db.updateRecipeImageUrlAndName(this.state.recipeId, '', '');
+
+      this.setState({
+        imageUrl: '',
+        imageName: ''
+      });
+    }
   }
+
+  handleClickOpenDialog = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
     const { classes, languageObjectProp } = this.props;
@@ -426,17 +448,17 @@ class Edit extends Component {
                         className={classes.margin}
                         onClick={this.uploadNewImage}
                       >
-                        Új kép
+                        {languageObjectProp.data.myRecipes.editRecipe.newImg}
                       </Button>
-                      <Button 
-                        variant="contained" 
-                        size="small" 
-                        color="primary" 
-                        disabled={imgDeletable} 
-                        className={classes.margin} 
-                        onClick={this.deleteImage}
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="primary"
+                        disabled={imgDeletable}
+                        className={classes.margin}
+                        onClick={this.handleClickOpenDialog}
                       >
-                        Törlés
+                        {languageObjectProp.data.myRecipes.editRecipe.deleteImg}
                       </Button>
                     </div>
                     {
@@ -691,6 +713,29 @@ class Edit extends Component {
           </Grid>
 
         </Grid>
+
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          id='delete-recipe-dialog'
+        >
+          <DialogTitle id="alert-dialog-title">{languageObjectProp.data.myRecipes.editRecipe.modal.title}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {languageObjectProp.data.myRecipes.editRecipe.modal.content}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              {languageObjectProp.data.myRecipes.editRecipe.modal.cancel}
+            </Button>
+            <Button onClick={() => {this.handleClose(); this.deleteImage()}} color="primary" autoFocus>
+              {languageObjectProp.data.myRecipes.editRecipe.modal.do}
+            </Button>
+          </DialogActions>
+        </Dialog>
 
         <ToastContainer
           position="top-right"
