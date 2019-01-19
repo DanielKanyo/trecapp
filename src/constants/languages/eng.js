@@ -45,6 +45,8 @@ export const dataEng = {
         saveSuccess: 'Changes saved!',
         newImg: 'New image',
         deleteImg: 'Remove',
+        uploadImg: 'Upload',
+        cancelImg: 'Cancel',
         modal: {
           title: 'Are you sure?',
           content: 'Are you sure you want to delete the image?',

@@ -1238,8 +1238,10 @@ input[type=time]::-webkit-clear-button {
 
 .upload-new-image-btn-container {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 #imgUpload {

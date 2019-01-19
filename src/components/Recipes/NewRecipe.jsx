@@ -93,7 +93,7 @@ const INITIAL_STATE = {
   minute: '30',
   dose: '',
   cost: '',
-  publicChecked: false,
+  publicChecked: true,
   category: '',
 };
 

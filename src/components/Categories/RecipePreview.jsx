@@ -105,9 +105,6 @@ class RecipePreview extends Component {
 	generatePdf = (print) => {
 		let { dataProp, languageObjectProp } = this.props;
 
-		console.log(dataProp);
-		
-
 		let year = new Date(dataProp.creationTime).getFullYear();
 		let month = languageObjectProp.data.months[new Date(dataProp.creationTime).getMonth()];
 		let day = new Date(dataProp.creationTime).getDate();
@@ -256,7 +253,7 @@ class RecipePreview extends Component {
 								</div>
 							</div>
 						}
-						<Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
+						<Tooltip placement="right" title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
 							<div className="fav-icon-and-counter fav-icon-and-counter-on-recipe-preview">
 								<Fab
 									size="small"
@@ -271,7 +268,7 @@ class RecipePreview extends Component {
 								{this.state.favouriteCounter ? <div className="fav-counter fav-counter-rec-preview"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
 							</div>
 						</Tooltip>
-						<Tooltip title={languageObjectProp.data.myRecipes.tooltips.downloadRecipe}>
+						<Tooltip placement="right" title={languageObjectProp.data.myRecipes.tooltips.downloadRecipe}>
 							<div className="download-icon download-icon-on-recipe-preview">
 								<Fab
 									size="small"

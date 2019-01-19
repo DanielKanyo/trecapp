@@ -19,9 +19,11 @@ import Slider from '@material-ui/lab/Slider';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
+import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CloseIcon from '@material-ui/icons/Close';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import Dialog from '@material-ui/core/Dialog';
@@ -29,6 +31,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 
 import { db, storage } from '../../firebase';
 import { isoCurrencies } from '../../constants/iso-4217';
@@ -428,10 +431,13 @@ class Edit extends Component {
                         <div className="background-with-image" style={{ backgroundImage: `url(${this.state.imageUrl})` }}></div>
                         :
                         <div className="background-no-image">
-                          <div className="no-image-text-and-icon">
-                            <BrokenImageIcon />
-                            <div>{languageObjectProp.data.Categories.noPreviewImage}</div>
-                          </div>
+                          {
+                            this.state.saveReady ? '' :
+                              <div className="no-image-text-and-icon">
+                                <BrokenImageIcon />
+                                <div>{languageObjectProp.data.Categories.noPreviewImage}</div>
+                              </div>
+                          }
                         </div>
                     }
                     <div className="upload-new-image-btn-container">
@@ -441,25 +447,31 @@ class Edit extends Component {
                         id="imgUpload"
                         onChange={this.uploadInputChanged}
                       />
-                      <Button
-                        variant="contained"
-                        size="small"
-                        color="primary"
-                        className={classes.margin}
-                        onClick={this.uploadNewImage}
-                      >
-                        {languageObjectProp.data.myRecipes.editRecipe.newImg}
-                      </Button>
-                      <Button
-                        variant="contained"
-                        size="small"
-                        color="primary"
-                        disabled={imgDeletable}
-                        className={classes.margin}
-                        onClick={this.handleClickOpenDialog}
-                      >
-                        {languageObjectProp.data.myRecipes.editRecipe.deleteImg}
-                      </Button>
+
+                      <Tooltip title={languageObjectProp.data.myRecipes.editRecipe.newImg} placement="right">
+                        <Fab
+                          size="medium"
+                          color="primary"
+                          aria-label="Add"
+                          className={classes.fab}
+                          onClick={this.uploadNewImage}
+                        >
+                          <AddPhotoAlternateIcon />
+                        </Fab>
+                      </Tooltip>
+
+                      <Tooltip title={languageObjectProp.data.myRecipes.editRecipe.deleteImg} placement="right">
+                        <Fab
+                          size="medium"
+                          color="primary"
+                          aria-label="Remove"
+                          disabled={imgDeletable}
+                          className={classes.fab}
+                          onClick={this.handleClickOpenDialog}
+                        >
+                          <DeleteIcon />
+                        </Fab>
+                      </Tooltip>
                     </div>
                     {
                       this.state.saveReady ?
@@ -467,12 +479,16 @@ class Edit extends Component {
                           {
                             this.state.uploading ? <CircularProgress className={classes.progress} /> :
                               <div>
-                                <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.saveImage}>
-                                  <SaveIcon />
-                                </Fab>
-                                <Fab aria-label="Delete" className={classes.fab} onClick={this.dismissImage}>
-                                  <DeleteIcon />
-                                </Fab>
+                                <Tooltip title={languageObjectProp.data.myRecipes.editRecipe.uploadImg}>
+                                  <Fab color="primary" aria-label="Add" className={classes.fab} onClick={this.saveImage}>
+                                    <SaveIcon />
+                                  </Fab>
+                                </Tooltip>
+                                <Tooltip title={languageObjectProp.data.myRecipes.editRecipe.cancelImg}>
+                                  <Fab aria-label="Delete" className={classes.fab} onClick={this.dismissImage}>
+                                    <CloseIcon />
+                                  </Fab>
+                                </Tooltip>
                               </div>
                           }
                         </div> : ''
@@ -731,7 +747,7 @@ class Edit extends Component {
             <Button onClick={this.handleClose} color="primary">
               {languageObjectProp.data.myRecipes.editRecipe.modal.cancel}
             </Button>
-            <Button onClick={() => {this.handleClose(); this.deleteImage()}} color="primary" autoFocus>
+            <Button onClick={() => { this.handleClose(); this.deleteImage() }} color="primary" autoFocus>
               {languageObjectProp.data.myRecipes.editRecipe.modal.do}
             </Button>
           </DialogActions>

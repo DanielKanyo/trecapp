@@ -45,6 +45,8 @@ export const dataHun = {
         saveSuccess: 'Módosítások mentve!',
         newImg: 'Új kép',
         deleteImg: 'Törlés',
+        uploadImg: 'Feltöltés',
+        cancelImg: 'Mégse',
         modal: {
           title: 'Biztos vagy benne?',
           content: 'Biztosan törölni akarod a képet?',
