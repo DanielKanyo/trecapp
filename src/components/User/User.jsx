@@ -128,7 +128,7 @@ class User extends Component {
 									imageUrl: recipe.imageUrl,
 									title: recipe.title,
 									creationTime: recipe.creationTime,
-									sliderValue: recipe.sliderValue,
+									difficulty: recipe.difficulty,
 									displayUserInfo: false,
 									username: username,
 									isMine: isMine,

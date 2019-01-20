@@ -219,8 +219,8 @@ class RecipePreview extends Component {
 				<Card className={classes.card}>
 					<CardHeader className="recipe-card-header"
 						avatar={
-							<Tooltip title={languageObjectProp.data.myRecipes.tooltips.recipeDifficulty[data.sliderValue]}>
-								<Avatar aria-label="Recipe" className={classes.avatar} style={{ backgroundColor: difficultyColors[data.sliderValue] }}>
+							<Tooltip title={languageObjectProp.data.myRecipes.tooltips.recipeDifficulty[data.difficulty]}>
+								<Avatar aria-label="Recipe" className={classes.avatar} style={{ backgroundColor: difficultyColors[data.difficulty] }}>
 									{titleCharacters[0]}
 								</Avatar>
 							</Tooltip>

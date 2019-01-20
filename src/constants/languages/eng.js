@@ -32,7 +32,7 @@ export const dataEng = {
         placeholder: {
           titlePlaceholder: 'Recipe title...',
           storyPlaceholder: 'Just a few sentences...',
-          ingredientsPlaceholder: 'List here...',
+          ingredientsPlaceholder: 'Add the ingredients to the list...',
           longDesPlaceholder: 'Preparation method...',
           dosePlaceholder: 'Quantity...',
           costPlaceholder: 'Price...'

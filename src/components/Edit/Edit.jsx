@@ -117,7 +117,7 @@ class Edit extends Component {
       currency: '',
       ingredient: '',
       longDes: '',
-      sliderValue: 1,
+      difficulty: 1,
       hour: '0',
       minute: '30',
       category: '',
@@ -176,7 +176,7 @@ class Edit extends Component {
             currency: recipeData.currency,
             ingredients: recipeData.ingredients,
             longDes: recipeData.longDes,
-            sliderValue: recipeData.sliderValue,
+            difficulty: recipeData.difficulty,
             hour: recipeData.hour,
             minute: recipeData.minute,
             category: recipeData.category,
@@ -235,8 +235,8 @@ class Edit extends Component {
     });
   }
 
-  handleChangeSlider = (event, sliderValue) => {
-    this.setState({ sliderValue });
+  handleChangeSlider = (event, difficulty) => {
+    this.setState({ difficulty });
   };
 
   handleChangeCurrency = event => {
@@ -269,7 +269,7 @@ class Edit extends Component {
       story: this.state.story,
       ingredients: this.state.ingredients,
       longDes: this.state.longDes,
-      sliderValue: this.state.sliderValue,
+      difficulty: this.state.difficulty,
       publicChecked: this.state.publicChecked,
       hour: this.state.hour,
       minute: this.state.minute,
@@ -598,7 +598,7 @@ class Edit extends Component {
                       <Typography id="slider-label">
                         {languageObjectProp.data.myRecipes.newRecipe.form.difficulty}
                       </Typography>
-                      <Slider className="slider" value={this.state.sliderValue} min={0} max={2} step={1} onChange={this.handleChangeSlider} />
+                      <Slider className="slider" value={this.state.difficulty} min={0} max={2} step={1} onChange={this.handleChangeSlider} />
                     </div>
                     <div className="space-between"></div>
                     <div className="timepicker-container">

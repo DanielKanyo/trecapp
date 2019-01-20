@@ -32,7 +32,7 @@ export const dataHun = {
         placeholder: {
           titlePlaceholder: 'Recept címe...',
           storyPlaceholder: 'Csak néhány mondatot...',
-          ingredientsPlaceholder: 'Sorold fel...',
+          ingredientsPlaceholder: 'Add hozzá a hozzávalókat a listához...',
           longDesPlaceholder: 'Elkészítési folyamat...',
           dosePlaceholder: 'Mennyiség...',
           costPlaceholder: 'Ár...'
