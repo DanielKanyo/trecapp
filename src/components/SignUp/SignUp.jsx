@@ -25,7 +25,6 @@ const INITIAL_STATE = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
-  profilePicUrl: '',
   isAdmin: false,
   error: null,
 };
@@ -40,7 +39,7 @@ class SignUpForm extends Component {
   onSubmit = event => {
     this.mounted = true;
 
-    const { username, email, passwordOne, isAdmin, profilePicUrl } = this.state;
+    const { username, email, passwordOne, isAdmin } = this.state;
     const roles = [];
     const { history } = this.props;
 
@@ -52,11 +51,10 @@ class SignUpForm extends Component {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         // Create a user in your own accessible Firebase Database too
-        db.user(authUser.user.uid, username, email, profilePicUrl, roles)
+        db.user(authUser.user.uid, username, email, roles)
           .set({
             username,
             email,
-            profilePicUrl,
             roles,
           })
           .then(() => {

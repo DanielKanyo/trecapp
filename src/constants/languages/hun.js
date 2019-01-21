@@ -1,7 +1,7 @@
 export const dataHun = {
   data: {
     appTitle: 'Receptjeim',
-    menuItems: ['Kezdőlap', 'Receptjeim', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés'],
+    menuItems: ['Kezdőlap', 'Receptjeim', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés', 'Impresszum'],
     months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
     emptyList: 'Üres',
     Navigation: {
@@ -176,6 +176,9 @@ export const dataHun = {
       toaster: {
         bugSaved: 'Hibajelentés sikeresen elkülve!'
       }
+    },
+    Impressum: {
+      title: 'Impresszum'
     }
   }
 }
