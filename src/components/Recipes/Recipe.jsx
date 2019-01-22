@@ -45,7 +45,6 @@ import OpenInNew from '@material-ui/icons/OpenInNew';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Paper from '@material-ui/core/Paper';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -536,7 +535,7 @@ class Recipe extends Component {
               </Typography>
               <div className="recipe-ingredients-container">
                 {data.ingredients.map((item, index) => {
-                  return <Paper className="recipe-ingredients" key={index}>{item}</Paper>
+                  return <div className="recipe-ingredients" key={index}>{item}</div>
                 })}
               </div>
               <Typography paragraph variant="body2">
@@ -641,9 +640,9 @@ class Recipe extends Component {
             <Button onClick={this.handleCloseDeleteDialog} color="primary">
               {languageObjectProp.data.myRecipes.myRecipes.modal.cancel}
             </Button>
-            <Button 
-              onClick={() => { this.handleCloseDeleteDialog(); this.handleDeleteRecipe(data.recipeId, data.imageName ? data.imageName : this.state.imageName) }} 
-              color="primary" 
+            <Button
+              onClick={() => { this.handleCloseDeleteDialog(); this.handleDeleteRecipe(data.recipeId, data.imageName ? data.imageName : this.state.imageName) }}
+              color="primary"
               autoFocus
             >
               {languageObjectProp.data.myRecipes.myRecipes.modal.do}

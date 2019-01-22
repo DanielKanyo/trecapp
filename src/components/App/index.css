@@ -1209,17 +1209,16 @@ input[type=time]::-webkit-clear-button {
 }
 
 .recipe-ingredients {
-  background: #f0f0f0 !important;
-  padding: 6px 10px;
-  margin-top: 8px;
+  border-bottom: 1px solid #e4e4e4;
+  padding: 10px;
   color: rgba(0, 0, 0, 0.87);
   font-size: 0.875rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400;
 }
 
-.recipe-ingredients:first-of-type {
-  margin-top: 0px;
+.recipe-ingredients:last-of-type {
+  border-bottom: none;
 }
 
 .ingredients-input-and-btn-container {
