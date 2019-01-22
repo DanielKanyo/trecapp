@@ -40,7 +40,8 @@ class LeftMenu extends Component {
     this.state = {
       isMinimized: true,
       isAdmin: false,
-      loggedInUserId: ''
+      loggedInUserId: '',
+      user: ''
     };
   }
 
@@ -49,10 +50,12 @@ class LeftMenu extends Component {
     let loggedInUserId = authObject.id;
 
     let isAdmin = authObject.roles.includes(ROLES.ADMIN) ? true : false;
+    let user = authObject;
 
     this.setState({
       loggedInUserId,
-      isAdmin
+      isAdmin,
+      user
     });
   }
 
@@ -118,6 +121,7 @@ class LeftMenu extends Component {
     const isOpen = this.props.isToggleProp ? 'open' : 'closed';
     const isMinimized = this.state.isMinimized ? 'big' : 'small';
     const { languageObjectProp } = this.props;
+    const { username, profilePicUrl } = this.state.user;
 
     return (
       <div>
@@ -125,6 +129,8 @@ class LeftMenu extends Component {
         <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
           <div className="left-menu-content">
             <div className="left-menu-header">
+              <div className="user-pic-in-leftmenu" style={{ backgroundImage: `url(${profilePicUrl})`}}></div>
+              <div className="username-in-leftmenu">{username}</div>
             </div>
             <div className="close-container" onClick={this.closeMenu}><Close /></div>
             <List component="nav">
