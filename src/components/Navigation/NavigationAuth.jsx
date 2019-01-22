@@ -48,6 +48,9 @@ const styles = {
     marginLeft: 15,
     paddingLeft: 14,
     paddingRight: 14,
+    paddingTop: 0,
+    paddingBottom: 0,
+    height: 36,
     background: '#F8B000',
     color: 'white'
   },
@@ -134,10 +137,9 @@ class NavigationAuth extends Component {
    * Render function
    */
   render() {
-    const { classes } = this.props;
+    const { classes, authUser } = this.props;
     const { openAccountDropdown } = this.state;
-    const userename = this.state.user.username;
-    const { authUser } = this.props;
+    const { username, profilePicUrl } = this.state.user;
 
     const { languageObjectProp } = this.props;
 
@@ -173,8 +175,14 @@ class NavigationAuth extends Component {
                 aria-haspopup="true"
                 onClick={this.handleToggleAccountDropdown}
               >
-                {userename}
-                <Face className={classes.rightIcon} />
+                { username }
+                {
+                  profilePicUrl ? 
+                    <div className={classes.rightIcon + ' prof-pic-nav'} style={{ backgroundImage: `url(${profilePicUrl})` }} /> 
+                    : 
+                    <Face className={classes.rightIcon} />
+                }
+                {/* <Face className={classes.rightIcon} /> */}
               </Button>
             </div>
             <Popper open={openAccountDropdown} anchorEl={this.anchorEl} transition disablePortal>
@@ -187,7 +195,7 @@ class NavigationAuth extends Component {
                   <Paper className="account-dropdown">
                     <ClickAwayListener onClickAway={this.handleCloseAccountDropdown}>
                       <MenuList>
-                      <MenuItem component={Link} to={`/user/${this.state.loggedInUserId}`} onClick={this.handleCloseAccountDropdown}>
+                        <MenuItem component={Link} to={`/user/${this.state.loggedInUserId}`} onClick={this.handleCloseAccountDropdown}>
                           {languageObjectProp.data.Navigation.dropdownValues[0]}
                         </MenuItem>
                         <MenuItem component={Link} to={ROUTES.ACCOUNT} onClick={this.handleCloseAccountDropdown}>

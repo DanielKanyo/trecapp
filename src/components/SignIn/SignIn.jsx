@@ -37,7 +37,6 @@ const INITIAL_STATE = {
   email: '',
   password: '',
   showPassword: false,
-  profilePicUrl: '',
   isAdmin: false,
   error: null,
 };
@@ -99,11 +98,10 @@ class SignInForm extends Component {
     auth.doSignInWithGoogle()
       .then((authUser) => {
         // Create a user in your own accessible Firebase Database too
-        db.user(authUser.uid, authUser.displayName, authUser.email, authUser.photoURL, roles)
+        db.user(authUser.uid, authUser.displayName, authUser.email, roles)
           .update({
             username: authUser.displayName,
-            email: authUser.email,
-            profilePicUrl: authUser.photoURL,
+            email: authUser.email
           })
           .then(() => {
             if (this.mounted) {

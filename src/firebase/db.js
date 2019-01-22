@@ -33,7 +33,7 @@ export const addRecipe = (id, recipe) => {
     dose: recipe.dose,
     cost: recipe.cost,
     ingredients: recipe.ingredients,
-    sliderValue: recipe.sliderValue,
+    difficulty: recipe.difficulty,
     title: recipe.title,
     currency: recipe.currency,
     favouriteCounter: recipe.favouriteCounter,
@@ -59,7 +59,7 @@ export const updateRecipe = (recipeId, recipe) => {
     dose: recipe.dose,
     cost: recipe.cost,
     ingredients: recipe.ingredients,
-    sliderValue: recipe.sliderValue,
+    difficulty: recipe.difficulty,
     title: recipe.title,
     currency: recipe.currency,
     recipeLanguage: recipe.recipeLanguage

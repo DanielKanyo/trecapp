@@ -22,6 +22,7 @@ import withAuthentication from '../Session/withAuthentication';
 import Favourites from '../Favourites/Favourites';
 import FullSizeRecipe from '../Categories/FullSizeRecipe';
 import Edit from '../Edit/Edit';
+import Impressum from '../Impressum/Impressum';
 import User from '../User/User';
 import BugReport from '../BugReport/BugReport';
 import * as ROUTES from '../../constants/routes';
@@ -147,6 +148,9 @@ class App extends Component {
             />
             <Route exact path={ROUTES.EDIT + '/:id'}
               component={(routerProps) => <Edit {...routerProps} languageObjectProp={this.state.languageObject} />}
+            />
+            <Route exact path={ROUTES.IMPRESSUM}
+              component={(routerProps) => <Impressum {...routerProps} languageObjectProp={this.state.languageObject} />}
             />
           </MuiThemeProvider>
         </div>

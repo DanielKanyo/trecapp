@@ -86,14 +86,13 @@ const INITIAL_STATE = {
   title: '',
   story: '',
   ingredient: '',
-  ingredients: [],
   longDes: '',
-  sliderValue: 1,
+  difficulty: 1,
   hour: '0',
   minute: '30',
   dose: '',
   cost: '',
-  publicChecked: false,
+  publicChecked: true,
   category: '',
 };
 
@@ -104,7 +103,8 @@ class NewRecipe extends Component {
       ...INITIAL_STATE,
       languages: this.props.availableLanguagesProp ? this.props.availableLanguagesProp : [],
       recipeLanguage: '',
-      currencies: []
+      currencies: [],
+      ingredients: [],
     };
   }
 
@@ -141,8 +141,8 @@ class NewRecipe extends Component {
     this.setState({ [name]: event.target.checked });
   };
 
-  handleChangeSlider = (event, sliderValue) => {
-    this.setState({ sliderValue });
+  handleChangeDifficultySlider = (event, difficulty) => {
+    this.setState({ difficulty });
   };
 
   handleInputChange = name => event => {
@@ -159,7 +159,7 @@ class NewRecipe extends Component {
       story: this.state.story,
       ingredients: this.state.ingredients,
       longDes: this.state.longDes,
-      sliderValue: this.state.sliderValue,
+      difficulty: this.state.difficulty,
       publicChecked: this.state.publicChecked,
       hour: this.state.hour,
       minute: this.state.minute,
@@ -177,7 +177,10 @@ class NewRecipe extends Component {
       } else {
         this.props.saveRecipeProps(data);
 
-        this.setState({ ...INITIAL_STATE });
+        this.setState(state => ({
+          ...INITIAL_STATE,
+          ingredients: []
+        }));
       }
 
     }
@@ -240,9 +243,8 @@ class NewRecipe extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { sliderValue } = this.state;
-    const { languageObjectProp } = this.props;
+    const { classes, languageObjectProp } = this.props;
+    const { difficulty } = this.state;
 
     return (
       <div>
@@ -378,7 +380,7 @@ class NewRecipe extends Component {
                 <Typography id="slider-label">
                   {languageObjectProp.data.myRecipes.newRecipe.form.difficulty}
                 </Typography>
-                <Slider className="slider" value={sliderValue} min={0} max={2} step={1} onChange={this.handleChangeSlider} />
+                <Slider className="slider" value={difficulty} min={0} max={2} step={1} onChange={this.handleChangeDifficultySlider} />
               </div>
               <div className="space-between"></div>
               <div className="timepicker-container">

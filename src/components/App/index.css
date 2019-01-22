@@ -162,6 +162,10 @@ button a {
   background: #00af6f !important;
 }
 
+.paper-title-impressum {
+  background: #594ba8 !important;
+}
+
 .paper-title-icon {
   padding: 16px 20px;
 }
@@ -1238,8 +1242,10 @@ input[type=time]::-webkit-clear-button {
 
 .upload-new-image-btn-container {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 #imgUpload {
@@ -1284,6 +1290,13 @@ input[type=time]::-webkit-clear-button {
 
 .background-no-image svg {
   font-size: 40px !important;
+}
+
+.prof-pic-nav {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  background-size: cover;
 }
 
 @media only screen and (max-width: 950px) {

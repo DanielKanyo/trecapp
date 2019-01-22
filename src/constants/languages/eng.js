@@ -1,7 +1,7 @@
 export const dataEng = {
   data: {
     appTitle: 'My Recipes',
-    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin', 'Bug Report'],
+    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin', 'Bug Report', 'Impressum'],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     emptyList: 'Empty',
     Navigation: {
@@ -32,7 +32,7 @@ export const dataEng = {
         placeholder: {
           titlePlaceholder: 'Recipe title...',
           storyPlaceholder: 'Just a few sentences...',
-          ingredientsPlaceholder: 'List here...',
+          ingredientsPlaceholder: 'Add the ingredients to the list...',
           longDesPlaceholder: 'Preparation method...',
           dosePlaceholder: 'Quantity...',
           costPlaceholder: 'Price...'
@@ -45,6 +45,8 @@ export const dataEng = {
         saveSuccess: 'Changes saved!',
         newImg: 'New image',
         deleteImg: 'Remove',
+        uploadImg: 'Upload',
+        cancelImg: 'Cancel',
         modal: {
           title: 'Are you sure?',
           content: 'Are you sure you want to delete the image?',
@@ -174,6 +176,9 @@ export const dataEng = {
       toaster: {
         bugSaved: 'Bug report successfully sent!'
       }
+    },
+    Impressum: {
+      title: 'Impressum'
     }
   }
 }

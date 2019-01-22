@@ -24,6 +24,7 @@ import Security from '@material-ui/icons/Security';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import BugReport from '@material-ui/icons/BugReport';
 import Close from '@material-ui/icons/Close';
+import AttachFile from '@material-ui/icons/AttachFile';
 
 const styles = theme => ({});
 
@@ -168,6 +169,12 @@ class LeftMenu extends Component {
                   <BugReport />
                 </ListItemIcon>
                 <ListItemText primary={languageObjectProp.data.menuItems[9]} />
+              </ListItem>
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.IMPRESSUM}>
+                <ListItemIcon>
+                  <AttachFile />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[10]} />
               </ListItem>
             </List>
 

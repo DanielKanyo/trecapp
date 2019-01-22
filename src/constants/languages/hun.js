@@ -1,7 +1,7 @@
 export const dataHun = {
   data: {
     appTitle: 'Receptjeim',
-    menuItems: ['Kezdőlap', 'Receptjeim', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés'],
+    menuItems: ['Kezdőlap', 'Receptjeim', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés', 'Impresszum'],
     months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
     emptyList: 'Üres',
     Navigation: {
@@ -32,7 +32,7 @@ export const dataHun = {
         placeholder: {
           titlePlaceholder: 'Recept címe...',
           storyPlaceholder: 'Csak néhány mondatot...',
-          ingredientsPlaceholder: 'Sorold fel...',
+          ingredientsPlaceholder: 'Add hozzá a hozzávalókat a listához...',
           longDesPlaceholder: 'Elkészítési folyamat...',
           dosePlaceholder: 'Mennyiség...',
           costPlaceholder: 'Ár...'
@@ -45,6 +45,8 @@ export const dataHun = {
         saveSuccess: 'Módosítások mentve!',
         newImg: 'Új kép',
         deleteImg: 'Törlés',
+        uploadImg: 'Feltöltés',
+        cancelImg: 'Mégse',
         modal: {
           title: 'Biztos vagy benne?',
           content: 'Biztosan törölni akarod a képet?',
@@ -174,6 +176,9 @@ export const dataHun = {
       toaster: {
         bugSaved: 'Hibajelentés sikeresen elkülve!'
       }
+    },
+    Impressum: {
+      title: 'Impresszum'
     }
   }
 }
