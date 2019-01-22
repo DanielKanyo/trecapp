@@ -1,9 +1,9 @@
 export const dataEng = {
   data: {
     appTitle: 'My Recipes',
-    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin', 'Bug Report', 'Impressum'],
+    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin', 'Bug Report', 'Impressum', 'My Friends'],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-    emptyList: 'Empty',
+    emptyList: 'The list is empty...',
     Navigation: {
       dropdownValues: ['My Profil', 'Settings', 'Logout']
     },

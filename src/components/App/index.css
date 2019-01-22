@@ -166,6 +166,10 @@ button a {
   background: #594ba8 !important;
 }
 
+.paper-title-friends {
+  background: #099b63 !important;
+}
+
 .paper-title-icon {
   padding: 16px 20px;
 }
@@ -244,7 +248,8 @@ button a {
   color: rgba(0, 0, 0, 0.54);
 }
 
-.number-of-recipes {
+.number-of-recipes,
+.number-of-friends {
   position: absolute;
   right: 0;
   line-height: 56px;
@@ -1297,6 +1302,10 @@ input[type=time]::-webkit-clear-button {
   height: 29px;
   border-radius: 50%;
   background-size: cover;
+}
+
+.active-friend-btn:hover {
+  background: #18ac05 !important;
 }
 
 @media only screen and (max-width: 950px) {

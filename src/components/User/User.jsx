@@ -14,6 +14,8 @@ import Fab from '@material-ui/core/Fab';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FaceIcon from '@material-ui/icons/Face';
 import Tooltip from '@material-ui/core/Tooltip';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 
 import { dataEng } from '../../constants/languages/eng';
 import { ToastContainer } from 'react-toastify';
@@ -38,12 +40,26 @@ const styles = theme => ({
 	},
 	settings: {
 		position: 'absolute',
-		bottom: 0
+		top: 0,
+		display: 'flex',
+		flexDirection: 'column'
 	},
 	settingsBtn: {
 		margin: 8,
+		marginBottom: 0,
 		color: 'rgba(0, 0, 0, 0.6)',
 		zIndex: 10
+	},
+	friendBtn: {
+		margin: 8,
+		color: 'rgba(0, 0, 0, 0.6)',
+		zIndex: 10
+	},
+	friendActiveBtn: {
+		margin: 8,
+		color: 'white',
+		zIndex: 10,
+		backgroundColor: '#1aba05'
 	},
 	icon: {
 		fontSize: 180
@@ -73,6 +89,7 @@ class User extends Component {
 			recipes: [],
 			recipeCounter: 0,
 			isMe: false,
+			isMyFriend: false,
 		}
 	}
 
@@ -167,6 +184,20 @@ class User extends Component {
 		this.mounted = false;
 	}
 
+	toggleFriend = () => {
+		let isMyFriend = this.state.isMyFriend;
+
+		if (isMyFriend) {
+			this.setState({
+				isMyFriend: false
+			});
+		} else {
+			this.setState({
+				isMyFriend: true
+			});
+		}
+	}
+
 	render() {
 		const { classes, languageObjectProp } = this.props;
 		const { userData } = this.state;
@@ -183,14 +214,44 @@ class User extends Component {
 											<div className="user-prof-pic-in-user-comp"><FaceIcon className={classes.icon} /></div>
 										}
 									</Paper>
-									{
-										this.state.isMe ?
-											<div className={classes.settings}>
+									<div className={classes.settings}>
+										{
+											this.state.isMe ?
 												<Fab component={Link} to={ROUTES.ACCOUNT} size="small" aria-label="Add" className={classes.settingsBtn}>
 													<SettingsIcon />
-												</Fab>
-											</div> : ''
-									}
+												</Fab> : ''
+										}
+										{
+											!this.state.isMe ?
+												<div>
+													{
+														this.state.isMyFriend ?
+															<Tooltip placement="right" title={"Eltávolítás a barátok közül"}>
+																<Fab
+																	size="small"
+																	aria-label="Friend"
+																	className={classes.friendActiveBtn + ' active-friend-btn'}
+																	onClick={this.toggleFriend}
+																>
+																	<HowToRegIcon />
+																</Fab>
+															</Tooltip>
+															:
+															<Tooltip placement="right" title={"Hozzáadás a barátokhoz"}>
+																<Fab
+																	size="small"
+																	aria-label="Friend"
+																	className={classes.friendBtn}
+																	onClick={this.toggleFriend}
+																>
+																	<PersonAddIcon />
+																</Fab>
+															</Tooltip>
+													}
+												</div>
+												: ''
+										}
+									</div>
 									<div className="user-details-container-for-mobile">
 										<Paper className={classes.paperUserDetails} elevation={1}>
 											{userData.username}

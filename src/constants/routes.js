@@ -14,3 +14,4 @@ export const USER = '/user';
 export const BUGREPORT = '/bugreport'
 export const EDIT = '/edit';
 export const IMPRESSUM = '/impressum';
+export const FRIENDS = '/friends';

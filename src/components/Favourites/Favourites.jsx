@@ -118,8 +118,7 @@ class Favourites extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { languageObjectProp } = this.props;
+    const { classes, languageObjectProp } = this.props;
     let { favRecipes } = this.state;
 
     return (

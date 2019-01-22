@@ -25,6 +25,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import BugReport from '@material-ui/icons/BugReport';
 import Close from '@material-ui/icons/Close';
 import AttachFile from '@material-ui/icons/AttachFile';
+import People from '@material-ui/icons/People';
 
 const styles = theme => ({});
 
@@ -154,6 +155,13 @@ class LeftMenu extends Component {
                   <Favorite />
                 </ListItemIcon>
                 <ListItemText primary={languageObjectProp.data.menuItems[2]} />
+              </ListItem>
+
+              <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.FRIENDS}>
+                <ListItemIcon>
+                  <People />
+                </ListItemIcon>
+                <ListItemText primary={languageObjectProp.data.menuItems[11]} />
               </ListItem>
 
               <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.SHOPPINGLIST}>
