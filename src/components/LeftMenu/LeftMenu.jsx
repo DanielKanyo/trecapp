@@ -23,6 +23,7 @@ import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import Security from '@material-ui/icons/Security';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import BugReport from '@material-ui/icons/BugReport';
+import Close from '@material-ui/icons/Close';
 
 const styles = theme => ({});
 
@@ -122,7 +123,9 @@ class LeftMenu extends Component {
         <div className={"black-background " + isOpen} onClick={this.closeMenu}></div>
         <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
           <div className="left-menu-content">
-            <div className="left-menu-background-image"></div>
+            <div className="left-menu-header">
+            </div>
+            <div className="close-container" onClick={this.closeMenu}><Close /></div>
             <List component="nav">
 
               <ListItem className="menuItem" button onClick={this.handleLeftMenuItemClicked} component={Link} to={routes.WALL}>

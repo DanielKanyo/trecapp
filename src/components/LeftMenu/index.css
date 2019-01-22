@@ -10,21 +10,35 @@
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  overflow-y: auto;
+  overflow-y: auto;background-image: url('../../images/bg2.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 20;
 }
 
-.left-menu-background-image {
+.left-menu-header {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-image: url('../../images/bg2.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0.2;
-  transform: rotate(180deg);
+  height: 56px;
+  background: #585858;
+}
+
+.close-container {
+  display: none;
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 .LeftMenu.open {
@@ -90,16 +104,7 @@
 @media only screen and (max-width: 750px) {
   .LeftMenu {
     position: absolute;
-    z-index: 20;
-    /* -webkit-transition: 0s;
-    transition: 0s; */
-  }
-
-  .left-menu-background-image {
-    background-image: url('../../images/bg2.jpg');
-    background-position: center;
-    background-size: auto 100%;
-    opacity: 0.2;
+    z-index: 2000;
   }
 }
 
@@ -113,7 +118,7 @@
   }
 
   .LeftMenu .left-menu-content {
-    padding-top: 56px;
+    padding-top: 70px;
     width: 100%;
   }
 
@@ -127,7 +132,7 @@
     left: 0;
     background: rgba(0, 0, 0, 0.5);
     width: 100%;
-    z-index: 20;
+    z-index: 1999;
     height: 100vh;
     transition: 0.2s;
   }
@@ -142,5 +147,32 @@
     height: 100%;
     transition: 0.2s;
     display: none;
+  }
+
+  .left-menu-header {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    background: #585858;
+  }
+  
+  .close-container {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+
+  .close-container>svg {
+    font-size: 18px;
   }
 }
