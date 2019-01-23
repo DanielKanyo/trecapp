@@ -97,8 +97,6 @@ class User extends Component {
 	componentDidMount = () => {
 		this.mounted = true;
 
-		let recipeCounter = this.state.recipeCounter;
-
 		let authObject = JSON.parse(localStorage.getItem('authUser'));
 		let loggedInUserId = authObject.id;
 		let isMyFriend;
@@ -129,6 +127,7 @@ class User extends Component {
 
 					db.getRecipes().then(resRecipes => {
 						let previousRecipes = this.state.recipes;
+						let recipeCounter = this.state.recipeCounter;
 						let recipes = resRecipes;
 
 						for (let key in recipes) {
