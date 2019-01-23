@@ -177,18 +177,40 @@ class User extends Component {
 										/>
 									)
 								}
+
+								this.setState({
+									recipes: previousRecipes,
+									recipeCounter,
+									loggedInUserId,
+									isMyFriend
+								});
+
+							} else {
+								this.setState({
+									recipes: [],
+									recipeCounter: 0,
+									loggedInUserId,
+								});
 							}
-							this.setState({
-								recipes: previousRecipes,
-								recipeCounter,
-								loggedInUserId,
-								isMyFriend
-							});
 						}
 					})
 				}
 			});
 		});
+	}
+
+	/**
+	 * Reload component if url parameter changed
+	 */
+	componentWillReceiveProps = (nextProps) => {
+		if (nextProps.match.params.id) {
+			this.setState(state => ({
+				userId: nextProps.match.params.id,
+				userData: '',
+			}));
+
+			this.componentDidMount();
+		}
 	}
 
 	/**
@@ -248,7 +270,7 @@ class User extends Component {
 												<div>
 													{
 														this.state.isMyFriend ?
-															<Tooltip placement="right" title={"Az ismerősöm"}>
+															<Tooltip placement="right" title={userData.username + " az ismerősöm"}>
 																<Fab
 																	size="small"
 																	aria-label="Friend"
