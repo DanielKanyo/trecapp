@@ -101,8 +101,6 @@ class User extends Component {
 
 		let authObject = JSON.parse(localStorage.getItem('authUser'));
 		let loggedInUserId = authObject.id;
-
-		let previousRecipes = this.state.recipes;
 		let isMyFriend;
 
 		db.user(loggedInUserId).once('value').then(loggedInUserRes => {
@@ -130,6 +128,7 @@ class User extends Component {
 					});
 
 					db.getRecipes().then(resRecipes => {
+						let previousRecipes = this.state.recipes;
 						let recipes = resRecipes;
 
 						for (let key in recipes) {
@@ -177,23 +176,16 @@ class User extends Component {
 										/>
 									)
 								}
-
-								this.setState({
-									recipes: previousRecipes,
-									recipeCounter,
-									loggedInUserId,
-									isMyFriend
-								});
-
-							} else {
-								this.setState({
-									recipes: [],
-									recipeCounter: 0,
-									loggedInUserId,
-								});
 							}
 						}
-					})
+
+						this.setState({
+							recipes: previousRecipes,
+							recipeCounter,
+							loggedInUserId,
+							isMyFriend
+						});
+					});
 				}
 			});
 		});
@@ -204,12 +196,12 @@ class User extends Component {
 	 */
 	componentWillReceiveProps = (nextProps) => {
 		if (nextProps.match.params.id) {
-			this.setState(state => ({
+			this.setState({
 				userId: nextProps.match.params.id,
 				userData: '',
-			}));
-
-			this.componentDidMount();
+				recipes: [],
+				recipeCounter: 0,
+			}, this.componentDidMount());
 		}
 	}
 
