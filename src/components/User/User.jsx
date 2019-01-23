@@ -84,6 +84,7 @@ class User extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			loggedInUserId: '',
 			userId: this.props.match.params.id,
 			userData: '',
 			recipes: [],
@@ -102,79 +103,92 @@ class User extends Component {
 		let loggedInUserId = authObject.id;
 
 		let previousRecipes = this.state.recipes;
+		let isMyFriend;
 
-		db.user(this.state.userId).once('value').then(snapshot => {
-			if (this.mounted) {
+		db.user(loggedInUserId).once('value').then(loggedInUserRes => {
+			let loggedInUserData = loggedInUserRes.val();
 
-				if (loggedInUserId === this.state.userId) {
-					this.setState({
-						isMe: true
-					});
-				}
+			db.user(this.state.userId).once('value').then(userRes => {
+				if (this.mounted) {
 
-				let userData = snapshot.val();
+					if (loggedInUserData.friends && loggedInUserData.friends.hasOwnProperty(this.state.userId)) {
+						isMyFriend = true;
+					} else {
+						isMyFriend = false;
+					}
 
-				this.setState({
-					userData
-				});
-
-				db.getRecipes().then(resRecipes => {
-					let recipes = resRecipes;
-
-					for (let key in recipes) {
-						if (this.state.userId === recipes[key].userId) {
-							let recipe = recipes[key];
-
-							let username = userData.username;
-							let profilePicUrl = userData.profilePicUrl;
-
-							let isMine = false;
-
-							if (recipe.publicChecked) {
-								let favouritesObject = recipes[key].favourites;
-								let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
-
-								let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-								let categoryNameEng = categoryItems[recipe.category];
-								let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
-
-								let data = {
-									...recipes[key],
-									loggedInUserId: loggedInUserId,
-									recipeId: key,
-									imageUrl: recipe.imageUrl,
-									title: recipe.title,
-									creationTime: recipe.creationTime,
-									difficulty: recipe.difficulty,
-									displayUserInfo: false,
-									username: username,
-									isMine: isMine,
-									profilePicUrl: profilePicUrl,
-									isFavourite: isFavourite,
-									favouriteCounter: recipes[key].favouriteCounter,
-									userId: recipe.userId,
-									url
-								}
-
-								recipeCounter++;
-
-								previousRecipes.unshift(
-									<RecipePreview
-										key={key}
-										dataProp={data}
-										languageObjectProp={this.props.languageObjectProp}
-									/>
-								)
-							}
-						}
+					if (loggedInUserId === this.state.userId) {
 						this.setState({
-							recipes: previousRecipes,
-							recipeCounter
+							isMe: true
 						});
 					}
-				})
-			}
-		})
+
+					let userData = userRes.val();
+
+					this.setState({
+						userData
+					});
+
+					db.getRecipes().then(resRecipes => {
+						let recipes = resRecipes;
+
+						for (let key in recipes) {
+							if (this.state.userId === recipes[key].userId) {
+								let recipe = recipes[key];
+
+								let username = userData.username;
+								let profilePicUrl = userData.profilePicUrl;
+
+								let isMine = false;
+
+								if (recipe.publicChecked) {
+									let favouritesObject = recipes[key].favourites;
+									let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+
+									let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+									let categoryNameEng = categoryItems[recipe.category];
+									let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+
+									let data = {
+										...recipes[key],
+										loggedInUserId: loggedInUserId,
+										recipeId: key,
+										imageUrl: recipe.imageUrl,
+										title: recipe.title,
+										creationTime: recipe.creationTime,
+										difficulty: recipe.difficulty,
+										displayUserInfo: false,
+										username: username,
+										isMine: isMine,
+										profilePicUrl: profilePicUrl,
+										isFavourite: isFavourite,
+										favouriteCounter: recipes[key].favouriteCounter,
+										userId: recipe.userId,
+										url
+									}
+
+									recipeCounter++;
+
+									previousRecipes.unshift(
+										<RecipePreview
+											key={key}
+											dataProp={data}
+											languageObjectProp={this.props.languageObjectProp}
+										/>
+									)
+								}
+							}
+							this.setState({
+								recipes: previousRecipes,
+								recipeCounter,
+								loggedInUserId,
+								isMyFriend
+							});
+						}
+					})
+				}
+			});
+		});
 	}
 
 	/**
@@ -184,16 +198,24 @@ class User extends Component {
 		this.mounted = false;
 	}
 
-	toggleFriend = () => {
-		let isMyFriend = this.state.isMyFriend;
+	/**
+	 * Add or remove user to/from the friends list
+	 */
+	toggleFriend = (userId) => {
+		const { loggedInUserId } = this.state;
+		let { isMyFriend } = this.state;
 
 		if (isMyFriend) {
-			this.setState({
-				isMyFriend: false
+			db.toggleFriend(loggedInUserId, userId).then(friendRes => {
+				this.setState({
+					isMyFriend: false
+				});
 			});
 		} else {
-			this.setState({
-				isMyFriend: true
+			db.toggleFriend(loggedInUserId, userId).then(friendRes => {
+				this.setState({
+					isMyFriend: true
+				});
 			});
 		}
 	}
@@ -226,23 +248,23 @@ class User extends Component {
 												<div>
 													{
 														this.state.isMyFriend ?
-															<Tooltip placement="right" title={"Eltávolítás a barátok közül"}>
+															<Tooltip placement="right" title={"Az ismerősöm"}>
 																<Fab
 																	size="small"
 																	aria-label="Friend"
 																	className={classes.friendActiveBtn + ' active-friend-btn'}
-																	onClick={this.toggleFriend}
+																	onClick={() => { this.toggleFriend(this.state.userId) }}
 																>
 																	<HowToRegIcon />
 																</Fab>
 															</Tooltip>
 															:
-															<Tooltip placement="right" title={"Hozzáadás a barátokhoz"}>
+															<Tooltip placement="right" title={"Hozzáadás a ismerősökhöz"}>
 																<Fab
 																	size="small"
 																	aria-label="Friend"
 																	className={classes.friendBtn}
-																	onClick={this.toggleFriend}
+																	onClick={() => { this.toggleFriend(this.state.userId) }}
 																>
 																	<PersonAddIcon />
 																</Fab>

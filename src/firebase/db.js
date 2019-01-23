@@ -77,8 +77,6 @@ export const getRecipeById = (recipeId) => {
   return db.ref(`recipes/${recipeId}`).once('value');
 }
 
-
-
 // Remove recipe
 export const removeRecipe = (recipeId) => {
   let recipeRef = db.ref(`recipes/${recipeId}`);
@@ -250,5 +248,24 @@ export const updateCurrency = (userId, currency) => {
 
   return userRef.update({
     currency
+  });
+}
+
+export const toggleFriend = (loggedInUserId, userId) => {
+  let userRef = db.ref(`users/${loggedInUserId}`);
+
+  return userRef.transaction(function (user) {
+    if (user) {
+      if (user.friends && user.friends[userId]) {
+        user.friends[userId] = null;
+      } else {
+        if (!user.friends) {
+          user.friends = {};
+        }
+        user.friends[userId] = true;
+      }
+    }
+
+    return user;
   });
 }
