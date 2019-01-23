@@ -113,7 +113,7 @@ class AccountPage extends Component {
           accountLanguage: snapshot.language ? snapshot.language : 'eng',
           accountFilterRecipes: snapshot.filterRecipes ? snapshot.filterRecipes : 'all',
           accountAbout: snapshot.about ? snapshot.about : '', 
-          profilePicUrl: snapshot.profilePicUrl,
+          profilePicUrl: snapshot.profilePicUrl ? snapshot.profilePicUrl : '',
           loggedInUserId: loggedInUserId,
         }));
       }

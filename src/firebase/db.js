@@ -269,3 +269,6 @@ export const toggleFriend = (loggedInUserId, userId) => {
     return user;
   });
 }
+
+// Get friends list
+export const getFriends = (loggedInUserId) => db.ref(`users/${loggedInUserId}/friends`);

@@ -26,6 +26,7 @@ import BugReport from '@material-ui/icons/BugReport';
 import Close from '@material-ui/icons/Close';
 import AttachFile from '@material-ui/icons/AttachFile';
 import People from '@material-ui/icons/People';
+import FaceIcon from '@material-ui/icons/Face';
 
 const styles = theme => ({});
 
@@ -122,7 +123,7 @@ class LeftMenu extends Component {
     const isOpen = this.props.isToggleProp ? 'open' : 'closed';
     const isMinimized = this.state.isMinimized ? 'big' : 'small';
     const { languageObjectProp } = this.props;
-    const { username, profilePicUrl } = this.state.user;
+    const { username, profilePicUrl, email } = this.state.user;
 
     return (
       <div>
@@ -130,8 +131,19 @@ class LeftMenu extends Component {
         <div className={"LeftMenu " + isOpen + ' ' + isMinimized}>
           <div className="left-menu-content">
             <div className="left-menu-header">
-              <div className="user-pic-in-leftmenu" style={{ backgroundImage: `url(${profilePicUrl})`}}></div>
-              <div className="username-in-leftmenu">{username}</div>
+              <div className="left-menu-header-detail-container">
+                {
+                  profilePicUrl ? 
+                  <div className="user-pic-in-leftmenu" style={{ backgroundImage: `url(${profilePicUrl})` }}></div> :
+                  <div className="user-pic-in-leftmenu">
+                    <FaceIcon />
+                  </div>
+                }
+                <div className="username-and-email-container-in-leftmenu">
+                  <div className="username-in-leftmenu">{username}</div>
+                  <div className="user-email-in-leftmenu">{email}</div>
+                </div>
+              </div>
             </div>
             <div className="close-container" onClick={this.closeMenu}><Close /></div>
             <List component="nav">
@@ -236,7 +248,6 @@ class LeftMenu extends Component {
                   </List>
                 </div> : ''
             }
-
 
             <div className="bottom">
               <Divider className="left-menu-divider" />

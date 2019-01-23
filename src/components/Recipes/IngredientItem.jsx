@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -19,7 +18,7 @@ class IngredientItem extends Component {
 		const index = this.props.indexProp;
 
 		return (
-			<Paper className={'ingredient-item-container'} elevation={1}>
+			<div className="ingredient-item-container" elevation={1}>
 				<div>
 					<div className="ingredient-value-container">
 						<Typography component="p">
@@ -30,7 +29,7 @@ class IngredientItem extends Component {
 						<CloseIcon />
 					</div>
 				</div>
-			</Paper>
+			</div>
 		)
 	}
 }

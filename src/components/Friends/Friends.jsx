@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { db } from '../../firebase';
+
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import withAuthorization from '../Session/withAuthorization';
@@ -8,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
+import FriendItem from './FriendItem';
 
 const styles = theme => ({
 	chip: {
@@ -26,8 +29,58 @@ class Friends extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			friends: []
+			friends: [],
+			loggedInUserId: ''
 		};
+	}
+
+	componentDidMount = () => {
+		this.mounted = true;
+
+		let authObject = JSON.parse(localStorage.getItem('authUser'));
+		let loggedInUserId = authObject.id;
+
+		db.users().once('value').then(usersRef => {
+
+			db.getFriends(loggedInUserId).once('value').then(friendsRes => {
+				if (this.mounted) {
+
+					let users = usersRef.val();
+					let friends = friendsRes.val();
+					let previousFriends = this.state.friends;
+
+					if (users) {
+						for (let key in users) {
+							if (friends && friends.hasOwnProperty(key)) {
+								let data = {
+									friendData: users[key],
+									key
+								}
+								previousFriends.push(
+									<FriendItem
+										friendDataProp={data}
+										key={key}
+									/>
+								)
+							}
+						}
+					}
+
+					this.setState({
+						friends: previousFriends,
+						loggedInUserId
+					});
+				}
+			});
+
+		});
+	}
+
+	/**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	render() {

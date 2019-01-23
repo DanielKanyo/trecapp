@@ -749,7 +749,8 @@ input[type=time]::-webkit-clear-button {
   margin: 8px 0px 8px 0px;
 }
 
-.category-item {
+.category-item,
+.friend-item {
   position: relative;
 }
 
@@ -761,7 +762,8 @@ input[type=time]::-webkit-clear-button {
   text-decoration: none !important;
 }
 
-.category-item:last-of-type {
+.category-item:last-of-type,
+.friend-item:last-of-type {
   margin-bottom: 12px;
 }
 
@@ -1171,7 +1173,7 @@ input[type=time]::-webkit-clear-button {
 
 .ingredient-item-container {
   margin-top: 4px !important;
-  background: #f0f0f0 !important;
+  border-bottom: 1px solid #e4e4e4 !important;
 }
 
 .ingredient-item-container>div {
@@ -1307,6 +1309,40 @@ input[type=time]::-webkit-clear-button {
   background: #18ac05 !important;
 }
 
+.friend-item-content {
+  position: relative;
+  padding-top: 100%;
+}
+
+.friend-item-img-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  border-radius: 4px;
+  background-position: center;
+  background-size: cover;
+}
+
+.friend-item-detail-username {
+  position: absolute;
+  z-index: 5;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.44);
+  width: calc(100% - 28px);
+  border-radius: 4px;
+  color: white;
+  margin: 4px;
+  padding: 10px;
+}
+
+.friend-item-actions-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 6;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1424,12 +1460,14 @@ input[type=time]::-webkit-clear-button {
     border-radius: 0px !important;
   }
 
-  .category-item {
+  .category-item,
+  .friend-item {
     max-width: 50% !important;
     flex-basis: 50% !important;
   }
 
-  .category-item:last-of-type {
+  .category-item:last-of-type,
+  .friend-item:last-of-type {
     margin-bottom: 0px;
   }
 
@@ -1506,7 +1544,8 @@ input[type=time]::-webkit-clear-button {
 }
 
 @media only screen and (max-width: 400px) {
-  .category-item {
+  .category-item,
+  .friend-item {
     max-width: 100% !important;
     flex-basis: 100% !important;
   }
@@ -1554,6 +1593,13 @@ input[type=time]::-webkit-clear-button {
   .fullSizeRecipe:active {
     padding-top: 56.25% !important;
     transition: 0.3s;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .friend-item {
+    max-width: 33.33333%;
+    flex-basis: 33.33333%;
   }
 }
 

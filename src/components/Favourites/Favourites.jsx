@@ -31,7 +31,7 @@ class Favourites extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.mounted = true;
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
