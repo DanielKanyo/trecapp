@@ -461,16 +461,18 @@ class Edit extends Component {
                       </Tooltip>
 
                       <Tooltip title={languageObjectProp.data.myRecipes.editRecipe.deleteImg} placement="right">
-                        <Fab
-                          size="medium"
-                          color="primary"
-                          aria-label="Remove"
-                          disabled={imgDeletable}
-                          className={classes.fab}
-                          onClick={this.handleClickOpenDialog}
-                        >
-                          <DeleteIcon />
-                        </Fab>
+                        <div>
+                          <Fab
+                            size="medium"
+                            color="primary"
+                            aria-label="Remove"
+                            disabled={imgDeletable}
+                            className={classes.fab}
+                            onClick={this.handleClickOpenDialog}
+                          >
+                            <DeleteIcon />
+                          </Fab>
+                        </div>
                       </Tooltip>
                     </div>
                     {

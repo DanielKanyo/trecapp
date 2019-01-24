@@ -45,6 +45,7 @@ import OpenInNew from '@material-ui/icons/OpenInNew';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -102,6 +103,14 @@ const styles = theme => ({
   menuItem: {},
   primary: {},
   icon: {},
+  fab: {
+    margin: 5
+  },
+  fabSave: {
+    margin: 5,
+    background: '#F8B000',
+    color: 'white'
+  }
 });
 
 const difficultyColors = ['#008E3D', '#F8B000', '#ff1414']
@@ -389,6 +398,15 @@ class Recipe extends Component {
     }, 1000);
   }
 
+  dismissImage = () => {
+    this.inputElement.value = '';
+
+    this.setState({
+      file: '',
+      uploadReady: false
+    });
+  }
+
   /**
    * Render function
    */
@@ -446,16 +464,37 @@ class Recipe extends Component {
               <div className="file-upload-container">
                 <div className="file-upload-overlap">
                   <div>
-                    {this.state.uploading ? <CircularProgress className={classes.progress} /> : <AddPhotoAlternateIcon />}
+                    {this.state.uploading ? <CircularProgress className={classes.progress} />
+                      :
+                      <div>
+                        {
+                          this.state.uploadReady ? '' : <AddPhotoAlternateIcon />
+                        }
+                      </div>
+                    }
                   </div>
                 </div>
-                {this.state.uploadReady ?
-                  <Tooltip title={languageObjectProp.data.myRecipes.tooltips.saveImage}>
-                    <IconButton className={classes.uploadButton} aria-label="Delete">
-                      <SaveIcon onClick={this.saveImage} />
-                    </IconButton>
-                  </Tooltip> : ''}
-                <input type="file" onChange={(e) => { this.fileAdded(e) }} className="file-upload-input" />
+                {
+                  this.state.uploadReady ?
+                    <div className="ready-to-upload-image">
+                      {
+                        this.state.uploading ? <CircularProgress className={classes.progress} /> :
+                          <div>
+                            <Tooltip title={languageObjectProp.data.myRecipes.editRecipe.uploadImg}>
+                              <Fab size="small" aria-label="Add" className={classes.fabSave + ' fab-recipe-img-save-on-my-recipes'} onClick={this.saveImage}>
+                                <SaveIcon />
+                              </Fab>
+                            </Tooltip>
+                            <Tooltip title={languageObjectProp.data.myRecipes.editRecipe.cancelImg}>
+                              <Fab size="small" aria-label="Delete" className={classes.fab} onClick={this.dismissImage}>
+                                <CloseIcon />
+                              </Fab>
+                            </Tooltip>
+                          </div>
+                      }
+                    </div> : ''
+                }
+                <input type="file" ref={input => this.inputElement = input} onChange={(e) => { this.fileAdded(e) }} className="file-upload-input" />
               </div>
               :
               <div className="if-no-image-placeholder"></div>
