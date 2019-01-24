@@ -179,6 +179,11 @@ export const dataHun = {
     },
     Impressum: {
       title: 'Impresszum'
+    },
+    Friends: {
+      myFriend: ' az ismerősöm',
+      openFriend: 'Részletek',
+      addToFriends: 'Hozzáadás az ismerősökhöz',
     }
   }
 }

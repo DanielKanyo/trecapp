@@ -54,12 +54,15 @@ class Friends extends Component {
 							if (friends && friends.hasOwnProperty(key)) {
 								let data = {
 									friendData: users[key],
-									key
+									isMyFriend: true,
+									key,
+									loggedInUserId
 								}
 								previousFriends.push(
 									<FriendItem
 										friendDataProp={data}
 										key={key}
+										languageObjectProp={this.props.languageObjectProp}
 									/>
 								)
 							}

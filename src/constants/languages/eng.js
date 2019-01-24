@@ -179,6 +179,11 @@ export const dataEng = {
     },
     Impressum: {
       title: 'Impressum'
+    },
+    Friends: {
+      myFriend: ' is my friend',
+      openFriend: 'Details',
+      addToFriends: 'Add to friends',
     }
   }
 }

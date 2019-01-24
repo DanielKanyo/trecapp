@@ -1306,7 +1306,11 @@ input[type=time]::-webkit-clear-button {
 }
 
 .active-friend-btn:hover {
-  background: #18ac05 !important;
+  background: #1aba05 !important;
+}
+
+.active-friend-btn-on-friends-page:hover {
+  background: #099b63 !important;
 }
 
 .friend-item-content {
@@ -1320,8 +1324,17 @@ input[type=time]::-webkit-clear-button {
   width: 100%;
   top: 0;
   border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: grey;
   background-position: center;
   background-size: cover;
+}
+
+.friend-item-img-container svg {
+  font-size: 100px;
+  color: #9e9e9e;
 }
 
 .friend-item-detail-username {
@@ -1329,11 +1342,13 @@ input[type=time]::-webkit-clear-button {
   z-index: 5;
   bottom: 0;
   background: rgba(0, 0, 0, 0.44);
-  width: calc(100% - 28px);
+  width: calc(100% - 32px);
   border-radius: 4px;
   color: white;
-  margin: 4px;
+  margin: 6px;
   padding: 10px;
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
 .friend-item-actions-container {
@@ -1341,6 +1356,8 @@ input[type=time]::-webkit-clear-button {
   top: 0;
   left: 0;
   z-index: 6;
+  display: flex;
+  flex-direction: column;
 }
 
 @media only screen and (max-width: 950px) {
@@ -1581,8 +1598,8 @@ input[type=time]::-webkit-clear-button {
 
 @media only screen and (min-width: 1200px) {
   .friend-item {
-    max-width: 33.33333%;
-    flex-basis: 33.33333%;
+    max-width: 25% !important; 
+    flex-basis: 25% !important;
   }
 }
 

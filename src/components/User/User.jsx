@@ -261,7 +261,7 @@ class User extends Component {
 												<div>
 													{
 														this.state.isMyFriend ?
-															<Tooltip placement="right" title={userData.username + " az ismerősöm"}>
+															<Tooltip placement="right" title={userData.username + " " + languageObjectProp.data.Friends.myFriend}>
 																<Fab
 																	size="small"
 																	aria-label="Friend"
@@ -272,7 +272,7 @@ class User extends Component {
 																</Fab>
 															</Tooltip>
 															:
-															<Tooltip placement="right" title={"Hozzáadás a ismerősökhöz"}>
+															<Tooltip placement="right" title={languageObjectProp.data.Friends.addToFriends}>
 																<Fab
 																	size="small"
 																	aria-label="Friend"
