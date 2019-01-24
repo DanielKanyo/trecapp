@@ -19,7 +19,7 @@ const LandingPage = (props) => {
   return (
     <div className={props.isAuthenticatedProp ? "ComponentContent" : 'LandingComponent'}>
       <div className="landing-component-container">
-        <Card className={classes.card + " landing-title"}>My Recipes App</Card>
+        <Card className={classes.card + " landing-title"}>Trecapp</Card>
       </div>
     </div>
   )
