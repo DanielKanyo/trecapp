@@ -18,6 +18,10 @@
   z-index: 20;
 }
 
+.LeftMenu::-webkit-scrollbar-thumb {
+  background-color: #474747;
+}
+
 .left-menu-header {
   display: none;
 }
