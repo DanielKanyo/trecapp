@@ -17,7 +17,7 @@ button a {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: calc(100vh - 128px);
+  min-height: calc(100vh - 56px);
   justify-content: center;
 }
 
@@ -1088,16 +1088,16 @@ input[type=time]::-webkit-clear-button {
 
 .app-bar-nav {
   height: 56px;
-  background-image: url('../../images/MRA005.png') !important;
-  background-size: auto 80%;
+  background-image: url('../../images/trecapp.png') !important;
+  background-size: auto 70%;
   background-repeat: no-repeat;
   background-position: 78px center;
 }
 
 .app-bar-nav-non-auth {
   height: 56px;
-  background-image: url('../../images/MRA005.png') !important;
-  background-size: auto 80%;
+  background-image: url('../../images/trecapp.png') !important;
+  background-size: auto 70%;
   background-repeat: no-repeat;
   background-position: 20px center;
 }
