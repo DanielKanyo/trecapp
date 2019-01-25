@@ -1007,7 +1007,7 @@ input[type=time]::-webkit-clear-button {
   margin-right: 6px;
   font-size: 10px;
   padding: 4px 10px;
-  background: #1aba05;
+  background: #099b63;
   color: white;
   border-radius: 21px;
 }
@@ -1307,7 +1307,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .active-friend-btn:hover {
-  background: #1aba05 !important;
+  background: #099b63 !important;
 }
 
 .active-friend-btn-on-friends-page:hover {
