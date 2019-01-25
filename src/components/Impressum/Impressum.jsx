@@ -28,7 +28,7 @@ const Impressum = (props) => {
 	const { classes, languageObjectProp } = props;
 
 	return (
-		<div className={"ComponentContent"}>
+		<div className={"ComponentContent Impressum"}>
 			<Grid className="main-grid" container spacing={16}>
 				<Grid item className="grid-component" xs={12}>
 					<Paper className={classes.paper + ' paper-title paper-title-impressum'}>
@@ -41,7 +41,7 @@ const Impressum = (props) => {
 					</Paper>
 					<Grid item className="grid-component" xs={12}>
 						<Card className={classes.card}>
-							<Typography variant="h6">
+							<Typography className="title-imp" variant="h6">
 								Felelős személy / Fejlesztő
       				</Typography>
 							<div className="imp-text">
@@ -52,14 +52,13 @@ const Impressum = (props) => {
 
 							<Divider className={classes.divider} />
 
-							<Typography variant="h6">
+							<Typography className="title-imp" variant="h6">
 								Elérhetőség
       				</Typography>
 							<div className="imp-text">
 								<ul>
 									<li>+36 30 7792953</li>
 									<li>+381 64 2735861</li>
-									<li>6723 Szeged, Tabán utca 38</li>
 									<li>danielkanyo992@gmail.com</li>
 									<li><a href="http://danielkanyo.hu" target="_blank" rel="noopener noreferrer">danielkanyo.hu</a></li>
 								</ul>
@@ -67,7 +66,7 @@ const Impressum = (props) => {
 
 							<Divider className={classes.divider} />
 
-							<Typography variant="h6">
+							<Typography className="title-imp" variant="h6">
 								Tárhely szolgáltató
       				</Typography>
 							<div className="imp-text">

@@ -1365,6 +1365,19 @@ input[type=time]::-webkit-clear-button {
   background: #eca900 !important;
 }
 
+.Impressum .grid-component {
+  color: #4d4d4d;
+}
+
+.Impressum .grid-component a {
+  text-decoration: none;
+  color: #594ba8;
+}
+
+.Impressum .grid-component .title-imp {
+  color: #494949;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
