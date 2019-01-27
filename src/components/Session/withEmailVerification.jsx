@@ -32,13 +32,16 @@ const withEmailVerification = Component => {
                   <div className="email-verification-sent-paper">
                     <div className="email-verification-sent-title">
                       E-mail verification sent!
-                  </div>
+                    </div>
                     <div className="email-verification-sent-text">
                       <div>
                         The verification link has been sent to your email address!
                       </div>
                       Please check you e-mails (Spam folder included) for a confirmation e-mail or send another confirmation e-mail.
-                  </div>
+                    </div>
+                    <div className="email-verification-sent-title">
+                      After you clicked on the link, refresh this page!
+                    </div>
                     <div className="email-verification-btn">
                       <button
                         type="button"
