@@ -6,6 +6,7 @@ import { PasswordForgetForm } from '../PasswordForget/PasswordForget';
 import PasswordChangeForm from '../PasswordChange/PasswordChange';
 import { db, storage } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
@@ -339,4 +340,4 @@ AccountPage.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(AccountPage);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(AccountPage);

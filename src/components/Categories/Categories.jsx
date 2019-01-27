@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App/index.css';
 import { db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
@@ -154,4 +155,4 @@ Categories.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(Categories);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(Categories);

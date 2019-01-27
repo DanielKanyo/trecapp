@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
+import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
+import compose from 'recompose/compose';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
@@ -770,8 +773,10 @@ class Edit extends Component {
   }
 }
 
+const authCondition = (authUser) => !!authUser;
+
 Edit.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Edit);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(Edit);

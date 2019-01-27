@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { db } from '../../firebase';
 import PropTypes from 'prop-types';
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -386,4 +387,4 @@ User.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(User);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(User);

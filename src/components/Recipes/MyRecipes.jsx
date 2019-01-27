@@ -3,6 +3,7 @@ import '../App/index.css';
 import { db, storage } from '../../firebase';
 import compose from 'recompose/compose';
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import { dataEng } from '../../constants/languages/eng';
 
 import NewRecipe from './NewRecipe';
@@ -335,4 +336,4 @@ MyRecipes.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(MyRecipes);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(MyRecipes);

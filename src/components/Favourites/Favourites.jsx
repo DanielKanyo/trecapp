@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
 import RecipePreview from '../Categories/RecipePreview';
@@ -180,4 +181,4 @@ Favourites.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(Favourites);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(Favourites);

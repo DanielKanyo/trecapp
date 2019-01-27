@@ -75,6 +75,7 @@ class NavigationAuth extends Component {
       user: {},
       openAccountDropdown: false,
       loggedInUserId: '',
+      emailVerified: false,
     };
   }
 
@@ -122,8 +123,11 @@ class NavigationAuth extends Component {
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
 
+    let emailVerified = authObject.emailVerified;
+
     this.setState({
-      loggedInUserId
+      loggedInUserId,
+      emailVerified
     });
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
@@ -131,6 +135,10 @@ class NavigationAuth extends Component {
       this.props.setIsUserAuthenticatedProp(loggedInUserId ? true : false)
       this.setState(() => ({ user: snapshot }))
     });
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    this.setState(() => ({ emailVerified: nextProps.authUser.emailVerified }))
   }
 
   /**
@@ -145,75 +153,89 @@ class NavigationAuth extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={classes.appbar + ' app-bar-nav'} position="static">
-          <Toolbar>
-            <IconButton onClick={this.toggleLeftMenu} className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+        {
+          this.state.emailVerified ?
+            <div>
+              <AppBar className={classes.appbar + ' app-bar-nav'} position="static">
+                <Toolbar>
+                  <IconButton onClick={this.toggleLeftMenu} className={classes.menuButton} color="inherit" aria-label="Menu">
+                    <MenuIcon />
+                  </IconButton>
 
-            <Typography component={Link} to={ROUTES.LANDING} variant="h6" color="inherit" className={classes.grow}>
-              {/* myRecipesApp */}
-            </Typography>
-            <div className="navigation-right-side">
-              <Button component={Link} to={ROUTES.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
-                <Home />
-              </Button>
-              {authUser.roles.includes(ROLES.ADMIN) && (
-                <Button component={Link} to={ROUTES.ADMIN} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
-                  <Security />
-                </Button>
-              )}
+                  <Typography component={Link} to={ROUTES.LANDING} variant="h6" color="inherit" className={classes.grow}>
+                    {/* myRecipesApp */}
+                  </Typography>
+                  <div className="navigation-right-side">
+                    <Button component={Link} to={ROUTES.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
+                      <Home />
+                    </Button>
+                    {authUser.roles.includes(ROLES.ADMIN) && (
+                      <Button component={Link} to={ROUTES.ADMIN} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
+                        <Security />
+                      </Button>
+                    )}
 
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.button + ' btn-my'}
-                buttonRef={node => {
-                  this.anchorEl = node;
-                }}
-                aria-owns={openAccountDropdown ? 'menu-list-grow' : null}
-                aria-haspopup="true"
-                onClick={this.handleToggleAccountDropdown}
-              >
-                { username }
-                {
-                  profilePicUrl ? 
-                    <div className={classes.rightIcon + ' prof-pic-nav'} style={{ backgroundImage: `url(${profilePicUrl})` }} /> 
-                    : 
-                    <Face className={classes.rightIcon} />
-                }
-                {/* <Face className={classes.rightIcon} /> */}
-              </Button>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      className={classes.button + ' btn-my'}
+                      buttonRef={node => {
+                        this.anchorEl = node;
+                      }}
+                      aria-owns={openAccountDropdown ? 'menu-list-grow' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleToggleAccountDropdown}
+                    >
+                      {username}
+                      {
+                        profilePicUrl ?
+                          <div className={classes.rightIcon + ' prof-pic-nav'} style={{ backgroundImage: `url(${profilePicUrl})` }} />
+                          :
+                          <Face className={classes.rightIcon} />
+                      }
+                    </Button>
+                  </div>
+                  <Popper open={openAccountDropdown} anchorEl={this.anchorEl} transition disablePortal>
+                    {({ TransitionProps, placement }) => (
+                      <Grow
+                        {...TransitionProps}
+                        id="menu-list-grow"
+                        style={{ transformOrigin: placement === 'bottom' ? 'right top' : 'right bottom' }}
+                      >
+                        <Paper className="account-dropdown">
+                          <ClickAwayListener onClickAway={this.handleCloseAccountDropdown}>
+                            <MenuList>
+                              <MenuItem component={Link} to={`/user/${this.state.loggedInUserId}`} onClick={this.handleCloseAccountDropdown}>
+                                {languageObjectProp.data.Navigation.dropdownValues[0]}
+                              </MenuItem>
+                              <MenuItem component={Link} to={ROUTES.ACCOUNT} onClick={this.handleCloseAccountDropdown}>
+                                {languageObjectProp.data.Navigation.dropdownValues[1]}
+                              </MenuItem>
+                              <MenuItem onClick={auth.doSignOut}>
+                                {languageObjectProp.data.Navigation.dropdownValues[2]}
+                              </MenuItem>
+                            </MenuList>
+                          </ClickAwayListener>
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+
+                </Toolbar>
+              </AppBar>
+              <LeftMenu isToggleProp={this.state.isToggleOn} toggleLeftMenuProp={this.toggleLeftMenu} languageObjectProp={languageObjectProp} />
+            </div> :
+            <div>
+              <AppBar className={classes.appbar + ' app-bar-nav-non-auth'} position="static">
+                <Toolbar>
+                  <Typography component={Link} to={ROUTES.WALL} variant="h6" color="inherit" className={classes.grow}>
+                    {/* My Recipes */}
+                  </Typography>
+                </Toolbar>
+              </AppBar>
             </div>
-            <Popper open={openAccountDropdown} anchorEl={this.anchorEl} transition disablePortal>
-              {({ TransitionProps, placement }) => (
-                <Grow
-                  {...TransitionProps}
-                  id="menu-list-grow"
-                  style={{ transformOrigin: placement === 'bottom' ? 'right top' : 'right bottom' }}
-                >
-                  <Paper className="account-dropdown">
-                    <ClickAwayListener onClickAway={this.handleCloseAccountDropdown}>
-                      <MenuList>
-                        <MenuItem component={Link} to={`/user/${this.state.loggedInUserId}`} onClick={this.handleCloseAccountDropdown}>
-                          {languageObjectProp.data.Navigation.dropdownValues[0]}
-                        </MenuItem>
-                        <MenuItem component={Link} to={ROUTES.ACCOUNT} onClick={this.handleCloseAccountDropdown}>
-                          {languageObjectProp.data.Navigation.dropdownValues[1]}
-                        </MenuItem>
-                        <MenuItem onClick={auth.doSignOut}>
-                          {languageObjectProp.data.Navigation.dropdownValues[2]}
-                        </MenuItem>
-                      </MenuList>
-                    </ClickAwayListener>
-                  </Paper>
-                </Grow>
-              )}
-            </Popper>
+        }
 
-          </Toolbar>
-        </AppBar>
-        <LeftMenu isToggleProp={this.state.isToggleOn} toggleLeftMenuProp={this.toggleLeftMenu} languageObjectProp={languageObjectProp} />
       </div>
     );
   }

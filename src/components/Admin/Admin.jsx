@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { db } from '../../firebase';
 import * as ROLES from '../../constants/roles';
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -185,4 +186,4 @@ AdminPage.propTypes = {
 const authCondition = authUser =>
   authUser && authUser.roles.includes(ROLES.ADMIN);
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(AdminPage);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(AdminPage);

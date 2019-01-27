@@ -1,5 +1,8 @@
 import React from 'react';
 
+import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
+import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -85,8 +88,10 @@ const Impressum = (props) => {
 	)
 }
 
+const authCondition = (authUser) => !!authUser;
+
 Impressum.propTypes = {
-	classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Impressum);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(Impressum);

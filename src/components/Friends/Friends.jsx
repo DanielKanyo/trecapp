@@ -4,6 +4,7 @@ import { db } from '../../firebase';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
 import People from '@material-ui/icons/People';
 import Grid from '@material-ui/core/Grid';
@@ -136,4 +137,4 @@ Friends.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(Friends);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(Friends);

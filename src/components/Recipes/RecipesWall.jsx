@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import { db } from '../../firebase';
 import compose from 'recompose/compose';
 import { dataEng } from '../../constants/languages/eng';
@@ -288,4 +289,4 @@ RecipesWall.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(RecipesWall);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(RecipesWall);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import withAuthorization from '../Session/withAuthorization';
+import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
 import { db } from '../../firebase';
 import PropTypes from 'prop-types';
@@ -148,4 +149,4 @@ BugReport.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default compose(withAuthorization(authCondition), withStyles(styles))(BugReport);
+export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(BugReport);

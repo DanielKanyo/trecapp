@@ -58,6 +58,9 @@ class SignUpForm extends Component {
             roles,
           })
           .then(() => {
+            auth.doSendEmailVerification();
+          })
+          .then(() => {
             if (this.mounted) {
               this.setState(() => ({ ...INITIAL_STATE }));
             }

@@ -15,6 +15,7 @@ export default (next, fallback = () => { }) =>
 					authUser = {
 						id: authUser.uid,
 						email: authUser.email,
+						emailVerified: authUser.emailVerified,
 						...dbUser,
 					};
 
