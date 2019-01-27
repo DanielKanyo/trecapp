@@ -139,12 +139,14 @@ class RecipePreview extends Component {
 					],
 					margin: [0, 0, 0, 15]
 				},
+				{ text: `${languageObjectProp.data.myRecipes.newRecipe.form.ingredients}: \n`, bold: true, style: 'header' },
+				{ text: `\n` },
 				{
-					text: [
-						{
-							text: `${languageObjectProp.data.myRecipes.newRecipe.form.ingredients}: `, bold: true
-						},
-						`\n\n${dataProp.ingredients}`
+					type: 'none',
+					ul: [
+						dataProp.ingredients.map(ingredient => {
+							return ingredient;
+						})
 					],
 					margin: [0, 0, 0, 15]
 				},

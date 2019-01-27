@@ -1007,7 +1007,7 @@ input[type=time]::-webkit-clear-button {
   margin-right: 6px;
   font-size: 10px;
   padding: 4px 10px;
-  background: #1aba05;
+  background: #099b63;
   color: white;
   border-radius: 21px;
 }
@@ -1307,7 +1307,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .active-friend-btn:hover {
-  background: #1aba05 !important;
+  background: #099b63 !important;
 }
 
 .active-friend-btn-on-friends-page:hover {
@@ -1421,6 +1421,19 @@ input[type=time]::-webkit-clear-button {
 .email-verification-sent-paper button:hover {
   background: #047e41;
   cursor: pointer;
+}
+
+.Impressum .grid-component {
+  color: #4d4d4d;
+}
+
+.Impressum .grid-component a {
+  text-decoration: none;
+  color: #594ba8;
+}
+
+.Impressum .grid-component .title-imp {
+  color: #494949;
 }
 
 @media only screen and (max-width: 950px) {
