@@ -1,4 +1,5 @@
 import React from 'react';
+import { auth } from '../../firebase';
 
 import AuthUserContext from './AuthUserContext';
 import { withFirebase } from './index';
@@ -16,7 +17,7 @@ const withEmailVerification = Component => {
     }
 
     onSendEmailVerification = () => {
-      this.props.firebase
+      auth
         .doSendEmailVerification()
         .then(() => this.setState({ isSent: true }));
     };

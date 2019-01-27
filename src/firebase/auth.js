@@ -7,6 +7,7 @@ import {
 export const doCreateUserWithEmailAndPassword = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 
+// Send e-mail verification
 export const doSendEmailVerification = () =>
   auth.currentUser.sendEmailVerification();
 
