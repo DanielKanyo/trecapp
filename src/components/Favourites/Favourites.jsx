@@ -34,7 +34,7 @@ class Favourites extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
+      loading: true,
       loggedInUserId: '',
       favRecipes: [],
     }
@@ -46,8 +46,6 @@ class Favourites extends Component {
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
     let previousRecipes = this.state.favRecipes;
-
-    this.setState({ loading: true });
 
     this.setState({
       loggedInUserId

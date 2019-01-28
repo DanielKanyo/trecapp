@@ -190,7 +190,7 @@ class ShoppingList extends Component {
       recentProducts: [],
       dialogOpen: false,
       suggestions: [],
-      loading: false,
+      loading: true,
     }
   }
 
@@ -217,8 +217,6 @@ class ShoppingList extends Component {
 
   componentDidMount() {
     this.mounted = true;
-
-    this.setState({ loading: true });
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;

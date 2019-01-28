@@ -10,11 +10,19 @@ import { dataEng } from '../../constants/languages/eng';
 import Paper from '@material-ui/core/Paper';
 import RoomService from '@material-ui/icons/RoomService';
 import Grid from '@material-ui/core/Grid';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import RecipePreview from './RecipePreview';
 import { ToastContainer } from 'react-toastify';
 
-const styles = theme => ({});
+const styles = theme => ({
+  progressLine: {
+    borderRadius: '4px',
+  },
+  progressBar: {
+    background: '#F55300'
+  },
+});
 
 class CategoryRecipes extends Component {
 
@@ -23,6 +31,7 @@ class CategoryRecipes extends Component {
     this.state = {
       recipes: [],
       categoryName: '',
+      loading: true,
       categoryNumber: null,
     };
   }
@@ -114,7 +123,8 @@ class CategoryRecipes extends Component {
 
             this.setState({
               recipes: previousRecipes,
-              loggedInUserId
+              loggedInUserId,
+              loading: false
             });
           });
         }
@@ -131,6 +141,7 @@ class CategoryRecipes extends Component {
 
   render() {
     const { classes, languageObjectProp } = this.props;
+    let { loading } = this.state;
 
     return (
       <div className="ComponentContent">
@@ -147,7 +158,11 @@ class CategoryRecipes extends Component {
             </Paper>
 
             <Grid container spacing={16}>
-              {this.state.recipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+              {
+                loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+              }
+
+              {this.state.recipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
               {this.state.recipes.map((recipe, index) => {
                 return recipe;

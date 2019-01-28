@@ -41,7 +41,7 @@ class RecipesWall extends Component {
     super(props);
 
     this.state = {
-      loading: false,
+      loading: true,
       latestRecipes: [],
       topRecipes: [],
       loggedInUserId: '',
@@ -54,8 +54,6 @@ class RecipesWall extends Component {
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
-
-    this.setState({ loading: true });
 
     db.user(loggedInUserId).once('value').then(snapshot => {
       let userUptodateData = snapshot.val();

@@ -60,7 +60,7 @@ class MyRecipes extends Component {
       favouriteCounter: 0,
       languages: [],
       recipeLanguage: '',
-      loading: false,
+      loading: true,
     };
   }
 
@@ -70,8 +70,6 @@ class MyRecipes extends Component {
    */
   componentDidMount() {
     this.mounted = true;
-
-    this.setState({ loading: true });
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;

@@ -35,15 +35,13 @@ class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
+      loading: true,
       categories: []
     };
   }
 
   componentDidMount() {
     this.mounted = true;
-
-    this.setState({ loading: true });
 
     let previousCategories = this.state.categories;
     let authObject = JSON.parse(localStorage.getItem('authUser'));

@@ -38,15 +38,13 @@ class Friends extends Component {
 		super(props);
 		this.state = {
 			friends: [],
-			loading: false,
+			loading: true,
 			loggedInUserId: ''
 		};
 	}
 
 	componentDidMount = () => {
 		this.mounted = true;
-
-		this.setState({ loading: true });
 
 		let authObject = JSON.parse(localStorage.getItem('authUser'));
 		let loggedInUserId = authObject.id;

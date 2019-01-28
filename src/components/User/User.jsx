@@ -17,6 +17,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import Tooltip from '@material-ui/core/Tooltip';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { dataEng } from '../../constants/languages/eng';
 import { ToastContainer } from 'react-toastify';
@@ -77,7 +78,13 @@ const styles = theme => ({
 		marginTop: 8,
 		padding: '15px 15px',
 		color: '#545454'
-	}
+	},
+	progressLine: {
+		borderRadius: '4px',
+	},
+	progressBar: {
+		background: '#F8B000'
+	},
 });
 
 class User extends Component {
@@ -92,6 +99,7 @@ class User extends Component {
 			recipeCounter: 0,
 			isMe: false,
 			isMyFriend: false,
+			loading: true,
 		}
 	}
 
@@ -183,7 +191,8 @@ class User extends Component {
 							recipes: previousRecipes,
 							recipeCounter,
 							loggedInUserId,
-							isMyFriend
+							isMyFriend,
+							loading: false
 						});
 					});
 				}
@@ -236,7 +245,7 @@ class User extends Component {
 
 	render() {
 		const { classes, languageObjectProp } = this.props;
-		const { userData } = this.state;
+		const { userData, loading } = this.state;
 
 		return (
 			<div className="ComponentContent UserContent">
@@ -349,7 +358,11 @@ class User extends Component {
 						</div>
 
 						<Grid container spacing={16}>
-							{this.state.recipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+							{
+								loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+							}
+
+							{this.state.recipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
 							{this.state.recipes.map((recipe, index) => {
 								return recipe;
