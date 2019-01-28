@@ -167,7 +167,7 @@ export const dataEng = {
       close: 'Close'
     },
     User: {
-      emptyAbout: 'There is no description about you... You can edit it on the settings page.'
+      emptyAbout: 'No description...'
     },
     BugReport: {
       label: 'Report the bug!',
