@@ -37,9 +37,9 @@ const withEmailVerification = Component => {
                       <div>
                         The verification link has been sent to your email address!
                       </div>
-                      Please check you e-mails (Spam folder included) for a confirmation e-mail or send another confirmation e-mail.
+                      Please check you e-mails (spam folder included) for a confirmation e-mail or send another confirmation e-mail.
                     </div>
-                    <div className="email-verification-sent-title">
+                    <div className="email-verification-sent-refresh">
                       After you clicked on the link, refresh this page!
                     </div>
                     <div className="email-verification-btn">

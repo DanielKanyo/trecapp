@@ -21,6 +21,8 @@ const SignUpPage = ({ history }) => (
 );
 
 const INITIAL_STATE = {
+  firstname: '',
+  lastname: '',
   username: '',
   email: '',
   passwordOne: '',
@@ -39,13 +41,15 @@ class SignUpForm extends Component {
   onSubmit = event => {
     this.mounted = true;
 
-    const { username, email, passwordOne, isAdmin } = this.state;
+    const { firstname, lastname, email, passwordOne, isAdmin } = this.state;
     const roles = [];
     const { history } = this.props;
 
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
     }
+
+    let username = `${firstname} ${lastname}`;
 
     auth
       .doCreateUserWithEmailAndPassword(email, passwordOne)
@@ -94,7 +98,8 @@ class SignUpForm extends Component {
 
   render() {
     const {
-      username,
+      firstname,
+      lastname,
       email,
       passwordOne,
       passwordTwo,
@@ -104,21 +109,32 @@ class SignUpForm extends Component {
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
-      username === '' ||
+      firstname === '' ||
+      lastname === '' ||
       email === '';
 
     return (
       <div>
         <form onSubmit={this.onSubmit} className="sign-up-form">
           <TextField
-            name="username"
-            id="sign-up-username"
-            label={"Full name"}
+            name="firstname"
+            id="sign-up-firstname"
+            label={"First name"}
             className="password-forget-input"
-            value={username}
+            value={firstname}
             onChange={this.onChange}
             type="text"
-            placeholder="Your name..."
+            placeholder="Your first name..."
+          />
+          <TextField
+            name="lastname"
+            id="sign-up-lastname"
+            label={"Last name"}
+            className="password-forget-input"
+            value={lastname}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Your last name..."
           />
           <TextField
             name="email"
