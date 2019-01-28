@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { dataEng } from '../../constants/languages/eng';
 
 import { ToastContainer } from 'react-toastify';
@@ -19,7 +20,13 @@ const styles = theme => ({
   chip: {
     background: '#7c06ad',
     color: 'white'
-  }
+  },
+  progressLine: {
+    borderRadius: '4px',
+  },
+  progressBar: {
+    background: '#9b42f4'
+  },
 });
 
 class Favourites extends Component {
@@ -27,6 +34,7 @@ class Favourites extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       loggedInUserId: '',
       favRecipes: [],
     }
@@ -38,6 +46,8 @@ class Favourites extends Component {
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
     let previousRecipes = this.state.favRecipes;
+
+    this.setState({ loading: true });
 
     this.setState({
       loggedInUserId
@@ -100,7 +110,8 @@ class Favourites extends Component {
                   )
 
                   this.setState({
-                    favRecipes: previousRecipes
+                    favRecipes: previousRecipes,
+                    loading: false
                   });
                 }
               }
@@ -120,7 +131,7 @@ class Favourites extends Component {
 
   render() {
     const { classes, languageObjectProp } = this.props;
-    let { favRecipes } = this.state;
+    let { favRecipes, loading } = this.state;
 
     return (
       <div className="ComponentContent">
@@ -142,7 +153,11 @@ class Favourites extends Component {
             </Paper>
 
             <Grid container spacing={16}>
-              {favRecipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+              {
+                loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+              }
+
+              {favRecipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
               {favRecipes.map((recipe, index) => {
                 return recipe;
@@ -171,7 +186,7 @@ class Favourites extends Component {
 const EmptyList = (props) =>
   <Grid item xs={12}>
     <div className="empty-container">
-    {props.languageObjectProp.data.emptyList}
+      {props.languageObjectProp.data.emptyList}
     </div>
   </Grid>
 

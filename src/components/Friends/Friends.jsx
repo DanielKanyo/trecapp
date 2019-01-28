@@ -12,12 +12,19 @@ import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 import FriendItem from './FriendItem';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const styles = theme => ({
 	chip: {
 		background: '#058956',
 		color: 'white'
-	}
+	},
+	progressLine: {
+		borderRadius: '4px',
+	},
+	progressBar: {
+		background: '#099b63'
+	},
 });
 
 class Friends extends Component {
@@ -31,12 +38,15 @@ class Friends extends Component {
 		super(props);
 		this.state = {
 			friends: [],
+			loading: false,
 			loggedInUserId: ''
 		};
 	}
 
 	componentDidMount = () => {
 		this.mounted = true;
+
+		this.setState({ loading: true });
 
 		let authObject = JSON.parse(localStorage.getItem('authUser'));
 		let loggedInUserId = authObject.id;
@@ -72,7 +82,8 @@ class Friends extends Component {
 
 					this.setState({
 						friends: previousFriends,
-						loggedInUserId
+						loggedInUserId,
+						loading: false
 					});
 				}
 			});
@@ -89,7 +100,7 @@ class Friends extends Component {
 
 	render() {
 		const { classes, languageObjectProp } = this.props;
-		let { friends } = this.state;
+		let { friends, loading } = this.state;
 
 		return (
 			<div className="ComponentContent">
@@ -111,7 +122,11 @@ class Friends extends Component {
 						</Paper>
 
 						<Grid container spacing={16}>
-							{friends.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+							{
+								loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+							}
+
+							{friends.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
 							{friends.map((friend, index) => {
 								return friend;

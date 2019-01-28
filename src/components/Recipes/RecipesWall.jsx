@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Public from '@material-ui/icons/Public';
 import Grade from '@material-ui/icons/Grade';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -24,6 +25,15 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  progressLine: {
+    borderRadius: '4px',
+  },
+  progressBarLatest: {
+    background: '#008E3D'
+  },
+  progressBarTop: {
+    background: '#2AA7BB'
+  }
 });
 
 class RecipesWall extends Component {
@@ -31,6 +41,7 @@ class RecipesWall extends Component {
     super(props);
 
     this.state = {
+      loading: false,
       latestRecipes: [],
       topRecipes: [],
       loggedInUserId: '',
@@ -43,6 +54,8 @@ class RecipesWall extends Component {
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
+
+    this.setState({ loading: true });
 
     db.user(loggedInUserId).once('value').then(snapshot => {
       let userUptodateData = snapshot.val();
@@ -194,7 +207,8 @@ class RecipesWall extends Component {
 
                     this.setState({
                       topRecipes: previousTopRecipes,
-                      loggedInUserId
+                      loggedInUserId,
+                      loading: false,
                     });
 
                     counter2++;
@@ -217,7 +231,7 @@ class RecipesWall extends Component {
 
   render() {
     const { classes, languageObjectProp } = this.props;
-    let { latestRecipes, topRecipes } = this.state;
+    let { latestRecipes, topRecipes, loading } = this.state;
 
     return (
       <div className="ComponentContent">
@@ -234,7 +248,9 @@ class RecipesWall extends Component {
               </div>
             </Paper>
 
-            {latestRecipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+            {loading && <LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBarLatest }} />}
+
+            {latestRecipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             {latestRecipes.map((recipe, index) => {
               return recipe;
@@ -253,7 +269,9 @@ class RecipesWall extends Component {
               </div>
             </Paper>
 
-            {topRecipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+            {loading && <LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBarTop }} />}
+
+            {topRecipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             {topRecipes.map((recipe, index) => {
               return recipe;

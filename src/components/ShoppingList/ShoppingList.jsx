@@ -29,6 +29,7 @@ import Autosuggest from 'react-autosuggest';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import MenuItem from '@material-ui/core/MenuItem';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
@@ -152,6 +153,16 @@ const styles = theme => ({
     padding: 0,
     listStyleType: 'none',
   },
+  progressLine: {
+    backgroundColor: 'rgb(201, 206, 234)',
+    borderRadius: '4px',
+  },
+  progressBarList: {
+    background: '#03c457'
+  },
+  progressBarRecent: {
+    background: '#01c1c4'
+  }
 });
 
 const theme = createMuiTheme({
@@ -179,6 +190,7 @@ class ShoppingList extends Component {
       recentProducts: [],
       dialogOpen: false,
       suggestions: [],
+      loading: false,
     }
   }
 
@@ -205,6 +217,8 @@ class ShoppingList extends Component {
 
   componentDidMount() {
     this.mounted = true;
+
+    this.setState({ loading: true });
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
@@ -236,7 +250,8 @@ class ShoppingList extends Component {
         }
 
         this.setState({
-          items: previousItems
+          items: previousItems,
+          loading: false
         });
       }
     });
@@ -256,11 +271,12 @@ class ShoppingList extends Component {
                 deleteIcon={<AddCircleIcon />}
               />
             );
-
-            this.setState({
-              recentProducts: previousResentProducts
-            });
           }
+
+          this.setState({
+            recentProducts: previousResentProducts,
+            loading: false
+          });
         }
       }
     });
@@ -423,7 +439,7 @@ class ShoppingList extends Component {
 
   render() {
     const { classes, languageObjectProp } = this.props;
-    let { items, recentProducts } = this.state;
+    let { items, recentProducts, loading } = this.state;
 
     const autosuggestProps = {
       renderInputComponent,
@@ -496,7 +512,9 @@ class ShoppingList extends Component {
                 </IconButton>
               </Paper>
 
-              {items.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+              {loading && <LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBarList }} />}
+
+              {items.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
               {items.map((item, index) => {
                 return item;
@@ -526,7 +544,9 @@ class ShoppingList extends Component {
                 </div>
               </Paper>
 
-              {recentProducts.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+              {loading && <LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBarRecent }} />}
+
+              {recentProducts.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
               <div className="recent-products-chips-container">
                 {recentProducts.map((product, index) => {

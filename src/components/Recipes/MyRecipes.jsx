@@ -17,6 +17,7 @@ import Receipt from '@material-ui/icons/Receipt';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 import MenuItem from '@material-ui/core/MenuItem';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
@@ -34,6 +35,12 @@ const styles = theme => ({
   chip: {
     background: '#ffca44',
     color: 'white'
+  },
+  progressLine: {
+    borderRadius: '4px',
+  },
+  progressBar: {
+    background: '#F8B000'
   }
 });
 
@@ -52,7 +59,8 @@ class MyRecipes extends Component {
       currency: '',
       favouriteCounter: 0,
       languages: [],
-      recipeLanguage: ''
+      recipeLanguage: '',
+      loading: false,
     };
   }
 
@@ -62,6 +70,8 @@ class MyRecipes extends Component {
    */
   componentDidMount() {
     this.mounted = true;
+
+    this.setState({ loading: true });
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
@@ -144,7 +154,8 @@ class MyRecipes extends Component {
           }
 
           this.setState({
-            recipes: previousRecipes
+            recipes: previousRecipes,
+            loading: false,
           });
         }
       });
@@ -263,8 +274,8 @@ class MyRecipes extends Component {
    * Render function
    */
   render() {
-    const { classes } = this.props;
-    const { languageObjectProp } = this.props;
+    const { classes, languageObjectProp } = this.props;
+    let { loading } = this.state;
 
     let recipes = this.state.recipes;
 
@@ -300,7 +311,9 @@ class MyRecipes extends Component {
               </div>
             </Paper>
 
-            {recipes.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+            {loading && <LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} />}
+
+            {recipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             {recipes.map((recipe, index) => {
               return recipe;

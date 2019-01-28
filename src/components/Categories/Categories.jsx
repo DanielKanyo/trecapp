@@ -9,13 +9,20 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import CategoryListItem from './CategoryListItem';
 
 const styles = theme => ({
   card: {
     maxWidth: '100%',
-  }
+  },
+  progressLine: {
+    borderRadius: '4px',
+  },
+  progressBar: {
+    background: '#66bf00'
+  },
 });
 
 class Categories extends Component {
@@ -28,12 +35,15 @@ class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: false,
       categories: []
     };
   }
 
   componentDidMount() {
     this.mounted = true;
+
+    this.setState({ loading: true });
 
     let previousCategories = this.state.categories;
     let authObject = JSON.parse(localStorage.getItem('authUser'));
@@ -102,7 +112,8 @@ class Categories extends Component {
 
           this.setState({
             categories: previousCategories,
-            loggedInUserId
+            loggedInUserId,
+            loading: false
           });
 
         }
@@ -118,8 +129,8 @@ class Categories extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { languageObjectProp } = this.props;
+    const { classes, languageObjectProp } = this.props;
+    let { loading } = this.state;
 
     return (
       <div className="ComponentContent">
@@ -136,6 +147,9 @@ class Categories extends Component {
             </Paper>
 
             <Grid container spacing={16} className="category-items-container">
+              {
+                loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+              }
 
               {this.state.categories.map((category, index) => {
                 return category;
