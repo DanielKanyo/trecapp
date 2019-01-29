@@ -3,6 +3,7 @@ import { auth } from '../../firebase';
 
 import AuthUserContext from './AuthUserContext';
 import { withFirebase } from './index';
+import { language } from '../../constants/languages/email-verification';
 
 const needsEmailVerification = authUser =>
   authUser &&
@@ -13,7 +14,10 @@ const withEmailVerification = Component => {
     constructor(props) {
       super(props);
 
-      this.state = { isSent: true };
+      this.state = {
+        isSent: true,
+        selectedLanguage: 'en',
+      };
     }
 
     onSendEmailVerification = () => {
@@ -23,12 +27,30 @@ const withEmailVerification = Component => {
     };
 
     componentDidMount = () => {
-      setTimeout(() => {
-        this.setState({ isSent: false });
-      }, 10000);
+      let userLang = navigator.language || navigator.userLanguage;
+
+      if (userLang === 'hu') {
+        this.setState({
+          selectedLanguage: 'hu'
+        });
+      }
+
+      this.timer = setInterval(
+        () => this.setState(prevState => ({ isSent: false })),
+        15000,
+      );
+    }
+
+    /**
+     * Sets 'mounted' property to false to ignore warning 
+     */
+    componentWillUnmount() {
+      clearInterval(this.timer);
     }
 
     render() {
+      let languageData = language[this.state.selectedLanguage];
+
       return (
         <AuthUserContext.Consumer>
           {authUser =>
@@ -37,16 +59,16 @@ const withEmailVerification = Component => {
                 <div className="email-verification-sent-container">
                   <div className="email-verification-sent-paper">
                     <div className="email-verification-sent-title">
-                      E-mail verification sent!
+                      {languageData.title}
                     </div>
                     <div className="email-verification-sent-text">
-                      <div>
-                        The verification link has been sent to your email address!
-                      </div>
-                      Please check you e-mails (spam folder included) for a confirmation e-mail or send another confirmation e-mail.
+                      {languageData.description}
                     </div>
                     <div className="email-verification-sent-refresh">
-                      After you clicked on the link, refresh this page!
+                      {languageData.afterClick}
+                    </div>
+                    <div className="email-verification-not-sent">
+                      {languageData.notSent}
                     </div>
                     <div className="email-verification-btn">
                       <button
@@ -54,8 +76,8 @@ const withEmailVerification = Component => {
                         onClick={this.onSendEmailVerification}
                         disabled={this.state.isSent}
                       >
-                        Resend confirmation E-Mail
-                    </button>
+                        {languageData.resend}
+                      </button>
                     </div>
                   </div>
                 </div>

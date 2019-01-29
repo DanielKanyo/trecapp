@@ -1397,19 +1397,18 @@ input[type=time]::-webkit-clear-button {
   border-top: 1px solid #e4e4e4;
 }
 
-.email-verification-sent-text>div {
-  padding: 0px 0px 12px;
-  text-align: center;
-  border-bottom: 1px solid #e4e4e4;
-  margin-bottom: 14px;
-  font-size: 16px;
-  color: black;
-}
-
 .email-verification-sent-text {
   font-size: 13px;
   margin-bottom: 14px;
   color: grey;
+}
+
+.email-verification-not-sent {
+  padding: 12px 0px;
+  text-align: center;
+  font-size: 14px;
+  border-top: 1px solid rgba(255, 0, 0, 0.4);
+  color: rgba(255, 0, 0, 0.7);
 }
 
 .email-verification-sent-paper button {
