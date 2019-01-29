@@ -13,7 +13,7 @@ const withEmailVerification = Component => {
     constructor(props) {
       super(props);
 
-      this.state = { isSent: false };
+      this.state = { isSent: true };
     }
 
     onSendEmailVerification = () => {
@@ -21,6 +21,12 @@ const withEmailVerification = Component => {
         .doSendEmailVerification()
         .then(() => this.setState({ isSent: true }));
     };
+
+    componentDidMount = () => {
+      setTimeout(() => {
+        this.setState({ isSent: false });
+      }, 10000);
+    }
 
     render() {
       return (
@@ -48,7 +54,7 @@ const withEmailVerification = Component => {
                         onClick={this.onSendEmailVerification}
                         disabled={this.state.isSent}
                       >
-                        Send confirmation E-Mail
+                        Resend confirmation E-Mail
                     </button>
                     </div>
                   </div>
