@@ -33,9 +33,9 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
   },
   button: {
-    marginBottom: 6,
+    marginBottom: 2,
     marginTop: 4,
-    width: 100,
+    width: 110,
     color: 'white',
     marginLeft: 'auto'
   },

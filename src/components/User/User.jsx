@@ -204,7 +204,7 @@ class User extends Component {
 	 * Reload component if url parameter changed
 	 */
 	componentWillReceiveProps = (nextProps) => {
-		if (nextProps.match.params.id) {
+		if (nextProps.match.params.id && nextProps.match.params.id !== this.state.userId) {
 			this.setState({
 				userId: nextProps.match.params.id,
 				userData: '',
