@@ -29,7 +29,7 @@ const withEmailVerification = Component => {
     componentDidMount = () => {
       let userLang = navigator.language || navigator.userLanguage;
 
-      if (userLang === 'hu') {
+      if (userLang === 'hu' || userLang.includes('hu')) {
         this.setState({
           selectedLanguage: 'hu'
         });
