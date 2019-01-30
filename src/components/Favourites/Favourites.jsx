@@ -111,6 +111,10 @@ class Favourites extends Component {
                     favRecipes: previousRecipes,
                     loading: false
                   });
+                } else {
+                  this.setState({
+                    loading: false
+                  });
                 }
               }
             }
