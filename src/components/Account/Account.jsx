@@ -23,6 +23,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -73,7 +74,8 @@ class AccountPage extends Component {
         aspect: 1,
         height: 80
       },
-      profilePicUrl: ''
+      profilePicUrl: '',
+      loading: false,
     };
   }
 
@@ -113,7 +115,7 @@ class AccountPage extends Component {
           accountEmail: snapshot.email,
           accountLanguage: snapshot.language ? snapshot.language : 'eng',
           accountFilterRecipes: snapshot.filterRecipes ? snapshot.filterRecipes : 'all',
-          accountAbout: snapshot.about ? snapshot.about : '', 
+          accountAbout: snapshot.about ? snapshot.about : '',
           profilePicUrl: snapshot.profilePicUrl ? snapshot.profilePicUrl : '',
           loggedInUserId: loggedInUserId,
         }));
@@ -206,6 +208,10 @@ class AccountPage extends Component {
   }
 
   saveProfilePicture() {
+    this.setState({
+      loading: true
+    });
+
     storage.uploadProfileImage(this.state.blob).then(fileObject => {
       let fullPath = fileObject.metadata.fullPath;
 
@@ -213,6 +219,7 @@ class AccountPage extends Component {
 
         this.setState({
           profilePicUrl: url,
+          loading: false
         });
 
         db.updateUsersProfilePictureUrl(this.state.loggedInUserId, url);
@@ -250,10 +257,15 @@ class AccountPage extends Component {
                           {
                             this.state.profilePicUrl === "" ?
                               <div className="profile-picture-with-no-image">
-                                <div>
-                                  <BrokenImageIcon />
-                                  <div className="no-image-text">{languageObjectProp.data.Account.noImageText}</div>
-                                </div>
+                                {
+                                  this.state.loading ?
+                                    <div><CircularProgress /></div> :
+                                    <div>
+                                      <BrokenImageIcon />
+                                      <div className="no-image-text">{languageObjectProp.data.Account.noImageText}</div>
+                                    </div>
+                                }
+
                               </div> : <div className="profile-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
                           }
                           <div className="profile-picture-upload-btn">
@@ -268,7 +280,7 @@ class AccountPage extends Component {
                       <AccountDetails
                         handleInputChangeProp={this.handleInputChange}
                         handleChangeLanguageProp={this.handleChangeLanguage}
-                        handleChangeFilterByProp = {this.handleChangeFilterBy}
+                        handleChangeFilterByProp={this.handleChangeFilterBy}
                         setLanguageProp={this.props.setLanguageProp}
                         handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
                         dataProp={this.state}
