@@ -1,11 +1,11 @@
-# My Recipes App
+# Trecapp
 
-* [Live](https://my-recipes-app-f8c1b.firebaseapp.com/)
+* [Live](https://trecapp.com/)
 
 ## Installation
 
-* `git clone https://github.com/DanielKanyo/my-recipes-app.git`
-* `cd my-recipes-app`
+* `git clone https://github.com/DanielKanyo/trecapp.git`
+* `cd trecapp`
 * `npm install`
 * `npm start`
 * visit http://localhost:3000/
@@ -15,4 +15,4 @@
 
 * visit https://firebase.google.com/ and create a Firebase App
 * copy and paste your Credentials from your Firebase App into src/firebase/firebase.js
-* activate Email/Password Sign-In Method in your Firebase App
+* activate Email/Password and Google Sign-In Method in your Firebase App
