@@ -97,11 +97,12 @@ class RecipesWall extends Component {
           db.users().once('value').then(users => {
             let usersObject = users.val();
 
-            if (sortedRecipesByTimestamp.length && sortedRecipesByFavCounter.length) {
-              sortedRecipesByTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
-              sortedRecipesByFavCounter.sort((a, b) => (a.favouriteCounter < b.favouriteCounter) ? 1 : ((b.favouriteCounter < a.favouriteCounter) ? -1 : 0));
+            if (this.mounted) {
 
-              if (this.mounted) {
+              if (sortedRecipesByTimestamp.length && sortedRecipesByFavCounter.length) {
+                sortedRecipesByTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
+                sortedRecipesByFavCounter.sort((a, b) => (a.favouriteCounter < b.favouriteCounter) ? 1 : ((b.favouriteCounter < a.favouriteCounter) ? -1 : 0));
+
                 let latestRecipes = sortedRecipesByTimestamp;
                 let topRecipes = sortedRecipesByFavCounter;
 
@@ -212,6 +213,10 @@ class RecipesWall extends Component {
                     counter2++;
                   }
                 }
+              } else {
+                this.setState({
+                  loading: false,
+                });
               }
             }
           });
