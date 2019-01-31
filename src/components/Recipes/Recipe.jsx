@@ -46,6 +46,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CloseIcon from '@material-ui/icons/Close';
+import ReactHtmlParser from 'react-html-parser';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -410,6 +411,20 @@ class Recipe extends Component {
   }
 
   /**
+   * If the string contains an url, then make a link
+   */
+  urlify = (text) => {
+    let urlRegex = /(https?:\/\/[^\s]+)/g;
+    let newText = text.replace(/^\s+|\s+$/g, '');
+
+    return newText.replace(urlRegex, function (url) {
+      let u = new URL(url);
+
+      return '<a target="_blank" href="' + url + '">' + u.hostname + '</a>';
+    });
+  }
+
+  /**
    * Render function
    */
   render() {
@@ -524,7 +539,7 @@ class Recipe extends Component {
 
           <CardContent className="recipe-story-card-content">
             <Typography component="p">
-              {data.story}
+              {ReactHtmlParser(this.urlify(data.story))}
             </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
@@ -583,7 +598,7 @@ class Recipe extends Component {
                 {languageObjectProp.data.myRecipes.myRecipes.method + ':'}
               </Typography>
               <Typography paragraph className="long-description-container">
-                {data.longDes}
+                {ReactHtmlParser(this.urlify(data.longDes))}
               </Typography>
               <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content" />
               <Chip

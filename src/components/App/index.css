@@ -391,6 +391,10 @@ input[type=time]::-webkit-clear-button {
   white-space: pre-line !important;
 }
 
+.recipe-story-card-content a {
+  text-decoration: none;
+}
+
 .recipe-content {
   margin-bottom: 14px;
 }
