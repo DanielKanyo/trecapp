@@ -58,6 +58,7 @@ class MyRecipes extends Component {
       loggedInUserId: '',
       currency: '',
       favouriteCounter: 0,
+      likeCounter: 0,
       languages: [],
       recipeLanguage: '',
       loading: true,
@@ -75,6 +76,7 @@ class MyRecipes extends Component {
     let loggedInUserId = authObject.id;
     let previousRecipes = this.state.recipes;
     let isFavourite = false;
+    let isLiked = false;
 
     let previousLanguages = this.state.languages;
 
@@ -108,8 +110,10 @@ class MyRecipes extends Component {
           for (var key in recipes) {
             if (recipes.hasOwnProperty(key) && recipes[key].userId === loggedInUserId) {
               let favouritesObject = recipes[key].favourites;
+              let likesObject = recipes[key].likes;
 
               isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+              isLiked = !likesObject ? false : likesObject.hasOwnProperty(loggedInUserId) ? true : false;
 
               let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
               let categoryNameEng = categoryItems[recipes[key].category];
@@ -130,7 +134,9 @@ class MyRecipes extends Component {
               data.isMine = isMine;
               data.recipeId = key;
               data.isFavourite = isFavourite;
+              data.isLiked = isLiked;
               data.favouriteCounter = recipes[key].favouriteCounter;
+              data.likeCounter = recipes[key].likeCounter;
               data.recipeDeletable = recipeDeletable;
               data.recipeEditable = recipeEditable;
               data.withPhoto = withPhoto;
@@ -199,6 +205,7 @@ class MyRecipes extends Component {
     dataToSend.imageName = '';
     dataToSend.currency = this.state.currency;
     dataToSend.favouriteCounter = this.state.favouriteCounter;
+    dataToSend.likeCounter = this.state.likeCounter;
     dataToSend.recipeDeletable = recipeDeletable;
     dataToSend.recipeEditable = recipeEditable;
     dataToSend.visibilityEditable = visibilityEditable;
@@ -210,6 +217,7 @@ class MyRecipes extends Component {
 
     obj.currency = this.state.currency;
     obj.favouriteCounter = this.state.favouriteCounter;
+    obj.likeCounter = this.state.likeCounter;
     obj.recipeLanguage = this.state.recipeLanguage;
 
     db.addRecipe(this.state.loggedInUserId, obj).then(snap => {

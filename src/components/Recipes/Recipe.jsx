@@ -19,6 +19,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import ThumbUpIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbUpBorderIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -67,6 +69,7 @@ const styles = theme => ({
   card: {},
   actions: {
     display: 'flex',
+    justifyContent: 'space-between',
     padding: '16px 12px 4px 12px',
   },
   expand: {
@@ -114,7 +117,8 @@ const styles = theme => ({
   },
   moreBtn: {
     width: '100%',
-    background: '#f2f2f2'
+    background: '#f2f2f2',
+    padding: 2
   }
 });
 
@@ -146,6 +150,8 @@ class Recipe extends Component {
       profilePicUrl: this.props.dataProp.profilePicUrl,
       withPhoto: this.props.dataProp.withPhoto,
       anchorEl: null,
+      likeCounter: this.props.dataProp.likeCounter,
+      isLiked: this.props.dataProp.isLiked,
     };
   }
 
@@ -215,7 +221,7 @@ class Recipe extends Component {
    * @param {strin} recipeId 
    * @param {string} userId 
    */
-  handleToggleFavourite(recipeId, userId) {
+  handleToggleFavourite = (recipeId, userId) => {
     let isFav = this.state.isFavourite;
     let newValue = !isFav;
 
@@ -236,6 +242,23 @@ class Recipe extends Component {
     } else {
       toast.success(this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav);
     }
+  }
+
+  handleToggleLike = (recipeId, userId) => {
+    let isLiked = this.state.isLiked;
+    let newValue = !isLiked;
+
+    this.setState({
+      isLiked: newValue
+    });
+
+    db.toggleLike(userId, recipeId).then(recipe => {
+      let recipeNew = recipe.snapshot.val();
+
+      this.setState({
+        likeCounter: recipeNew.likeCounter
+      });
+    });
   }
 
   fileAdded = (e) => {
@@ -548,29 +571,46 @@ class Recipe extends Component {
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
 
-            <Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
-              <div className="fav-icon-and-counter">
-                <IconButton
-                  aria-label="heart"
-                  onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.loggedInUserId) }}
-                  color="secondary"
-                >
-                  {this.state.isFavourite ? <FavoriteIcon className="fav-icon" /> : <FavoriteBorderIcon className="icon-outlined" />}
-                </IconButton>
-                {this.state.favouriteCounter ? <div className="fav-counter"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
-              </div>
-            </Tooltip>
+            <div className="like-and-fav-btn-container">
+              <Tooltip title={this.state.isLiked ? languageObjectProp.data.myRecipes.tooltips.notLike : languageObjectProp.data.myRecipes.tooltips.like}>
+                <div className="like-icon-and-counter">
+                  <IconButton
+                    aria-label="like"
+                    onClick={() => { this.handleToggleLike(data.recipeId, this.state.loggedInUserId) }}
+                    color="primary"
+                  >
+                    {this.state.isLiked ? <ThumbUpIcon className="like-icon" /> : <ThumbUpBorderIcon className="icon-outlined" />}
+                  </IconButton>
+                  {this.state.likeCounter ? <div className="fav-counter"><div>{this.numberFormatter(this.state.likeCounter)}</div></div> : ''}
+                </div>
+              </Tooltip>
 
-            {this.state.visibilityEditable ?
-              <Tooltip title={this.state.visibility ? languageObjectProp.data.myRecipes.tooltips.publicRecipe : languageObjectProp.data.myRecipes.tooltips.privateRecipe}>
-                <IconButton
-                  aria-label="eye"
-                  onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
-                >
-                  {this.state.visibility ? <Visibility className="visibility-icon" /> : <VisibilityOutlined className="icon-outlined" />}
-                </IconButton>
-              </Tooltip> : ''
-            }
+              <Tooltip title={this.state.isFavourite ? languageObjectProp.data.myRecipes.tooltips.removeFromFav : languageObjectProp.data.myRecipes.tooltips.addToFav}>
+                <div className="fav-icon-and-counter">
+                  <IconButton
+                    aria-label="heart"
+                    onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.loggedInUserId) }}
+                    color="secondary"
+                  >
+                    {this.state.isFavourite ? <FavoriteIcon className="fav-icon" /> : <FavoriteBorderIcon className="icon-outlined" />}
+                  </IconButton>
+                  {this.state.favouriteCounter ? <div className="fav-counter"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
+                </div>
+              </Tooltip>
+
+              {
+                this.state.visibilityEditable ?
+                  <Tooltip title={this.state.visibility ? languageObjectProp.data.myRecipes.tooltips.publicRecipe : languageObjectProp.data.myRecipes.tooltips.privateRecipe}>
+                    <IconButton
+                      aria-label="eye"
+                      onClick={() => { this.handleChangeVisibility(data.recipeId, this.state.visibility) }}
+                    >
+                      {this.state.visibility ? <Visibility className="visibility-icon" /> : <VisibilityOutlined className="icon-outlined" />}
+                    </IconButton>
+                  </Tooltip> : ''
+              }
+
+            </div>
 
             <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
 

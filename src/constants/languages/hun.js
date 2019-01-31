@@ -78,6 +78,8 @@ export const dataHun = {
         publicRecipe: 'Nyilvános recept',
         addToFav: 'Hozzáadás a kedvencekhez',
         removeFromFav: 'Törlés a kedvencekből',
+        like: 'Tetszik',
+        notLike: 'Mégsem tetszik',
         deleteRecipe: 'Törlés',
         editRecipe: 'Szerkesztés',
         openRecipeFullSize: 'Megnyitás',

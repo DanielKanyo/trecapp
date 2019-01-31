@@ -78,6 +78,8 @@ export const dataEng = {
         publicRecipe: 'Public recipe',
         addToFav: 'Add to favourites',
         removeFromFav: 'Remove from favourites',
+        like: 'Like',
+        notLike: 'Not like',
         deleteRecipe: 'Delete',
         editRecipe: 'Edit',
         openRecipeFullSize: 'Open',

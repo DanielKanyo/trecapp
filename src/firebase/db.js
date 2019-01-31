@@ -37,6 +37,7 @@ export const addRecipe = (id, recipe) => {
     title: recipe.title,
     currency: recipe.currency,
     favouriteCounter: recipe.favouriteCounter,
+    likeCounter: recipe.likeCounter,
     imageUrl: recipe.imageUrl,
     imageName: recipe.imageName,
     recipeLanguage: recipe.recipeLanguage
@@ -143,6 +144,28 @@ export function toggleFavourite(userId, recipeId) {
           recipe.favourites = {};
         }
         recipe.favourites[userId] = true;
+      }
+    }
+
+    return recipe;
+  });
+}
+
+// Toggle like
+export function toggleLike(userId, recipeId) {
+  let recipeRef = db.ref(`recipes/${recipeId}`);
+
+  return recipeRef.transaction(function (recipe) {
+    if (recipe) {
+      if (recipe.likeCounter && recipe.likes[userId]) {
+        recipe.likeCounter--;
+        recipe.likes[userId] = null;
+      } else {
+        recipe.likeCounter++;
+        if (!recipe.likes) {
+          recipe.likes = {};
+        }
+        recipe.likes[userId] = true;
       }
     }
 

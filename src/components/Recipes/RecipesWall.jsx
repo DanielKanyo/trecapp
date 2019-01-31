@@ -112,6 +112,7 @@ class RecipesWall extends Component {
                     let profilePicUrl = usersObject[latestRecipes[i].userId].profilePicUrl;
 
                     let favouritesObject = latestRecipes[i].favourites;
+                    let likesObject = latestRecipes[i].likes;
 
                     let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
                     let categoryNameEng = categoryItems[latestRecipes[i].category];
@@ -119,6 +120,7 @@ class RecipesWall extends Component {
 
                     let isMine = latestRecipes[i].userId === loggedInUserId ? true : false;
                     let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+                    let isLiked = !likesObject ? false : likesObject.hasOwnProperty(loggedInUserId) ? true : false;
                     let visibilityEditable = false;
                     let recipeDeletable = false;
                     let recipeEditable = isMine;
@@ -134,6 +136,7 @@ class RecipesWall extends Component {
                     data.profilePicUrl = profilePicUrl;
                     data.isMine = isMine;
                     data.isFavourite = isFavourite;
+                    data.isLiked = isLiked;
                     data.favouriteCounter = favouriteCounter;
                     data.recipeDeletable = recipeDeletable;
                     data.recipeEditable = recipeEditable;
@@ -166,6 +169,7 @@ class RecipesWall extends Component {
                     let profilePicUrl = usersObject[topRecipes[j].userId].profilePicUrl;
 
                     let favouritesObject = topRecipes[j].favourites;
+                    let likesObject = topRecipes[j].likes;
 
                     let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
                     let categoryNameEng = categoryItems[topRecipes[j].category];
@@ -173,6 +177,7 @@ class RecipesWall extends Component {
 
                     let isMine = topRecipes[j].userId === loggedInUserId ? true : false;
                     let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+                    let isLiked = !likesObject ? false : likesObject.hasOwnProperty(loggedInUserId) ? true : false;
                     let visibilityEditable = false;
                     let recipeDeletable = false;
                     let recipeEditable = isMine;
@@ -187,6 +192,7 @@ class RecipesWall extends Component {
                     data.profilePicUrl = profilePicUrl;
                     data.isMine = isMine;
                     data.isFavourite = isFavourite;
+                    data.isLiked = isLiked;
                     data.favouriteCounter = favouriteCounter;
                     data.recipeDeletable = recipeDeletable;
                     data.recipeEditable = recipeEditable;

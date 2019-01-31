@@ -504,6 +504,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .fav-icon-and-counter,
+.like-icon-and-counter,
 .download-icon {
   display: flex;
   flex-direction: row;
@@ -1468,6 +1469,10 @@ input[type=time]::-webkit-clear-button {
 .recipe-more-btn span svg {
   margin: 0 !important;
   color: grey !important;
+}
+
+.like-and-fav-btn-container {
+  display: flex;
 }
 
 @media only screen and (max-width: 950px) {
