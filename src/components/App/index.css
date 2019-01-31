@@ -405,7 +405,7 @@ input[type=time]::-webkit-clear-button {
 
 .recipe-card-content {
   padding-bottom: 16px !important;
-  padding-top: 0px !important;
+  padding-top: 10px !important;
 }
 
 .chip-card-content {
@@ -1146,6 +1146,7 @@ input[type=time]::-webkit-clear-button {
 
 .long-description-container {
   white-space: pre-line !important;
+  padding: 0px 10px;
 }
 
 .delete-recipe-btn svg {
@@ -1458,6 +1459,15 @@ input[type=time]::-webkit-clear-button {
 
 .Impressum .grid-component .title-imp {
   color: #494949;
+}
+
+.recipe-more-btn {
+  padding: 0px 5px 5px 5px;
+}
+
+.recipe-more-btn span svg {
+  margin: 0 !important;
+  color: grey !important;
 }
 
 @media only screen and (max-width: 950px) {

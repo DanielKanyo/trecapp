@@ -67,7 +67,7 @@ const styles = theme => ({
   card: {},
   actions: {
     display: 'flex',
-    padding: '16px 12px 8px 12px',
+    padding: '16px 12px 4px 12px',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -111,6 +111,10 @@ const styles = theme => ({
     margin: 5,
     background: '#F8B000',
     color: 'white'
+  },
+  moreBtn: {
+    width: '100%',
+    background: '#f2f2f2'
   }
 });
 
@@ -570,20 +574,24 @@ class Recipe extends Component {
 
             <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
 
-            <Tooltip title={languageObjectProp.data.myRecipes.tooltips.more}>
-              <IconButton
-                className={classnames(classes.expand, {
-                  [classes.expandOpen]: this.state.expanded,
-                })}
-                onClick={this.handleExpandClick}
-                aria-expanded={this.state.expanded}
-                aria-label="Show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </Tooltip>
-
           </CardActions>
+          <div className="recipe-more-btn">
+            <Tooltip title={languageObjectProp.data.myRecipes.tooltips.more}>
+              <Button
+                onClick={this.handleExpandClick}
+                className={classes.moreBtn}
+              >
+                <ExpandMoreIcon
+                  className={classnames(classes.expand, {
+                    [classes.expandOpen]: this.state.expanded,
+                  })}
+                  aria-expanded={this.state.expanded}
+                  aria-label="Show more"
+                />
+              </Button>
+            </Tooltip>
+          </div>
+
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent className="recipe-card-content">
               <Typography paragraph variant="body2">
