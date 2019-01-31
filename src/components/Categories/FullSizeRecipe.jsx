@@ -61,9 +61,11 @@ class FullSizeRecipe extends Component {
 					});
 
 					let favouritesObject = recipe.favourites;
+					let likesObject = recipe.likes;
 
 					let isMine = recipe.userId === loggedInUserId ? true : false;
 					let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+					let isLiked = !likesObject ? false : likesObject.hasOwnProperty(loggedInUserId) ? true : false;
 					let recipeDeletable = false;
 					let recipeEditable = isMine;
 					let visibilityEditable = false;
@@ -79,6 +81,7 @@ class FullSizeRecipe extends Component {
 					data.profilePicUrl = profilePicUrl;
 					data.isMine = isMine;
 					data.isFavourite = isFavourite;
+					data.isLiked = isLiked;
 					data.favouriteCounter = favouriteCounter;
 					data.recipeDeletable = recipeDeletable;
 					data.recipeEditable = recipeEditable;
