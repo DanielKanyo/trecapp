@@ -117,8 +117,8 @@ const styles = theme => ({
   },
   moreBtn: {
     width: '100%',
-    background: '#f2f2f2',
-    padding: 2
+    background: '#f2f2f2 !important',
+    padding: 2,
   }
 });
 
