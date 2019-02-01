@@ -510,10 +510,12 @@ input[type=time]::-webkit-clear-button {
   flex-direction: row;
 }
 
-.fav-counter {
+.fav-counter,
+.like-counter {
   font-size: 12px;
   margin-left: -13px;
   z-index: 10;
+  pointer-events: none;
 }
 
 .fav-counter.fav-counter-rec-preview {
@@ -522,7 +524,8 @@ input[type=time]::-webkit-clear-button {
   margin-top: -4px;
 }
 
-.fav-counter>div {
+.fav-counter>div,
+.like-counter>div {
   padding: 2px 6px;
   background: #ebebeb;
   color: #717171;

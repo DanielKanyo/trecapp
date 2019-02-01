@@ -598,7 +598,7 @@ class Recipe extends Component {
                       {this.state.isLiked ? <ThumbUpIcon className="like-icon" /> : <ThumbUpBorderIcon className="icon-outlined" />}
                     </IconButton>
                   </MuiThemeProvider>
-                  {this.state.likeCounter ? <div className="fav-counter"><div>{this.numberFormatter(this.state.likeCounter)}</div></div> : ''}
+                  {this.state.likeCounter ? <div className="like-counter"><div>{this.numberFormatter(this.state.likeCounter)}</div></div> : ''}
                 </div>
               </Tooltip>
 
