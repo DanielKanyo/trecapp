@@ -6,7 +6,7 @@ import compose from 'recompose/compose';
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -119,6 +119,20 @@ const styles = theme => ({
     width: '100%',
     background: '#f2f2f2 !important',
     padding: 2,
+  }
+});
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    primary: {
+      light: '#00c0dd',
+      main: '#00c0dd',
+      dark: '#00c0dd',
+      contrastText: '#fff',
+    }
   }
 });
 
@@ -572,15 +586,18 @@ class Recipe extends Component {
           <CardActions className={classes.actions} disableActionSpacing>
 
             <div className="like-and-fav-btn-container">
+
               <Tooltip title={this.state.isLiked ? languageObjectProp.data.myRecipes.tooltips.notLike : languageObjectProp.data.myRecipes.tooltips.like}>
                 <div className="like-icon-and-counter">
-                  <IconButton
-                    aria-label="like"
-                    onClick={() => { this.handleToggleLike(data.recipeId, this.state.loggedInUserId) }}
-                    color="primary"
-                  >
-                    {this.state.isLiked ? <ThumbUpIcon className="like-icon" /> : <ThumbUpBorderIcon className="icon-outlined" />}
-                  </IconButton>
+                  <MuiThemeProvider theme={theme}>
+                    <IconButton
+                      aria-label="like"
+                      onClick={() => { this.handleToggleLike(data.recipeId, this.state.loggedInUserId) }}
+                      color="primary"
+                    >
+                      {this.state.isLiked ? <ThumbUpIcon className="like-icon" /> : <ThumbUpBorderIcon className="icon-outlined" />}
+                    </IconButton>
+                  </MuiThemeProvider>
                   {this.state.likeCounter ? <div className="fav-counter"><div>{this.numberFormatter(this.state.likeCounter)}</div></div> : ''}
                 </div>
               </Tooltip>
@@ -616,7 +633,7 @@ class Recipe extends Component {
 
           </CardActions>
           <div className="recipe-more-btn">
-            <Tooltip title={languageObjectProp.data.myRecipes.tooltips.more}>
+            <Tooltip title={this.state.expanded ? languageObjectProp.data.myRecipes.tooltips.less : languageObjectProp.data.myRecipes.tooltips.more}>
               <Button
                 onClick={this.handleExpandClick}
                 className={classes.moreBtn}

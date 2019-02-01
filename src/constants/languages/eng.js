@@ -86,6 +86,7 @@ export const dataEng = {
         downloadRecipe: 'Download',
         printRecipe: 'Print',
         more: 'More',
+        less: 'Less',
         numOfRecipes: 'Number of your recipes',
         numOfHisRecipes: 'Number of recipes',
         saveImage: 'Save image',

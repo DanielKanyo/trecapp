@@ -86,6 +86,7 @@ export const dataHun = {
         downloadRecipe: 'Letöltés',
         printRecipe: 'Nyomtatás',
         more: 'Több',
+        less: 'Kevesebb',
         numOfRecipes: 'Receptjeid száma',
         numOfHisRecipes: 'Receptjei száma',
         saveImage: 'Kép mentése',
