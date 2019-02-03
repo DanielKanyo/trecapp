@@ -1478,6 +1478,25 @@ input[type=time]::-webkit-clear-button {
   display: flex;
 }
 
+.selected-languages-for-filtering-container {
+  width: 100%;
+  margin: 8px 0px;
+}
+
+.selected-languages-for-filtering-title {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.language-chip {
+  margin: 5px 6px 5px 0px;
+}
+
+.add-language-btn-to-filter:hover {
+  background: #394aaa !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

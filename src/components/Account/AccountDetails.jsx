@@ -8,16 +8,33 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-import SaveIcon from '@material-ui/icons/Save';
-import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+
 import { isoLanguages } from '../../constants/languages/iso-639';
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 const styles = theme => ({
   textField: {
     width: '100%',
     marginTop: 12,
     marginBottom: 6
+  },
+  appBar: {
+    position: 'relative',
   },
   paper: {
     textAlign: 'center',
@@ -33,14 +50,18 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
   },
   button: {
-    marginBottom: 2,
-    marginTop: 4,
-    width: 110,
+    width: '100%',
     color: 'white',
-    marginLeft: 'auto'
+    marginTop: 12
   },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
+  languageButton: {
+    width: '100%',
+    background: '#3f51b5',
+    color: 'white',
+    marginTop: 5
+  },
+  flex: {
+    flex: 1,
   },
 });
 
@@ -53,7 +74,8 @@ class AccountDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      languages: []
+      languages: [],
+      open: false,
     };
   }
 
@@ -75,9 +97,7 @@ class AccountDetails extends Component {
       this.setState({
         languages: previousLanguages
       });
-
     }
-
   }
 
   /**
@@ -134,6 +154,14 @@ class AccountDetails extends Component {
     }
   }
 
+  handleCloseLanguageList = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpenLanguageList = () => {
+    this.setState({ open: true });
+  }
+
   /**
    * Render function
    */
@@ -178,8 +206,26 @@ class AccountDetails extends Component {
                 </Select>
               </FormControl>
             </div>
-            <div>
-              <FormControl className={classes.formControl}>
+            <div className="selected-languages-for-filtering-container">
+              <div className="selected-languages-for-filtering-title">{languageObjectProp.data.Account.filteringByLanguage}</div>
+              <div className="selected-languages-chips">
+                {
+                  this.props.dataProp.accountFilterRecipes ?
+                    this.props.dataProp.accountFilterRecipes.map(lang => {
+                      return lang;
+                    }) : ''
+                }
+              </div>
+              <div className="add-new-language-btn-container">
+                <Button
+                  variant="contained"
+                  className={classes.languageButton + ' add-language-btn-to-filter'}
+                  onClick={this.handleOpenLanguageList}
+                >
+                  Add language
+                </Button>
+              </div>
+              {/* <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.filteringByLanguage}</InputLabel>
                 <Select
                   className='language-selector'
@@ -195,7 +241,7 @@ class AccountDetails extends Component {
                     return item;
                   })}
                 </Select>
-              </FormControl>
+              </FormControl> */}
             </div>
             <TextField
               id="account-about"
@@ -212,16 +258,43 @@ class AccountDetails extends Component {
             <div className="account-save-container">
               <Button
                 variant="contained"
-                size="small"
                 className={classes.button + ' control-btn save-btn'}
                 onClick={this.handleSaveAccount}
               >
-                <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
                 {languageObjectProp.data.Account.save}
               </Button>
             </div>
           </div>
         </Paper>
+        <Dialog
+          fullScreen
+          open={this.state.open}
+          onClose={this.handleCloseLanguageList}
+          TransitionComponent={Transition}
+        >
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleCloseLanguageList} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="h6" color="inherit" className={classes.flex}>
+                Sound
+              </Typography>
+              <Button color="inherit" onClick={this.handleCloseLanguageList}>
+                save
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <List>
+            <ListItem button>
+              <ListItemText primary="Phone ringtone" secondary="Titania" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+            </ListItem>
+          </List>
+        </Dialog>
       </div>
     );
   }

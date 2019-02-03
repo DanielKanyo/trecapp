@@ -21,9 +21,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import Chip from '@material-ui/core/Chip';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { isoLanguages } from '../../constants/languages/iso-639';
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -76,6 +78,7 @@ class AccountPage extends Component {
       },
       profilePicUrl: '',
       loading: false,
+      selectedLanguages: []
     };
   }
 
@@ -107,14 +110,49 @@ class AccountPage extends Component {
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
+    let selectedLanguages = this.state.selectedLanguages;
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
       if (this.mounted) {
+        if (snapshot.filterRecipes) {
+          if (Array.isArray(snapshot.filterRecipes)) {
+            for (let i = 0; i < snapshot.filterRecipes.length; i++) {
+              selectedLanguages.push(
+                <Chip
+                  key={i}
+                  label={(isoLanguages[snapshot.filterRecipes[i]].nativeName).toUpperCase()}
+                  onDelete={() => { this.handleDeleteLanguage(i) }}
+                  className={'language-chip'}
+                  variant="outlined"
+                />
+              );
+            }
+          } else if (snapshot.filterRecipes !== 'all') {
+            selectedLanguages.push(
+              <Chip
+                key={selectedLanguages.length}
+                label={(isoLanguages[snapshot.filterRecipes].nativeName).toUpperCase()}
+                onDelete={() => { this.handleDeleteLanguage(selectedLanguages.length) }}
+                className={'language-chip'}
+                variant="outlined"
+              />
+            );
+          } else {
+            selectedLanguages.push(
+              <Chip key={selectedLanguages.length} label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()} className={'language-chip'} variant="outlined" />
+            );
+          }
+        } else {
+          selectedLanguages.push(
+            <Chip key={selectedLanguages.length} label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()} className={'language-chip'} variant="outlined" />
+          );
+        }
+
         this.setState(() => ({
           accountName: snapshot.username,
           accountEmail: snapshot.email,
           accountLanguage: snapshot.language ? snapshot.language : 'eng',
-          accountFilterRecipes: snapshot.filterRecipes ? snapshot.filterRecipes : 'all',
+          accountFilterRecipes: selectedLanguages,
           accountAbout: snapshot.about ? snapshot.about : '',
           profilePicUrl: snapshot.profilePicUrl ? snapshot.profilePicUrl : '',
           loggedInUserId: loggedInUserId,
@@ -225,6 +263,11 @@ class AccountPage extends Component {
         db.updateUsersProfilePictureUrl(this.state.loggedInUserId, url);
       });
     });
+  }
+
+  handleDeleteLanguage = (index) => {
+    console.log(index);
+
   }
 
   render() {
