@@ -1502,6 +1502,20 @@ input[type=time]::-webkit-clear-button {
   pointer-events: none;
 }
 
+.languageActive>div {
+  background: #3f51b5;
+  opacity: 1 !important;
+}
+
+.languageActive span,
+.languageActive p {
+  color: white !important;
+}
+
+.languageActive {
+  background: #394aaa !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

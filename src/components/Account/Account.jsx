@@ -21,6 +21,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
@@ -29,6 +32,10 @@ import { isoLanguages } from '../../constants/languages/iso-639';
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer } from 'react-toastify';
 
 const styles = theme => ({
   textField: {
@@ -78,7 +85,8 @@ class AccountPage extends Component {
       },
       profilePicUrl: '',
       loading: false,
-      selectedLanguages: []
+      selectedLanguages: [],
+      defaultLanguages: []
     };
   }
 
@@ -116,6 +124,8 @@ class AccountPage extends Component {
     });
 
     db.updateUserInfo(this.state.loggedInUserId, name, language, about, languages);
+
+    toast.success(this.props.languageObjectProp.data.Account.toaster.userDataSaved);
   }
 
   /**
@@ -130,7 +140,13 @@ class AccountPage extends Component {
 
     db.getUserInfo(loggedInUserId).then(snapshot => {
       if (this.mounted) {
+
         if (snapshot.filterRecipes) {
+
+          let defaultLanguages = this.getDefaultLanguages(snapshot.filterRecipes);
+
+          this.setState({ defaultLanguages, filterRecipes: snapshot.filterRecipes });
+
           if (Array.isArray(snapshot.filterRecipes)) {
             for (let i = 0; i < snapshot.filterRecipes.length; i++) {
               selectedLanguages.push(
@@ -175,6 +191,33 @@ class AccountPage extends Component {
         }));
       }
     });
+  }
+
+  /**
+   * Get default language items for the full screen dialog
+   */
+  getDefaultLanguages = (filterLanguages) => {
+    let previousDefaultLanguages = this.state.defaultLanguages;
+
+    for (let key in isoLanguages) {
+      let nativeName = isoLanguages[key].nativeName;
+      let name = isoLanguages[key].name;
+
+      previousDefaultLanguages.push(
+        <div key={key}>
+          <ListItem
+            className='language-item'
+            button
+            onClick={(e) => { this.handleAddLanguage(e, isoLanguages[key]['639-1']) }}
+          >
+            <ListItemText primary={nativeName} secondary={name} />
+          </ListItem>
+          <Divider />
+        </div>
+      )
+    }
+
+    return previousDefaultLanguages
   }
 
   /**
@@ -300,7 +343,12 @@ class AccountPage extends Component {
       this.setState({ selectedLanguages: previousSelectedLanguages });
     } else {
       previousSelectedLanguages.push(
-        <Chip key={'all'} label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()} className={'language-chip'} variant="outlined" />
+        <Chip
+          key={'all'}
+          label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()}
+          className={'language-chip'}
+          variant="outlined"
+        />
       )
 
       this.setState({ selectedLanguages: previousSelectedLanguages });
@@ -311,31 +359,47 @@ class AccountPage extends Component {
   /**
    * Add language to the list
    */
-  handleAddLanguage = (lang) => {
+  handleAddLanguage = (e, lang) => {
     let previousSelectedLanguages = this.state.selectedLanguages;
+    let previousDefaultLanguages = this.state.defaultLanguages;
+    let alreadyAdded;
 
-    for (let i = 0; i < previousSelectedLanguages.length; i++) {
-      if (previousSelectedLanguages[i].key === 'all') {
-        previousSelectedLanguages.splice(0, 1)
+    for (let j = 0; j < previousSelectedLanguages.length; j++) {
+      if (lang === previousSelectedLanguages[j].key) {
+        alreadyAdded = true;
       }
     }
 
-    this.setState({ selectedLanguages: previousSelectedLanguages });
+    if (!alreadyAdded) {
+      for (let i = 0; i < previousSelectedLanguages.length; i++) {
+        if (previousSelectedLanguages[i].key === 'all') {
+          previousSelectedLanguages.splice(0, 1)
+        }
+      }
 
-    previousSelectedLanguages.push(
-      <Chip
-        key={lang}
-        label={(isoLanguages[lang].nativeName).toUpperCase()}
-        onDelete={() => { this.handleDeleteLanguage(lang) }}
-        className={'language-chip'}
-        variant="outlined"
-      />
-    )
+      this.setState({
+        selectedLanguages: previousSelectedLanguages,
+        defaultLanguages: previousDefaultLanguages
+      });
 
-    this.setState({
-      selectedLanguages: previousSelectedLanguages
-    });
+      previousSelectedLanguages.push(
+        <Chip
+          key={lang}
+          label={(isoLanguages[lang].nativeName).toUpperCase()}
+          onDelete={() => { this.handleDeleteLanguage(lang) }}
+          className={'language-chip'}
+          variant="outlined"
+        />
+      )
 
+      this.setState({
+        selectedLanguages: previousSelectedLanguages
+      });
+
+      toast.success(this.props.languageObjectProp.data.Account.toaster.languageAddedSuccesfully);
+    } else {
+			toast.warning(this.props.languageObjectProp.data.Account.toaster.languageAlreadyInList);
+    }
   }
 
   render() {
@@ -396,7 +460,7 @@ class AccountPage extends Component {
                         handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
                         dataProp={this.state}
                         languageObjectProp={languageObjectProp}
-                        handleAddLanguageProp={this.handleAddLanguage}
+                        defaultLanguagesProp={this.state.defaultLanguages}
                       />
                     </Grid>
 
@@ -451,6 +515,17 @@ class AccountPage extends Component {
                 <input className="profile-input" type="file" onChange={this.onSelectFile} />
               </div>
             </Dialog>
+
+            <ToastContainer
+              position="top-right"
+              autoClose={2500}
+              hideProgressBar
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnVisibilityChange
+              pauseOnHover
+            />
           </div>
         }
       </AuthUserContext.Consumer>
