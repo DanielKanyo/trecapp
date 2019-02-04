@@ -75,6 +75,7 @@ class AccountDetails extends Component {
     super(props);
     this.state = {
       languages: [],
+      checkboxes: [],
       open: false,
     };
   }
@@ -90,7 +91,12 @@ class AccountDetails extends Component {
         let name = isoLanguages[key].name;
 
         previousLanguages.push(
-          <MenuItem key={key} value={isoLanguages[key]['639-1']}>{nativeName} ({name})</MenuItem>
+          <div key={key}>
+            <ListItem className="language-item" button onClick={(e) => { this.selectLanguage(e, isoLanguages[key]['639-1']) }}>
+              <ListItemText primary={nativeName} secondary={name} />
+            </ListItem>
+            <Divider />
+          </div>
         )
       }
 
@@ -162,6 +168,10 @@ class AccountDetails extends Component {
     this.setState({ open: true });
   }
 
+  selectLanguage = (e, language) => {
+    console.log(e.target, language);
+  }
+
   /**
    * Render function
    */
@@ -206,6 +216,7 @@ class AccountDetails extends Component {
                 </Select>
               </FormControl>
             </div>
+
             <div className="selected-languages-for-filtering-container">
               <div className="selected-languages-for-filtering-title">{languageObjectProp.data.Account.filteringByLanguage}</div>
               <div className="selected-languages-chips">
@@ -225,24 +236,8 @@ class AccountDetails extends Component {
                   Add language
                 </Button>
               </div>
-              {/* <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="account-currency-dropdown-label">{languageObjectProp.data.Account.filteringByLanguage}</InputLabel>
-                <Select
-                  className='language-selector'
-                  value={this.props.dataProp.accountFilterRecipes ? this.props.dataProp.accountFilterRecipes : 'all'}
-                  onChange={this.handleChangeFilterBy}
-                  inputProps={{
-                    name: 'accountFilterRecipes',
-                    id: 'filter-dropdown',
-                  }}
-                >
-                  <MenuItem value={'all'}>{languageObjectProp.data.Account.showAllRecipes}</MenuItem>
-                  {this.state.languages.map(item => {
-                    return item;
-                  })}
-                </Select>
-              </FormControl> */}
             </div>
+
             <TextField
               id="account-about"
               label={languageObjectProp.data.Account.about}
@@ -278,21 +273,19 @@ class AccountDetails extends Component {
                 <CloseIcon />
               </IconButton>
               <Typography variant="h6" color="inherit" className={classes.flex}>
-                Sound
+                Select one or more languages
               </Typography>
               <Button color="inherit" onClick={this.handleCloseLanguageList}>
-                save
+                done
               </Button>
             </Toolbar>
           </AppBar>
           <List>
-            <ListItem button>
-              <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-            </ListItem>
+            {
+              this.state.languages.map(l => {
+                return l;
+              })
+            }
           </List>
         </Dialog>
       </div>

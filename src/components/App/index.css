@@ -1497,6 +1497,10 @@ input[type=time]::-webkit-clear-button {
   background: #394aaa !important;
 }
 
+.language-item * {
+  pointer-events: none;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
