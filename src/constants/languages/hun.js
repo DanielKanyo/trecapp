@@ -9,7 +9,7 @@ export const dataHun = {
     },
     myRecipes: {
       newRecipe: {
-        title: 'Receptjeim',
+        title: 'Új Recept',
         clearBtn: 'Kiürít',
         form: {
           title: 'Cím',
@@ -120,6 +120,11 @@ export const dataHun = {
       aboutYouPlaceholder: 'Csak néhány mondatot...',
       filteringByLanguage: 'Receptek szűrése nyelv alapján',
       showAllRecipes: 'Mutasd mind',
+      addLanguage: 'Nyelv hozzáadás',
+      modal: {
+        selectOneOrMore: 'Válassz ki egy vagy több nyelvet',
+        done: 'Kész',
+      }
     },
     ShoppingList: {
       input: 'Termék...',

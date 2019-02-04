@@ -64,7 +64,11 @@ class Categories extends Component {
 
           if (filterRecipes) {
             for (let prepKey in resRecipes) {
-              if (resRecipes[prepKey].recipeLanguage !== permittedRecipesLanguage) {
+              if (Array.isArray(permittedRecipesLanguage)) {
+                if (!permittedRecipesLanguage.includes(resRecipes[prepKey].recipeLanguage)) {
+                  delete resRecipes[prepKey];
+                }
+              } else if (resRecipes[prepKey].recipeLanguage !== permittedRecipesLanguage) {
                 delete resRecipes[prepKey];
               }
             }

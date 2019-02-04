@@ -10,7 +10,7 @@ export const dataEng = {
     myRecipes: {
       newRecipe: {
         clearBtn: 'Empty',
-        title: 'My Recipes',
+        title: 'New Recipes',
         form: {
           title: 'Title',
           story: 'Story',
@@ -120,6 +120,11 @@ export const dataEng = {
       aboutYouPlaceholder: 'Just a few sentences...',
       filteringByLanguage: 'Filtering recipes by language',
       showAllRecipes: 'Show all',
+      addLanguage: 'Add language',
+      modal: {
+        selectOneOrMore: 'Select one or more languages',
+        done: 'Done',
+      }
     },
     ShoppingList: {
       input: 'Product...',

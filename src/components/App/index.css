@@ -351,6 +351,7 @@ input[type=time]::-webkit-clear-button {
   display: flex;
   flex-direction: row;
   min-height: 48px;
+  margin-bottom: 6px;
 }
 
 .icon-outlined {

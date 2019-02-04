@@ -233,7 +233,7 @@ class AccountDetails extends Component {
                   className={classes.languageButton + ' add-language-btn-to-filter'}
                   onClick={this.handleOpenLanguageList}
                 >
-                  Add language
+                  {languageObjectProp.data.Account.addLanguage}
                 </Button>
               </div>
             </div>
@@ -273,10 +273,10 @@ class AccountDetails extends Component {
                 <CloseIcon />
               </IconButton>
               <Typography variant="h6" color="inherit" className={classes.flex}>
-                Select one or more languages
+                {languageObjectProp.data.Account.modal.selectOneOrMore}
               </Typography>
               <Button color="inherit" onClick={this.handleCloseLanguageList}>
-                done
+                {languageObjectProp.data.Account.modal.done}
               </Button>
             </Toolbar>
           </AppBar>
