@@ -119,9 +119,9 @@ class AccountPage extends Component {
             for (let i = 0; i < snapshot.filterRecipes.length; i++) {
               selectedLanguages.push(
                 <Chip
-                  key={i}
+                  key={snapshot.filterRecipes[i]}
                   label={(isoLanguages[snapshot.filterRecipes[i]].nativeName).toUpperCase()}
-                  onDelete={() => { this.handleDeleteLanguage(i) }}
+                  onDelete={() => { this.handleDeleteLanguage(snapshot.filterRecipes[i]) }}
                   className={'language-chip'}
                   variant="outlined"
                 />
@@ -130,21 +130,21 @@ class AccountPage extends Component {
           } else if (snapshot.filterRecipes !== 'all') {
             selectedLanguages.push(
               <Chip
-                key={selectedLanguages.length}
+                key={snapshot.filterRecipes}
                 label={(isoLanguages[snapshot.filterRecipes].nativeName).toUpperCase()}
-                onDelete={() => { this.handleDeleteLanguage(selectedLanguages.length) }}
+                onDelete={() => { this.handleDeleteLanguage(snapshot.filterRecipes) }}
                 className={'language-chip'}
                 variant="outlined"
               />
             );
           } else {
             selectedLanguages.push(
-              <Chip key={selectedLanguages.length} label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()} className={'language-chip'} variant="outlined" />
+              <Chip key={'all'} label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()} className={'language-chip'} variant="outlined" />
             );
           }
         } else {
           selectedLanguages.push(
-            <Chip key={selectedLanguages.length} label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()} className={'language-chip'} variant="outlined" />
+            <Chip key={'all'} label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()} className={'language-chip'} variant="outlined" />
           );
         }
 
@@ -265,8 +265,51 @@ class AccountPage extends Component {
     });
   }
 
-  handleDeleteLanguage = (index) => {
-    console.log(index);
+  handleDeleteLanguage = (language) => {
+    let previousSelectedLanguages = this.state.selectedLanguages;
+
+    for (let i = 0; i < previousSelectedLanguages.length; i++) {
+      if (language === previousSelectedLanguages[i].key) {
+        previousSelectedLanguages.splice(i, 1)
+      }
+    }
+
+    if (previousSelectedLanguages.length !== 0) {
+      this.setState({ selectedLanguages: previousSelectedLanguages });
+    } else {
+      previousSelectedLanguages.push(
+        <Chip key={'all'} label={(this.props.languageObjectProp.data.Account.showAllRecipes).toUpperCase()} className={'language-chip'} variant="outlined" />
+      )
+
+      this.setState({ selectedLanguages: previousSelectedLanguages });
+    }
+
+  }
+
+  handleAddLanguage = (lang) => {
+    let previousSelectedLanguages = this.state.selectedLanguages;
+
+    for (let i = 0; i < previousSelectedLanguages.length; i++) {
+      if (previousSelectedLanguages[i].key === 'all') {
+        previousSelectedLanguages.splice(0, 1)
+      }
+    }
+
+    this.setState({ selectedLanguages: previousSelectedLanguages });
+
+    previousSelectedLanguages.push(
+      <Chip
+        key={lang}
+        label={(isoLanguages[lang].nativeName).toUpperCase()}
+        onDelete={() => { this.handleDeleteLanguage(lang) }}
+        className={'language-chip'}
+        variant="outlined"
+      />
+    )
+
+    this.setState({
+      selectedLanguages: previousSelectedLanguages
+    });
 
   }
 
@@ -328,6 +371,7 @@ class AccountPage extends Component {
                         handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
                         dataProp={this.state}
                         languageObjectProp={languageObjectProp}
+                        handleAddLanguageProp={this.handleAddLanguage}
                       />
                     </Grid>
 

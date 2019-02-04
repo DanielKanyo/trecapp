@@ -169,7 +169,7 @@ class AccountDetails extends Component {
   }
 
   selectLanguage = (e, language) => {
-    console.log(e.target, language);
+    this.props.handleAddLanguageProp(language);
   }
 
   /**
