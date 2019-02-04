@@ -94,17 +94,33 @@ class AccountPage extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * Save new account data
+   */
   handleSaveNewAccountData = (name, language, about, filterRecipes) => {
+    let languages = [];
+
+    for (let i = 0; i < filterRecipes.length; i++) {
+      if (filterRecipes.length === 1 && filterRecipes[0].key === 'all') {
+        languages = 'all';
+      } else {
+        languages.push(filterRecipes[i].key);
+      }
+    }
+
     this.setState({
       accountName: name,
       accountLanguage: language,
       accountAbout: about,
-      accountFilterRecipes: filterRecipes
+      accountFilterRecipes: languages
     });
 
-    db.updateUserInfo(this.state.loggedInUserId, name, language, about, filterRecipes);
+    db.updateUserInfo(this.state.loggedInUserId, name, language, about, languages);
   }
 
+  /**
+   * Load user info
+   */
   componentDidMount() {
     this.mounted = true;
 
@@ -245,6 +261,9 @@ class AccountPage extends Component {
     });
   }
 
+  /**
+   * Save profile picture
+   */
   saveProfilePicture() {
     this.setState({
       loading: true
@@ -265,6 +284,9 @@ class AccountPage extends Component {
     });
   }
 
+  /**
+   * Delete selected language from the list
+   */
   handleDeleteLanguage = (language) => {
     let previousSelectedLanguages = this.state.selectedLanguages;
 
@@ -286,6 +308,9 @@ class AccountPage extends Component {
 
   }
 
+  /**
+   * Add language to the list
+   */
   handleAddLanguage = (lang) => {
     let previousSelectedLanguages = this.state.selectedLanguages;
 
