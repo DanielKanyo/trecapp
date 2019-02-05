@@ -10,18 +10,13 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-
-import { isoLanguages } from '../../constants/languages/iso-639';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -80,39 +75,6 @@ class AccountDetails extends Component {
     };
   }
 
-  componentDidMount() {
-    this.mounted = true;
-
-    let previousLanguages = this.state.languages;
-
-    if (this.mounted) {
-      for (let key in isoLanguages) {
-        let nativeName = isoLanguages[key].nativeName;
-        let name = isoLanguages[key].name;
-
-        previousLanguages.push(
-          <div key={key}>
-            <ListItem className="language-item" button onClick={(e) => { this.selectLanguage(e, isoLanguages[key]['639-1']) }}>
-              <ListItemText primary={nativeName} secondary={name} />
-            </ListItem>
-            <Divider />
-          </div>
-        )
-      }
-
-      this.setState({
-        languages: previousLanguages
-      });
-    }
-  }
-
-  /**
-   * Sets 'mounted' property to false to ignore warning 
-   */
-  componentWillUnmount() {
-    this.mounted = false;
-  }
-
   /**
    * Change input value
    * 
@@ -166,10 +128,6 @@ class AccountDetails extends Component {
 
   handleOpenLanguageList = () => {
     this.setState({ open: true });
-  }
-
-  selectLanguage = (e, language) => {
-    this.props.handleAddLanguageProp(language);
   }
 
   /**
@@ -275,15 +233,12 @@ class AccountDetails extends Component {
               <Typography variant="h6" color="inherit" className={classes.flex}>
                 {languageObjectProp.data.Account.modal.selectOneOrMore}
               </Typography>
-              <Button color="inherit" onClick={this.handleCloseLanguageList}>
-                {languageObjectProp.data.Account.modal.done}
-              </Button>
             </Toolbar>
           </AppBar>
           <List>
             {
-              this.state.languages.map(l => {
-                return l;
+              this.props.defaultLanguagesProp.map(listItem => {
+                return listItem;
               })
             }
           </List>

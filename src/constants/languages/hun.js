@@ -123,7 +123,11 @@ export const dataHun = {
       addLanguage: 'Nyelv hozzáadás',
       modal: {
         selectOneOrMore: 'Válassz ki egy vagy több nyelvet',
-        done: 'Kész',
+      },
+      toaster: {
+        languageAlreadyInList: 'A nyelv már a listában!',
+        languageAddedSuccesfully: 'Sikeresen hozzáadtad a nyelvet a listához!',
+        userDataSaved: 'A felhasználó adatok sikeresen elmentve!'
       }
     },
     ShoppingList: {

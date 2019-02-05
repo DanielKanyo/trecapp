@@ -123,7 +123,11 @@ export const dataEng = {
       addLanguage: 'Add language',
       modal: {
         selectOneOrMore: 'Select one or more languages',
-        done: 'Done',
+      },
+      toaster: {
+        languageAlreadyInList: 'The language is already in the list!',
+        languageAddedSuccesfully: 'You have successfully added the language to the list!',
+        userDataSaved: 'User data successfully saved!'
       }
     },
     ShoppingList: {
