@@ -110,8 +110,16 @@ button a {
   background: #008E3D !important;
 }
 
+.load-latest-btn:hover {
+  background: #007e37 !important;
+}
+
 .paper-title-top {
   background: #2AA7BB !important;
+}
+
+.load-top-btn:hover {
+  background: #279eb1 !important;
 }
 
 .paper-title-myrecipes {
@@ -1511,6 +1519,10 @@ input[type=time]::-webkit-clear-button {
   background: #394aaa !important;
 }
 
+.load-more-btn {
+  margin-bottom: 14px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1559,6 +1571,10 @@ input[type=time]::-webkit-clear-button {
   .paper-recipe-edit {
     margin-bottom: 12px !important;
   }
+
+  .load-latest-btn {
+    margin-bottom: 0px !important;
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -1571,6 +1587,15 @@ input[type=time]::-webkit-clear-button {
 
   .paper-recipe-edit {
     margin-bottom: 8px !important;
+  }
+
+  .load-more-btn {
+    margin-bottom: 8px !important;
+  }
+
+  .load-latest-btn {
+    margin-top: 8px !important;
+    margin-bottom: 0px !important;
   }
 
   .card-recipe {

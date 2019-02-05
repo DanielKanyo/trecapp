@@ -13,8 +13,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Public from '@material-ui/icons/Public';
+import Sync from '@material-ui/icons/Sync';
 import Grade from '@material-ui/icons/Grade';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@material-ui/core/Button';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -33,8 +35,25 @@ const styles = theme => ({
   },
   progressBarTop: {
     background: '#2AA7BB'
-  }
+  },
+  topButton: {
+    width: '100%',
+    background: '#2AA7BB',
+    color: 'white'
+  },
+  latestButton: {
+    width: '100%',
+    background: '#008E3D',
+    color: 'white'
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
 });
+
+const constants = {
+  DEFAULT_NUMBER_OF_RECIPES: 10
+}
 
 class RecipesWall extends Component {
   constructor(props) {
@@ -45,7 +64,8 @@ class RecipesWall extends Component {
       latestRecipes: [],
       topRecipes: [],
       loggedInUserId: '',
-      numberOfRecipesDisplayed: 15
+      numberOfLatestRecipesDisplayed: constants.DEFAULT_NUMBER_OF_RECIPES,
+      numberOfTopRecipesDisplayed: constants.DEFAULT_NUMBER_OF_RECIPES
     };
   }
 
@@ -60,8 +80,6 @@ class RecipesWall extends Component {
 
       let previousLatestRecipes = this.state.latestRecipes;
       let previousTopRecipes = this.state.topRecipes;
-      let counter1 = 0;
-      let counter2 = 0;
 
       let filterRecipes = false;
       let permittedRecipesLanguage;
@@ -111,7 +129,7 @@ class RecipesWall extends Component {
                 let topRecipes = sortedRecipesByFavCounter;
 
                 for (let i = 0; i < latestRecipes.length; i++) {
-                  if (latestRecipes[i].publicChecked && counter1 < this.state.numberOfRecipesDisplayed) {
+                  if (latestRecipes[i].publicChecked) {
                     let username = usersObject[latestRecipes[i].userId].username;
                     let profilePicUrl = usersObject[latestRecipes[i].userId].profilePicUrl;
 
@@ -162,13 +180,11 @@ class RecipesWall extends Component {
                     this.setState({
                       latestRecipes: previousLatestRecipes
                     });
-
-                    counter1++;
                   }
                 }
 
                 for (let j = 0; j < topRecipes.length; j++) {
-                  if (topRecipes[j].publicChecked && counter2 < this.state.numberOfRecipesDisplayed) {
+                  if (topRecipes[j].publicChecked) {
                     let username = usersObject[topRecipes[j].userId].username;
                     let profilePicUrl = usersObject[topRecipes[j].userId].profilePicUrl;
 
@@ -219,8 +235,6 @@ class RecipesWall extends Component {
                       loggedInUserId,
                       loading: false,
                     });
-
-                    counter2++;
                   }
                 }
               } else {
@@ -242,9 +256,26 @@ class RecipesWall extends Component {
     this.mounted = false;
   }
 
+  loadMore = category => {
+    if (category === 'latest') {
+      let { numberOfLatestRecipesDisplayed } = this.state;
+      numberOfLatestRecipesDisplayed += numberOfLatestRecipesDisplayed
+      
+      this.setState({ numberOfLatestRecipesDisplayed });
+    } else if ('top') {
+      let { numberOfTopRecipesDisplayed } = this.state;
+      numberOfTopRecipesDisplayed += numberOfTopRecipesDisplayed
+      
+      this.setState({ numberOfTopRecipesDisplayed })
+    }
+  }
+
   render() {
     const { classes, languageObjectProp } = this.props;
-    let { latestRecipes, topRecipes, loading } = this.state;
+    let { latestRecipes, topRecipes, loading, numberOfLatestRecipesDisplayed, numberOfTopRecipesDisplayed } = this.state;
+
+    let latestLoadBtnAvailable = latestRecipes.length > numberOfLatestRecipesDisplayed;
+    let topLoadBtnAvailable = topRecipes.length > numberOfTopRecipesDisplayed;
 
     return (
       <div className="ComponentContent">
@@ -266,8 +297,21 @@ class RecipesWall extends Component {
             {latestRecipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             {latestRecipes.map((recipe, index) => {
-              return recipe;
+              return index < this.state.numberOfLatestRecipesDisplayed ? recipe : null
             })}
+
+            {
+              !loading &&
+              <Button
+                onClick={() => { this.loadMore('latest') }}
+                disabled={!latestLoadBtnAvailable}
+                variant="contained"
+                className={classes.latestButton + ' load-more-btn load-latest-btn'}
+              >
+                {languageObjectProp.data.showMore}
+                <Sync className={classes.rightIcon} />
+              </Button>
+            }
 
           </Grid>
 
@@ -287,8 +331,21 @@ class RecipesWall extends Component {
             {topRecipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             {topRecipes.map((recipe, index) => {
-              return recipe;
+              return index < this.state.numberOfTopRecipesDisplayed ? recipe : null
             })}
+
+            {
+              !loading &&
+              <Button
+                onClick={() => { this.loadMore('top') }}
+                disabled={!topLoadBtnAvailable}
+                variant="contained"
+                className={classes.topButton + ' load-more-btn load-top-btn'}
+              >
+                {languageObjectProp.data.showMore}
+                <Sync className={classes.rightIcon} />
+              </Button>
+            }
 
           </Grid>
 
