@@ -211,6 +211,17 @@ class Recipe extends Component {
   };
 
   /**
+   * Capitalize string
+   */
+  titleCase = (str) => {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  }
+
+  /**
    * Change recipe vibility
    * 
    * @param {string} recipeId 
@@ -601,7 +612,7 @@ class Recipe extends Component {
               <div className="user-container">
                 <span>
                   {this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe :
-                    `${this.state.username}${languageObjectProp.data.Favourites.usersRecipe}`
+                    `${this.titleCase(this.state.username)}${languageObjectProp.data.Favourites.usersRecipe}`
                   }
                 </span>
 

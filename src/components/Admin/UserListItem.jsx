@@ -42,8 +42,8 @@ const styles = theme => ({
 		margin: '6px 12px'
 	},
 	margin: {
-    margin: 6,
-  },
+		margin: 6,
+	},
 });
 
 class UserListItem extends Component {
@@ -68,17 +68,28 @@ class UserListItem extends Component {
 		this.setState({ open: false });
 	};
 
+	/**
+  * Capitalize string
+  */
+	titleCase = (str) => {
+		var splitStr = str.toLowerCase().split(' ');
+		for (var i = 0; i < splitStr.length; i++) {
+			splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+		}
+		return splitStr.join(' ');
+	}
+
 	render() {
 		const { anchorEl } = this.state;
 		const { dataProp, languageObjectProp, classes, fullScreen, idProp } = this.props;
 
-    let urlToUser = `/user/${idProp}`;
+		let urlToUser = `/user/${idProp}`;
 
 		return (
 			<Paper className={classes.userPaper}>
 				<div className="user-info-container">
 					<div>
-						{dataProp.username}
+						{this.titleCase(dataProp.username)}
 					</div>
 					<div>
 						<IconButton
@@ -130,7 +141,7 @@ class UserListItem extends Component {
 								}
 							</div>
 							<div className="username-container">
-								{dataProp.username}
+								{this.titleCase(dataProp.username)}
 							</div>
 						</div>
 					</DialogTitle>

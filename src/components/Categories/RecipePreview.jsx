@@ -75,6 +75,17 @@ class RecipePreview extends Component {
 	}
 
 	/**
+   * Capitalize string
+   */
+	titleCase = (str) => {
+		var splitStr = str.toLowerCase().split(' ');
+		for (var i = 0; i < splitStr.length; i++) {
+			splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+		}
+		return splitStr.join(' ');
+	}
+
+	/**
    * User can add or remove recipe from favourites
    * 
    * @param {strin} recipeId 
@@ -136,7 +147,7 @@ class RecipePreview extends Component {
 		var docDefinition = {
 			content: [
 				{ text: dataProp.title, fontSize: 18, style: 'header', margin: [0, 0, 0, 6] },
-				{ text: `${this.state.username}${languageObjectProp.data.Favourites.usersRecipe}`, margin: [0, 0, 0, 6] },
+				{ text: `${this.titleCase(this.state.username)}${languageObjectProp.data.Favourites.usersRecipe}`, margin: [0, 0, 0, 6] },
 				{ text: creationTime, color: 'grey', margin: [0, 0, 0, 6] },
 				{ canvas: [{ type: 'line', x1: 0, y1: 5, x2: 595 - 2 * 40, y2: 5, lineWidth: 1 }], margin: [0, 0, 0, 15] },
 				{
@@ -304,7 +315,7 @@ class RecipePreview extends Component {
 					{this.state.displayUserInfo ?
 						<div className="user-container">
 							<span>
-								{this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.state.username}
+								{this.state.isMine ? languageObjectProp.data.Favourites.yourRecipe : this.titleCase(this.state.username)}
 							</span>
 							<div
 								className="user-picture"

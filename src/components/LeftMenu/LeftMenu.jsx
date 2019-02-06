@@ -117,6 +117,17 @@ class LeftMenu extends Component {
   }
 
   /**
+  * Capitalize string
+  */
+  titleCase = (str) => {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  }
+
+  /**
    * Render function
    */
   render() {
@@ -133,14 +144,14 @@ class LeftMenu extends Component {
             <div className="left-menu-header">
               <div className="left-menu-header-detail-container">
                 {
-                  profilePicUrl ? 
-                  <div className="user-pic-in-leftmenu" style={{ backgroundImage: `url(${profilePicUrl})` }}></div> :
-                  <div className="user-pic-in-leftmenu">
-                    <FaceIcon />
-                  </div>
+                  profilePicUrl ?
+                    <div className="user-pic-in-leftmenu" style={{ backgroundImage: `url(${profilePicUrl})` }}></div> :
+                    <div className="user-pic-in-leftmenu">
+                      <FaceIcon />
+                    </div>
                 }
                 <div className="username-and-email-container-in-leftmenu">
-                  <div className="username-in-leftmenu">{username}</div>
+                  <div className="username-in-leftmenu">{this.titleCase(username ? username : '')}</div>
                   <div className="user-email-in-leftmenu">{email}</div>
                 </div>
               </div>

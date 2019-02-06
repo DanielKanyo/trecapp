@@ -27,6 +27,17 @@ class BugListItem extends Component {
     open: false
   };
 
+  /**
+  * Capitalize string
+  */
+  titleCase = (str) => {
+    var splitStr = str.toLowerCase().split(' ');
+    for (var i = 0; i < splitStr.length; i++) {
+      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+    }
+    return splitStr.join(' ');
+  }
+
   render() {
     const { classes, dataProp, userData, languageObjectProp } = this.props;
 
@@ -41,11 +52,11 @@ class BugListItem extends Component {
           <div className="bug-header">
             <div>
               <Avatar
-                alt={userData.username}
+                alt={this.titleCase(userData.username)}
                 src={userData.profilePicUrl}
                 className={classes.avatar}
               />
-              <div className="reporter-name">{userData.username}</div>
+              <div className="reporter-name">{this.titleCase(userData.username)}</div>
             </div>
           </div>
           <Divider />
