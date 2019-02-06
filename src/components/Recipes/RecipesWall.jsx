@@ -298,18 +298,18 @@ class RecipesWall extends Component {
             })}
 
             {
-              !loading &&
-              <Tooltip title={languageObjectProp.data.showMore}>
-                <Button
-                  component="div"
-                  onClick={() => { this.loadMore('latest') }}
-                  disabled={!latestLoadBtnAvailable}
-                  variant="contained"
-                  className={classes.latestButton + ' load-more-btn load-latest-btn'}
-                >
-                  <MoreHoriz />
-                </Button>
-              </Tooltip>
+              !loading && latestRecipes.length !== 0 ?
+                <Tooltip title={languageObjectProp.data.showMore}>
+                  <Button
+                    component="div"
+                    onClick={() => { this.loadMore('latest') }}
+                    disabled={!latestLoadBtnAvailable}
+                    variant="contained"
+                    className={classes.latestButton + ' load-more-btn load-latest-btn'}
+                  >
+                    <MoreHoriz />
+                  </Button>
+                </Tooltip> : ''
             }
 
           </Grid>
@@ -334,18 +334,18 @@ class RecipesWall extends Component {
             })}
 
             {
-              !loading &&
-              <Tooltip title={languageObjectProp.data.showMore}>
-                <Button
-                  component="div"
-                  onClick={() => { this.loadMore('top') }}
-                  disabled={!topLoadBtnAvailable}
-                  variant="contained"
-                  className={classes.topButton + ' load-more-btn load-top-btn'}
-                >
-                  <MoreHoriz />
-                </Button>
-              </Tooltip>
+              !loading && topRecipes.length !== 0 ?
+                <Tooltip title={languageObjectProp.data.showMore}>
+                  <Button
+                    component="div"
+                    onClick={() => { this.loadMore('top') }}
+                    disabled={!topLoadBtnAvailable}
+                    variant="contained"
+                    className={classes.topButton + ' load-more-btn load-top-btn'}
+                  >
+                    <MoreHoriz />
+                  </Button>
+                </Tooltip> : ''
             }
 
           </Grid>
