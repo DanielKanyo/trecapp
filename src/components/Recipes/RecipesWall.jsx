@@ -17,6 +17,7 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Grade from '@material-ui/icons/Grade';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 
@@ -255,13 +256,13 @@ class RecipesWall extends Component {
   loadMore = category => {
     if (category === 'latest') {
       let { numberOfLatestRecipesDisplayed } = this.state;
-      numberOfLatestRecipesDisplayed += numberOfLatestRecipesDisplayed
-      
+      numberOfLatestRecipesDisplayed += numberOfLatestRecipesDisplayed;
+
       this.setState({ numberOfLatestRecipesDisplayed });
     } else if ('top') {
       let { numberOfTopRecipesDisplayed } = this.state;
-      numberOfTopRecipesDisplayed += numberOfTopRecipesDisplayed
-      
+      numberOfTopRecipesDisplayed += numberOfTopRecipesDisplayed;
+
       this.setState({ numberOfTopRecipesDisplayed })
     }
   }
@@ -298,14 +299,17 @@ class RecipesWall extends Component {
 
             {
               !loading &&
-              <Button
-                onClick={() => { this.loadMore('latest') }}
-                disabled={!latestLoadBtnAvailable}
-                variant="contained"
-                className={classes.latestButton + ' load-more-btn load-latest-btn'}
-              >
-                <MoreHoriz />
-              </Button>
+              <Tooltip title={languageObjectProp.data.showMore}>
+                <Button
+                  component="div"
+                  onClick={() => { this.loadMore('latest') }}
+                  disabled={!latestLoadBtnAvailable}
+                  variant="contained"
+                  className={classes.latestButton + ' load-more-btn load-latest-btn'}
+                >
+                  <MoreHoriz />
+                </Button>
+              </Tooltip>
             }
 
           </Grid>
@@ -331,14 +335,17 @@ class RecipesWall extends Component {
 
             {
               !loading &&
-              <Button
-                onClick={() => { this.loadMore('top') }}
-                disabled={!topLoadBtnAvailable}
-                variant="contained"
-                className={classes.topButton + ' load-more-btn load-top-btn'}
-              >
-                <MoreHoriz />
-              </Button>
+              <Tooltip title={languageObjectProp.data.showMore}>
+                <Button
+                  component="div"
+                  onClick={() => { this.loadMore('top') }}
+                  disabled={!topLoadBtnAvailable}
+                  variant="contained"
+                  className={classes.topButton + ' load-more-btn load-top-btn'}
+                >
+                  <MoreHoriz />
+                </Button>
+              </Tooltip>
             }
 
           </Grid>

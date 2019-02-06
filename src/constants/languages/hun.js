@@ -7,6 +7,7 @@ export const dataHun = {
     Navigation: {
       dropdownValues: ['Profilom', 'Beállítások', 'Kijelentkezés']
     },
+    showMore: 'Mutass többet',
     myRecipes: {
       newRecipe: {
         title: 'Új Recept',

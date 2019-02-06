@@ -7,6 +7,7 @@ export const dataEng = {
     Navigation: {
       dropdownValues: ['My Profil', 'Settings', 'Logout']
     },
+    showMore: 'Show more',
     myRecipes: {
       newRecipe: {
         clearBtn: 'Empty',
