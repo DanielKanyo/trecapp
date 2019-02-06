@@ -7,7 +7,6 @@ export const dataHun = {
     Navigation: {
       dropdownValues: ['Profilom', 'Beállítások', 'Kijelentkezés']
     },
-    showMore: 'Mutass többet',
     myRecipes: {
       newRecipe: {
         title: 'Új Recept',
@@ -28,7 +27,7 @@ export const dataHun = {
           emptyList: 'A lista üres',
         },
         toaster: {
-          fillTheInput: 'Töltsd ki a beviteli mezőt!'
+          fillTheInput: 'Töltsd ki a beviteli mezőt...'
         },
         placeholder: {
           titlePlaceholder: 'Recept címe...',
@@ -138,7 +137,7 @@ export const dataHun = {
       toaster: {
         inBasket: 'Termék a kosárban!',
         notInBasket: 'A termék nincs a kosárban!',
-        inputWarning: 'Töltsd ki a beviteli mezőt!',
+        inputWarning: 'Töltsd ki a beviteli mezőt...',
         itemAdded: 'Termék hozzáadva!',
         productDel: 'A termék törölve!',
         allItemDeleted: 'Minden termék törölve!',

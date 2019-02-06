@@ -11,10 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
-
-import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import Snackbar from '../Snackbar/MySnackbar';
 
 const styles = theme => ({
 	card: {
@@ -59,7 +56,10 @@ class BugReport extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			bugText: ''
+			bugText: '',
+			snackbarMessage: '',
+			snackbarType: '',
+			snackbarOpen: false,
 		};
 	}
 
@@ -79,14 +79,27 @@ class BugReport extends Component {
 		if (text) {
 			db.saveBugReport(loggedInUserId, text, timestamp).then(res => {
 
-				toast.success(this.props.languageObjectProp.data.BugReport.toaster.bugSaved);
-
+				this.setState({
+					snackbarOpen: true,
+					snackbarMessage: this.props.languageObjectProp.data.BugReport.toaster.bugSaved,
+					snackbarType: 'success'
+				});
+				
 				this.setState({
 					bugText: ''
 				});
 
 			});
 		}
+	}
+
+	/**
+	 * Hide snackbar after x seconds
+	 */
+	hideSnackbar = () => {
+		this.setState({
+			snackbarOpen: false
+		});
 	}
 
 	render() {
@@ -128,15 +141,11 @@ class BugReport extends Component {
 					</Grid>
 				</Grid>
 
-				<ToastContainer
-					position="top-right"
-					autoClose={2500}
-					hideProgressBar
-					newestOnTop
-					closeOnClick
-					rtl={false}
-					pauseOnVisibilityChange
-					pauseOnHover
+				<Snackbar
+					messageProp={this.state.snackbarMessage}
+					typeProp={this.state.snackbarType}
+					openProp={this.state.snackbarOpen}
+					hideSnackbarProp={this.hideSnackbar}
 				/>
 			</div>
 		)

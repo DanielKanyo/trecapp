@@ -9,7 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Recipe from '../Recipes/Recipe';
-import { ToastContainer } from 'react-toastify';
 
 const styles = theme => ({
 	paper: {
@@ -136,17 +135,6 @@ class FullSizeRecipe extends Component {
 						{this.state.recipe}
 					</Grid>
 				</Grid>
-
-				<ToastContainer
-					position="top-right"
-					autoClose={2500}
-					hideProgressBar
-					newestOnTop
-					closeOnClick
-					rtl={false}
-					pauseOnVisibilityChange
-					pauseOnHover
-				/>
 			</div>
 		)
 	}

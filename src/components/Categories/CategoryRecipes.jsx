@@ -13,7 +13,6 @@ import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import RecipePreview from './RecipePreview';
-import { ToastContainer } from 'react-toastify';
 
 const styles = theme => ({
   progressLine: {
@@ -175,17 +174,6 @@ class CategoryRecipes extends Component {
 
           </Grid>
         </Grid>
-
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          pauseOnHover
-        />
       </div>
     )
   }

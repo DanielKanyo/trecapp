@@ -13,12 +13,11 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Public from '@material-ui/icons/Public';
-import Sync from '@material-ui/icons/Sync';
+import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Grade from '@material-ui/icons/Grade';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
@@ -45,9 +44,6 @@ const styles = theme => ({
     width: '100%',
     background: '#008E3D',
     color: 'white'
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
   },
 });
 
@@ -308,8 +304,7 @@ class RecipesWall extends Component {
                 variant="contained"
                 className={classes.latestButton + ' load-more-btn load-latest-btn'}
               >
-                {languageObjectProp.data.showMore}
-                <Sync className={classes.rightIcon} />
+                <MoreHoriz />
               </Button>
             }
 
@@ -342,25 +337,13 @@ class RecipesWall extends Component {
                 variant="contained"
                 className={classes.topButton + ' load-more-btn load-top-btn'}
               >
-                {languageObjectProp.data.showMore}
-                <Sync className={classes.rightIcon} />
+                <MoreHoriz />
               </Button>
             }
 
           </Grid>
 
         </Grid>
-
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          pauseOnHover
-        />
       </div>
     );
   }

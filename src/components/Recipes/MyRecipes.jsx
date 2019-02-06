@@ -18,10 +18,7 @@ import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 import MenuItem from '@material-ui/core/MenuItem';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
-import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import Snackbar from '../Snackbar/MySnackbar';
 
 import { isoLanguages } from '../../constants/languages/iso-639';
 
@@ -62,6 +59,9 @@ class MyRecipes extends Component {
       languages: [],
       recipeLanguage: '',
       loading: true,
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     };
   }
 
@@ -232,7 +232,11 @@ class MyRecipes extends Component {
         />
       ].concat(recipes);
 
-      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.recipeSaved);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.recipeSaved,
+        snackbarType: 'success'
+      });
 
       this.setState({
         recipes: temp
@@ -264,7 +268,11 @@ class MyRecipes extends Component {
       notes: previousRecipes
     });
 
-    toast.success(this.props.languageObjectProp.data.myRecipes.toaster.recipeRemoved);
+    this.setState({
+      snackbarOpen: true,
+      snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.recipeRemoved,
+      snackbarType: 'success'
+    });
   }
 
   /**
@@ -274,6 +282,15 @@ class MyRecipes extends Component {
     db.updateRecipesLanguage(this.state.loggedInUserId, value);
 
     this.setState({ recipeLanguage: value });
+  }
+
+  /**
+   * Hide snackbar after x seconds
+   */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
+    });
   }
 
   /**
@@ -329,15 +346,11 @@ class MyRecipes extends Component {
 
         </Grid>
 
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          pauseOnHover
+        <Snackbar
+          messageProp={this.state.snackbarMessage}
+          typeProp={this.state.snackbarType}
+          openProp={this.state.snackbarOpen}
+          hideSnackbarProp={this.hideSnackbar}
         />
       </div>
     );

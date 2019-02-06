@@ -49,9 +49,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CloseIcon from '@material-ui/icons/Close';
 import ReactHtmlParser from 'react-html-parser';
-
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import Snackbar from '../Snackbar/MySnackbar';
 
 import { isoCurrencies } from '../../constants/iso-4217';
 
@@ -166,6 +164,9 @@ class Recipe extends Component {
       anchorEl: null,
       likeCounter: this.props.dataProp.likeCounter,
       isLiked: this.props.dataProp.isLiked,
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     };
   }
 
@@ -223,9 +224,17 @@ class Recipe extends Component {
     });
 
     if (isPublic) {
-      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.removedFromPublic);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.removedFromPublic,
+        snackbarType: 'success'
+      });
     } else {
-      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.addedToPublic);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.addedToPublic,
+        snackbarType: 'success'
+      });
     }
   }
 
@@ -252,9 +261,17 @@ class Recipe extends Component {
     });
 
     if (newValue) {
-      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.addedToFav);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.addedToFav,
+        snackbarType: 'success'
+      });
     } else {
-      toast.success(this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav,
+        snackbarType: 'success'
+      });
     }
   }
 
@@ -291,9 +308,17 @@ class Recipe extends Component {
       } else {
 
         if (file.size > maxFileSize) {
-          toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.fileTooBig);
+          this.setState({
+            snackbarOpen: true,
+            snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.fileTooBig,
+            snackbarType: 'warning'
+          });
         } else {
-          toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseAnImage);
+          this.setState({
+            snackbarOpen: true,
+            snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.chooseAnImage,
+            snackbarType: 'warning'
+          });
         }
 
         this.setState({
@@ -303,7 +328,11 @@ class Recipe extends Component {
 
       }
     } else {
-      toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseOnlyOne);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.chooseOnlyOne,
+        snackbarType: 'warning'
+      });
 
       this.setState({
         file: '',
@@ -462,6 +491,15 @@ class Recipe extends Component {
       let u = new URL(url);
 
       return '<a target="_blank" href="' + url + '">' + u.hostname + '</a>';
+    });
+  }
+
+  /**
+   * Hide snackbar after x seconds
+   */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
     });
   }
 
@@ -770,6 +808,13 @@ class Recipe extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+
+        <Snackbar
+          messageProp={this.state.snackbarMessage}
+          typeProp={this.state.snackbarType}
+          openProp={this.state.snackbarOpen}
+          hideSnackbarProp={this.hideSnackbar}
+        />
       </div>
     );
   }

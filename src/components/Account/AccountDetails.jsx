@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import Snackbar from '../Snackbar/MySnackbar';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -72,7 +73,19 @@ class AccountDetails extends Component {
       languages: [],
       checkboxes: [],
       open: false,
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     };
+  }
+
+  /**
+	 * Hide snackbar after x seconds
+	 */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
+    });
   }
 
   /**
@@ -111,7 +124,11 @@ class AccountDetails extends Component {
   handleSaveAccount = (event) => {
     if (this.props.dataProp.accountName === '' || this.props.dataProp.accountEmail === '' || this.props.dataProp.accountLanguage === '') {
       // TODO
-      this.toastr('Warning! Fill the required fields...', '#ffc107');
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: 'Warning! Fill the required fields...',
+        snackbarType: 'warning'
+      });
     } else {
       this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName,
         this.props.dataProp.accountLanguage,
@@ -243,6 +260,13 @@ class AccountDetails extends Component {
             }
           </List>
         </Dialog>
+
+        <Snackbar
+          messageProp={this.state.snackbarMessage}
+          typeProp={this.state.snackbarType}
+          openProp={this.state.snackbarOpen}
+          hideSnackbarProp={this.hideSnackbar}
+        />
       </div>
     );
   }

@@ -7,7 +7,6 @@ export const dataEng = {
     Navigation: {
       dropdownValues: ['My Profil', 'Settings', 'Logout']
     },
-    showMore: 'Show more',
     myRecipes: {
       newRecipe: {
         clearBtn: 'Empty',
@@ -28,7 +27,7 @@ export const dataEng = {
           emptyList: 'The list is empty'
         },
         toaster: {
-          fillTheInput: 'Fill the input field!'
+          fillTheInput: 'Fill the input field...'
         },
         placeholder: {
           titlePlaceholder: 'Recipe title...',
@@ -139,7 +138,7 @@ export const dataEng = {
         inBasket: 'Product is in the basket!',
         notInBasket: 'Product is not in the basket!',
         itemAdded: 'Product added!',
-        inputWarning: 'Fill the input field!',
+        inputWarning: 'Fill the input field...',
         productDel: 'Product deleted!',
         allItemDeleted: 'All products are deleted!',
         noItemInList: 'No product in your list!'

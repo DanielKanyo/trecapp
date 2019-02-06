@@ -29,13 +29,10 @@ import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { isoLanguages } from '../../constants/languages/iso-639';
+import Snackbar from '../Snackbar/MySnackbar';
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
-import { ToastContainer } from 'react-toastify';
 
 const styles = theme => ({
   textField: {
@@ -86,8 +83,20 @@ class AccountPage extends Component {
       profilePicUrl: '',
       loading: false,
       selectedLanguages: [],
-      defaultLanguages: []
+      defaultLanguages: [],
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     };
+  }
+
+  /**
+	 * Hide snackbar after x seconds
+	 */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
+    });
   }
 
   handleInputChange = (name, event) => {
@@ -120,12 +129,13 @@ class AccountPage extends Component {
       accountName: name,
       accountLanguage: language,
       accountAbout: about,
-      accountFilterRecipes: languages
+      accountFilterRecipes: languages,
+      snackbarOpen: true,
+      snackbarMessage: this.props.languageObjectProp.data.Account.toaster.userDataSaved,
+      snackbarType: 'success'
     });
 
     db.updateUserInfo(this.state.loggedInUserId, name, language, about, languages);
-
-    toast.success(this.props.languageObjectProp.data.Account.toaster.userDataSaved);
   }
 
   /**
@@ -396,9 +406,17 @@ class AccountPage extends Component {
         selectedLanguages: previousSelectedLanguages
       });
 
-      toast.success(this.props.languageObjectProp.data.Account.toaster.languageAddedSuccesfully);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.Account.toaster.languageAddedSuccesfully,
+        snackbarType: 'success'
+      });
     } else {
-			toast.warning(this.props.languageObjectProp.data.Account.toaster.languageAlreadyInList);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.Account.toaster.languageAlreadyInList,
+        snackbarType: 'warning'
+      });
     }
   }
 
@@ -516,15 +534,11 @@ class AccountPage extends Component {
               </div>
             </Dialog>
 
-            <ToastContainer
-              position="top-right"
-              autoClose={2500}
-              hideProgressBar
-              newestOnTop
-              closeOnClick
-              rtl={false}
-              pauseOnVisibilityChange
-              pauseOnHover
+            <Snackbar
+              messageProp={this.state.snackbarMessage}
+              typeProp={this.state.snackbarType}
+              openProp={this.state.snackbarOpen}
+              hideSnackbarProp={this.hideSnackbar}
             />
           </div>
         }

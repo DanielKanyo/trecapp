@@ -30,10 +30,7 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import MenuItem from '@material-ui/core/MenuItem';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
-import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import Snackbar from '../Snackbar/MySnackbar';
 
 function renderInputComponent(inputProps) {
   const { classes, inputRef = () => { }, ref, ...other } = inputProps;
@@ -191,6 +188,9 @@ class ShoppingList extends Component {
       dialogOpen: false,
       suggestions: [],
       loading: true,
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     }
   }
 
@@ -214,6 +214,15 @@ class ShoppingList extends Component {
       [name]: newValue,
     });
   };
+
+  /**
+	 * Hide snackbar after x seconds
+	 */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
+    });
+  }
 
   componentDidMount() {
     this.mounted = true;
@@ -335,7 +344,11 @@ class ShoppingList extends Component {
         });
       });
 
-      toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.itemAdded);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.ShoppingList.toaster.itemAdded,
+        snackbarType: 'success'
+      });
 
       if (!newValue) {
         db.saveProductForRecent(this.state.loggedInUserId, item.value).then(resResProd => {
@@ -359,7 +372,11 @@ class ShoppingList extends Component {
         product: ''
       });
     } else {
-      toast.warn(this.props.languageObjectProp.data.ShoppingList.toaster.inputWarning);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.ShoppingList.toaster.inputWarning,
+        snackbarType: 'warning'
+      });
     }
   }
 
@@ -394,7 +411,11 @@ class ShoppingList extends Component {
       });
     }
 
-    toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.productDel);
+    this.setState({
+      snackbarOpen: true,
+      snackbarMessage: this.props.languageObjectProp.data.ShoppingList.toaster.productDel,
+      snackbarType: 'success'
+    });
   }
 
   /**
@@ -402,11 +423,19 @@ class ShoppingList extends Component {
    */
   deleteAllItem = () => {
     if (this.state.items.length === 0) {
-      toast.warn(this.props.languageObjectProp.data.ShoppingList.toaster.noItemInList);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.ShoppingList.toaster.noItemInList,
+        snackbarType: 'warning'
+      });
     } else {
       db.deleteAllShoppingListItem(this.state.loggedInUserId);
 
-      toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.allItemDeleted);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.ShoppingList.toaster.allItemDeleted,
+        snackbarType: 'success'
+      });
 
       this.setState({
         items: []
@@ -581,15 +610,11 @@ class ShoppingList extends Component {
           </DialogActions>
         </Dialog>
 
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          pauseOnHover
+        <Snackbar
+          messageProp={this.state.snackbarMessage}
+          typeProp={this.state.snackbarType}
+          openProp={this.state.snackbarOpen}
+          hideSnackbarProp={this.hideSnackbar}
         />
       </div>
     );

@@ -9,9 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import Snackbar from '../Snackbar/MySnackbar';
 
 const styles = theme => ({
   paper: {
@@ -37,12 +35,24 @@ class ListItem extends Component {
       loggedInUserId: this.props.loggedInUserIdProp,
       value: this.props.dataProp.value,
       itemId: this.props.dataProp.itemId,
-      inBasket: this.props.dataProp.inBasket
+      inBasket: this.props.dataProp.inBasket,
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     };
   }
 
   componentDidMount() {
     this.mounted = true;
+  }
+
+  /**
+	 * Hide snackbar after x seconds
+	 */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
+    });
   }
 
   /**
@@ -77,9 +87,17 @@ class ListItem extends Component {
       });
 
       if (inBasket) {
-        toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.notInBasket);
+        this.setState({
+					snackbarOpen: true,
+					snackbarMessage: this.props.languageObjectProp.data.ShoppingList.toaster.notInBasket,
+					snackbarType: 'success'
+				});
       } else {
-        toast.success(this.props.languageObjectProp.data.ShoppingList.toaster.inBasket);
+        this.setState({
+					snackbarOpen: true,
+					snackbarMessage: this.props.languageObjectProp.data.ShoppingList.toaster.inBasket,
+					snackbarType: 'success'
+				});
       }
     }
   }
@@ -112,6 +130,13 @@ class ListItem extends Component {
             </IconButton>
           </div>
         </div>
+
+        <Snackbar
+          messageProp={this.state.snackbarMessage}
+          typeProp={this.state.snackbarType}
+          openProp={this.state.snackbarOpen}
+          hideSnackbarProp={this.hideSnackbar}
+        />
       </Paper>
     );
   }

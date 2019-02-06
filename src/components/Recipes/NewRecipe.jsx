@@ -4,7 +4,6 @@ import '../App/index.css';
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import AddCircle from '@material-ui/icons/AddCircle';
 import TextField from '@material-ui/core/TextField';
@@ -13,7 +12,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/lab/Slider';
 import Select from '@material-ui/core/Select';
-import SaveIcon from '@material-ui/icons/Save';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -21,9 +19,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import IngredientItem from './IngredientItem';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import Snackbar from '../Snackbar/MySnackbar';
 
 import { isoCurrencies } from '../../constants/iso-4217';
 
@@ -105,6 +101,9 @@ class NewRecipe extends Component {
       recipeLanguage: '',
       currencies: [],
       ingredients: [],
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     };
   }
 
@@ -170,10 +169,18 @@ class NewRecipe extends Component {
     };
 
     if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients.length === 0 || data.dose === '' || data.cost === '' || !data.category) {
-      toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.warningFillReq);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.warningFillReq,
+        snackbarType: 'warning'
+      });
     } else {
       if (data.dose < 1 || data.cost < 1) {
-        toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.warningSmallerThanOne);
+        this.setState({
+          snackbarOpen: true,
+          snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.warningSmallerThanOne,
+          snackbarType: 'warning'
+        });
       } else {
         this.props.saveRecipeProps(data);
 
@@ -223,7 +230,11 @@ class NewRecipe extends Component {
         ingredient: ''
       });
     } else {
-      toast.warn(this.props.languageObjectProp.data.myRecipes.newRecipe.toaster.fillTheInput);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.newRecipe.toaster.fillTheInput,
+        snackbarType: 'warning'
+      });
     }
 
     event.preventDefault();
@@ -239,6 +250,15 @@ class NewRecipe extends Component {
 
     this.setState({
       ingredients: previousIngredients
+    });
+  }
+  
+  /**
+   * Hide snackbar after x seconds
+   */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
     });
   }
 
@@ -497,12 +517,18 @@ class NewRecipe extends Component {
                 className={classes.buttonSave + ' control-btn save-btn'}
                 onClick={this.handleSaveRecipe}
               >
-                <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
                 {languageObjectProp.data.myRecipes.newRecipe.form.save}
               </Button>
             </div>
           </MuiThemeProvider>
         </Paper>
+
+        <Snackbar
+          messageProp={this.state.snackbarMessage}
+          typeProp={this.state.snackbarType}
+          openProp={this.state.snackbarOpen}
+          hideSnackbarProp={this.hideSnackbar}
+        />
       </div>
     );
   }

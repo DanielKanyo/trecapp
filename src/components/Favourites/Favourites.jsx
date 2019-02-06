@@ -14,8 +14,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { dataEng } from '../../constants/languages/eng';
 
-import { ToastContainer } from 'react-toastify';
-
 const styles = theme => ({
   chip: {
     background: '#7c06ad',
@@ -168,18 +166,6 @@ class Favourites extends Component {
           </Grid>
 
         </Grid>
-
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          pauseOnHover
-        />
-
       </div>
     );
   }

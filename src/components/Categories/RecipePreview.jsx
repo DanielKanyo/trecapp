@@ -21,9 +21,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Fab from '@material-ui/core/Fab';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
-
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import Snackbar from '../Snackbar/MySnackbar';
 
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -60,6 +58,9 @@ class RecipePreview extends Component {
 			profilePicUrl: this.props.dataProp.profilePicUrl,
 			isFavourite: this.props.dataProp.isFavourite,
 			favouriteCounter: this.props.dataProp.favouriteCounter,
+			snackbarMessage: '',
+			snackbarType: '',
+			snackbarOpen: false,
 		};
 	}
 
@@ -96,10 +97,27 @@ class RecipePreview extends Component {
 		});
 
 		if (newValue) {
-			toast.success(this.props.languageObjectProp.data.myRecipes.toaster.addedToFav);
+			this.setState({
+				snackbarOpen: true,
+				snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.addedToFav,
+				snackbarType: 'success'
+			});
 		} else {
-			toast.success(this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav);
+			this.setState({
+				snackbarOpen: true,
+				snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.removedFromFav,
+				snackbarType: 'success'
+			});
 		}
+	}
+
+	/**
+   * Hide snackbar after x seconds
+   */
+	hideSnackbar = () => {
+		this.setState({
+			snackbarOpen: false
+		});
 	}
 
 	generatePdf = (print) => {
@@ -299,6 +317,13 @@ class RecipePreview extends Component {
 						</div> : ''
 					}
 				</Card>
+
+				<Snackbar
+					messageProp={this.state.snackbarMessage}
+					typeProp={this.state.snackbarType}
+					openProp={this.state.snackbarOpen}
+					hideSnackbarProp={this.hideSnackbar}
+				/>
 			</Grid>
 		)
 	}

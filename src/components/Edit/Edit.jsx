@@ -5,7 +5,6 @@ import withAuthorization from '../Session/withAuthorization';
 import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import EditIcon from '@material-ui/icons/Edit';
@@ -35,14 +34,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import Snackbar from '../Snackbar/MySnackbar';
 
 import { db, storage } from '../../firebase';
 import { isoCurrencies } from '../../constants/iso-4217';
 import { isoLanguages } from '../../constants/languages/iso-639';
-
-import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 
 const styles = theme => ({
   paper: {
@@ -64,9 +60,6 @@ const styles = theme => ({
     width: 110,
     color: 'white',
     marginLeft: 'auto'
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
   },
   uploadIcon: {
     marginRight: theme.spacing.unit,
@@ -131,7 +124,10 @@ class Edit extends Component {
       imageName: '',
       file: '',
       saveReady: false,
-      fileName: ''
+      fileName: '',
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     };
   }
 
@@ -219,7 +215,11 @@ class Edit extends Component {
         ingredient: ''
       });
     } else {
-      toast.warn(this.props.languageObjectProp.data.myRecipes.newRecipe.toaster.fillTheInput);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.newRecipe.toaster.fillTheInput,
+        snackbarType: 'warning'
+      });
     }
 
     event.preventDefault();
@@ -284,13 +284,25 @@ class Edit extends Component {
     };
 
     if (data.title === '' || data.story === '' || data.longDes === '' || data.ingredients.length === 0 || data.dose === '' || data.cost === '' || !data.category) {
-      toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.warningFillReq);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.warningFillReq,
+        snackbarType: 'warning'
+      });
     } else {
       if (data.dose < 1 || data.cost < 1) {
-        toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.warningSmallerThanOne);
+        this.setState({
+          snackbarOpen: true,
+          snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.warningSmallerThanOne,
+          snackbarType: 'warning'
+        });
       } else {
         db.updateRecipe(this.state.recipeId, data).then(() => {
-          toast.success(this.props.languageObjectProp.data.myRecipes.editRecipe.saveSuccess);
+          this.setState({
+            snackbarOpen: true,
+            snackbarMessage: this.props.languageObjectProp.data.myRecipes.editRecipe.saveSuccess,
+            snackbarType: 'success'
+          });
         });
       }
     }
@@ -317,9 +329,17 @@ class Edit extends Component {
       } else {
 
         if (file.size > maxFileSize) {
-          toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.fileTooBig);
+          this.setState({
+            snackbarOpen: true,
+            snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.fileTooBig,
+            snackbarType: 'warning'
+          });
         } else {
-          toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseAnImage);
+          this.setState({
+            snackbarOpen: true,
+            snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.chooseAnImage,
+            snackbarType: 'warning'
+          });
         }
 
         this.setState({
@@ -330,7 +350,11 @@ class Edit extends Component {
 
       }
     } else {
-      toast.warn(this.props.languageObjectProp.data.myRecipes.toaster.chooseOnlyOne);
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.myRecipes.toaster.chooseOnlyOne,
+        snackbarType: 'warning'
+      });
 
       this.setState({
         file: '',
@@ -347,6 +371,15 @@ class Edit extends Component {
       file: '',
       fileName: '',
       saveReady: false
+    });
+  }
+
+  /**
+   * Hide snackbar after x seconds
+   */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
     });
   }
 
@@ -722,7 +755,6 @@ class Edit extends Component {
                       className={classes.buttonSave + ' control-btn save-btn'}
                       onClick={this.handleUpdateRecipe}
                     >
-                      <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
                       {languageObjectProp.data.myRecipes.editRecipe.saveChanges}
                     </Button>
                   </div>
@@ -758,15 +790,11 @@ class Edit extends Component {
           </DialogActions>
         </Dialog>
 
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          pauseOnHover
+        <Snackbar
+          messageProp={this.state.snackbarMessage}
+          typeProp={this.state.snackbarType}
+          openProp={this.state.snackbarOpen}
+          hideSnackbarProp={this.hideSnackbar}
         />
       </div>
     )
