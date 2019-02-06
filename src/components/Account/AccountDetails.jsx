@@ -255,6 +255,8 @@ class AccountDetails extends Component {
           <List>
             {
               this.props.defaultLanguagesProp.map(listItem => {
+                if (listItem.props.dataProp.checked) {
+                }
                 return listItem;
               })
             }

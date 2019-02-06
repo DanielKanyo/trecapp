@@ -1523,6 +1523,17 @@ input[type=time]::-webkit-clear-button {
   margin-bottom: 14px !important;
 }
 
+.language-list-item-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.language-list-item-checkbox-container {
+  display: flex;
+  align-items: center;
+  padding-right: 6px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

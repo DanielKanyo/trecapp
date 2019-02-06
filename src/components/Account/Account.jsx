@@ -21,15 +21,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { isoLanguages } from '../../constants/languages/iso-639';
 import Snackbar from '../Snackbar/MySnackbar';
+import LanguageListItem from './LanguageListItem';
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -208,22 +206,32 @@ class AccountPage extends Component {
    */
   getDefaultLanguages = (filterLanguages) => {
     let previousDefaultLanguages = this.state.defaultLanguages;
+    let checked;
 
     for (let key in isoLanguages) {
       let nativeName = isoLanguages[key].nativeName;
       let name = isoLanguages[key].name;
 
+      if (filterLanguages !== 'all' && !Array.isArray(filterLanguages)) {
+        checked = filterLanguages === key ? true : false;
+      } else {
+        checked = filterLanguages.includes(key) ? true : false;
+      }
+
+      let dataProp = {
+        key,
+        nativeName,
+        name,
+        checked
+      }
+
       previousDefaultLanguages.push(
-        <div key={key}>
-          <ListItem
-            className='language-item'
-            button
-            onClick={(e) => { this.handleAddLanguage(e, isoLanguages[key]['639-1']) }}
-          >
-            <ListItemText primary={nativeName} secondary={name} />
-          </ListItem>
-          <Divider />
-        </div>
+        <LanguageListItem
+          key={key}
+          dataProp={dataProp}
+          handleAddLanguageProp={this.handleAddLanguage}
+          handleDeleteLanguageProp={this.handleDeleteLanguage}
+        />
       )
     }
 
@@ -342,10 +350,17 @@ class AccountPage extends Component {
    */
   handleDeleteLanguage = (language) => {
     let previousSelectedLanguages = this.state.selectedLanguages;
+    let previousDefaultLanguages = this.state.defaultLanguages;
 
     for (let i = 0; i < previousSelectedLanguages.length; i++) {
       if (language === previousSelectedLanguages[i].key) {
-        previousSelectedLanguages.splice(i, 1)
+        previousSelectedLanguages.splice(i, 1);
+      }
+    }
+
+    for (let j = 0; j < previousDefaultLanguages.length; j++) {
+      if (language === previousDefaultLanguages[j].key) {
+        previousDefaultLanguages[j].props.dataProp.checked = false;
       }
     }
 
@@ -377,6 +392,12 @@ class AccountPage extends Component {
     for (let j = 0; j < previousSelectedLanguages.length; j++) {
       if (lang === previousSelectedLanguages[j].key) {
         alreadyAdded = true;
+      }
+    }
+
+    for (let j = 0; j < previousDefaultLanguages.length; j++) {
+      if (lang === previousDefaultLanguages[j].key) {
+        previousDefaultLanguages[j].props.dataProp.checked = true;
       }
     }
 

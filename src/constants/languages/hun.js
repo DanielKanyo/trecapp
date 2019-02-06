@@ -123,7 +123,7 @@ export const dataHun = {
       showAllRecipes: 'Mutasd mind',
       addLanguage: 'Nyelv hozzáadás',
       modal: {
-        selectOneOrMore: 'Válassz ki egy vagy több nyelvet',
+        selectOneOrMore: 'Válassz akár többet is',
       },
       toaster: {
         languageAlreadyInList: 'A nyelv már a listában!',

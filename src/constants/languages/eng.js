@@ -123,7 +123,7 @@ export const dataEng = {
       showAllRecipes: 'Show all',
       addLanguage: 'Add language',
       modal: {
-        selectOneOrMore: 'Select one or more languages',
+        selectOneOrMore: 'Select one or more',
       },
       toaster: {
         languageAlreadyInList: 'The language is already in the list!',
