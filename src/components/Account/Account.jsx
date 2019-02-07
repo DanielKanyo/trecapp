@@ -132,10 +132,6 @@ class AccountPage extends Component {
     }
 
     this.setState({
-      accountName: name,
-      accountLanguage: language,
-      accountAbout: about,
-      accountFilterRecipes: languages,
       snackbarOpen: true,
       snackbarMessage: this.props.languageObjectProp.data.Account.toaster.userDataSaved,
       snackbarType: 'success'
