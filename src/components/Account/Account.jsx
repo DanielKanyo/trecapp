@@ -28,6 +28,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { isoLanguages } from '../../constants/languages/iso-639';
 import Snackbar from '../Snackbar/MySnackbar';
 import LanguageListItem from './LanguageListItem';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -51,6 +52,12 @@ const styles = theme => ({
     flex: 1,
     fontSize: 16
   },
+  progressLine: {
+    borderRadius: '4px',
+  },
+  progressBar: {
+    background: '#3f51b5'
+  },
 });
 
 function Transition(props) {
@@ -63,6 +70,7 @@ class AccountPage extends Component {
     super(props);
 
     this.state = {
+      pageLoading: true,
       accountName: '',
       accountEmail: '',
       accountLanguage: '',
@@ -196,6 +204,7 @@ class AccountPage extends Component {
           accountAbout: snapshot.about ? snapshot.about : '',
           profilePicUrl: snapshot.profilePicUrl ? snapshot.profilePicUrl : '',
           loggedInUserId: loggedInUserId,
+          pageLoading: false,
         }));
       }
     });
@@ -453,8 +462,8 @@ class AccountPage extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { languageObjectProp } = this.props;
+    const { classes, languageObjectProp } = this.props;
+    const { pageLoading } = this.state;
 
     return (
       <AuthUserContext.Consumer>
@@ -473,56 +482,63 @@ class AccountPage extends Component {
                   </div>
                 </Paper>
 
-                <Grid item className="grid-component" xs={12}>
-                  <Grid className="sub-grid" container spacing={16}>
+                {
+                  pageLoading && <LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} />
+                }
 
-                    <Grid item className="grid-component" xs={6}>
-                      <Paper className={classes.paper + ' profile-picture-container'}>
-                        <div>
-                          {
-                            this.state.profilePicUrl === "" ?
-                              <div className="profile-picture-with-no-image">
-                                {
-                                  this.state.loading ?
-                                    <div><CircularProgress /></div> :
-                                    <div>
-                                      <BrokenImageIcon />
-                                      <div className="no-image-text">{languageObjectProp.data.Account.noImageText}</div>
-                                    </div>
-                                }
+                {
+                  !pageLoading ?
+                    <Grid item className="grid-component" xs={12}>
+                      <Grid className="sub-grid" container spacing={16}>
 
-                              </div> : <div className="profile-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
-                          }
-                          <div className="profile-picture-upload-btn">
-                            <Button color="inherit" onClick={this.openUploadDialog} className="upload-profile-pic-btn">
-                              {this.state.profilePicUrl === "" ?
-                                languageObjectProp.data.Account.profileImageUpload : languageObjectProp.data.Account.profileImageChange
+                        <Grid item className="grid-component" xs={6}>
+                          <Paper className={classes.paper + ' profile-picture-container'}>
+                            <div>
+                              {
+                                this.state.profilePicUrl === "" ?
+                                  <div className="profile-picture-with-no-image">
+                                    {
+                                      this.state.loading ?
+                                        <div><CircularProgress /></div> :
+                                        <div>
+                                          <BrokenImageIcon />
+                                          <div className="no-image-text">{languageObjectProp.data.Account.noImageText}</div>
+                                        </div>
+                                    }
+
+                                  </div> : <div className="profile-picture" style={{ backgroundImage: `url(${this.state.profilePicUrl})` }}></div>
                               }
-                            </Button>
-                          </div>
-                        </div>
-                      </Paper>
-                      <AccountDetails
-                        handleInputChangeProp={this.handleInputChange}
-                        handleChangeLanguageProp={this.handleChangeLanguage}
-                        handleChangeFilterByProp={this.handleChangeFilterBy}
-                        setLanguageProp={this.props.setLanguageProp}
-                        handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
-                        dataProp={this.state}
-                        languageObjectProp={languageObjectProp}
-                        defaultLanguagesProp={this.state.defaultLanguages}
-                      />
-                    </Grid>
+                              <div className="profile-picture-upload-btn">
+                                <Button color="inherit" onClick={this.openUploadDialog} className="upload-profile-pic-btn">
+                                  {this.state.profilePicUrl === "" ?
+                                    languageObjectProp.data.Account.profileImageUpload : languageObjectProp.data.Account.profileImageChange
+                                  }
+                                </Button>
+                              </div>
+                            </div>
+                          </Paper>
+                          <AccountDetails
+                            handleInputChangeProp={this.handleInputChange}
+                            handleChangeLanguageProp={this.handleChangeLanguage}
+                            handleChangeFilterByProp={this.handleChangeFilterBy}
+                            setLanguageProp={this.props.setLanguageProp}
+                            handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
+                            dataProp={this.state}
+                            languageObjectProp={languageObjectProp}
+                            defaultLanguagesProp={this.state.defaultLanguages}
+                          />
+                        </Grid>
 
-                    <Grid item className="grid-component" xs={6}>
-                      <Paper className={classes.paper + ' account-details-container'}>
-                        <PasswordForgetForm languageObjectProp={languageObjectProp} />
-                        <PasswordChangeForm languageObjectProp={languageObjectProp} />
-                      </Paper>
-                    </Grid>
+                        <Grid item className="grid-component" xs={6}>
+                          <Paper className={classes.paper + ' account-details-container'}>
+                            <PasswordForgetForm languageObjectProp={languageObjectProp} />
+                            <PasswordChangeForm languageObjectProp={languageObjectProp} />
+                          </Paper>
+                        </Grid>
 
-                  </Grid>
-                </Grid>
+                      </Grid>
+                    </Grid> : ''
+                }
 
               </Grid>
             </Grid>

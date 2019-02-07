@@ -183,6 +183,7 @@ export const dataEng = {
       emptyAbout: 'No description...'
     },
     BugReport: {
+      title: 'Bug Report',
       label: 'Report the bug!',
       placeholder: 'Write down your observation...',
       btnText: 'Send report',

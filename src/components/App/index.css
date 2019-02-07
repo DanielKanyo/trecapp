@@ -138,8 +138,8 @@ button a {
   background: #3f51b5 !important;
 }
 
-.paper-title-danger {
-  background: #FC050C !important;
+.paper-title-bug {
+  background: #f00 !important;
 }
 
 .paper-title-favourites {

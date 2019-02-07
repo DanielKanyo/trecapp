@@ -8,10 +8,10 @@ import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
-import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
 import Snackbar from '../Snackbar/MySnackbar';
+import BugReportIcon from '@material-ui/icons/BugReport';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
 	card: {
@@ -26,11 +26,9 @@ const styles = theme => ({
 		background: 'red',
 		color: 'white',
 		paddingLeft: 15,
-		paddingRight: 15
-	},
-	leftIcon: {
-		marginRight: theme.spacing.unit,
-	},
+		paddingRight: 15,
+		height: '36px'
+	}
 });
 
 const theme = createMuiTheme({
@@ -84,7 +82,7 @@ class BugReport extends Component {
 					snackbarMessage: this.props.languageObjectProp.data.BugReport.toaster.bugSaved,
 					snackbarType: 'success'
 				});
-				
+
 				this.setState({
 					bugText: ''
 				});
@@ -111,6 +109,15 @@ class BugReport extends Component {
 			<div className="ComponentContent">
 				<Grid className="main-grid" container spacing={16}>
 					<Grid item className="grid-component" xs={12}>
+						<Paper className={classes.paper + ' paper-title paper-title-bug'}>
+							<div className="paper-title-icon">
+								<BugReportIcon />
+							</div>
+							<div className="paper-title-text">
+								{languageObjectProp.data.BugReport.title}
+							</div>
+						</Paper>
+
 						<MuiThemeProvider theme={theme}>
 							<Card className={classes.card}>
 								<TextField
@@ -132,7 +139,6 @@ class BugReport extends Component {
 										className={classes.button + ' report-send-btn'}
 										disabled={disabled}
 									>
-										<SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
 										{languageObjectProp.data.BugReport.btnText}
 									</Button>
 								</div>

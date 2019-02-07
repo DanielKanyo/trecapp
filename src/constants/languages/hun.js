@@ -183,6 +183,7 @@ export const dataHun = {
       emptyAbout: 'Nincs leírás...'
     },
     BugReport: {
+      title: 'Hibajelentés',
       label: 'Jelentsd be a hibát!',
       placeholder: 'Írd le a felfedezésed...',
       btnText: 'Jelentés küldése',
