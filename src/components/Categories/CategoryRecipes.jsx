@@ -76,7 +76,7 @@ class CategoryRecipes extends Component {
             let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
             let categoryNameEng = this.props.match.params.category;
             let categoryNumber = categoryItems.indexOf(categoryNameEng.charAt(0).toUpperCase() + categoryNameEng.slice(1));
-            let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber];
+            let categoryName = this.props.languageObjectProp.data.myRecipes.newRecipe.categoryItems[categoryNumber].replace('_', ' ');
 
             this.setState({
               categoryNumber,

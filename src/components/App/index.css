@@ -342,6 +342,16 @@ input[type=time]::-webkit-clear-button {
   margin-right: -12px !important;
 }
 
+.recipe-card-header div:nth-child(2) {
+  max-width: calc(100% - 92px) !important;
+}
+
+.recipe-card-header div:nth-child(2)>span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #delete-recipe-dialog div:nth-child(2) {
   overflow: hidden;
 }

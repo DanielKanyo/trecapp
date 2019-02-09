@@ -88,7 +88,7 @@ class RecipesWall extends Component {
 
       db.getRecipes().then(resRecipes => {
         let sortedRecipesByTimestamp = [];
-        let sortedRecipesByFavCounter = [];
+        let sortedRecipesByFavAndLikeCounter = [];
 
         if (filterRecipes) {
           for (let prepKey in resRecipes) {
@@ -108,8 +108,8 @@ class RecipesWall extends Component {
               sortedRecipesByTimestamp.push(value);
               sortedRecipesByTimestamp[i].recipeId = key;
 
-              sortedRecipesByFavCounter.push(value);
-              sortedRecipesByFavCounter[i].recipeId = key;
+              sortedRecipesByFavAndLikeCounter.push(value);
+              sortedRecipesByFavAndLikeCounter[i].recipeId = key;
             }
           });
 
@@ -118,12 +118,12 @@ class RecipesWall extends Component {
 
             if (this.mounted) {
 
-              if (sortedRecipesByTimestamp.length && sortedRecipesByFavCounter.length) {
+              if (sortedRecipesByTimestamp.length && sortedRecipesByFavAndLikeCounter.length) {
                 sortedRecipesByTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
-                sortedRecipesByFavCounter.sort((a, b) => (a.favouriteCounter < b.favouriteCounter) ? 1 : ((b.favouriteCounter < a.favouriteCounter) ? -1 : 0));
+                sortedRecipesByFavAndLikeCounter.sort((a, b) => ((a.favouriteCounter + a.likeCounter) < (b.favouriteCounter + b.likeCounter)) ? 1 : (((b.favouriteCounter + b.likeCounter) < (a.favouriteCounter + a.likeCounter)) ? -1 : 0));
 
                 let latestRecipes = sortedRecipesByTimestamp;
-                let topRecipes = sortedRecipesByFavCounter;
+                let topRecipes = sortedRecipesByFavAndLikeCounter;
 
                 for (let i = 0; i < latestRecipes.length; i++) {
                   if (latestRecipes[i].publicChecked) {

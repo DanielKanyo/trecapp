@@ -38,7 +38,7 @@ export const dataHun = {
           dosePlaceholder: 'Mennyiség...',
           costPlaceholder: 'Ár...'
         },
-        categoryItems: ['Egyik sem', 'Előétel', 'Szendvics', 'Leves', 'Saláta', 'Köret', 'Tészta', 'Pite', 'Pizza', 'Burger', 'Csirke', 'Pulyka', 'Kacsa', 'Szárnyas', 'Sertés', 'Bárány', 'Marha', 'Fasírt', 'Hal', 'Tenger Gyümölcsei', 'Szósz', 'Vegetáriánus', 'Különlegesség', 'Desszert', 'Süti', 'Ital', 'Mentes']
+        categoryItems: ['Egyik sem', 'Előétel', 'Szendvics', 'Leves', 'Saláta', 'Köret', 'Tészta', 'Pite', 'Pizza', 'Burger', 'Csirke', 'Pulyka', 'Kacsa', 'Szárnyas', 'Sertés', 'Bárány', 'Marha', 'Fasírt', 'Hal', 'Tenger_gyümölcsei', 'Szósz', 'Vegetáriánus', 'Különlegesség', 'Desszert', 'Süti', 'Ital', 'Mentes_étel']
       },
       editRecipe: {
         title: 'Szerkesztés',

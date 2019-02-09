@@ -678,7 +678,7 @@ class Recipe extends Component {
 
             </div>
 
-            <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category]} className={classes.chip} />
+            <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category].replace('_', ' ')} className={classes.chip} />
 
           </CardActions>
           <div className="recipe-more-btn">

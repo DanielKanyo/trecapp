@@ -85,7 +85,7 @@ class Categories extends Component {
           }
 
           for (let i = 1; i < recipeCategorys.length; i++) {
-            let categoryName = recipeCategorys[i];
+            let categoryName = recipeCategorys[i].replace('_', ' ');
 
             for (let j = 0; j < categoryNumbersInArray.length; j++) {
               if (categoryNumbersInArray[j] === i) {
