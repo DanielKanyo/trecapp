@@ -530,12 +530,12 @@ class Recipe extends Component {
 
     let titleCharacters = data.title.split('');
 
-    let hour = data.hour;
-    let minute = data.minute;
-
     let urlToRecipe = `${data.url}/recipe/${data.recipeId}`;
     let urlToUser = `/user/${data.userId}`;
     let urlToEdit = `/edit/${data.recipeId}`;
+
+    let hour = data.hour !== '0' ? `${data.hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText}` : '';
+    let minute = data.minute !== '0' ? `${data.minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}` : ''; 
 
     return (
       <div className="recipe-content">
@@ -716,9 +716,7 @@ class Recipe extends Component {
               </Typography>
               <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content" />
               <Chip
-                label={hour === '0' ?
-                  `${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}` :
-                  `${hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText} ${minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}`}
+                label={hour + (minute ? ` ${minute}` : '')}
                 className="chip-card-content"
               />
               <Chip label={`${data.cost} ${isoCurrencies[data.currency].symbol_native}`} className="chip-card-content" />
