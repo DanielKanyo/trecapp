@@ -19,8 +19,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import 'react-toastify/dist/ReactToastify.min.css';
-
 const styles = theme => ({
   paper: {
     padding: theme.spacing.unit * 2,
