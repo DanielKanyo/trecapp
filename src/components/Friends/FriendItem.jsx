@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 
 import PropTypes from 'prop-types';
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 import Paper from '@material-ui/core/Paper';
@@ -34,20 +34,6 @@ const styles = theme => ({
 		zIndex: 10,
 		backgroundColor: '#099b63'
 	},
-});
-
-const theme = createMuiTheme({
-	typography: {
-		useNextVariants: true,
-	},
-	palette: {
-		primary: {
-			light: '#099b63',
-			main: '#099b63',
-			dark: '#099b63',
-			contrastText: '#fff',
-		}
-	}
 });
 
 class FriendItem extends Component {
@@ -90,58 +76,55 @@ class FriendItem extends Component {
 
 		return (
 			<Grid item xs={4} className="friend-item">
-
-				<MuiThemeProvider theme={theme}>
-					<Paper className="friend-item-content">
-						<div className="friend-item-actions-container">
-							<Tooltip placement="right" title={languageObjectProp.data.Friends.openFriend}>
-								<Fab
-									size="small"
-									color="primary"
-									aria-label="Add"
-									className={classes.margin}
-									component={Link}
-									to={`${ROUTES.USER}/${userId}`}
-								>
-									<OpenInNew />
-								</Fab>
-							</Tooltip>
-							{
-								this.state.isMyFriend ?
-									<Tooltip placement="right" title={friendDataProp.friendData.username + " " + languageObjectProp.data.Friends.myFriend}>
-										<Fab
-											size="small"
-											aria-label="Friend"
-											className={classes.friendActiveBtn + ' active-friend-btn-on-friends-page'}
-											onClick={() => { this.toggleFriend(userId) }}
-										>
-											<HowToRegIcon />
-										</Fab>
-									</Tooltip>
-									:
-									<Tooltip placement="right" title={languageObjectProp.data.Friends.addToFriends}>
-										<Fab
-											size="small"
-											aria-label="Friend"
-											className={classes.friendBtn}
-											onClick={() => { this.toggleFriend(userId) }}
-										>
-											<PersonAddIcon />
-										</Fab>
-									</Tooltip>
-							}
-						</div>
+				<Paper className="friend-item-content">
+					<div className="friend-item-actions-container">
+						<Tooltip placement="right" title={languageObjectProp.data.Friends.openFriend}>
+							<Fab
+								size="small"
+								color="primary"
+								aria-label="Add"
+								className={classes.margin}
+								component={Link}
+								to={`${ROUTES.USER}/${userId}`}
+							>
+								<OpenInNew />
+							</Fab>
+						</Tooltip>
 						{
-							friendDataProp.friendData.profilePicUrl ?
-								<div className="friend-item-img-container" style={{ backgroundImage: `url(${friendDataProp.friendData.profilePicUrl})` }}></div>
+							this.state.isMyFriend ?
+								<Tooltip placement="right" title={friendDataProp.friendData.username + " " + languageObjectProp.data.Friends.myFriend}>
+									<Fab
+										size="small"
+										aria-label="Friend"
+										className={classes.friendActiveBtn + ' active-friend-btn-on-friends-page'}
+										onClick={() => { this.toggleFriend(userId) }}
+									>
+										<HowToRegIcon />
+									</Fab>
+								</Tooltip>
 								:
-								<div className="friend-item-img-container">
-									<FaceIcon />
-								</div>
+								<Tooltip placement="right" title={languageObjectProp.data.Friends.addToFriends}>
+									<Fab
+										size="small"
+										aria-label="Friend"
+										className={classes.friendBtn}
+										onClick={() => { this.toggleFriend(userId) }}
+									>
+										<PersonAddIcon />
+									</Fab>
+								</Tooltip>
 						}
-						<div className="friend-item-detail-username">{friendDataProp.friendData.username}</div>
-					</Paper>
-				</MuiThemeProvider>
+					</div>
+					{
+						friendDataProp.friendData.profilePicUrl ?
+							<div className="friend-item-img-container" style={{ backgroundImage: `url(${friendDataProp.friendData.profilePicUrl})` }}></div>
+							:
+							<div className="friend-item-img-container">
+								<FaceIcon />
+							</div>
+					}
+					<div className="friend-item-detail-username">{friendDataProp.friendData.username}</div>
+				</Paper>
 			</Grid>
 		)
 	}

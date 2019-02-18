@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { db } from '../../firebase';
 
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import withAuthorization from '../Session/withAuthorization';
 import withEmailVerification from '../Session/withEmailVerification';
 import compose from 'recompose/compose';
@@ -26,6 +26,20 @@ const styles = theme => ({
 	progressBar: {
 		background: '#099b63'
 	},
+});
+
+const theme = createMuiTheme({
+	typography: {
+		useNextVariants: true,
+	},
+	palette: {
+		primary: {
+			light: '#099b63',
+			main: '#099b63',
+			dark: '#099b63',
+			contrastText: '#fff',
+		}
+	}
 });
 
 class Friends extends Component {
@@ -103,38 +117,42 @@ class Friends extends Component {
 
 		return (
 			<div className="ComponentContent">
-				<Grid className="main-grid" container spacing={16}>
+				<MuiThemeProvider theme={theme}>
+					<Grid className="main-grid" container spacing={16}>
 
-					<Grid item className="grid-component" xs={12}>
-						<Paper className={classes.paper + ' paper-title paper-title-friends'}>
-							<div className="paper-title-icon">
-								<People />
-							</div>
-							<div className="paper-title-text">
-								{languageObjectProp.data.menuItems[11]}
-							</div>
-							<div className="number-of-friends">
-								<Tooltip title={languageObjectProp.data.Favourites.numOfFavRecipes}>
-									<Chip label={friends.length} className={classes.chip} />
-								</Tooltip>
-							</div>
-						</Paper>
+						<Grid item className="grid-component" xs={12}>
+							<Paper className={classes.paper + ' paper-title paper-title-friends'}>
+								<div className="paper-title-icon">
+									<People />
+								</div>
+								<div className="paper-title-text">
+									{languageObjectProp.data.menuItems[11]}
+								</div>
+								<div className="number-of-friends">
+									<Tooltip title={languageObjectProp.data.Favourites.numOfFavRecipes}>
+										<Chip label={friends.length} className={classes.chip} />
+									</Tooltip>
+								</div>
+							</Paper>
 
-						<Grid container spacing={16}>
+							<Grid container spacing={16}>
+								{
+									loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+								}
+
+								{friends.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+
+								{friends.map((friend, index) => {
+									return friend;
+								})}
+							</Grid>
+
 							{
-								loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+								!loading && <MyPagination />
 							}
-
-							{friends.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
-
-							{friends.map((friend, index) => {
-								return friend;
-							})}
 						</Grid>
-
-						<MyPagination />
 					</Grid>
-				</Grid>
+				</MuiThemeProvider>
 			</div>
 		)
 	}

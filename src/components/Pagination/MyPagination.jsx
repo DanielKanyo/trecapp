@@ -30,16 +30,16 @@ class MyPegination extends Component {
 
     return (
       <div className="MyPagination">
-        <Fab size="small" aria-label="First" className={classes.margin}>
+        <Fab size="small" color="primary" aria-label="First" className={classes.margin}>
           <FirstPage />
         </Fab>
-        <Fab size="small" aria-label="Left" className={classes.margin}>
+        <Fab size="small" color="primary" aria-label="Left" className={classes.margin}>
           <ChevronLeft />
         </Fab>
-        <Fab size="small" aria-label="Right" className={classes.margin}>
+        <Fab size="small" color="primary" aria-label="Right" className={classes.margin}>
           <ChevronRight />
         </Fab>
-        <Fab size="small" aria-label="Last" className={classes.margin}>
+        <Fab size="small" color="primary" aria-label="Last" className={classes.margin}>
           <LastPage />
         </Fab>
       </div>
