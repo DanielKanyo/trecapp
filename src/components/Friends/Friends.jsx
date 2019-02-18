@@ -13,6 +13,7 @@ import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 import FriendItem from './FriendItem';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import MyPagination from '../Pagination/MyPagination';
 
 const styles = theme => ({
 	chip: {
@@ -130,6 +131,8 @@ class Friends extends Component {
 								return friend;
 							})}
 						</Grid>
+
+						<MyPagination />
 					</Grid>
 				</Grid>
 			</div>
