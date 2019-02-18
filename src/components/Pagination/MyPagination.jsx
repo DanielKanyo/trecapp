@@ -8,8 +8,10 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 import LastPage from '@material-ui/icons/LastPage';
 
 const styles = theme => ({
-  margin: {
-    margin: '0px 5px',
+  pagBtn: {
+    margin: '0px 3px',
+    width: 36,
+    height: 36
   },
 });
 
@@ -22,7 +24,51 @@ class MyPegination extends Component {
 	 */
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      pages: [],
+      numberOfPages: props.totalProp,
+      actual: parseInt(props.activePageProp),
+      prevVisible: parseInt(props.activePageProp) - 1,
+      nextVisible: parseInt(props.activePageProp) + 1,
+    };
+  }
+
+  componentDidMount = () => {
+    let previousPages = this.state.pages;
+    let { actual, prevVisible, nextVisible } = this.state;
+
+    for (let i = 1; i <= this.state.numberOfPages; i++) {
+      let activePagBtn = actual === i ? 'pag-btn active-pag-btn' : 'pag-btn';
+      let hiddenPagBtn = prevVisible === i || nextVisible === i || actual === i ? '' : 'hidden-pag-btn';
+
+      previousPages.push(
+        <Fab
+          size="small"
+          key={i}
+          color="default"
+          aria-label={i}
+          className={this.props.classes.pagBtn + ` ${activePagBtn} ${hiddenPagBtn}`}
+          onClick={(e) => { this.handlePagButtonClicked(i) }}
+        >
+          {i}
+        </Fab>
+      )
+    }
+
+    this.setState({
+      pages: previousPages
+    });
+  }
+
+  /**
+   * Pagination button clicked
+   */
+  handlePagButtonClicked = (pageId) => {
+    this.setState({
+      actual: pageId
+    });
+
+    this.props.pagBtnClickedProp(pageId);
   }
 
   render() {
@@ -30,16 +76,49 @@ class MyPegination extends Component {
 
     return (
       <div className="MyPagination">
-        <Fab size="small" color="primary" aria-label="First" className={classes.margin}>
+        <Fab
+          disabled={this.state.actual === 1 ? true : false}
+          size="small"
+          color="primary"
+          aria-label="First"
+          className={classes.pagBtn}
+          onClick={(e) => { this.handlePagButtonClicked(1) }}
+        >
           <FirstPage />
         </Fab>
-        <Fab size="small" color="primary" aria-label="Left" className={classes.margin}>
+        <Fab
+          size="small"
+          color="primary"
+          aria-label="Left"
+          className={classes.pagBtn}
+          onClick={(e) => { this.handlePagButtonClicked(this.state.actual - 1) }}
+          disabled={this.state.actual === 1 ? true : false}
+        >
           <ChevronLeft />
         </Fab>
-        <Fab size="small" color="primary" aria-label="Right" className={classes.margin}>
+        {
+          this.state.pages.map((btn, index) => {
+            return btn;
+          })
+        }
+        <Fab
+          size="small"
+          color="primary"
+          aria-label="Right"
+          className={classes.pagBtn}
+          onClick={(e) => { this.handlePagButtonClicked(this.state.actual + 1) }}
+          disabled={this.state.actual === this.state.pages.length ? true : false}
+        >
           <ChevronRight />
         </Fab>
-        <Fab size="small" color="primary" aria-label="Last" className={classes.margin}>
+        <Fab
+          size="small"
+          color="primary"
+          aria-label="Last"
+          className={classes.pagBtn}
+          onClick={(e) => { this.handlePagButtonClicked(this.state.pages.length) }}
+          disabled={this.state.actual === this.state.pages.length ? true : false}
+        >
           <LastPage />
         </Fab>
       </div>

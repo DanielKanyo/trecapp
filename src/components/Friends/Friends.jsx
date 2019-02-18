@@ -42,6 +42,10 @@ const theme = createMuiTheme({
 	}
 });
 
+const constants = {
+	DEFAULT_NUMBER_OF_FRIENDS: 20
+}
+
 class Friends extends Component {
 
 	/**
@@ -50,11 +54,22 @@ class Friends extends Component {
 	 * @param {Object} props
 	 */
 	constructor(props) {
+		const locationObject = new URL(window.location.href);
+		const pageId = locationObject.searchParams.get('pageId');
+
+		if (pageId === null) {
+			props.history.push({
+				search: '?pageId=1'
+			});
+		}
+
 		super(props);
 		this.state = {
 			friends: [],
 			loading: true,
-			loggedInUserId: ''
+			loggedInUserId: '',
+			numberOfPages: null,
+			pageId,
 		};
 	}
 
@@ -63,6 +78,7 @@ class Friends extends Component {
 
 		let authObject = JSON.parse(localStorage.getItem('authUser'));
 		let loggedInUserId = authObject.id;
+		let lengthCounter = 0;
 
 		db.users().once('value').then(usersRef => {
 
@@ -89,14 +105,19 @@ class Friends extends Component {
 										languageObjectProp={this.props.languageObjectProp}
 									/>
 								)
+
+								lengthCounter++;
 							}
 						}
 					}
 
+					let numberOfPages = Math.ceil(lengthCounter / constants.DEFAULT_NUMBER_OF_FRIENDS);
+
 					this.setState({
 						friends: previousFriends,
 						loggedInUserId,
-						loading: false
+						loading: false,
+						numberOfPages
 					});
 				}
 			});
@@ -109,6 +130,14 @@ class Friends extends Component {
    */
 	componentWillUnmount() {
 		this.mounted = false;
+	}
+
+	pagBtnClicked = (pageId) => {
+		let newParam = `?pageId=${pageId}`;
+
+		this.props.history.push({
+			search: newParam
+		});
 	}
 
 	render() {
@@ -148,7 +177,12 @@ class Friends extends Component {
 							</Grid>
 
 							{
-								!loading && <MyPagination />
+								!loading &&
+								<MyPagination
+									pagBtnClickedProp={this.pagBtnClicked}
+									totalProp={this.state.numberOfPages}
+									activePageProp={this.state.pageId}
+								/>
 							}
 						</Grid>
 					</Grid>

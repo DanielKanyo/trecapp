@@ -1539,7 +1539,16 @@ input[type=time]::-webkit-clear-button {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 12px;
+  margin: 12px 0px;
+}
+
+.active-pag-btn {
+  background: #099b63 !important;
+  color: white !important;
+}
+
+.hidden-pag-btn {
+  display: none !important;
 }
 
 @media only screen and (max-width: 950px) {
