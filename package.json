@@ -10,7 +10,6 @@
     "@types/lodash": "^4.14.121",
     "autosuggest-highlight": "^3.1.1",
     "firebase": "^5.8.2",
-    "material-ui-flat-pagination": "^3.2.0",
     "pdfmake": "^0.1.53",
     "react": "^16.8.2",
     "react-autosuggest": "^9.4.3",
