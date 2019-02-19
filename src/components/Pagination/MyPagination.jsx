@@ -84,8 +84,37 @@ class MyPegination extends Component {
    * Pagination button clicked
    */
   handlePagButtonClicked = (pageId) => {
+    let pagButtonsWithNumbers = document.getElementsByClassName('pag-btn');
+    let prevVisible = pageId - 1;
+    let nextVisible = pageId + 1;
+
+    for (let i = 0; i < pagButtonsWithNumbers.length; i++) {
+      if (pagButtonsWithNumbers[i].classList.contains('active-pag-btn')) {
+        pagButtonsWithNumbers[i].classList.remove('active-pag-btn')
+      } else {
+        pagButtonsWithNumbers[i].classList.add('hidden-pag-btn');
+      }
+    }
+
+    if (pagButtonsWithNumbers[nextVisible - 1] && pagButtonsWithNumbers[nextVisible - 1].classList.contains('hidden-pag-btn')) {
+      pagButtonsWithNumbers[nextVisible - 1].classList.remove('hidden-pag-btn')
+    } else if (nextVisible > pagButtonsWithNumbers.length) {
+      pagButtonsWithNumbers[prevVisible - 2].classList.remove('hidden-pag-btn')
+    }
+
+    if (pagButtonsWithNumbers[prevVisible - 1] && pagButtonsWithNumbers[prevVisible - 1].classList.contains('hidden-pag-btn')) {
+      pagButtonsWithNumbers[prevVisible - 1].classList.remove('hidden-pag-btn')
+    } else if (prevVisible < 1) {
+      pagButtonsWithNumbers[nextVisible + 2].classList.remove('hidden-pag-btn')
+    }
+
+    pagButtonsWithNumbers[pageId - 1].classList.add('active-pag-btn');
+    pagButtonsWithNumbers[pageId - 1].classList.remove('hidden-pag-btn')
+
     this.setState({
-      actual: pageId
+      actual: pageId,
+      prevVisible,
+      nextVisible
     });
 
     this.props.pagBtnClickedProp(pageId);
