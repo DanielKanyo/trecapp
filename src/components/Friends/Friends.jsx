@@ -55,12 +55,14 @@ class Friends extends Component {
 	 */
 	constructor(props) {
 		const locationObject = new URL(window.location.href);
-		const pageId = locationObject.searchParams.get('pageId');
+		let pageId = locationObject.searchParams.get('pageId');
 
 		if (pageId === null) {
 			props.history.push({
 				search: '?pageId=1'
 			});
+
+			pageId = 1;
 		}
 
 		super(props);
@@ -70,6 +72,7 @@ class Friends extends Component {
 			loggedInUserId: '',
 			numberOfPages: null,
 			pageId,
+			friendsTotal: [],
 		};
 	}
 
@@ -111,13 +114,33 @@ class Friends extends Component {
 						}
 					}
 
+					let counter = 0;
+					let friendsPerPage = [];
+					let friendsTotal = [];
+
+					for (let i = 0; i < previousFriends.length; i++) {
+						friendsPerPage.push(previousFriends[i]);
+						counter++;
+
+						if (counter === constants.DEFAULT_NUMBER_OF_FRIENDS) {
+							friendsTotal.push(friendsPerPage);
+							friendsPerPage = [];
+							counter = 0;
+						}
+					}
+
+					if (friendsPerPage.length > 0) {
+						friendsTotal.push(friendsPerPage);
+					}
+
 					let numberOfPages = Math.ceil(lengthCounter / constants.DEFAULT_NUMBER_OF_FRIENDS);
 
 					this.setState({
 						friends: previousFriends,
 						loggedInUserId,
 						loading: false,
-						numberOfPages
+						numberOfPages,
+						friendsTotal,
 					});
 				}
 			});
@@ -138,46 +161,51 @@ class Friends extends Component {
 		this.props.history.push({
 			search: newParam
 		});
+
+		this.setState({
+			pageId
+		});
 	}
 
 	render() {
 		const { classes, languageObjectProp } = this.props;
-		let { friends, loading } = this.state;
+		let { friends, loading, friendsTotal, pageId, numberOfPages } = this.state;
 
 		return (
 			<div className="ComponentContent">
 				<MuiThemeProvider theme={theme}>
 					<Grid className="main-grid" container spacing={16}>
 
-						<Grid item className="grid-component" xs={12}>
-							<Paper className={classes.paper + ' paper-title paper-title-friends'}>
-								<div className="paper-title-icon">
-									<People />
-								</div>
-								<div className="paper-title-text">
-									{languageObjectProp.data.menuItems[11]}
-								</div>
-								<div className="number-of-friends">
-									<Tooltip title={languageObjectProp.data.Favourites.numOfFavRecipes}>
-										<Chip label={friends.length} className={classes.chip} />
-									</Tooltip>
-								</div>
-							</Paper>
+						<Grid item className="grid-component friends-grid-component" xs={12}>
+							<div>
+								<Paper className={classes.paper + ' paper-title paper-title-friends'}>
+									<div className="paper-title-icon">
+										<People />
+									</div>
+									<div className="paper-title-text">
+										{languageObjectProp.data.menuItems[11]}
+									</div>
+									<div className="number-of-friends">
+										<Tooltip title={languageObjectProp.data.Favourites.numOfFavRecipes}>
+											<Chip label={friends.length} className={classes.chip} />
+										</Tooltip>
+									</div>
+								</Paper>
 
-							<Grid container spacing={16}>
-								{
-									loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
-								}
+								<Grid container spacing={16}>
+									{
+										loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+									}
 
-								{friends.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+									{friends.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
-								{friends.map((friend, index) => {
-									return friend;
-								})}
-							</Grid>
-
+									{friendsTotal[pageId - 1] && friendsTotal[pageId - 1].map((friend, index) => {
+										return friend;
+									})}
+								</Grid>
+							</div>
 							{
-								!loading &&
+								!loading && numberOfPages > 1 &&
 								<MyPagination
 									pagBtnClickedProp={this.pagBtnClicked}
 									totalProp={this.state.numberOfPages}

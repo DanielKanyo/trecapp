@@ -79,6 +79,12 @@ button a {
   position: relative;
 }
 
+.friends-grid-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .btn-my:hover {
   background: #eca900 !important;
 }

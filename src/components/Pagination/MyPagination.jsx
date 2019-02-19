@@ -11,7 +11,7 @@ const styles = theme => ({
   pagBtn: {
     margin: '0px 3px',
     width: 36,
-    height: 36
+    height: 36,
   },
 });
 
@@ -28,31 +28,51 @@ class MyPegination extends Component {
       pages: [],
       numberOfPages: props.totalProp,
       actual: parseInt(props.activePageProp),
-      prevVisible: parseInt(props.activePageProp) - 1,
-      nextVisible: parseInt(props.activePageProp) + 1,
+      prevVisible: parseInt(props.activePageProp) - 1 < 1 ? parseInt(props.activePageProp) + 2 : parseInt(props.activePageProp) - 1,
+      nextVisible: parseInt(props.activePageProp) + 1 > props.totalProp ? parseInt(props.activePageProp) - 2 : parseInt(props.activePageProp) + 1,
     };
   }
 
   componentDidMount = () => {
     let previousPages = this.state.pages;
-    let { actual, prevVisible, nextVisible } = this.state;
+    let { actual, prevVisible, nextVisible, numberOfPages } = this.state;
 
-    for (let i = 1; i <= this.state.numberOfPages; i++) {
-      let activePagBtn = actual === i ? 'pag-btn active-pag-btn' : 'pag-btn';
-      let hiddenPagBtn = prevVisible === i || nextVisible === i || actual === i ? '' : 'hidden-pag-btn';
-
+    if (numberOfPages === 1) {
       previousPages.push(
         <Fab
           size="small"
-          key={i}
+          key={numberOfPages}
           color="default"
-          aria-label={i}
-          className={this.props.classes.pagBtn + ` ${activePagBtn} ${hiddenPagBtn}`}
-          onClick={(e) => { this.handlePagButtonClicked(i) }}
+          aria-label={numberOfPages}
+          className={this.props.classes.pagBtn + ` pag-btn active-pag-btn`}
+          onClick={(e) => { this.handlePagButtonClicked(numberOfPages) }}
         >
-          {i}
+          {numberOfPages}
         </Fab>
       )
+
+      this.setState({
+        actual: 1
+      });
+
+    } else {
+      for (let i = 1; i <= numberOfPages; i++) {
+        let activePagBtn = actual === i ? 'pag-btn active-pag-btn' : 'pag-btn';
+        let hiddenPagBtn = prevVisible === i || nextVisible === i || actual === i ? '' : 'hidden-pag-btn';
+
+        previousPages.push(
+          <Fab
+            size="small"
+            key={i}
+            color="default"
+            aria-label={i}
+            className={this.props.classes.pagBtn + ` ${activePagBtn} ${hiddenPagBtn}`}
+            onClick={(e) => { this.handlePagButtonClicked(i) }}
+          >
+            {i}
+          </Fab>
+        )
+      }
     }
 
     this.setState({
