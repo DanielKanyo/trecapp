@@ -19,6 +19,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import IngredientItem from './IngredientItem';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 import Snackbar from '../Snackbar/MySnackbar';
 
 import { isoCurrencies } from '../../constants/iso-4217';
@@ -104,6 +105,7 @@ class NewRecipe extends Component {
       snackbarMessage: '',
       snackbarType: '',
       snackbarOpen: false,
+      helpForIngredients: false
     };
   }
 
@@ -252,7 +254,7 @@ class NewRecipe extends Component {
       ingredients: previousIngredients
     });
   }
-  
+
   /**
    * Hide snackbar after x seconds
    */
@@ -262,9 +264,21 @@ class NewRecipe extends Component {
     });
   }
 
+  onFocusIngredients = () => {
+    this.setState({
+      helpForIngredients: true
+    });
+  }
+
+  onBlurIngredients = () => {
+    this.setState({
+      helpForIngredients: false
+    });
+  }
+
   render() {
     const { classes, languageObjectProp } = this.props;
-    const { difficulty } = this.state;
+    const { difficulty, helpForIngredients } = this.state;
 
     return (
       <div>
@@ -367,6 +381,8 @@ class NewRecipe extends Component {
                   value={this.state.ingredient}
                   margin="normal"
                   autoComplete='off'
+                  onFocus={this.onFocusIngredients}
+                  onBlur={this.onBlurIngredients}
                 />
                 <div className="ingredients-add-btn-container">
                   <IconButton aria-label="Delete" onClick={this.onSubmitIngredients}>
@@ -375,6 +391,19 @@ class NewRecipe extends Component {
                 </div>
               </div>
             </form>
+            {
+              helpForIngredients &&
+              <div className="help-for-ingredients">
+                <div className="help-for-ingredients-icon-container">
+                  <HelpIcon fontSize="small" />
+                </div>
+                <div className="help-for-ingredients-text-container">
+                  <span>{languageObjectProp.data.myRecipes.newRecipe.form.helpText[0]}</span>
+                  <AddIcon fontSize="small" className="add-icon-in-help-text" />
+                  <span>{languageObjectProp.data.myRecipes.newRecipe.form.helpText[1]}</span>
+                </div>
+              </div>
+            }
             <div className="ingredients-container">
               {
                 this.state.ingredients.length ?

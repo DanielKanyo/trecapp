@@ -26,6 +26,7 @@ export const dataHun = {
           save: 'Mentés',
           cost: 'Költség',
           emptyList: 'A lista üres',
+          helpText: ['Miután beírtál egy hozzávalót a beviteli mezőbe, nyomd meg a', 'gombot.'],
         },
         toaster: {
           fillTheInput: 'Töltsd ki a beviteli mezőt...'

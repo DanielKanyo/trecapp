@@ -25,7 +25,8 @@ export const dataEng = {
           public: 'Public',
           save: 'Save',
           cost: 'Cost',
-          emptyList: 'The list is empty'
+          emptyList: 'The list is empty',
+          helpText: ['After you type in an ingredient in the input field, press the', 'button.'],
         },
         toaster: {
           fillTheInput: 'Fill the input field...'

@@ -1565,6 +1565,40 @@ input[type=time]::-webkit-clear-button {
   display: none !important;
 }
 
+.help-for-ingredients {
+  display: flex;
+  font-size: 12px;
+  margin: 6px 0px 14px 0px;
+  color: #a8a8a8;
+}
+
+.help-for-ingredients-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+}
+
+.help-for-ingredients-text-container {
+  text-align: left;
+  display: inline-block;
+}
+
+.help-for-ingredients-text-container>span {
+  vertical-align: middle;
+}
+
+.help-for-ingredients-icon-container>svg {
+  color: #cacaca;
+}
+
+.add-icon-in-help-text {
+  margin: 0px 4px;
+  color: #cacaca;
+  vertical-align: middle;
+  font-size: 19px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
