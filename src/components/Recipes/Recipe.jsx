@@ -51,6 +51,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import ReactHtmlParser from 'react-html-parser';
 import Snackbar from '../Snackbar/MySnackbar';
 
+import ImageCompressor from 'image-compressor.js';
+
 import { isoCurrencies } from '../../constants/iso-4217';
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -353,23 +355,33 @@ class Recipe extends Component {
   }
 
   saveImage = () => {
+    const imageCompressor = new ImageCompressor();
+
     this.setState({
       uploading: true
     });
 
-    storage.uploadImage(this.state.file).then(fileObject => {
-      let fullPath = fileObject.metadata.fullPath;
-      let name = fileObject.metadata.name;
+    imageCompressor.compress(this.state.file, {
+      quality: .5,
+    }).then((result) => {
 
-      storage.getImageDownloadUrl(fullPath).then(url => {
-        this.setState({
-          imageUrl: url,
-          imageName: name,
-          uploading: false
+      storage.uploadImage(result).then(fileObject => {
+        let fullPath = fileObject.metadata.fullPath;
+        let name = fileObject.metadata.name;
+
+        storage.getImageDownloadUrl(fullPath).then(url => {
+          this.setState({
+            imageUrl: url,
+            imageName: name,
+            uploading: false
+          });
+
+          db.updateRecipeImageUrlAndName(this.props.dataProp.recipeId, url, name);
         });
-
-        db.updateRecipeImageUrlAndName(this.props.dataProp.recipeId, url, name);
       });
+      
+    }).catch((err) => {
+      console.log('Something went wrong...', err);
     });
   }
 
@@ -535,7 +547,7 @@ class Recipe extends Component {
     let urlToEdit = `/edit/${data.recipeId}`;
 
     let hour = data.hour !== '0' ? `${data.hour} ${languageObjectProp.data.myRecipes.myRecipes.hourText}` : '';
-    let minute = data.minute !== '0' ? `${data.minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}` : ''; 
+    let minute = data.minute !== '0' ? `${data.minute} ${languageObjectProp.data.myRecipes.myRecipes.minuteText}` : '';
 
     return (
       <div className="recipe-content">

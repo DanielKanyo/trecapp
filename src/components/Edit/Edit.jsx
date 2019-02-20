@@ -36,6 +36,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import Snackbar from '../Snackbar/MySnackbar';
 
+import ImageCompressor from 'image-compressor.js';
+
 import { db, storage } from '../../firebase';
 import { isoCurrencies } from '../../constants/iso-4217';
 import { isoLanguages } from '../../constants/languages/iso-639';
@@ -384,6 +386,8 @@ class Edit extends Component {
   }
 
   saveImage = () => {
+    const imageCompressor = new ImageCompressor();
+
     this.setState({
       uploading: true
     });
@@ -392,20 +396,28 @@ class Edit extends Component {
       storage.deleteRecipeImage(this.state.imageName);
     }
 
-    storage.uploadImage(this.state.file).then(fileObject => {
-      let fullPath = fileObject.metadata.fullPath;
-      let name = fileObject.metadata.name;
+    imageCompressor.compress(this.state.file, {
+      quality: .5,
+    }).then((result) => {
 
-      storage.getImageDownloadUrl(fullPath).then(url => {
-        this.setState({
-          imageUrl: url,
-          imageName: name,
-          uploading: false,
-          saveReady: false
+      storage.uploadImage(result).then(fileObject => {
+        let fullPath = fileObject.metadata.fullPath;
+        let name = fileObject.metadata.name;
+
+        storage.getImageDownloadUrl(fullPath).then(url => {
+          this.setState({
+            imageUrl: url,
+            imageName: name,
+            uploading: false,
+            saveReady: false
+          });
+
+          db.updateRecipeImageUrlAndName(this.state.recipeId, url, name);
         });
-
-        db.updateRecipeImageUrlAndName(this.state.recipeId, url, name);
       });
+
+    }).catch((err) => {
+      console.log('Something went wrong...', err);
     });
   }
 
