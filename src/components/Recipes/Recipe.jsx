@@ -361,8 +361,10 @@ class Recipe extends Component {
       uploading: true
     });
 
+    const quality = this.state.file.size < 150000 ? 1 : .6;
+
     imageCompressor.compress(this.state.file, {
-      quality: .5,
+      quality: quality,
     }).then((result) => {
 
       storage.uploadImage(result).then(fileObject => {

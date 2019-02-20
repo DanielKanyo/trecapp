@@ -30,6 +30,8 @@ import Snackbar from '../Snackbar/MySnackbar';
 import LanguageListItem from './LanguageListItem';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+import ImageCompressor from 'image-compressor.js';
+
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
@@ -342,22 +344,34 @@ class AccountPage extends Component {
    * Save profile picture
    */
   saveProfilePicture() {
+    const imageCompressor = new ImageCompressor();
+
     this.setState({
       loading: true
     });
 
-    storage.uploadProfileImage(this.state.blob).then(fileObject => {
-      let fullPath = fileObject.metadata.fullPath;
+    const quality = this.state.blob.size < 150000 ? 1 : .6;
 
-      storage.getImageDownloadUrl(fullPath).then(url => {
+    imageCompressor.compress(this.state.blob, {
+      quality: quality,
+    }).then((result) => {
 
-        this.setState({
-          profilePicUrl: url,
-          loading: false
+      storage.uploadProfileImage(result).then(fileObject => {
+        let fullPath = fileObject.metadata.fullPath;
+
+        storage.getImageDownloadUrl(fullPath).then(url => {
+
+          this.setState({
+            profilePicUrl: url,
+            loading: false
+          });
+
+          db.updateUsersProfilePictureUrl(this.state.loggedInUserId, url);
         });
-
-        db.updateUsersProfilePictureUrl(this.state.loggedInUserId, url);
       });
+      
+    }).catch((err) => {
+      console.log('Something went wrong...', err);
     });
   }
 
