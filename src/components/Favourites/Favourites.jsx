@@ -6,13 +6,14 @@ import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
 import RecipePreview from '../Categories/RecipePreview';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { dataEng } from '../../constants/languages/eng';
+import MyPagination from '../Pagination/MyPagination';
 
 const styles = theme => ({
   chip: {
@@ -27,14 +28,46 @@ const styles = theme => ({
   },
 });
 
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    primary: {
+      light: '#7c06ad',
+      main: '#7c06ad',
+      dark: '#7c06ad',
+      contrastText: '#fff',
+    }
+  }
+});
+
+const constants = {
+  DEFAULT_NUMBER_OF_FRIENDS: 20
+}
+
 class Favourites extends Component {
 
   constructor(props) {
+    const locationObject = new URL(window.location.href);
+    let pageId = locationObject.searchParams.get('pageId');
+
+    if (pageId === null) {
+      props.history.push({
+        search: '?pageId=1'
+      });
+
+      pageId = 1;
+    }
+
     super(props);
     this.state = {
       loading: true,
       loggedInUserId: '',
       favRecipes: [],
+      pageId,
+      numberOfPages: null,
+      favRecipesTotal: [],
     }
   }
 
@@ -44,6 +77,7 @@ class Favourites extends Component {
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
     let previousRecipes = this.state.favRecipes;
+    let lengthCounter = 0;
 
     this.setState({
       loggedInUserId
@@ -105,10 +139,7 @@ class Favourites extends Component {
                     />
                   )
 
-                  this.setState({
-                    favRecipes: previousRecipes,
-                    loading: false
-                  });
+                  lengthCounter++;
                 } else {
                   this.setState({
                     loading: false
@@ -117,6 +148,34 @@ class Favourites extends Component {
               }
             }
           }
+
+          let counter = 0;
+          let favsPerPage = [];
+          let favsTotal = [];
+
+          for (let i = 0; i < previousRecipes.length; i++) {
+            favsPerPage.push(previousRecipes[i]);
+            counter++;
+
+            if (counter === constants.DEFAULT_NUMBER_OF_FRIENDS) {
+              favsTotal.push(favsPerPage);
+              favsPerPage = [];
+              counter = 0;
+            }
+          }
+
+          if (favsPerPage.length > 0) {
+            favsTotal.push(favsPerPage);
+          }
+
+          let numberOfPages = Math.ceil(lengthCounter / constants.DEFAULT_NUMBER_OF_FRIENDS);
+
+          this.setState({
+            favRecipes: previousRecipes,
+            loading: false,
+            numberOfPages,
+            favRecipesTotal: favsTotal
+          });
         });
       }
     });
@@ -129,40 +188,68 @@ class Favourites extends Component {
     this.mounted = false;
   }
 
+  /**
+	 * Pagination button clicked
+	 */
+  pagBtnClicked = (pageId) => {
+    let newParam = `?pageId=${pageId}`;
+
+    this.props.history.push({
+      search: newParam
+    });
+
+    this.setState({
+      pageId
+    });
+  }
+
   render() {
     const { classes, languageObjectProp } = this.props;
-    let { favRecipes, loading } = this.state;
+    let { favRecipes, loading, pageId, numberOfPages, favRecipesTotal } = this.state;
 
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
 
-          <Grid item className="grid-component" xs={12}>
-            <Paper className={classes.paper + ' paper-title paper-title-favourites'}>
-              <div className="paper-title-icon">
-                <FavoriteIcon />
-              </div>
-              <div className="paper-title-text">
-                {languageObjectProp.data.menuItems[2]}
-              </div>
-              <div className="number-of-recipes">
-                <Tooltip title={languageObjectProp.data.Favourites.numOfFavRecipes}>
-                  <Chip label={favRecipes.length} className={classes.chip} />
-                </Tooltip>
-              </div>
-            </Paper>
+          <Grid item className="grid-component favs-grid-component" xs={12}>
+            <div>
+              <Paper className={classes.paper + ' paper-title paper-title-favourites'}>
+                <div className="paper-title-icon">
+                  <FavoriteIcon />
+                </div>
+                <div className="paper-title-text">
+                  {languageObjectProp.data.menuItems[2]}
+                </div>
+                <div className="number-of-recipes">
+                  <Tooltip title={languageObjectProp.data.Favourites.numOfFavRecipes}>
+                    <Chip label={favRecipes.length} className={classes.chip} />
+                  </Tooltip>
+                </div>
+              </Paper>
 
-            <Grid container spacing={16}>
+              <Grid container spacing={16}>
+                {
+                  loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+                }
+
+                {favRecipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+
+                {favRecipesTotal[pageId - 1] && favRecipesTotal[pageId - 1].map((recipe, index) => {
+                  return recipe;
+                })}
+              </Grid>
+            </div>
+
+            <MuiThemeProvider theme={theme}>
               {
-                loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
+                !loading && numberOfPages > 1 &&
+                <MyPagination
+                  pagBtnClickedProp={this.pagBtnClicked}
+                  totalProp={numberOfPages}
+                  activePageProp={pageId}
+                />
               }
-
-              {favRecipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
-
-              {favRecipes.map((recipe, index) => {
-                return recipe;
-              })}
-            </Grid>
+            </MuiThemeProvider>
           </Grid>
 
         </Grid>

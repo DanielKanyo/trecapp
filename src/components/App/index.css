@@ -79,7 +79,8 @@ button a {
   position: relative;
 }
 
-.friends-grid-component {
+.friends-grid-component,
+.favs-grid-component {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1549,8 +1550,15 @@ input[type=time]::-webkit-clear-button {
 }
 
 .active-pag-btn {
-  background: #099b63 !important;
   color: white !important;
+}
+
+.friends-grid-component .active-pag-btn {
+  background: #099b63 !important;
+}
+
+.favs-grid-component .active-pag-btn {
+  background: #7c06ad !important;
 }
 
 .hidden-pag-btn {

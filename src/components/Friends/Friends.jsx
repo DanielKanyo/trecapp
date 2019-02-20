@@ -155,6 +155,9 @@ class Friends extends Component {
 		this.mounted = false;
 	}
 
+	/**
+	 * Pagination button clicked
+	 */
 	pagBtnClicked = (pageId) => {
 		let newParam = `?pageId=${pageId}`;
 
@@ -208,8 +211,8 @@ class Friends extends Component {
 								!loading && numberOfPages > 1 &&
 								<MyPagination
 									pagBtnClickedProp={this.pagBtnClicked}
-									totalProp={this.state.numberOfPages}
-									activePageProp={this.state.pageId}
+									totalProp={numberOfPages}
+									activePageProp={pageId}
 								/>
 							}
 						</Grid>

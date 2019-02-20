@@ -42,7 +42,7 @@ class MyPegination extends Component {
         <Fab
           size="small"
           key={numberOfPages}
-          color="default"
+          color={"default"}
           aria-label={numberOfPages}
           className={this.props.classes.pagBtn + ` pag-btn active-pag-btn`}
           onClick={(e) => { this.handlePagButtonClicked(numberOfPages) }}
@@ -64,7 +64,7 @@ class MyPegination extends Component {
           <Fab
             size="small"
             key={i}
-            color="default"
+            color={"default"}
             aria-label={i}
             className={this.props.classes.pagBtn + ` ${activePagBtn} ${hiddenPagBtn}`}
             onClick={(e) => { this.handlePagButtonClicked(i) }}
@@ -105,7 +105,7 @@ class MyPegination extends Component {
     if (pagButtonsWithNumbers[prevVisible - 1] && pagButtonsWithNumbers[prevVisible - 1].classList.contains('hidden-pag-btn')) {
       pagButtonsWithNumbers[prevVisible - 1].classList.remove('hidden-pag-btn')
     } else if (prevVisible < 1) {
-      pagButtonsWithNumbers[nextVisible + 2].classList.remove('hidden-pag-btn')
+      pagButtonsWithNumbers[prevVisible + 2].classList.remove('hidden-pag-btn')
     }
 
     pagButtonsWithNumbers[pageId - 1].classList.add('active-pag-btn');
