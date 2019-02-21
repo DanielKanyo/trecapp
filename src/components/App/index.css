@@ -216,7 +216,8 @@ button a {
   margin-bottom: 10px;
 }
 
-.paper-recipe-new {
+.paper-recipe-new,
+.comment-card {
   padding: 5px 18px 10px 18px;
 }
 
@@ -1606,6 +1607,28 @@ input[type=time]::-webkit-clear-button {
   align-items: center;
 }
 
+.comment-area {
+  margin: 10px 0px;
+}
+
+.text-field-and-button-container {
+  display: flex;
+}
+
+.text-field-and-button-container>div:first-of-type {
+  width: 100%;
+}
+
+.text-field-and-button-container>div:last-of-type {
+  padding-top: 16px;
+  padding-bottom: 6px;
+}
+
+.text-field-and-button-container button {
+  height: 100%;
+  margin-left: 10px;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1621,7 +1644,8 @@ input[type=time]::-webkit-clear-button {
     display: block !important;
   }
 
-  .paper-recipe-new {
+  .paper-recipe-new,
+  .comment-card {
     margin-bottom: 0px !important;
   }
 
@@ -1688,7 +1712,8 @@ input[type=time]::-webkit-clear-button {
     margin-bottom: 14px;
   }
 
-  .paper-recipe-new {
+  .paper-recipe-new,
+  .comment-card {
     padding: 5px 12px 10px 12px;
   }
 
@@ -1819,6 +1844,21 @@ input[type=time]::-webkit-clear-button {
 
   .email-verification-sent-container {
     padding: 10px;
+  }
+
+  .text-field-and-button-container {
+    flex-direction: column;
+  }
+
+  .text-field-and-button-container>div:last-of-type {
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  
+  .text-field-and-button-container button {
+    height: 100%;
+    margin-left: 0px;
+    width: 100%;
   }
 }
 

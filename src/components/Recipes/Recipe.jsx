@@ -50,6 +50,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import CloseIcon from '@material-ui/icons/Close';
 import ReactHtmlParser from 'react-html-parser';
 import Snackbar from '../Snackbar/MySnackbar';
+import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import CommentItem from './CommentItem';
 
 import ImageCompressor from 'image-compressor.js';
 
@@ -119,7 +122,12 @@ const styles = theme => ({
     width: '100%',
     background: '#f2f2f2 !important',
     padding: 2,
-  }
+  },
+  textField: {
+    width: '100%',
+    marginTop: 12,
+    marginBottom: 6
+  },
 });
 
 const theme = createMuiTheme({
@@ -169,6 +177,8 @@ class Recipe extends Component {
       snackbarMessage: '',
       snackbarType: '',
       snackbarOpen: false,
+      comment: '',
+      withComments: this.props.dataProp.withComments
     };
   }
 
@@ -381,7 +391,7 @@ class Recipe extends Component {
           db.updateRecipeImageUrlAndName(this.props.dataProp.recipeId, url, name);
         });
       });
-      
+
     }).catch((err) => {
       console.log('Something went wrong...', err);
     });
@@ -395,6 +405,10 @@ class Recipe extends Component {
     } else {
       return number;
     }
+  }
+
+  handleInputChange = name => event => {
+    this.setState({ [name]: event.target.value });
   }
 
   generatePdf = (print) => {
@@ -532,7 +546,7 @@ class Recipe extends Component {
    * Render function
    */
   render() {
-    const { anchorEl } = this.state;
+    const { anchorEl, withComments } = this.state;
     const { classes } = this.props;
     const { languageObjectProp } = this.props;
     const data = this.props.dataProp;
@@ -737,7 +751,36 @@ class Recipe extends Component {
             </CardContent>
           </Collapse>
         </Card>
-
+        {
+          withComments &&
+          <div className="comment-area">
+            <Card className={classes.card + ' comment-card'}>
+              <div className="text-field-and-button-container">
+                <div>
+                  <TextField
+                    id="textfield-recipe-comments"
+                    label={'Comment'}
+                    multiline
+                    rows="3"
+                    placeholder='add your comment here'
+                    onChange={this.handleInputChange('comment')}
+                    className={classes.textField}
+                    value={this.state.comment}
+                    margin="normal"
+                  />
+                </div>
+                <div>
+                  <Button variant="contained" color="primary" className={classes.button}>
+                    <AddIcon />
+                  </Button>
+                </div>
+              </div>
+              <div className="comments">
+                <CommentItem />
+              </div>
+            </Card>
+          </div>
+        }
         <Menu
           id="recipe-menu"
           className="recipe-more-menu"

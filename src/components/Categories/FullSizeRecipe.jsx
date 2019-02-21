@@ -99,6 +99,7 @@ class FullSizeRecipe extends Component {
 						data.showMore = showMore;
 						data.fullSizeRecipe = 'fullSizeRecipe';
 						data.recipeId = this.props.match.params.id;
+						data.withComments = true;
 
 						let recipeComponent = <Recipe key={data.recipeId} dataProp={data} languageObjectProp={this.props.languageObjectProp} />
 
