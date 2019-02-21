@@ -13,6 +13,12 @@ const styles = theme => ({
     width: 36,
     height: 36,
   },
+  pagBtnMini: { 
+    margin: '0px 3px',
+    width: 30,
+    height: 30,
+    minHeight: 30
+  }
 });
 
 class MyPegination extends Component {
@@ -98,13 +104,13 @@ class MyPegination extends Component {
 
     if (pagButtonsWithNumbers[nextVisible - 1] && pagButtonsWithNumbers[nextVisible - 1].classList.contains('hidden-pag-btn')) {
       pagButtonsWithNumbers[nextVisible - 1].classList.remove('hidden-pag-btn')
-    } else if (nextVisible > pagButtonsWithNumbers.length) {
+    } else if (pagButtonsWithNumbers[prevVisible - 2] && nextVisible > pagButtonsWithNumbers.length) {
       pagButtonsWithNumbers[prevVisible - 2].classList.remove('hidden-pag-btn')
     }
 
     if (pagButtonsWithNumbers[prevVisible - 1] && pagButtonsWithNumbers[prevVisible - 1].classList.contains('hidden-pag-btn')) {
       pagButtonsWithNumbers[prevVisible - 1].classList.remove('hidden-pag-btn')
-    } else if (prevVisible < 1) {
+    } else if (pagButtonsWithNumbers[prevVisible + 2] && prevVisible < 1) {
       pagButtonsWithNumbers[prevVisible + 2].classList.remove('hidden-pag-btn')
     }
 
@@ -125,51 +131,59 @@ class MyPegination extends Component {
 
     return (
       <div className="MyPagination">
-        <Fab
-          disabled={this.state.actual === 1 ? true : false}
-          size="small"
-          color="primary"
-          aria-label="First"
-          className={classes.pagBtn}
-          onClick={(e) => { this.handlePagButtonClicked(1) }}
-        >
-          <FirstPage />
-        </Fab>
-        <Fab
-          size="small"
-          color="primary"
-          aria-label="Left"
-          className={classes.pagBtn}
-          onClick={(e) => { this.handlePagButtonClicked(this.state.actual - 1) }}
-          disabled={this.state.actual === 1 ? true : false}
-        >
-          <ChevronLeft />
-        </Fab>
+        <div className="mini-pag-btn-container">
+          <Fab
+            disabled={this.state.actual === 1 ? true : false}
+            size="small"
+            color="primary"
+            aria-label="First"
+            className={classes.pagBtnMini}
+            onClick={(e) => { this.handlePagButtonClicked(1) }}
+          >
+            <FirstPage />
+          </Fab>
+        </div>
+        <div className="mini-pag-btn-container">
+          <Fab
+            size="small"
+            color="primary"
+            aria-label="Left"
+            className={classes.pagBtnMini}
+            onClick={(e) => { this.handlePagButtonClicked(this.state.actual - 1) }}
+            disabled={this.state.actual === 1 ? true : false}
+          >
+            <ChevronLeft />
+          </Fab>
+        </div>
         {
           this.state.pages.map((btn, index) => {
             return btn;
           })
         }
-        <Fab
-          size="small"
-          color="primary"
-          aria-label="Right"
-          className={classes.pagBtn}
-          onClick={(e) => { this.handlePagButtonClicked(this.state.actual + 1) }}
-          disabled={this.state.actual === this.state.pages.length ? true : false}
-        >
-          <ChevronRight />
-        </Fab>
-        <Fab
-          size="small"
-          color="primary"
-          aria-label="Last"
-          className={classes.pagBtn}
-          onClick={(e) => { this.handlePagButtonClicked(this.state.pages.length) }}
-          disabled={this.state.actual === this.state.pages.length ? true : false}
-        >
-          <LastPage />
-        </Fab>
+        <div className="mini-pag-btn-container">
+          <Fab
+            size="small"
+            color="primary"
+            aria-label="Right"
+            className={classes.pagBtnMini}
+            onClick={(e) => { this.handlePagButtonClicked(this.state.actual + 1) }}
+            disabled={this.state.actual === this.state.pages.length ? true : false}
+          >
+            <ChevronRight />
+          </Fab>
+        </div>
+        <div className="mini-pag-btn-container">
+          <Fab
+            size="small"
+            color="primary"
+            aria-label="Last"
+            className={classes.pagBtnMini}
+            onClick={(e) => { this.handlePagButtonClicked(this.state.pages.length) }}
+            disabled={this.state.actual === this.state.pages.length ? true : false}
+          >
+            <LastPage />
+          </Fab>
+        </div>
       </div>
     )
   }

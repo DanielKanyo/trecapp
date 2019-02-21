@@ -1599,6 +1599,11 @@ input[type=time]::-webkit-clear-button {
   font-size: 19px !important;
 }
 
+.mini-pag-btn-container {
+  display: flex;
+  align-items: center;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
