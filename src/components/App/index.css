@@ -1568,8 +1568,10 @@ input[type=time]::-webkit-clear-button {
 .help-for-ingredients {
   display: flex;
   font-size: 12px;
-  margin: 6px 0px 14px 0px;
+  margin: 14px 0px 0px 0px;
+  padding-bottom: 6px;
   color: #a8a8a8;
+  border-bottom: 1px solid #e4e4e4;
 }
 
 .help-for-ingredients-icon-container {

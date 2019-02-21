@@ -391,6 +391,15 @@ class NewRecipe extends Component {
                 </div>
               </div>
             </form>
+            <div className="ingredients-container">
+              {
+                this.state.ingredients.length ?
+                  this.state.ingredients.map((item, index) => {
+                    return <IngredientItem key={index} ingredientProp={item} indexProp={index} handleDeleteIngredientProp={this.handleDeleteIngredient} />
+                  })
+                  : <div className="empty-list">{languageObjectProp.data.myRecipes.newRecipe.form.emptyList}</div>
+              }
+            </div>
             {
               helpForIngredients &&
               <div className="help-for-ingredients">
@@ -404,15 +413,6 @@ class NewRecipe extends Component {
                 </div>
               </div>
             }
-            <div className="ingredients-container">
-              {
-                this.state.ingredients.length ?
-                  this.state.ingredients.map((item, index) => {
-                    return <IngredientItem key={index} ingredientProp={item} indexProp={index} handleDeleteIngredientProp={this.handleDeleteIngredient} />
-                  })
-                  : <div className="empty-list">{languageObjectProp.data.myRecipes.newRecipe.form.emptyList}</div>
-              }
-            </div>
             <TextField
               id="textfield-recipe-longDes"
               label={languageObjectProp.data.myRecipes.newRecipe.form.longDes}
