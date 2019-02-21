@@ -396,7 +396,13 @@ class Edit extends Component {
       storage.deleteRecipeImage(this.state.imageName);
     }
 
-    const quality = this.state.file.size < 150000 ? 1 : .6;
+    let quality = 0.4;
+
+    if (this.state.file.size < 150000) {
+      quality = .6;
+    } else if (this.state.file.size > 2000000) {
+      quality = .1;
+    }
 
     imageCompressor.compress(this.state.file, {
       quality: quality,
