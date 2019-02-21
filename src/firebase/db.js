@@ -295,3 +295,23 @@ export const toggleFriend = (loggedInUserId, userId) => {
 
 // Get friends list
 export const getFriends = (loggedInUserId) => db.ref(`users/${loggedInUserId}/friends`);
+
+// Save comment
+export const addComment = (recipeId, data) => {
+  let commentsRef = db.ref(`recipes/${recipeId}/comments`);
+  let commentRef = commentsRef.push();
+
+  commentRef.set({
+    value: data.comment,
+    timestamp: data.timestamp,
+    userId: data.userId
+  });
+
+  return commentRef;
+}
+
+// Delete comment
+export const removeComment = (recipeId, commentId) => {
+  let commentRef = db.ref(`recipes/${recipeId}/comments/${commentId}`);
+  commentRef.remove();
+}

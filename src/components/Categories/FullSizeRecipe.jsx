@@ -45,6 +45,9 @@ class FullSizeRecipe extends Component {
 			recipeTitle: 'Recipe Title',
 			recipeCategory: 'Category',
 			loading: true,
+			loggedInUserId: '',
+			loggedInUserName: '',
+			loggedInUserProfilePicUrl: ''
 		};
 	}
 
@@ -64,8 +67,13 @@ class FullSizeRecipe extends Component {
 						let username = usersObject[recipe.userId].username;
 						let profilePicUrl = usersObject[recipe.userId].profilePicUrl;
 
+						let loggedInUserName = usersObject[loggedInUserId].username;
+						let loggedInUserProfilePicUrl = usersObject[loggedInUserId].profilePicUrl ? usersObject[loggedInUserId].profilePicUrl : '';
+
 						this.setState({
-							loggedInUserId: loggedInUserId
+							loggedInUserId,
+							loggedInUserName,
+							loggedInUserProfilePicUrl 
 						});
 
 						let favouritesObject = recipe.favourites;
@@ -85,6 +93,8 @@ class FullSizeRecipe extends Component {
 						let data = recipe;
 
 						data.loggedInUserId = loggedInUserId;
+						data.loggedInUserName = loggedInUserName;
+						data.loggedInUserProfilePicUrl = loggedInUserProfilePicUrl;
 						data.username = username;
 						data.profilePicUrl = profilePicUrl;
 						data.isMine = isMine;

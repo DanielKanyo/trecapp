@@ -380,7 +380,7 @@ class NewRecipe extends Component {
                   placeholder={languageObjectProp.data.myRecipes.newRecipe.placeholder.ingredientsPlaceholder}
                   value={this.state.ingredient}
                   margin="normal"
-                  autoComplete='off'
+                  autoComplete="off"
                   onFocus={this.onFocusIngredients}
                   onBlur={this.onBlurIngredients}
                 />

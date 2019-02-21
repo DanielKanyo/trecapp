@@ -199,6 +199,13 @@ export const dataHun = {
       myFriend: ' az ismerősöm',
       openFriend: 'Részletek',
       addToFriends: 'Hozzáadás az ismerősökhöz',
+    },
+    Comment: {
+      comment: 'Hozzászólás',
+      toaster: {
+        commendSaved: 'A hozzászólásod elmentve!',
+        commendRemoved: 'A hozzászólás törölve!'
+      }
     }
   }
 }

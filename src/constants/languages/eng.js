@@ -199,6 +199,13 @@ export const dataEng = {
       myFriend: ' is my friend',
       openFriend: 'Details',
       addToFriends: 'Add to friends',
+    },
+    Comment: {
+      comment: 'Comment',
+      toaster: {
+        commendSaved: 'Your comment has been saved!',
+        commendRemoved: 'Your comment has been removed!'
+      } 
     }
   }
 }

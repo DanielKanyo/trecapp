@@ -154,6 +154,9 @@ class Recipe extends Component {
       userId: this.props.dataProp.userId,
       username: this.props.dataProp.username,
       loggedInUserId: this.props.dataProp.loggedInUserId,
+      loggedInUserName: this.props.dataProp.loggedInUserName,
+      loggedInUserProfilePicUrl: this.props.dataProp.loggedInUserProfilePicUrl,
+      recipeId: this.props.dataProp.recipeId,
       expanded: this.props.dataProp.showMore,
       dialogOpen: false,
       visibility: this.props.dataProp.publicChecked,
@@ -178,7 +181,9 @@ class Recipe extends Component {
       snackbarType: '',
       snackbarOpen: false,
       comment: '',
-      withComments: this.props.dataProp.withComments
+      withComments: this.props.dataProp.withComments,
+      autoFocus: false,
+      comments: []
     };
   }
 
@@ -417,6 +422,71 @@ class Recipe extends Component {
     this.setState({ [name]: event.target.value });
   }
 
+  addComment = (event) => {
+    const { comment, loggedInUserId, loggedInUserName, loggedInUserProfilePicUrl, recipeId } = this.state;
+
+    if (comment) {
+      let previousComments = this.state.comments;
+      let timestamp = new Date().getTime();
+      let isMineComment = true;
+
+      let data = {
+        comment,
+        timestamp,
+        isMineComment,
+        userId: loggedInUserId,
+        username: loggedInUserName,
+        profilePicUrl: loggedInUserProfilePicUrl,
+      }
+
+      db.addComment(recipeId, data).then(comment => {
+        data.key = comment.key;
+
+        previousComments.push(
+          <CommentItem
+            key={comment.key}
+            dataProp={data}
+            languageObjectProp={this.props.languageObjectProp}
+            removeCommentProp={this.removeComment}
+          />
+        );
+
+        this.setState({
+          comments: previousComments,
+          comment: '',
+          snackbarOpen: true,
+          snackbarMessage: this.props.languageObjectProp.data.Comment.toaster.commendSaved,
+          snackbarType: 'success'
+        });
+      });
+    }
+
+    event.preventDefault();
+  }
+
+  /**
+   * Remove comment
+   */
+  removeComment = (id) => {
+    let previousComments = this.state.comments;
+    const { recipeId } = this.state;
+
+    for (let i = 0; i < previousComments.length; i++) {
+      if (previousComments[i].key === id) {
+        previousComments.splice(i, 1);
+      }
+    }
+
+    db.removeComment(recipeId, id);
+
+    this.setState({
+      comments: previousComments,
+      snackbarOpen: true,
+      snackbarMessage: this.props.languageObjectProp.data.Comment.toaster.commendRemoved,
+      snackbarType: 'success'
+    });
+  }
+
   generatePdf = (print) => {
     let { dataProp, languageObjectProp } = this.props;
 
@@ -548,19 +618,23 @@ class Recipe extends Component {
     });
   }
 
+  formatDate = (time) => {
+    let year = new Date(time).getFullYear();
+    let month = this.props.languageObjectProp.data.months[new Date(time).getMonth()];
+    let day = new Date(time).getDate();
+
+    return `${month} ${day}, ${year}`;
+  }
+
   /**
    * Render function
    */
   render() {
     const { anchorEl, withComments } = this.state;
-    const { classes } = this.props;
-    const { languageObjectProp } = this.props;
+    const { classes, languageObjectProp } = this.props;
     const data = this.props.dataProp;
 
-    let year = new Date(data.creationTime).getFullYear();
-    let month = languageObjectProp.data.months[new Date(data.creationTime).getMonth()];
-    let day = new Date(data.creationTime).getDate();
-    let creationTime = `${month} ${day}, ${year}`;
+    const creationTime = this.formatDate(data.creationTime);
 
     let titleCharacters = data.title.split('');
 
@@ -763,26 +837,37 @@ class Recipe extends Component {
             <Card className={classes.card + ' comment-card'}>
               <div className="text-field-and-button-container">
                 <div>
-                  <TextField
-                    id="textfield-recipe-comments"
-                    label={'Comment'}
-                    multiline
-                    rows="3"
-                    placeholder='add your comment here'
-                    onChange={this.handleInputChange('comment')}
-                    className={classes.textField}
-                    value={this.state.comment}
-                    margin="normal"
-                  />
-                </div>
-                <div>
-                  <Button variant="contained" color="primary" className={classes.button}>
-                    <AddIcon />
-                  </Button>
+                  <form onSubmit={this.addComment}>
+                    <TextField
+                      id="textfield-recipe-comments"
+                      label={languageObjectProp.data.Comment.comment}
+                      onChange={this.handleInputChange('comment')}
+                      className={classes.textField}
+                      value={this.state.comment}
+                      margin="normal"
+                      autoFocus={this.state.autoFocus}
+                      autoComplete="off"
+                    />
+                    <div className="add-comment-container">
+                      <IconButton
+                        aria-label="Add"
+                        className={classes.button}
+                        onClick={this.addComment}
+                        disabled={this.state.comment ? false : true}
+                        color="primary"
+                      >
+                        <AddIcon fontSize="small" />
+                      </IconButton>
+                    </div>
+                  </form>
                 </div>
               </div>
               <div className="comments">
-                <CommentItem />
+                {
+                  this.state.comments.map(comment => {
+                    return comment;
+                  })
+                }
               </div>
             </Card>
           </div>

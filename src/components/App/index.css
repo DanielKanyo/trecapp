@@ -1612,6 +1612,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .text-field-and-button-container {
+  position: relative;
   display: flex;
 }
 
@@ -1619,14 +1620,57 @@ input[type=time]::-webkit-clear-button {
   width: 100%;
 }
 
-.text-field-and-button-container>div:last-of-type {
-  padding-top: 16px;
-  padding-bottom: 6px;
+.add-comment-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
-.text-field-and-button-container button {
-  height: 100%;
-  margin-left: 10px;
+.comments {
+  margin-top: 12px;
+}
+
+.CommentItem {
+  margin-bottom: 16px;
+}
+
+.comment-item-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-comment-container {
+  display: flex;
+  align-items: center;
+}
+
+.comment-item-header>div {
+  display: flex;
+}
+
+.comment-name-and-datetime {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.comment-name {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.comment-datetime {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.comment-content-text {
+  padding: 8px 8px;
+  margin-top: 10px;
+  border-top: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 @media only screen and (max-width: 950px) {
@@ -1850,11 +1894,6 @@ input[type=time]::-webkit-clear-button {
     flex-direction: column;
   }
 
-  .text-field-and-button-container>div:last-of-type {
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-  
   .text-field-and-button-container button {
     height: 100%;
     margin-left: 0px;
