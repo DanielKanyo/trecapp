@@ -431,12 +431,12 @@ class Recipe extends Component {
       uploading: true
     });
 
-    let quality = 0.4;
+    let quality = 0.5;
 
     if (this.state.file.size < 150000) {
       quality = .6;
     } else if (this.state.file.size > 2000000) {
-      quality = .1;
+      quality = .4;
     }
 
     imageCompressor.compress(this.state.file, {

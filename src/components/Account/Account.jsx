@@ -350,12 +350,12 @@ class AccountPage extends Component {
       loading: true
     });
 
-    let quality = 0.4;
+    let quality = 0.5;
 
     if (this.state.blob.size < 150000) {
       quality = .6;
     } else if (this.state.blob.size > 2000000) {
-      quality = .1;
+      quality = .4;
     }
 
     imageCompressor.compress(this.state.blob, {
