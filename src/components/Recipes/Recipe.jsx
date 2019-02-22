@@ -53,6 +53,7 @@ import Snackbar from '../Snackbar/MySnackbar';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import CommentItem from './CommentItem';
+import {emojify} from 'react-emojione';
 
 import ImageCompressor from 'image-compressor.js';
 
@@ -143,6 +144,13 @@ const theme = createMuiTheme({
     }
   }
 });
+
+const emojiOptions = {
+  style: {
+    height: 21,
+    margin: 0,
+  },
+}
 
 const difficultyColors = ['#008E3D', '#F8B000', '#ff1414']
 
@@ -712,7 +720,7 @@ class Recipe extends Component {
                 <MoreVertIcon />
               </IconButton>
             }
-            title={data.title}
+            title={emojify(data.title, emojiOptions)}
             subheader={creationTime}
           />
           {this.state.imageUrl !== "" ?
