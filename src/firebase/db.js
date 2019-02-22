@@ -315,3 +315,6 @@ export const removeComment = (recipeId, commentId) => {
   let commentRef = db.ref(`recipes/${recipeId}/comments/${commentId}`);
   commentRef.remove();
 }
+
+// Get comments
+export const getComments = (recipeId) => db.ref(`recipes/${recipeId}/comments`);

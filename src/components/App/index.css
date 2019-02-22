@@ -1673,6 +1673,10 @@ input[type=time]::-webkit-clear-button {
   color: rgba(0, 0, 0, 0.87);
 }
 
+.text-field-and-button-container input {
+  padding-right: 50px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

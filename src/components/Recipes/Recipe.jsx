@@ -187,6 +187,53 @@ class Recipe extends Component {
     };
   }
 
+  componentDidMount = () => {
+    const { recipeId, loggedInUserId } = this.state;
+    let previousComments = this.state.comments;
+
+    db.users().once('value').then(users => {
+      const usersObject = users.val();
+
+      db.getComments(recipeId).once('value').then(commentsRes => {
+        const comments = commentsRes.val();
+
+        for (let key in comments) {
+          if (comments.hasOwnProperty(key)) {
+            let comment = comments[key].value;
+            let timestamp = comments[key].timestamp;
+            let isMineComment = comments[key].userId === loggedInUserId ? true : false;
+            let username = usersObject[comments[key].userId].username;
+            let profilePicUrl = usersObject[comments[key].userId].profilePicUrl;
+
+            let data = {
+              comment,
+              timestamp,
+              isMineComment,
+              username,
+              profilePicUrl,
+              key
+            }
+
+            previousComments.push(
+              <CommentItem
+                key={key}
+                dataProp={data}
+                languageObjectProp={this.props.languageObjectProp}
+                removeCommentProp={this.removeComment}
+              />
+            );
+
+          }
+        }
+
+        this.setState({
+          comments: previousComments
+        });
+      });
+    });
+
+  }
+
   /**
    * Open or close recipe details
    */
