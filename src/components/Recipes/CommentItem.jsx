@@ -5,6 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import ReactHtmlParser from 'react-html-parser';
+import Emojify from 'react-emojione';
 
 const styles = theme => ({
   bigAvatar: {
@@ -12,7 +13,14 @@ const styles = theme => ({
     height: 44,
     marginRight: 14
   },
-})
+});
+
+const emojiOptions = {
+  style: {
+    height: 20,
+    margin: 0,
+  },
+}
 
 class CommentItem extends Component {
   /**
@@ -86,7 +94,9 @@ class CommentItem extends Component {
           }
         </div>
         <div className="comment-content-text">
-          {ReactHtmlParser(this.urlify(comment))}
+          <Emojify style={emojiOptions.style}>
+            {ReactHtmlParser(this.urlify(comment))}
+          </Emojify>
         </div>
       </div>
     )

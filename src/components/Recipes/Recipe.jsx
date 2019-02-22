@@ -53,7 +53,7 @@ import Snackbar from '../Snackbar/MySnackbar';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import CommentItem from './CommentItem';
-import {emojify} from 'react-emojione';
+import Emojify from 'react-emojione';
 
 import ImageCompressor from 'image-compressor.js';
 
@@ -147,7 +147,7 @@ const theme = createMuiTheme({
 
 const emojiOptions = {
   style: {
-    height: 21,
+    height: 20,
     margin: 0,
   },
 }
@@ -720,7 +720,7 @@ class Recipe extends Component {
                 <MoreVertIcon />
               </IconButton>
             }
-            title={emojify(data.title, emojiOptions)}
+            title={<Emojify style={emojiOptions.style}>{data.title}</Emojify>}
             subheader={creationTime}
           />
           {this.state.imageUrl !== "" ?
@@ -792,7 +792,9 @@ class Recipe extends Component {
 
           <CardContent className="recipe-story-card-content">
             <Typography component="p">
-              {ReactHtmlParser(this.urlify(data.story))}
+              <Emojify style={emojiOptions.style}>
+                {ReactHtmlParser(this.urlify(data.story))}
+              </Emojify>
             </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
@@ -875,7 +877,9 @@ class Recipe extends Component {
                 {languageObjectProp.data.myRecipes.myRecipes.method + ':'}
               </Typography>
               <Typography paragraph className="long-description-container">
-                {ReactHtmlParser(this.urlify(data.longDes))}
+                <Emojify style={emojiOptions.style}>
+                  {ReactHtmlParser(this.urlify(data.longDes))}
+                </Emojify>
               </Typography>
               <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content" />
               <Chip
