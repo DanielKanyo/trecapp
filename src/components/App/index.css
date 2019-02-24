@@ -1607,7 +1607,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .comment-area {
-  margin: 6px 0px 10px 0px;
+  margin: 10px 0px 10px 0px;
 }
 
 .text-field-and-button-container {
@@ -1627,6 +1627,14 @@ input[type=time]::-webkit-clear-button {
 
 .comments {
   margin-top: 12px;
+}
+
+.CommentItem {
+  margin-bottom: 10px;
+}
+
+.CommentItem:last-of-type {
+  margin-bottom: 0px;
 }
 
 .show-hide-comments-icon {
