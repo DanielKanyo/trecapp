@@ -30,6 +30,7 @@ import Print from '@material-ui/icons/Print';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import Chip from '@material-ui/core/Chip';
 import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import VisibilityOutlined from '@material-ui/icons/VisibilityOutlined';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -96,7 +97,7 @@ const styles = theme => ({
     backgroundRepeat: 'unset'
   },
   chip: {
-    margin: theme.spacing.unit,
+    margin: 0,
   },
   uploadButton: {
     position: 'absolute',
@@ -166,6 +167,7 @@ class Recipe extends Component {
       loggedInUserProfilePicUrl: this.props.dataProp.loggedInUserProfilePicUrl,
       recipeId: this.props.dataProp.recipeId,
       expanded: this.props.dataProp.showMore,
+      commentsExpanded: true,
       dialogOpen: false,
       visibility: this.props.dataProp.publicChecked,
       isFavourite: this.props.dataProp.isFavourite,
@@ -247,6 +249,10 @@ class Recipe extends Component {
    */
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
+  }
+
+  toggleCommentSectionVisibility = () => {
+    this.setState(state => ({ commentsExpanded: !state.commentsExpanded }));
   }
 
   /**
@@ -887,50 +893,60 @@ class Recipe extends Component {
                 className="chip-card-content"
               />
               <Chip label={`${data.cost} ${isoCurrencies[data.currency].symbol_native}`} className="chip-card-content" />
+              {
+                withComments &&
+                <div className="comment-area">
+                  <div className="comment-area-title-and-hide-show-icon">
+                    <div>Comment section ({this.state.comments.length})</div>
+                    <div>
+                      {
+                        this.state.commentsExpanded ?
+                          <VisibilityOff onClick={this.toggleCommentSectionVisibility} /> : <Visibility onClick={this.toggleCommentSectionVisibility} />
+                      }
+                    </div>
+                  </div>
+                  <Collapse in={this.state.commentsExpanded} timeout="auto" unmountOnExit>
+                    <div className="text-field-and-button-container">
+                      <div>
+                        <form onSubmit={this.addComment}>
+                          <TextField
+                            id="textfield-recipe-comments"
+                            label={languageObjectProp.data.Comment.comment}
+                            onChange={this.handleInputChange('comment')}
+                            className={classes.textField}
+                            value={this.state.comment}
+                            margin="normal"
+                            autoFocus={this.state.autoFocus}
+                            autoComplete="off"
+                          />
+                          <div className="add-comment-container">
+                            <IconButton
+                              aria-label="Add"
+                              className={classes.button}
+                              onClick={this.addComment}
+                              disabled={this.state.comment ? false : true}
+                              color="primary"
+                            >
+                              <AddIcon fontSize="small" />
+                            </IconButton>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div className="comments">
+                      {
+                        this.state.comments.map(comment => {
+                          return comment;
+                        })
+                      }
+                    </div>
+                  </Collapse>
+                </div>
+              }
             </CardContent>
           </Collapse>
         </Card>
-        {
-          withComments &&
-          <div className="comment-area">
-            <Card className={classes.card + ' comment-card'}>
-              <div className="text-field-and-button-container">
-                <div>
-                  <form onSubmit={this.addComment}>
-                    <TextField
-                      id="textfield-recipe-comments"
-                      label={languageObjectProp.data.Comment.comment}
-                      onChange={this.handleInputChange('comment')}
-                      className={classes.textField}
-                      value={this.state.comment}
-                      margin="normal"
-                      autoFocus={this.state.autoFocus}
-                      autoComplete="off"
-                    />
-                    <div className="add-comment-container">
-                      <IconButton
-                        aria-label="Add"
-                        className={classes.button}
-                        onClick={this.addComment}
-                        disabled={this.state.comment ? false : true}
-                        color="primary"
-                      >
-                        <AddIcon fontSize="small" />
-                      </IconButton>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div className="comments">
-                {
-                  this.state.comments.map(comment => {
-                    return comment;
-                  })
-                }
-              </div>
-            </Card>
-          </div>
-        }
+
         <Menu
           id="recipe-menu"
           className="recipe-more-menu"

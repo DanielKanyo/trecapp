@@ -216,8 +216,7 @@ button a {
   margin-bottom: 10px;
 }
 
-.paper-recipe-new,
-.comment-card {
+.paper-recipe-new {
   padding: 5px 18px 10px 18px;
 }
 
@@ -1608,7 +1607,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .comment-area {
-  margin: 10px 0px;
+  margin: 6px 0px 10px 0px;
 }
 
 .text-field-and-button-container {
@@ -1677,6 +1676,15 @@ input[type=time]::-webkit-clear-button {
   padding-right: 50px !important;
 }
 
+.comment-area-title-and-hide-show-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #bdbdbd;
+  border-bottom: 1px solid #dddddd;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1692,8 +1700,7 @@ input[type=time]::-webkit-clear-button {
     display: block !important;
   }
 
-  .paper-recipe-new,
-  .comment-card {
+  .paper-recipe-new {
     margin-bottom: 0px !important;
   }
 
@@ -1760,8 +1767,7 @@ input[type=time]::-webkit-clear-button {
     margin-bottom: 14px;
   }
 
-  .paper-recipe-new,
-  .comment-card {
+  .paper-recipe-new {
     padding: 5px 12px 10px 12px;
   }
 
