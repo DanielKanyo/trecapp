@@ -1629,8 +1629,8 @@ input[type=time]::-webkit-clear-button {
   margin-top: 12px;
 }
 
-.CommentItem {
-  margin-bottom: 16px;
+.show-hide-comments-icon {
+  cursor: pointer;
 }
 
 .comment-item-header {

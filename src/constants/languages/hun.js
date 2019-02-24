@@ -201,7 +201,8 @@ export const dataHun = {
       addToFriends: 'Hozzáadás az ismerősökhöz',
     },
     Comment: {
-      comment: 'Hozzászólás',
+      comment: 'Hozzászólás írása...',
+      commentSectionTitle: 'Hozzászólások',
       toaster: {
         commendSaved: 'A hozzászólásod elmentve!',
         commendRemoved: 'A hozzászólás törölve!'

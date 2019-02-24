@@ -60,7 +60,9 @@ class RecipesWall extends Component {
       topRecipes: [],
       loggedInUserId: '',
       numberOfLatestRecipesDisplayed: constants.DEFAULT_NUMBER_OF_RECIPES,
-      numberOfTopRecipesDisplayed: constants.DEFAULT_NUMBER_OF_RECIPES
+      numberOfTopRecipesDisplayed: constants.DEFAULT_NUMBER_OF_RECIPES,
+      loggedInUserName: '',
+      loggedInUserProfilePicUrl: ''
     };
   }
 
@@ -116,6 +118,9 @@ class RecipesWall extends Component {
 
             if (this.mounted) {
 
+              let loggedInUserName = usersObject[loggedInUserId].username;
+              let loggedInUserProfilePicUrl = usersObject[loggedInUserId].profilePicUrl ? usersObject[loggedInUserId].profilePicUrl : '';
+
               if (sortedRecipesByTimestamp.length && sortedRecipesByFavAndLikeCounter.length) {
                 sortedRecipesByTimestamp.sort((a, b) => (a.creationTime < b.creationTime) ? 1 : ((b.creationTime < a.creationTime) ? -1 : 0));
                 sortedRecipesByFavAndLikeCounter.sort((a, b) => ((a.favouriteCounter + a.likeCounter) < (b.favouriteCounter + b.likeCounter)) ? 1 : (((b.favouriteCounter + b.likeCounter) < (a.favouriteCounter + a.likeCounter)) ? -1 : 0));
@@ -162,6 +167,9 @@ class RecipesWall extends Component {
                     data.displayUserInfo = displayUserInfo;
                     data.showMore = showMore;
                     data.url = url;
+                    data.loggedInUserName = loggedInUserName;
+                    data.loggedInUserProfilePicUrl = loggedInUserProfilePicUrl;
+                    data.withComments = true;
 
                     previousLatestRecipes.push(
                       <Recipe
@@ -171,12 +179,12 @@ class RecipesWall extends Component {
                         languageObjectProp={this.props.languageObjectProp}
                       />
                     )
-
-                    this.setState({
-                      latestRecipes: previousLatestRecipes
-                    });
                   }
                 }
+
+                this.setState({
+                  latestRecipes: previousLatestRecipes
+                });
 
                 for (let j = 0; j < topRecipes.length; j++) {
                   if (topRecipes[j].publicChecked) {
@@ -215,6 +223,9 @@ class RecipesWall extends Component {
                     data.visibilityEditable = visibilityEditable;
                     data.displayUserInfo = displayUserInfo;
                     data.url = url;
+                    data.loggedInUserName = loggedInUserName;
+                    data.loggedInUserProfilePicUrl = loggedInUserProfilePicUrl;
+                    data.withComments = true;
 
                     previousTopRecipes.push(
                       <Recipe
@@ -224,14 +235,16 @@ class RecipesWall extends Component {
                         languageObjectProp={this.props.languageObjectProp}
                       />
                     )
-
-                    this.setState({
-                      topRecipes: previousTopRecipes,
-                      loggedInUserId,
-                      loading: false,
-                    });
                   }
                 }
+                
+                this.setState({
+                  topRecipes: previousTopRecipes,
+                  loggedInUserId,
+                  loggedInUserName,
+                  loggedInUserProfilePicUrl,
+                  loading: false
+                });
               } else {
                 this.setState({
                   loading: false,

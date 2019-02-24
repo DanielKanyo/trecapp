@@ -897,8 +897,10 @@ class Recipe extends Component {
                 withComments &&
                 <div className="comment-area">
                   <div className="comment-area-title-and-hide-show-icon">
-                    <div>Comment section ({this.state.comments.length})</div>
                     <div>
+                      {`${languageObjectProp.data.Comment.commentSectionTitle} (${this.state.comments.length})`}
+                    </div>
+                    <div className="show-hide-comments-icon">
                       {
                         this.state.commentsExpanded ?
                           <VisibilityOff onClick={this.toggleCommentSectionVisibility} /> : <Visibility onClick={this.toggleCommentSectionVisibility} />
@@ -933,13 +935,16 @@ class Recipe extends Component {
                         </form>
                       </div>
                     </div>
-                    <div className="comments">
-                      {
-                        this.state.comments.map(comment => {
-                          return comment;
-                        })
-                      }
-                    </div>
+                    {
+                      this.state.comments.length > 0 &&
+                      <div className="comments">
+                        {
+                          this.state.comments.map(comment => {
+                            return comment;
+                          })
+                        }
+                      </div>
+                    }
                   </Collapse>
                 </div>
               }

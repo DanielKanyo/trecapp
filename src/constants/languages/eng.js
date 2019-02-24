@@ -201,7 +201,8 @@ export const dataEng = {
       addToFriends: 'Add to friends',
     },
     Comment: {
-      comment: 'Comment',
+      comment: 'Post a comment...',
+      commentSectionTitle: 'Comment section',
       toaster: {
         commendSaved: 'Your comment has been saved!',
         commendRemoved: 'Your comment has been removed!'

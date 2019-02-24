@@ -73,7 +73,7 @@ class FullSizeRecipe extends Component {
 						this.setState({
 							loggedInUserId,
 							loggedInUserName,
-							loggedInUserProfilePicUrl 
+							loggedInUserProfilePicUrl
 						});
 
 						let favouritesObject = recipe.favourites;
