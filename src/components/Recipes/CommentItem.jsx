@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import ReactHtmlParser from 'react-html-parser';
 import Emojify from 'react-emojione';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   bigAvatar: {
@@ -36,7 +37,8 @@ class CommentItem extends Component {
       timestamp: props.dataProp.timestamp,
       comment: props.dataProp.comment,
       isMineComment: props.dataProp.isMineComment,
-      key: props.dataProp.key
+      key: props.dataProp.key,
+      userId: props.dataProp.userId
     };
   }
 
@@ -68,16 +70,17 @@ class CommentItem extends Component {
 
   render() {
     const { classes } = this.props;
-    const { username, profilePicUrl, timestamp, comment, isMineComment, key } = this.state;
+    const { username, profilePicUrl, timestamp, comment, isMineComment, key, userId } = this.state;
 
     const datetime = this.formatDate(timestamp);
+    const urlToUser = `/user/${userId}`;
 
     return (
       <div className="CommentItem">
         <div className="comment-item-header">
           <div>
             <div className="comment-avatar">
-              <Avatar alt={username} src={profilePicUrl} className={classes.bigAvatar} />
+              <Avatar alt={username} src={profilePicUrl} className={classes.bigAvatar} component={Link} to={urlToUser} />
             </div>
             <div className="comment-name-and-datetime">
               <div className="comment-name">{username}</div>

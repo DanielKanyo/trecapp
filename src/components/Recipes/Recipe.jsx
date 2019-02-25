@@ -214,14 +214,16 @@ class Recipe extends Component {
             let isMineComment = comments[key].userId === loggedInUserId ? true : false;
             let username = usersObject[comments[key].userId].username;
             let profilePicUrl = usersObject[comments[key].userId].profilePicUrl;
-
+            let userId = comments[key].userId;
+            
             let data = {
               comment,
               timestamp,
               isMineComment,
               username,
               profilePicUrl,
-              key
+              key,
+              userId
             }
 
             previousComments.push(
