@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ReactHtmlParser from 'react-html-parser';
 import Emojify from 'react-emojione';
 import { Link } from 'react-router-dom';
+import FaceIcon from '@material-ui/icons/Face';
 
 const styles = theme => ({
   bigAvatar: {
@@ -80,7 +81,11 @@ class CommentItem extends Component {
         <div className="comment-item-header">
           <div>
             <div className="comment-avatar">
-              <Avatar alt={username} src={profilePicUrl} className={classes.bigAvatar} component={Link} to={urlToUser} />
+              {
+                profilePicUrl ?
+                  <Avatar alt={username} src={profilePicUrl} className={classes.bigAvatar} component={Link} to={urlToUser} /> :
+                  <Avatar alt={username} className={classes.bigAvatar} component={Link} to={urlToUser}><FaceIcon /></Avatar>
+              }
             </div>
             <div className="comment-name-and-datetime">
               <div className="comment-name">{username}</div>
