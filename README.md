@@ -15,4 +15,4 @@
 
 * visit https://firebase.google.com/ and create a Firebase App
 * copy and paste your Credentials from your Firebase App into src/firebase/firebase.js
-* activate Email/Password and Google Sign-In Method in your Firebase App
+* activate Email/Password, Google and Facebook Sign-In Method in your Firebase App
