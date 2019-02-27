@@ -766,10 +766,6 @@ input[type=time]::-webkit-clear-button {
   margin-top: 8px !important;
 }
 
-.reset-passwd-btn.last-reset-btn {
-  margin-bottom: 8px !important;
-}
-
 .sign-up-form>div {
   margin: 8px 0px 8px 0px;
 }

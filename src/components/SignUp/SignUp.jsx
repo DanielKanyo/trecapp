@@ -81,6 +81,83 @@ class SignUpForm extends Component {
     event.preventDefault();
   };
 
+  /**
+   * Sign in with Google
+   */
+  singInWithGoogle = () => {
+    this.mounted = true;
+
+    const { history } = this.props;
+    const { isAdmin } = this.state;
+    const roles = [];
+
+    if (isAdmin) {
+      roles.push(ROLES.ADMIN);
+    }
+
+    auth.doSignInWithGoogle()
+      .then((authUser) => {
+        // Create a user in your own accessible Firebase Database too
+        db.user(authUser.uid, authUser.displayName, authUser.email, roles)
+          .update({
+            username: authUser.displayName,
+            email: authUser.email
+          })
+          .then(() => {
+            if (this.mounted) {
+              this.setState(() => ({ ...INITIAL_STATE }));
+            }
+            history.push(ROUTES.WALL);
+          })
+          .catch(error => {
+            this.setState({ error });
+          });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  }
+
+  /**
+   * Sign in with Facebook
+   */
+  singInWithFacebook = () => {
+    this.mounted = true;
+
+    const { history } = this.props;
+    const { isAdmin } = this.state;
+    const roles = [];
+
+    if (isAdmin) {
+      roles.push(ROLES.ADMIN);
+    }
+
+    auth.doSignInWithFacebook()
+      .then((authUser) => {
+        // Create a user in your own accessible Firebase Database too
+        db.user(authUser.uid, authUser.displayName, authUser.email, roles)
+          .update({
+            username: authUser.displayName,
+            email: authUser.email
+          })
+          .then(() => {
+            auth.doSendEmailVerification();
+          })
+          .then(() => {
+            if (this.mounted) {
+              this.setState(() => ({ ...INITIAL_STATE }));
+            }
+            history.push(ROUTES.WALL);
+          })
+          .catch(error => {
+            this.setState({ error });
+          });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  }
+
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -168,6 +245,12 @@ class SignUpForm extends Component {
           />
           <Button disabled={isInvalid} color="primary" variant="contained" type="submit" className="reset-passwd-btn last-reset-btn">
             Sign Up
+          </Button>
+          <Button variant="contained" onClick={this.singInWithGoogle} className="reset-passwd-btn google-btn">
+            Google
+          </Button>
+          <Button variant="contained" onClick={this.singInWithFacebook} className="reset-passwd-btn facebook-btn">
+            Facebook
           </Button>
 
           {error && <p>{error.message}</p>}
