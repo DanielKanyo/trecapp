@@ -27,8 +27,10 @@ const SignInPage = ({ history }) => (
     <Paper className="sign-paper" elevation={1}>
       <div className="sign-title">Sign in</div>
       <SignInForm history={history} />
-      <PasswordForgetLink />
-      <SignUpLink />
+      <div className="sign-up-and-password-forget-links-container">
+        <PasswordForgetLink />
+        <SignUpLink />
+      </div>
     </Paper>
   </div>
 );
@@ -119,6 +121,43 @@ class SignInForm extends Component {
   }
 
   /**
+   * Sign in with Facebook
+   */
+  singInWithFacebook = () => {
+    this.mounted = true;
+
+    const { history } = this.props;
+    const { isAdmin } = this.state;
+    const roles = [];
+
+    if (isAdmin) {
+      roles.push(ROLES.ADMIN);
+    }
+
+    auth.doSignInWithFacebook()
+      .then((authUser) => {
+        // Create a user in your own accessible Firebase Database too
+        db.user(authUser.uid, authUser.displayName, authUser.email, roles)
+          .update({
+            username: authUser.displayName,
+            email: authUser.email
+          })
+          .then(() => {
+            if (this.mounted) {
+              this.setState(() => ({ ...INITIAL_STATE }));
+            }
+            history.push(ROUTES.WALL);
+          })
+          .catch(error => {
+            this.setState({ error });
+          });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  }
+
+  /**
    * Sets 'mounted' property to false to ignore warning 
    */
   componentWillUnmount() {
@@ -174,6 +213,9 @@ class SignInForm extends Component {
         </Button>
         <Button variant="contained" onClick={this.singInWithGoogle} className="reset-passwd-btn google-btn">
           Google
+        </Button>
+        <Button variant="contained" onClick={this.singInWithFacebook} className="reset-passwd-btn facebook-btn">
+          Facebook
         </Button>
 
         {error && <p>{error.message}</p>}

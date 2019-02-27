@@ -36,8 +36,13 @@ button a {
 
 .sign-up-link-container,
 .forgot-password-container {
-  padding: 12px 0px 5px 0px;
+  padding: 4px 0px 4px 0px;
   text-align: right;
+}
+
+.sign-up-and-password-forget-links-container {
+  padding-top: 12px;
+  font-size: 15px;
 }
 
 .password-input-container {
@@ -883,6 +888,16 @@ input[type=time]::-webkit-clear-button {
 .google-btn:hover {
   background: #00773c !important;
 }
+
+.facebook-btn {
+  background: #3C5A99 !important;
+  color: white !important;
+}
+
+.facebook-btn:hover {
+  background: #324d88 !important;
+}
+
 
 .expansion-panel {
   border-radius: 4px !important;

@@ -1,6 +1,7 @@
 import {
   auth,
-  provider
+  googleProvider,
+  facebookProvider
 } from './firebase';
 
 // Sign Up
@@ -33,7 +34,14 @@ export const getCurrentUserId = () =>
 
 // Sign Up with Google
 export const doSignInWithGoogle = () =>
-  auth.signInWithPopup(provider).then(function (result) {
+  auth.signInWithPopup(googleProvider).then(function (result) {
+    let user = result.user;
+    return user;
+  });
+
+// Sign up with Facebook
+export const doSignInWithFacebook = () =>
+  auth.signInWithPopup(facebookProvider).then(function(result) {
     let user = result.user;
     return user;
   });

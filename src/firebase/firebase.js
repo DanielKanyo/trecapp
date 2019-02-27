@@ -29,11 +29,13 @@ const db = firebase.database();
 const auth = firebase.auth();
 const storage = firebase.storage();
 
-const provider = new firebase.auth.GoogleAuthProvider();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
 
 export {
   db,
   auth,
   storage,
-  provider,
+  googleProvider,
+  facebookProvider,
 };
