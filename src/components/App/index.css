@@ -1618,7 +1618,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 .comment-area {
-  margin: 10px 0px 10px 0px;
+  margin: 10px 0px 0px 0px;
 }
 
 .text-field-and-button-container {
@@ -1638,6 +1638,9 @@ input[type=time]::-webkit-clear-button {
 
 .comments {
   margin-top: 12px;
+  background: #f3f3f3;
+  padding: 12px 14px 14px 14px;
+  border-radius: 4px;
 }
 
 .CommentItem {
@@ -1685,8 +1688,8 @@ input[type=time]::-webkit-clear-button {
 .comment-content-text {
   padding: 8px 8px;
   margin-top: 10px;
-  border-top: 1px solid #d1d1d1;
-  border-bottom: 1px solid #d1d1d1;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
   font-size: 13px;
   color: rgba(0, 0, 0, 0.87);
 }
