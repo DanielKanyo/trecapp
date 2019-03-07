@@ -1,7 +1,7 @@
 export const dataHun = {
   data: {
     appTitle: 'Receptjeim',
-    menuItems: ['Kezdőlap', 'Receptjeim', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés', 'Impresszum', 'Ismerőseim'],
+    menuItems: ['Kezdőlap', 'Receptjeim', 'Kedvenceim', 'Bevásárló Listám', 'Kategóriák', 'Profilom', 'Beállítások', 'Kijelentkezés', 'Admin', 'Hibajelentés', 'Impresszum', 'Ismerőseim', 'Kereső'],
     months: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"],
     emptyList: 'A lista üres...',
     Navigation: {
@@ -207,6 +207,9 @@ export const dataHun = {
         commendSaved: 'A hozzászólásod elmentve!',
         commendRemoved: 'A hozzászólás törölve!'
       }
+    },
+    Search: {
+      title: 'Keresés'
     }
   }
 }

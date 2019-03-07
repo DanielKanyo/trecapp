@@ -1,7 +1,7 @@
 export const dataEng = {
   data: {
     appTitle: 'My Recipes',
-    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin', 'Bug Report', 'Impressum', 'My Friends'],
+    menuItems: ['Home', 'My Recipes', 'My Favourites', 'My Shopping List', 'Categories', 'My Profile', 'Settings', 'Logout', 'Admin', 'Bug Report', 'Impressum', 'My Friends', 'Search'],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     emptyList: 'The list is empty...',
     Navigation: {
@@ -207,6 +207,9 @@ export const dataEng = {
         commendSaved: 'Your comment has been saved!',
         commendRemoved: 'Your comment has been removed!'
       } 
+    },
+    Search: {
+      title: 'Search'
     }
   }
 }

@@ -26,6 +26,8 @@ import Impressum from '../Impressum/Impressum';
 import Friends from '../Friends/Friends';
 import User from '../User/User';
 import BugReport from '../BugReport/BugReport';
+import Search from '../Search/Search';
+
 import * as ROUTES from '../../constants/routes';
 
 import { dataHun } from '../../constants/languages/hun';
@@ -155,6 +157,10 @@ class App extends Component {
             />
             <Route exact path={ROUTES.FRIENDS}
               component={(routerProps) => <Friends {...routerProps} languageObjectProp={this.state.languageObject} />}
+            />
+
+            <Route exact path={ROUTES.SEARCH}
+              component={(routerProps) => <Search {...routerProps} languageObjectProp={this.state.languageObject} />}
             />
           </MuiThemeProvider>
         </div>

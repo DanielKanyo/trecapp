@@ -190,6 +190,10 @@ button a {
   background: #099b63 !important;
 }
 
+.paper-title-search {
+  background: #0c82b9 !important;
+}
+
 .paper-title-icon {
   padding: 16px 20px;
 }
@@ -1702,6 +1706,14 @@ input[type=time]::-webkit-clear-button {
   font-size: 13px;
   color: #bdbdbd;
   border-bottom: 1px solid #dddddd;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.search-button:hover {
+  background: #0c82b9 !important;
 }
 
 @media only screen and (max-width: 950px) {
