@@ -1708,14 +1708,6 @@ input[type=time]::-webkit-clear-button {
   border-bottom: 1px solid #dddddd;
 }
 
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.search-button:hover {
-  background: #0c82b9 !important;
-}
-
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
