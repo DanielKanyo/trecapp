@@ -1715,8 +1715,8 @@ input[type=time]::-webkit-clear-button {
     flex-basis: 100% !important;
   }
 
-  .recipe-content:last-of-type {
-    margin-bottom: 13px;
+  .recipe-content {
+    margin-bottom: 10px !important;
   }
 
   .main-grid {
@@ -1931,6 +1931,10 @@ input[type=time]::-webkit-clear-button {
     height: 100%;
     margin-left: 0px;
     width: 100%;
+  }
+
+  .paper-title {
+    margin-bottom: 10px !important;
   }
 }
 
