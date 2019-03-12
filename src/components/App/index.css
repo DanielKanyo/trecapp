@@ -1848,8 +1848,12 @@ input[type=time]::-webkit-clear-button {
     margin-bottom: 0px;
   }
 
+  .recipe-preview-item {
+    padding-bottom: 0px;
+  }
+
   .recipe-preview-item:last-of-type {
-    margin-bottom: 0px;
+    margin-bottom: 8px;
   }
 
   #delete-recipe-dialog div:nth-child(2)>div {
