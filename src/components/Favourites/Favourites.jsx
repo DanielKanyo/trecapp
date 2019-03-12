@@ -98,23 +98,23 @@ class Favourites extends Component {
 
               if (favouritesObject) {
                 if (favouritesObject.hasOwnProperty(loggedInUserId) && item.publicChecked) {
-                  let username = usersObject[favRecipes[key].userId].username;
-                  let profilePicUrl = usersObject[favRecipes[key].userId].profilePicUrl;
+                  let username = usersObject[item.userId].username;
+                  let profilePicUrl = usersObject[item.userId].profilePicUrl;
 
-                  let isMine = favRecipes[key].userId === loggedInUserId ? true : false;
+                  let isMine = item.userId === loggedInUserId ? true : false;
 
                   let visibilityEditable = false;
                   let recipeDeletable = false;
                   let recipeEditable = false;
                   let displayUserInfo = true;
-                  let withPhoto = favRecipes[key].imageUrl !== '' ? true : false;
-                  let favouriteCounter = favRecipes[key].favouriteCounter;
+                  let withPhoto = item.imageUrl !== '' ? true : false;
+                  let favouriteCounter = item.favouriteCounter;
 
                   let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-                  let categoryNameEng = categoryItems[favRecipes[key].category];
+                  let categoryNameEng = categoryItems[item.category];
                   let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
 
-                  let data = favRecipes[key];
+                  let data = item;
 
                   data.recipeId = key;
                   data.loggedInUserId = loggedInUserId;

@@ -12,6 +12,8 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import TuneIcon from '@material-ui/icons/Tune';
 import ClearIcon from '@material-ui/icons/Clear';
+import { db } from '../../firebase';
+import { dataEng } from '../../constants/languages/eng';
 
 const styles = theme => ({
   root: {
@@ -46,8 +48,87 @@ class Search extends Component {
     super(props);
     this.state = {
       value: '',
-      searchResults: []
+      recipes: [],
+      searchResults: [],
+      recipeData: [],
     };
+  }
+
+  /**
+   * Get user and recipe data
+   */
+  componentDidMount = () => {
+    this.mounted = true;
+
+    let authObject = JSON.parse(localStorage.getItem('authUser'));
+    let loggedInUserId = authObject.id;
+
+    let previousRecipeData = this.state.recipeData;
+
+    this.setState({
+      loggedInUserId
+    });
+
+    db.getRecipes().then(resRecipes => {
+      if (this.mounted) {
+        let recipes = resRecipes;
+
+        db.users().once('value').then(users => {
+          let usersObject = users.val();
+
+          for (let key in recipes) {
+            if (recipes.hasOwnProperty(key)) {
+              let item = recipes[key];
+
+              let username = usersObject[item.userId].username;
+              let profilePicUrl = usersObject[item.userId].profilePicUrl;
+
+              let isMine = item.userId === loggedInUserId ? true : false;
+
+              let visibilityEditable = false;
+              let recipeDeletable = false;
+              let recipeEditable = false;
+              let displayUserInfo = true;
+              let withPhoto = item.imageUrl !== '' ? true : false;
+              let favouriteCounter = item.favouriteCounter;
+
+              let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+              let categoryNameEng = categoryItems[item.category];
+              let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+
+              let data = item;
+
+              data.recipeId = key;
+              data.loggedInUserId = loggedInUserId;
+              data.username = username;
+              data.profilePicUrl = profilePicUrl;
+              data.isMine = isMine;
+              data.isFavourite = true;
+              data.favouriteCounter = favouriteCounter;
+              data.recipeDeletable = recipeDeletable;
+              data.recipeEditable = recipeEditable;
+              data.withPhoto = withPhoto;
+              data.visibilityEditable = visibilityEditable;
+              data.displayUserInfo = displayUserInfo;
+              data.url = url;
+
+              previousRecipeData.push(data);
+            }
+          }
+
+          this.setState({
+            recipeData: previousRecipeData
+          });
+        });
+      }
+    });
+  }
+
+  /**
+   * Sets 'mounted' property to false to ignore warning 
+   */
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   /**
@@ -77,8 +158,8 @@ class Search extends Component {
         <Grid className="main-grid" container spacing={16}>
           <Grid item className="grid-component" xs={12}>
             <Paper className={classes.root} elevation={1}>
-              <IconButton 
-                className={classes.iconButton} 
+              <IconButton
+                className={classes.iconButton}
                 aria-label="Tune"
                 onClick={this.handleToggleTune}
               >
