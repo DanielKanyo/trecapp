@@ -48,7 +48,6 @@ class Search extends Component {
     super(props);
     this.state = {
       value: '',
-      recipes: [],
       searchResults: [],
       recipeData: [],
     };
@@ -140,8 +139,10 @@ class Search extends Component {
     });
   }
 
-  handleSearch = () => {
+  handleSearch = event => {
     console.log('search', this.state.value);
+
+    event.preventDefault();
   }
 
   handleToggleTune = () => {
@@ -165,12 +166,16 @@ class Search extends Component {
               >
                 <TuneIcon />
               </IconButton>
-              <InputBase
-                className={classes.input}
-                placeholder={languageObjectProp.data.Search.title}
-                onChange={(e) => { this.handleInputChanged(e) }}
-                value={value}
-              />
+
+              <form onSubmit={this.handleSearch} className={classes.input + " search-form"}>
+                <InputBase
+                  className={classes.input}
+                  placeholder={languageObjectProp.data.Search.title}
+                  onChange={(e) => { this.handleInputChanged(e) }}
+                  value={value}
+                />
+              </form>
+
               <IconButton
                 className={classes.iconButton}
                 aria-label="Search"
