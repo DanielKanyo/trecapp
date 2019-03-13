@@ -6,7 +6,7 @@ import compose from 'recompose/compose';
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
-import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -53,6 +53,8 @@ import ReactHtmlParser from 'react-html-parser';
 import Snackbar from '../Snackbar/MySnackbar';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
+import ModeCommentIcon from '@material-ui/icons/Comment';
+import ModeCommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import CommentItem from './CommentItem';
 import Emojify from 'react-emojione';
 
@@ -75,7 +77,7 @@ const styles = theme => ({
   actions: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '16px 12px 4px 12px',
+    padding: '16px 12px 8px 12px',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -120,30 +122,11 @@ const styles = theme => ({
     background: '#F8B000',
     color: 'white'
   },
-  moreBtn: {
-    width: '100%',
-    background: '#f2f2f2 !important',
-    padding: 2,
-  },
   textField: {
     width: '100%',
     marginTop: 12,
     marginBottom: 6
   },
-});
-
-const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
-  palette: {
-    primary: {
-      light: '#00c0dd',
-      main: '#00c0dd',
-      dark: '#00c0dd',
-      contrastText: '#fff',
-    }
-  }
 });
 
 const emojiOptions = {
@@ -215,7 +198,7 @@ class Recipe extends Component {
             let username = usersObject[comments[key].userId].username;
             let profilePicUrl = usersObject[comments[key].userId].profilePicUrl;
             let userId = comments[key].userId;
-            
+
             let data = {
               comment,
               timestamp,
@@ -251,6 +234,16 @@ class Recipe extends Component {
    */
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
+  }
+
+  /** 
+   * Open details and focus to the textfield
+   */
+  handleGoToComments = () => {
+    this.setState(state => ({ 
+      expanded: true,
+      autoFocus: true
+    }));
   }
 
   toggleCommentSectionVisibility = () => {
@@ -811,15 +804,12 @@ class Recipe extends Component {
 
               <Tooltip title={this.state.isLiked ? languageObjectProp.data.myRecipes.tooltips.notLike : languageObjectProp.data.myRecipes.tooltips.like}>
                 <div className="like-icon-and-counter">
-                  <MuiThemeProvider theme={theme}>
-                    <IconButton
-                      aria-label="like"
-                      onClick={() => { this.handleToggleLike(data.recipeId, this.state.loggedInUserId) }}
-                      color="primary"
-                    >
-                      {this.state.isLiked ? <ThumbUpIcon className="like-icon" /> : <ThumbUpBorderIcon className="icon-outlined" />}
-                    </IconButton>
-                  </MuiThemeProvider>
+                  <IconButton
+                    aria-label="like"
+                    onClick={() => { this.handleToggleLike(data.recipeId, this.state.loggedInUserId) }}
+                  >
+                    {this.state.isLiked ? <ThumbUpIcon className="like-icon" /> : <ThumbUpBorderIcon className="icon-outlined" />}
+                  </IconButton>
                   {this.state.likeCounter ? <div className="like-counter"><div>{this.numberFormatter(this.state.likeCounter)}</div></div> : ''}
                 </div>
               </Tooltip>
@@ -829,11 +819,22 @@ class Recipe extends Component {
                   <IconButton
                     aria-label="heart"
                     onClick={() => { this.handleToggleFavourite(data.recipeId, this.state.loggedInUserId) }}
-                    color="secondary"
                   >
                     {this.state.isFavourite ? <FavoriteIcon className="fav-icon" /> : <FavoriteBorderIcon className="icon-outlined" />}
                   </IconButton>
                   {this.state.favouriteCounter ? <div className="fav-counter"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
+                </div>
+              </Tooltip>
+              
+              <Tooltip title={`${languageObjectProp.data.Comment.commentSectionTitle}`}>
+                <div className="comment-icon-and-counter">
+                  <IconButton
+                    aria-label="comment"
+                  onClick={() => { this.handleGoToComments() }}
+                  >
+                    {this.state.comments.length > 0 ? <ModeCommentIcon className="comment-icon" /> : <ModeCommentOutlinedIcon className="icon-outlined" />}
+                  </IconButton>
+                  {this.state.comments.length > 0 ? <div className="fav-counter"><div>{this.numberFormatter(this.state.comments.length)}</div></div> : ''}
                 </div>
               </Tooltip>
 
@@ -851,25 +852,20 @@ class Recipe extends Component {
 
             </div>
 
-            <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category].replace('_', ' ')} className={classes.chip} />
+            <Tooltip title={this.state.expanded ? languageObjectProp.data.myRecipes.tooltips.less : languageObjectProp.data.myRecipes.tooltips.more}>
+              <IconButton
+                className={classnames(classes.expand, {
+                  [classes.expandOpen]: this.state.expanded,
+                })}
+                onClick={this.handleExpandClick}
+                aria-expanded={this.state.expanded}
+                aria-label="Show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </Tooltip>
 
           </CardActions>
-          <div className="recipe-more-btn">
-            <Tooltip title={this.state.expanded ? languageObjectProp.data.myRecipes.tooltips.less : languageObjectProp.data.myRecipes.tooltips.more}>
-              <Button
-                onClick={this.handleExpandClick}
-                className={classes.moreBtn}
-              >
-                <ExpandMoreIcon
-                  className={classnames(classes.expand, {
-                    [classes.expandOpen]: this.state.expanded,
-                  })}
-                  aria-expanded={this.state.expanded}
-                  aria-label="Show more"
-                />
-              </Button>
-            </Tooltip>
-          </div>
 
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent className="recipe-card-content">
@@ -889,6 +885,7 @@ class Recipe extends Component {
                   {ReactHtmlParser(this.urlify(data.longDes))}
                 </Emojify>
               </Typography>
+              <Chip label={languageObjectProp.data.myRecipes.newRecipe.categoryItems[data.category].replace('_', ' ')} className="chip-card-content" />
               <Chip label={`${data.dose} ${languageObjectProp.data.myRecipes.myRecipes.numDose}`} className="chip-card-content" />
               <Chip
                 label={hour + (minute ? ` ${minute}` : '')}

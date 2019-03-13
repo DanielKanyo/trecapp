@@ -432,6 +432,10 @@ input[type=time]::-webkit-clear-button {
   margin-right: 8px;
 }
 
+.chip-card-content span {
+  font-size: 12px !important;
+}
+
 .chip-card-content-mine {
   margin-right: 8px;
   background: #9b42f4 !important;
@@ -525,7 +529,8 @@ input[type=time]::-webkit-clear-button {
 
 .fav-icon-and-counter,
 .like-icon-and-counter,
-.download-icon {
+.download-icon,
+.comment-icon-and-counter {
   display: flex;
   flex-direction: row;
 }
@@ -1491,15 +1496,6 @@ input[type=time]::-webkit-clear-button {
   color: #494949;
 }
 
-.recipe-more-btn {
-  padding: 0px 5px 5px 5px;
-}
-
-.recipe-more-btn span svg {
-  margin: 0 !important;
-  color: grey !important;
-}
-
 .like-and-fav-btn-container {
   display: flex;
 }
@@ -1710,6 +1706,18 @@ input[type=time]::-webkit-clear-button {
 
 .search-form>div {
   width: calc(100% - 8px) !important;
+}
+
+.comment-icon {
+  color: #008E3D;
+}
+
+.like-icon {
+  color: #00c0dd;
+}
+
+.fav-icon {
+  color: #e10050;
 }
 
 @media only screen and (max-width: 950px) {
