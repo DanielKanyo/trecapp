@@ -240,9 +240,8 @@ class Recipe extends Component {
    * Open details and focus to the textfield
    */
   handleGoToComments = () => {
-    this.setState(state => ({ 
-      expanded: true,
-      autoFocus: true
+    this.setState(state => ({
+      expanded: true
     }));
   }
 
