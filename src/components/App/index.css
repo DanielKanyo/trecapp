@@ -1720,6 +1720,10 @@ input[type=time]::-webkit-clear-button {
   color: #e10050;
 }
 
+.show-more-button {
+  margin-right: -8px !important;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;

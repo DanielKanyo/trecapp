@@ -855,7 +855,7 @@ class Recipe extends Component {
               <IconButton
                 className={classnames(classes.expand, {
                   [classes.expandOpen]: this.state.expanded,
-                })}
+                }) + " show-more-button"}
                 onClick={this.handleExpandClick}
                 aria-expanded={this.state.expanded}
                 aria-label="Show more"
