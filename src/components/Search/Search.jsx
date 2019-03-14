@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import TuneIcon from '@material-ui/icons/Tune';
 import ClearIcon from '@material-ui/icons/Clear';
+import RecipePreview from '../Categories/RecipePreview';
 import { db } from '../../firebase';
 import { dataEng } from '../../constants/languages/eng';
 
@@ -36,6 +37,10 @@ const styles = theme => ({
     margin: 4,
   }
 });
+
+const constants = {
+  MIN_NUMBER_OF_CHARS: 3
+}
 
 class Search extends Component {
 
@@ -64,10 +69,6 @@ class Search extends Component {
 
     let previousRecipeData = this.state.recipeData;
 
-    this.setState({
-      loggedInUserId
-    });
-
     db.getRecipes().then(resRecipes => {
       if (this.mounted) {
         let recipes = resRecipes;
@@ -79,10 +80,17 @@ class Search extends Component {
             if (recipes.hasOwnProperty(key)) {
               let item = recipes[key];
 
+              if (item.publicChecked) {
+
+              }
+
               let username = usersObject[item.userId].username;
               let profilePicUrl = usersObject[item.userId].profilePicUrl;
 
               let isMine = item.userId === loggedInUserId ? true : false;
+
+              let favouritesObject = item.favourites;
+              let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
 
               let visibilityEditable = false;
               let recipeDeletable = false;
@@ -102,7 +110,7 @@ class Search extends Component {
               data.username = username;
               data.profilePicUrl = profilePicUrl;
               data.isMine = isMine;
-              data.isFavourite = true;
+              data.isFavourite = isFavourite;
               data.favouriteCounter = favouriteCounter;
               data.recipeDeletable = recipeDeletable;
               data.recipeEditable = recipeEditable;
@@ -116,7 +124,8 @@ class Search extends Component {
           }
 
           this.setState({
-            recipeData: previousRecipeData
+            recipeData: previousRecipeData,
+            loggedInUserId
           });
         });
       }
@@ -139,12 +148,63 @@ class Search extends Component {
     });
   }
 
+  /**
+   * Search in recipes data
+   */
   handleSearch = event => {
-    console.log('search', this.state.value);
+    this.setState({
+      searchResults: []
+    }, () => {
+      const { recipeData, value } = this.state;
+      let previousSeachResults = this.state.searchResults;
+
+      const normalizedValueString = this.normalizeString(value);
+
+      if (normalizedValueString.length >= constants.MIN_NUMBER_OF_CHARS) {
+        for (let i in recipeData) {
+          let recipe = recipeData[i];
+
+          for (let key in recipe) {
+            let rec = recipe[key];
+
+            if (typeof rec === 'string') {
+              let normalizedRecString = this.normalizeString(rec);
+
+              if (normalizedRecString.includes(normalizedValueString)) {
+                console.log(recipe);
+                previousSeachResults.push(
+                  <RecipePreview
+                    key={recipe.recipeId}
+                    dataProp={recipe}
+                    languageObjectProp={this.props.languageObjectProp}
+                  />
+                )
+
+                break;
+              }
+            }
+          }
+        }
+
+        this.setState({
+          searchResults: previousSeachResults
+        });
+      }
+    });
 
     event.preventDefault();
   }
 
+  /**
+   * Normalize string
+   */
+  normalizeString = (string) => {
+    return string.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
+  /**
+   * Toggle tune component
+   */
   handleToggleTune = () => {
     console.log('tune');
   }
@@ -152,10 +212,10 @@ class Search extends Component {
   render() {
     const { classes, languageObjectProp } = this.props;
     const { searchResults, value } = this.state;
-    const searchButtonAvailable = value.length ? false : true;
+    const searchButtonAvailable = value.length >= constants.MIN_NUMBER_OF_CHARS ? false : true;
 
     return (
-      <div className="ComponentContent">
+      <div className="ComponentContent Search">
         <Grid className="main-grid" container spacing={16}>
           <Grid item className="grid-component" xs={12}>
             <Paper className={classes.root} elevation={1}>
@@ -173,6 +233,7 @@ class Search extends Component {
                   placeholder={languageObjectProp.data.Search.title}
                   onChange={(e) => { this.handleInputChanged(e) }}
                   value={value}
+                  autoFocus
                 />
               </form>
 
@@ -190,9 +251,12 @@ class Search extends Component {
               </IconButton>
             </Paper>
 
-            <div>
-              {searchResults.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
-            </div>
+            {searchResults.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+
+            <Grid container spacing={16}>
+              {searchResults.map(recipe => recipe)}
+            </Grid>
+
           </Grid>
         </Grid>
       </div>

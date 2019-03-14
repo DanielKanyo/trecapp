@@ -93,11 +93,11 @@ class CategoryRecipes extends Component {
               let isMine = recipeUserId === loggedInUserId ? true : false;
 
               if (recipe.category === categoryNumber && recipe.publicChecked) {
-                let favouritesObject = recipes[key].favourites;
+                let favouritesObject = recipe.favourites;
                 let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
 
                 let data = {
-                  ...recipes[key],
+                  ...recipe,
                   loggedInUserId: loggedInUserId,
                   recipeId: key,
                   imageUrl: recipe.imageUrl,
@@ -109,7 +109,7 @@ class CategoryRecipes extends Component {
                   isMine: isMine,
                   profilePicUrl: profilePicUrl,
                   isFavourite: isFavourite,
-                  favouriteCounter: recipes[key].favouriteCounter,
+                  favouriteCounter: recipe.favouriteCounter,
                   userId: recipe.userId,
                   url: this.props.match.url
                 }
