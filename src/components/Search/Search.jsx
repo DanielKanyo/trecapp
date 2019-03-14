@@ -209,10 +209,22 @@ class Search extends Component {
     console.log('tune');
   }
 
+  /**
+   * Clear input field and search result list
+   */
+  clearResultsAndInputField = () => {
+    this.setState({
+      value: '',
+      searchResults: []
+    });
+  }
+
   render() {
     const { classes, languageObjectProp } = this.props;
     const { searchResults, value } = this.state;
+
     const searchButtonAvailable = value.length >= constants.MIN_NUMBER_OF_CHARS ? false : true;
+    const clearButtonAvailable = value || searchResults.length  ? false : true;
 
     return (
       <div className="ComponentContent Search">
@@ -246,7 +258,12 @@ class Search extends Component {
                 <SearchIcon />
               </IconButton>
               <Divider className={classes.divider} />
-              <IconButton className={classes.iconButton} aria-label="Directions">
+              <IconButton 
+                disabled={clearButtonAvailable} 
+                className={classes.iconButton} 
+                aria-label="Directions"
+                onClick={this.clearResultsAndInputField}
+              >
                 <ClearIcon />
               </IconButton>
             </Paper>
