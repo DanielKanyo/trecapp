@@ -1865,7 +1865,7 @@ input[type=time]::-webkit-clear-button {
   }
 
   .recipe-preview-item {
-    padding-bottom: 0px;
+    padding-bottom: 0px !important;
   }
 
   .recipe-preview-item:last-of-type {
@@ -1954,6 +1954,10 @@ input[type=time]::-webkit-clear-button {
   }
 
   .paper-title {
+    margin-bottom: 10px !important;
+  }
+
+  .search-root {
     margin-bottom: 10px !important;
   }
 }

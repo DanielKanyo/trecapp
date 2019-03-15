@@ -7,6 +7,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
+import ReactHtmlParser from 'react-html-parser';
 import { withStyles } from '@material-ui/core/styles';
 
 const variantIcon = {
@@ -53,7 +54,7 @@ function MySnackbarContent(props) {
       message={
         <span id="client-snackbar" className={classes.message}>
           <Icon className={classNames(classes.icon, classes.iconVariant)} />
-          {message}
+          {ReactHtmlParser(message)}
         </span>
       }
       {...other}
@@ -85,7 +86,7 @@ class MySnackbar extends React.Component {
       open: this.props.openProp,
     };
   }
-  
+
 
   handleClick = () => {
     this.setState({ open: true });

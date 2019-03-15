@@ -209,7 +209,11 @@ export const dataEng = {
       } 
     },
     Search: {
-      title: 'Search'
+      title: 'Search',
+      toaster: {
+        numberOfResults: 'results found!',
+        noResults: 'No results'
+      }
     }
   }
 }

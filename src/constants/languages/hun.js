@@ -209,7 +209,11 @@ export const dataHun = {
       }
     },
     Search: {
-      title: 'Keresés'
+      title: 'Keresés',
+      toaster: {
+        numberOfResults: 'találat!',
+        noResults: 'Nincs találat'
+      }
     }
   }
 }

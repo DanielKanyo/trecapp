@@ -13,6 +13,9 @@ import IconButton from '@material-ui/core/IconButton';
 import TuneIcon from '@material-ui/icons/Tune';
 import ClearIcon from '@material-ui/icons/Clear';
 import RecipePreview from '../Categories/RecipePreview';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Snackbar from '../Snackbar/MySnackbar';
+
 import { db } from '../../firebase';
 import { dataEng } from '../../constants/languages/eng';
 
@@ -35,11 +38,18 @@ const styles = theme => ({
     width: 1,
     height: 28,
     margin: 4,
-  }
+  },
+  progressLine: {
+    borderRadius: '4px',
+  },
+  progressBar: {
+    background: 'white'
+  },
 });
 
 const constants = {
-  MIN_NUMBER_OF_CHARS: 3
+  MIN_NUMBER_OF_CHARS: 3,
+  LOADING_TIME: 1500
 }
 
 class Search extends Component {
@@ -55,6 +65,10 @@ class Search extends Component {
       value: '',
       searchResults: [],
       recipeData: [],
+      loading: false,
+      snackbarMessage: '',
+      snackbarType: '',
+      snackbarOpen: false,
     };
   }
 
@@ -149,14 +163,26 @@ class Search extends Component {
   }
 
   /**
+   * Hide snackbar after x seconds
+   */
+  hideSnackbar = () => {
+    this.setState({
+      snackbarOpen: false
+    });
+  }
+
+  /**
    * Search in recipes data
    */
   handleSearch = event => {
     this.setState({
-      searchResults: []
+      searchResults: [],
+      loading: true
     }, () => {
       const { recipeData, value } = this.state;
       let previousSeachResults = this.state.searchResults;
+      let counter = 0;
+      let snackbarMessage, snackbarType;
 
       const normalizedValueString = this.normalizeString(value);
 
@@ -171,7 +197,6 @@ class Search extends Component {
               let normalizedRecString = this.normalizeString(rec);
 
               if (normalizedRecString.includes(normalizedValueString)) {
-                console.log(recipe);
                 previousSeachResults.push(
                   <RecipePreview
                     key={recipe.recipeId}
@@ -179,6 +204,7 @@ class Search extends Component {
                     languageObjectProp={this.props.languageObjectProp}
                   />
                 )
+                counter++;
 
                 break;
               }
@@ -186,9 +212,23 @@ class Search extends Component {
           }
         }
 
-        this.setState({
-          searchResults: previousSeachResults
-        });
+        if (previousSeachResults.length > 0) {
+          snackbarMessage = `${counter} ${this.props.languageObjectProp.data.Search.toaster.numberOfResults}`;
+          snackbarType = 'success';
+        } else {
+          snackbarMessage = this.props.languageObjectProp.data.Search.toaster.noResults;
+          snackbarType = 'warning';
+        }
+
+        setTimeout(() => {
+          this.setState({
+            searchResults: previousSeachResults,
+            snackbarOpen: true,
+            snackbarMessage,
+            snackbarType,
+            loading: false
+          });
+        }, constants.LOADING_TIME);
       }
     });
 
@@ -215,22 +255,23 @@ class Search extends Component {
   clearResultsAndInputField = () => {
     this.setState({
       value: '',
-      searchResults: []
+      searchResults: [],
+      loading: false
     });
   }
 
   render() {
     const { classes, languageObjectProp } = this.props;
-    const { searchResults, value } = this.state;
+    const { searchResults, value, loading } = this.state;
 
     const searchButtonAvailable = value.length >= constants.MIN_NUMBER_OF_CHARS ? false : true;
-    const clearButtonAvailable = value || searchResults.length  ? false : true;
+    const clearButtonAvailable = value || searchResults.length ? false : true;
 
     return (
       <div className="ComponentContent Search">
         <Grid className="main-grid" container spacing={16}>
           <Grid item className="grid-component" xs={12}>
-            <Paper className={classes.root} elevation={1}>
+            <Paper className={classes.root + ' search-root'} elevation={1}>
               <IconButton
                 className={classes.iconButton}
                 aria-label="Tune"
@@ -258,9 +299,9 @@ class Search extends Component {
                 <SearchIcon />
               </IconButton>
               <Divider className={classes.divider} />
-              <IconButton 
-                disabled={clearButtonAvailable} 
-                className={classes.iconButton} 
+              <IconButton
+                disabled={clearButtonAvailable}
+                className={classes.iconButton}
                 aria-label="Directions"
                 onClick={this.clearResultsAndInputField}
               >
@@ -268,7 +309,11 @@ class Search extends Component {
               </IconButton>
             </Paper>
 
-            {searchResults.length === 0 ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+            {
+              loading && <LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} />
+            }
+
+            {searchResults.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
             <Grid container spacing={16}>
               {searchResults.map(recipe => recipe)}
@@ -276,6 +321,13 @@ class Search extends Component {
 
           </Grid>
         </Grid>
+
+        <Snackbar
+          messageProp={this.state.snackbarMessage}
+          typeProp={this.state.snackbarType}
+          openProp={this.state.snackbarOpen}
+          hideSnackbarProp={this.hideSnackbar}
+        />
       </div>
     )
   }
