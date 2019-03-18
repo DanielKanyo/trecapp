@@ -60,6 +60,14 @@ const styles = {
   iconSmall: {
     fontSize: 20,
   },
+  hiddenButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    height: 38,
+    border: 0,
+    width: 100,
+    opacity: 0
+  }
 };
 
 class NavigationAuth extends Component {
@@ -162,8 +170,8 @@ class NavigationAuth extends Component {
                     <MenuIcon />
                   </IconButton>
 
-                  <Typography component={Link} to={ROUTES.LANDING} variant="h6" color="inherit" className={classes.grow}>
-                    {/* myRecipesApp */}
+                  <Typography component={Link} to={ROUTES.LANDING} variant="h6" color="inherit" className={classes.grow + ' app-bar-title'}>
+                    <button className={classes.hiddenButton}>trecapp</button>
                   </Typography>
                   <div className="navigation-right-side">
                     <Button component={Link} to={ROUTES.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>

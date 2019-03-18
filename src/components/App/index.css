@@ -1724,6 +1724,15 @@ input[type=time]::-webkit-clear-button {
   margin-right: -8px !important;
 }
 
+.app-bar-title {
+  pointer-events: none;
+}
+
+.app-bar-title button {
+  pointer-events: all;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1963,6 +1972,10 @@ input[type=time]::-webkit-clear-button {
 
   .impressum-card {
     margin-bottom: 10px !important;
+  }
+
+  .category-item {
+    padding-bottom: 2px !important;
   }
 }
 

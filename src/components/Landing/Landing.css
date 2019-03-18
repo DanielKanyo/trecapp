@@ -5,3 +5,47 @@
 .LandingComponent {
   padding: 20px;
 }
+
+.welcome-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.landing-logo {
+  width: 260px;
+  height: 100%;
+  background: url('../../images/trecapp_yellow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center left;
+}
+
+.landing-btn-container>div {
+  display: flex;
+  flex-direction: column !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .landing-component-container {
+    padding: 10px;
+  }
+
+  .welcome-container {
+    flex-direction: column;
+  }
+
+  .landing-logo {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 10px;
+    background-position: center center;
+  }
+
+  .landing-btn-container>div {
+    flex-direction: row !important;
+  }
+
+  .landing-btn-container a {
+    flex-grow: 1;
+  }
+}
