@@ -193,7 +193,14 @@ export const dataEng = {
       }
     },
     Impressum: {
-      title: 'Impressum'
+      title: 'Impressum',
+      responsiblePerson: 'Responsible person',
+      contact: 'Contact',
+      hostingProvider: 'Hosting provider',
+      aboutCookies: 'About cookies',
+      cookieStore: 'The application stores only the cookies required for operation.',
+      dataStore: 'Personal data collected during registration',
+      emailAddress: 'E-mail address',
     },
     Friends: {
       myFriend: ' is my friend',

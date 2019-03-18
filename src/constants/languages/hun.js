@@ -193,7 +193,14 @@ export const dataHun = {
       }
     },
     Impressum: {
-      title: 'Impresszum'
+      title: 'Impresszum',
+      responsiblePerson: 'Felelős személy',
+      contact: 'Elérhetőség',
+      hostingProvider: 'Tárhely szolgáltató',
+      aboutCookies: 'A cookie-król',
+      cookieStore: 'Az alkalmazás csak a működéshez szükséges cookie-kat tárolja.',
+      dataStore: 'Regisztráció során gyűjtött személyes adatok',
+      emailAddress: 'E-mail cím',
     },
     Friends: {
       myFriend: ' az ismerősöm',

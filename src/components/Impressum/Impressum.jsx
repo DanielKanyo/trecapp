@@ -15,7 +15,8 @@ import Divider from '@material-ui/core/Divider';
 const styles = theme => ({
 	card: {
 		maxWidth: '100%',
-		padding: '10px 18px'
+		padding: '10px 18px',
+		marginBottom: 14
 	},
 	paper: {
 		textAlign: 'center',
@@ -43,25 +44,23 @@ const Impressum = (props) => {
 						</div>
 					</Paper>
 					<Grid item className="grid-component" xs={12}>
-						<Card className={classes.card}>
+						<Card className={classes.card + ' impressum-card'}>
 							<Typography className="title-imp" variant="h6">
-								Felelős személy / Fejlesztő
-      				</Typography>
+								{languageObjectProp.data.Impressum.responsiblePerson}
+							</Typography>
 							<div className="imp-text">
 								<ul>
-									<li>Kanyó Dániel</li>
+									<li>Daniel Kanyo</li>
 								</ul>
 							</div>
 
 							<Divider className={classes.divider} />
 
 							<Typography className="title-imp" variant="h6">
-								Elérhetőség
-      				</Typography>
+								{languageObjectProp.data.Impressum.contact}
+							</Typography>
 							<div className="imp-text">
 								<ul>
-									<li>+36 30 7792953</li>
-									<li>+381 64 2735861</li>
 									<li>danielkanyo992@gmail.com</li>
 									<li><a href="http://danielkanyo.hu" target="_blank" rel="noopener noreferrer">danielkanyo.hu</a></li>
 								</ul>
@@ -70,12 +69,39 @@ const Impressum = (props) => {
 							<Divider className={classes.divider} />
 
 							<Typography className="title-imp" variant="h6">
-								Tárhely szolgáltató
-      				</Typography>
+								{languageObjectProp.data.Impressum.hostingProvider}
+							</Typography>
 							<div className="imp-text">
 								<ul>
 									<li>
 										<a href="https://firebase.google.com/support/privacy/" target="_blank" rel="noopener noreferrer">Firebase</a>
+									</li>
+								</ul>
+							</div>
+						</Card>
+
+						<Card className={classes.card + ' impressum-card'}>
+							<Typography className="title-imp" variant="h6">
+								{languageObjectProp.data.Impressum.dataStore}
+							</Typography>
+							<div className="imp-text">
+								<ul>
+									<li>{languageObjectProp.data.Impressum.emailAddress}</li>
+								</ul>
+							</div>
+						</Card>
+
+						<Card className={classes.card + ' impressum-card'}>
+							<Typography className="title-imp" variant="h6">
+								{languageObjectProp.data.Impressum.aboutCookies}
+							</Typography>
+							<div className="imp-text">
+								<ul>
+									<li>
+										<a href="https://en.wikipedia.org/wiki/HTTP_cookie" target="_blank" rel="noopener noreferrer">Cookie</a>
+									</li>
+									<li>
+										{languageObjectProp.data.Impressum.cookieStore}
 									</li>
 								</ul>
 							</div>
@@ -90,7 +116,7 @@ const Impressum = (props) => {
 const authCondition = (authUser) => !!authUser;
 
 Impressum.propTypes = {
-  classes: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired,
 };
 
 export default compose(withAuthorization(authCondition), withEmailVerification, withStyles(styles))(Impressum);

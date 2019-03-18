@@ -1960,6 +1960,10 @@ input[type=time]::-webkit-clear-button {
   .search-root {
     margin-bottom: 10px !important;
   }
+
+  .impressum-card {
+    margin-bottom: 10px !important;
+  }
 }
 
 @media only screen and (max-width: 400px) {
