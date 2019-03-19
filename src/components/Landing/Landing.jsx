@@ -13,7 +13,8 @@ import { Link } from 'react-router-dom';
 const styles = theme => ({
   card: {
     maxWidth: '100%',
-    marginBottom: '10px',
+    margin: 8,
+    marginBottom: 10,
   },
   button: {
     margin: 4,

@@ -37,7 +37,8 @@ const styles = {
   },
   grow: {
     flexGrow: 1,
-    textDecoration: 'none'
+    textDecoration: 'none',
+    opacity: 0
   },
   menuButton: {
     marginLeft: -12,
@@ -59,14 +60,6 @@ const styles = {
   },
   iconSmall: {
     fontSize: 20,
-  },
-  hiddenButton: {
-    display: 'flex',
-    justifyContent: 'center',
-    height: 38,
-    border: 0,
-    width: 100,
-    opacity: 0
   }
 };
 
@@ -171,7 +164,7 @@ class NavigationAuth extends Component {
                   </IconButton>
 
                   <Typography component={Link} to={ROUTES.LANDING} variant="h6" color="inherit" className={classes.grow + ' app-bar-title'}>
-                    <button className={classes.hiddenButton}>trecapp</button>
+                    TRECAPP
                   </Typography>
                   <div className="navigation-right-side">
                     <Button component={Link} to={ROUTES.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
