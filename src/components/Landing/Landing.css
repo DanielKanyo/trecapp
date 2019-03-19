@@ -43,7 +43,7 @@
   background-image: url('../../images/food_pattern.png') !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
-  opacity: 0.07;
+  opacity: 0.08;
 }
 
 .landing-btn-container>div {
@@ -62,6 +62,26 @@
 
 .landing-btn-container a {
   width: 140px;
+}
+
+.social-container {
+  position: relative;
+  padding: 12px 0;
+  text-align: center;
+  background: #5b85e0;
+}
+
+.landing-social-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0px 0px;
+  height: 100%;
+  width: 100%;
+  background-image: url('../../images/social_pattern.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.08;
 }
 
 @media only screen and (max-width: 600px) {

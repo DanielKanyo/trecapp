@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Landing.css';
 
 import PropTypes from 'prop-types';
 import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import withEmailVerification from '../Session/withEmailVerification';
-import compose from 'recompose/compose';
 import Button from '@material-ui/core/Button';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
+import { FacebookProvider, Like } from 'react-facebook';
 
 const styles = theme => ({
   card: {
@@ -37,54 +36,71 @@ const theme = createMuiTheme({
   }
 });
 
-const LandingPage = (props) => {
-  const { classes, isAuthenticatedProp, languageObjectProp } = props;
+class Landing extends Component {
 
-  return (
-    <div className={isAuthenticatedProp ? "ComponentContent" : 'LandingComponent'}>
-      <div className={isAuthenticatedProp ? 'landing-component-container' : ''}>
-        <Card className={classes.card + " landing-card"}>
-          <div className="welcome-container">
-            <div className="welcome-text">
-              <div>{languageObjectProp.data.Landing.welcome}</div>
-              <div>TRECAPP</div>
-            </div>
-            <div className={classes.buttonContainer + ' landing-btn-container'}>
-              <div className='landing-btn-container-background'></div>
-              <MuiThemeProvider theme={theme}>
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+
+  render() {
+    const { classes, isAuthenticatedProp, languageObjectProp } = this.props;
+
+    return (
+      <div className={isAuthenticatedProp ? "ComponentContent" : 'LandingComponent'}>
+        <div className={isAuthenticatedProp ? 'landing-component-container' : ''}>
+          <Card className={classes.card + " landing-card"}>
+            <div className="welcome-container">
+              <div className="welcome-text">
+                <div>{languageObjectProp.data.Landing.welcome}</div>
+                <div>TRECAPP</div>
+              </div>
+              <div className={classes.buttonContainer + ' landing-btn-container'}>
+                <div className='landing-btn-container-background'></div>
+                <MuiThemeProvider theme={theme}>
+                  {
+                    isAuthenticatedProp ?
+                      <div>
+                        <Button component={Link} to={ROUTES.ACCOUNT} variant="outlined" color="primary" className={classes.button}>
+                          {languageObjectProp.data.Account.title}
+                        </Button>
+                        <Button component={Link} to={ROUTES.IMPRESSUM} variant="outlined" color="primary" className={classes.button}>
+                          {languageObjectProp.data.Impressum.title}
+                        </Button>
+                      </div> :
+                      <div>
+                        <Button component={Link} to={ROUTES.SIGN_IN} variant="outlined" color="primary" className={classes.button}>
+                          Sign In
+                        </Button>
+                        <Button component={Link} to={ROUTES.SIGN_UP} variant="outlined" color="primary" className={classes.button}>
+                          Sign Up
+                        </Button>
+                      </div>
+                  }
+                </MuiThemeProvider>
+              </div>
+              <div className="welcome-long-text">
+                {languageObjectProp.data.Landing.description}
+              </div>
+              <div className="social-container">
+                <div className='landing-social-background'></div>
                 {
-                  isAuthenticatedProp ?
-                    <div>
-                      <Button component={Link} to={ROUTES.ACCOUNT} variant="outlined" color="primary" className={classes.button}>
-                        {languageObjectProp.data.Account.title}
-                      </Button>
-                      <Button component={Link} to={ROUTES.IMPRESSUM} variant="outlined" color="primary" className={classes.button}>
-                        {languageObjectProp.data.Impressum.title}
-                      </Button>
-                    </div> :
-                    <div>
-                      <Button component={Link} to={ROUTES.SIGN_IN} variant="outlined" color="primary" className={classes.button}>
-                        Sign In
-                      </Button>
-                      <Button component={Link} to={ROUTES.SIGN_UP} variant="outlined" color="primary" className={classes.button}>
-                        Sign Up
-                      </Button>
-                    </div>
+                  isAuthenticatedProp &&
+                  <FacebookProvider appId="">
+                    <Like href="https://www.facebook.com/Trecapp-415056679268737/" layout="button_count" action="recommend" share />
+                  </FacebookProvider>
                 }
-              </MuiThemeProvider>
+              </div>
             </div>
-            <div className="welcome-long-text">
-              {languageObjectProp.data.Landing.description}
-            </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
-LandingPage.propTypes = {
+Landing.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withEmailVerification, withStyles(styles))(LandingPage);
+export default withStyles(styles)(Landing);

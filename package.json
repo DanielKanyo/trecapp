@@ -16,6 +16,7 @@
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.8.4",
     "react-emojione": "^5.0.1",
+    "react-facebook": "^7.0.6",
     "react-html-parser": "^2.0.2",
     "react-image-crop": "6.0.8",
     "react-router-dom": "^4.3.1",
