@@ -8,29 +8,55 @@
 
 .welcome-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
 }
 
-.landing-logo {
-  width: 260px;
-  height: 100%;
-  background: url('../../images/trecapp_yellow.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center left;
+.welcome-text {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.welcome-text div:first-of-type {
+  color: #F8B000;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.welcome-text div:last-of-type {
+  color: #F8B000;
+  font-size: 68px;
+  font-weight: 100;
 }
 
 .landing-btn-container>div {
   display: flex;
-  flex-direction: column !important;
+  background: #F8B000;
+  justify-content: center;
+  padding: 6px 6px;
+}
+
+.welcome-long-text {
+  color: #8d8d8d;
+  font-size: 14px;
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.landing-btn-container a {
+  width: 140px;
 }
 
 @media only screen and (max-width: 600px) {
+  .LandingComponent {
+    padding: 10px;
+  }
+
   .landing-component-container {
     padding: 10px;
   }
 
-  .welcome-container {
+  .landing-btn-container>div {
     flex-direction: column;
   }
 
@@ -41,11 +67,7 @@
     background-position: center center;
   }
 
-  .landing-btn-container>div {
-    flex-direction: row !important;
-  }
-
   .landing-btn-container a {
-    flex-grow: 1;
+    width: auto;
   }
 }

@@ -14,11 +14,9 @@ const styles = theme => ({
   card: {
     maxWidth: '100%',
     marginBottom: '10px',
-    padding: '20px'
   },
   button: {
     margin: 4,
-    padding: '14px 20px'
   },
   buttonContainer: {
     display: 'flex',
@@ -32,7 +30,7 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: '#eca900',
+      main: '#fff',
       contrastText: '#fff',
     }
   }
@@ -44,19 +42,19 @@ const LandingPage = (props) => {
   return (
     <div className={isAuthenticatedProp ? "ComponentContent" : 'LandingComponent'}>
       <div className={isAuthenticatedProp ? 'landing-component-container' : ''}>
-        <Card className={classes.card + " landing-title"}>
+        <Card className={classes.card + " landing-card"}>
           <div className="welcome-container">
-            <div>
-              <div className="landing-logo"></div>
+            <div className="welcome-text">
+              <div>welcome on</div>
+              <div>TRECAPP</div>
             </div>
             <div className={classes.buttonContainer + ' landing-btn-container'}>
-
               <MuiThemeProvider theme={theme}>
                 {
                   isAuthenticatedProp ?
                     <div>
                       <Button component={Link} to={ROUTES.ACCOUNT} variant="outlined" color="primary" className={classes.button}>
-                        Languages
+                        Settings
                       </Button>
                       <Button component={Link} to={ROUTES.MYRECIPES} variant="outlined" color="primary" className={classes.button}>
                         My recipes
@@ -71,8 +69,10 @@ const LandingPage = (props) => {
                       </Button>
                     </div>
                 }
-
               </MuiThemeProvider>
+            </div>
+            <div className="welcome-long-text">
+              Save your recipes, share with others and discover other interesting things
             </div>
           </div>
         </Card>
