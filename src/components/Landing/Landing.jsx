@@ -50,6 +50,7 @@ const LandingPage = (props) => {
               <div>TRECAPP</div>
             </div>
             <div className={classes.buttonContainer + ' landing-btn-container'}>
+              <div className='landing-btn-container-background'></div>
               <MuiThemeProvider theme={theme}>
                 {
                   isAuthenticatedProp ?
@@ -57,8 +58,8 @@ const LandingPage = (props) => {
                       <Button component={Link} to={ROUTES.ACCOUNT} variant="outlined" color="primary" className={classes.button}>
                         Settings
                       </Button>
-                      <Button component={Link} to={ROUTES.MYRECIPES} variant="outlined" color="primary" className={classes.button}>
-                        My recipes
+                      <Button component={Link} to={ROUTES.IMPRESSUM} variant="outlined" color="primary" className={classes.button}>
+                        Impressum
                       </Button>
                     </div> :
                     <div>
