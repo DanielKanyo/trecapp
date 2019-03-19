@@ -221,6 +221,11 @@ export const dataHun = {
         numberOfResults: 'találat!',
         noResults: 'Nincs találat'
       }
+    },
+    Landing: {
+      welcome: 'Üdvözöl a',
+      user: 'felhasználó',
+      description: 'Mentsd el receptjeid, osszd meg másokkal és fedezz fel más érdekes dolgokat.'
     }
   }
 }

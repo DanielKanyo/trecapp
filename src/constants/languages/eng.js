@@ -221,6 +221,11 @@ export const dataEng = {
         numberOfResults: 'results found!',
         noResults: 'No results'
       }
+    },
+    Landing: {
+      welcome: 'Welcome on',
+      user: 'user',
+      description: 'Save your recipes, share with others and discover other interesting things.'
     }
   }
 }

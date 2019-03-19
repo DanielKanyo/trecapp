@@ -38,7 +38,7 @@ const theme = createMuiTheme({
 });
 
 const LandingPage = (props) => {
-  const { classes, isAuthenticatedProp } = props;
+  const { classes, isAuthenticatedProp, languageObjectProp } = props;
 
   return (
     <div className={isAuthenticatedProp ? "ComponentContent" : 'LandingComponent'}>
@@ -46,7 +46,7 @@ const LandingPage = (props) => {
         <Card className={classes.card + " landing-card"}>
           <div className="welcome-container">
             <div className="welcome-text">
-              <div>welcome on</div>
+              <div>{languageObjectProp.data.Landing.welcome}</div>
               <div>TRECAPP</div>
             </div>
             <div className={classes.buttonContainer + ' landing-btn-container'}>
@@ -56,10 +56,10 @@ const LandingPage = (props) => {
                   isAuthenticatedProp ?
                     <div>
                       <Button component={Link} to={ROUTES.ACCOUNT} variant="outlined" color="primary" className={classes.button}>
-                        Settings
+                        {languageObjectProp.data.Account.title}
                       </Button>
                       <Button component={Link} to={ROUTES.IMPRESSUM} variant="outlined" color="primary" className={classes.button}>
-                        Impressum
+                        {languageObjectProp.data.Impressum.title}
                       </Button>
                     </div> :
                     <div>
@@ -74,7 +74,7 @@ const LandingPage = (props) => {
               </MuiThemeProvider>
             </div>
             <div className="welcome-long-text">
-              Save your recipes, share with others and discover other interesting things
+              {languageObjectProp.data.Landing.description}
             </div>
           </div>
         </Card>
