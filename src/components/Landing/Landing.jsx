@@ -48,16 +48,17 @@ class Landing extends Component {
 
     return (
       <div className={isAuthenticatedProp ? "ComponentContent" : 'LandingComponent'}>
-        <div className={isAuthenticatedProp ? 'landing-component-container' : ''}>
-          <Card className={classes.card + " landing-card"}>
-            <div className="welcome-container">
-              <div className="welcome-text">
-                <div>{languageObjectProp.data.Landing.welcome}</div>
-                <div>TRECAPP</div>
-              </div>
-              <div className={classes.buttonContainer + ' landing-btn-container'}>
-                <div className='landing-background'></div>
-                <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={theme}>
+          <div className={isAuthenticatedProp ? 'landing-component-container' : ''}>
+            <Card className={classes.card + " landing-card"}>
+              <div className="welcome-container">
+                <div className="welcome-text">
+                  <div>{languageObjectProp.data.Landing.welcome}</div>
+                  <div className="landing-card-title">TRECAPP</div>
+                </div>
+                <div className={classes.buttonContainer + ' landing-btn-container'}>
+                  <div className='landing-background'></div>
+
                   {
                     isAuthenticatedProp ?
                       <div>
@@ -77,36 +78,48 @@ class Landing extends Component {
                         </Button>
                       </div>
                   }
-                </MuiThemeProvider>
+                </div>
+                <div className="welcome-long-text">
+                  {languageObjectProp.data.Landing.description}
+                </div>
+                <div className="social-container">
+                  <div className='landing-background'></div>
+                  <Facebook renderFbProp={renderFbProp} />
+                </div>
               </div>
-              <div className="welcome-long-text">
-                {languageObjectProp.data.Landing.description}
-              </div>
-              <div className="social-container">
+            </Card>
+
+            <Card className={classes.card + " landing-card"}>
+              <div className="landing-recipe-container">
                 <div className='landing-background'></div>
-                <Facebook renderFbProp={renderFbProp} />
+                <div className="landing-recipe-text-container">
+                  <div>{languageObjectProp.data.Landing.saveRecipes}</div>
+                  <div className="landing-card-title">{languageObjectProp.data.Landing.recipes}</div>
+                </div>
               </div>
-            </div>
-          </Card>
-          <Card className={classes.card + " landing-card"}>
-            <div className="landing-recipe-container">
-              <div className='landing-background'></div>
-              <div className="landing-recipe-text-container">
-                <div>{languageObjectProp.data.Landing.saveRecipes}</div>
-                <div>{languageObjectProp.data.Landing.recipes}</div>
+            </Card>
+
+            <Card className={classes.card + " landing-card"}>
+              <div className="landing-favourite-container">
+                <div className='landing-background'></div>
+                <div className="landing-favourite-text-container">
+                  <div>{languageObjectProp.data.Landing.addFav}</div>
+                  <div className="landing-card-title">{languageObjectProp.data.Landing.favs}</div>
+                </div>
               </div>
-            </div>
-          </Card>
-          <Card className={classes.card + " landing-card"}>
-            <div className="landing-favourite-container">
-              <div className='landing-background'></div>
-              <div className="landing-favourite-text-container">
-                <div>{languageObjectProp.data.Landing.addFav}</div>
-                <div>{languageObjectProp.data.Landing.favs}</div>
+            </Card>
+
+            <Card className={classes.card + " landing-card"}>
+              <div className="landing-friends-container">
+                <div className='landing-background'></div>
+                <div className="landing-friends-text-container">
+                  <div>{languageObjectProp.data.Landing.makeFriends}</div>
+                  <div className="landing-card-title">{languageObjectProp.data.Landing.friends}</div>
+                </div>
               </div>
-            </div>
-          </Card>
-        </div>
+            </Card>
+          </div>
+        </MuiThemeProvider>
       </div>
     )
   }

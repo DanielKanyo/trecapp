@@ -230,6 +230,8 @@ export const dataEng = {
       recipes: 'RECIPES',
       addFav: 'Add recipes to your',
       favs: 'FAVOURITES',
+      makeFriends: 'Make',
+      friends: 'FREINDS',
     }
   }
 }

@@ -74,6 +74,13 @@
   position: relative;
 }
 
+.landing-friends-container {
+  text-align: center;
+  display: flex;
+  background: #f66f2b;
+  position: relative;
+}
+
 
 .welcome-long-text {
   color: #8d8d8d;
@@ -87,7 +94,8 @@
 }
 
 .landing-recipe-text-container,
-.landing-favourite-text-container {
+.landing-favourite-text-container,
+.landing-friends-text-container {
   padding: 30px 10px;
   color: white;
   font-weight: 100;
@@ -96,10 +104,10 @@
   z-index: 1;
 }
 
-.landing-recipe-text-container>div:last-of-type,
-.landing-favourite-text-container>div:last-of-type {
+.landing-card-title {
   font-size: 44px;
   font-weight: 100;
+  padding-top: 2px;
 }
 
 @media only screen and (max-width: 600px) {

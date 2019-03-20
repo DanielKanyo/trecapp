@@ -230,6 +230,8 @@ export const dataHun = {
       recipes: 'RECEPTJEID',
       addFav: 'Adj hozzá recepteket a',
       favs: 'KEDVENCEKHEZ',
+      makeFriends: 'Szerezz',
+      friends: 'BARÁTOKAT',
     }
   }
 }
