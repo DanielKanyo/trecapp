@@ -56,7 +56,7 @@ class Landing extends Component {
                 <div>TRECAPP</div>
               </div>
               <div className={classes.buttonContainer + ' landing-btn-container'}>
-                <div className='landing-btn-container-background'></div>
+                <div className='landing-background'></div>
                 <MuiThemeProvider theme={theme}>
                   {
                     isAuthenticatedProp ?
@@ -83,8 +83,26 @@ class Landing extends Component {
                 {languageObjectProp.data.Landing.description}
               </div>
               <div className="social-container">
-                <div className='landing-social-background'></div>
+                <div className='landing-background'></div>
                 <Facebook renderFbProp={renderFbProp} />
+              </div>
+            </div>
+          </Card>
+          <Card className={classes.card + " landing-card"}>
+            <div className="landing-recipe-container">
+              <div className='landing-background'></div>
+              <div className="landing-recipe-text-container">
+                <div>{languageObjectProp.data.Landing.saveRecipes}</div>
+                <div>{languageObjectProp.data.Landing.recipes}</div>
+              </div>
+            </div>
+          </Card>
+          <Card className={classes.card + " landing-card"}>
+            <div className="landing-favourite-container">
+              <div className='landing-background'></div>
+              <div className="landing-favourite-text-container">
+                <div>{languageObjectProp.data.Landing.addFav}</div>
+                <div>{languageObjectProp.data.Landing.favs}</div>
               </div>
             </div>
           </Card>

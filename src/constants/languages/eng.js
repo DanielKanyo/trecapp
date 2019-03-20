@@ -225,7 +225,11 @@ export const dataEng = {
     Landing: {
       welcome: 'Welcome on',
       user: 'user',
-      description: 'Save your recipes, share with others and discover other interesting things.'
+      description: 'Save your recipes, share with others and discover other interesting things.',
+      saveRecipes: 'Save your own',
+      recipes: 'RECIPES',
+      addFav: 'Add recipes to your',
+      favs: 'FAVOURITES',
     }
   }
 }

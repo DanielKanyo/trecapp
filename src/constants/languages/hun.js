@@ -225,7 +225,11 @@ export const dataHun = {
     Landing: {
       welcome: 'Üdvözöl a',
       user: 'felhasználó',
-      description: 'Mentsd el receptjeid, osszd meg másokkal és fedezz fel más érdekes dolgokat.'
+      description: 'Mentsd el receptjeid, osszd meg másokkal és fedezz fel más érdekes dolgokat.',
+      saveRecipes: 'Mentsd el saját',
+      recipes: 'RECEPTJEID',
+      addFav: 'Adj hozzá recepteket a',
+      favs: 'KEDVENCEKHEZ',
     }
   }
 }

@@ -80,6 +80,11 @@ button a {
   background: #e6e6e6;
 }
 
+.LandingComponent {
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+}
+
 .grid-component {
   position: relative;
 }
