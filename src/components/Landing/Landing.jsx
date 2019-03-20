@@ -8,6 +8,10 @@ import Button from '@material-ui/core/Button';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
 import Facebook from './Facebook/Facebook';
+import IconButton from '@material-ui/core/IconButton';
+import PeopleIcon from '@material-ui/icons/People';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import CreateIcon from '@material-ui/icons/Create';
 
 const styles = theme => ({
   card: {
@@ -21,7 +25,10 @@ const styles = theme => ({
   buttonContainer: {
     display: 'flex',
     flexDirection: 'column'
-  }
+  },
+  margin: {
+    margin: theme.spacing.unit,
+  },
 });
 
 const theme = createMuiTheme({
@@ -92,6 +99,15 @@ class Landing extends Component {
             <Card className={classes.card + " landing-card"}>
               <div className="landing-recipe-container">
                 <div className='landing-background'></div>
+                {
+                  isAuthenticatedProp &&
+                  <div className="landing-card-button moveLeft">
+                    <IconButton component={Link} to={ROUTES.MYRECIPES} aria-label="Friends" className={classes.margin}>
+                      <CreateIcon />
+                    </IconButton>
+                  </div>
+                }
+
                 <div className="landing-recipe-text-container">
                   <div>{languageObjectProp.data.Landing.saveRecipes}</div>
                   <div className="landing-card-title">{languageObjectProp.data.Landing.recipes}</div>
@@ -102,6 +118,14 @@ class Landing extends Component {
             <Card className={classes.card + " landing-card"}>
               <div className="landing-favourite-container">
                 <div className='landing-background'></div>
+                {
+                  isAuthenticatedProp &&
+                  <div className="landing-card-button moveRight">
+                    <IconButton component={Link} to={ROUTES.FAVOURITES} aria-label="Friends" className={classes.margin}>
+                      <FavoriteIcon />
+                    </IconButton>
+                  </div>
+                }
                 <div className="landing-favourite-text-container">
                   <div>{languageObjectProp.data.Landing.addFav}</div>
                   <div className="landing-card-title">{languageObjectProp.data.Landing.favs}</div>
@@ -112,12 +136,23 @@ class Landing extends Component {
             <Card className={classes.card + " landing-card"}>
               <div className="landing-friends-container">
                 <div className='landing-background'></div>
+                {
+                  isAuthenticatedProp &&
+                  <div className="landing-card-button moveLeft">
+                    <IconButton component={Link} to={ROUTES.FRIENDS} aria-label="Friends" className={classes.margin}>
+                      <PeopleIcon />
+                    </IconButton>
+                  </div>
+                }
                 <div className="landing-friends-text-container">
                   <div>{languageObjectProp.data.Landing.makeFriends}</div>
                   <div className="landing-card-title">{languageObjectProp.data.Landing.friends}</div>
                 </div>
               </div>
             </Card>
+            <div className="landing-card copyright-container">
+              copyright © {new Date().getFullYear()}
+            </div>
           </div>
         </MuiThemeProvider>
       </div>

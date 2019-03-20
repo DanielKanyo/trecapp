@@ -114,6 +114,30 @@
   margin-bottom: 22px !important;
 }
 
+.landing-card-button {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+.moveLeft {
+  left: 0;
+}
+
+.moveRight {
+  right: 0;
+}
+
+.landing-card-button svg {
+  color: white;
+}
+
+.copyright-container {
+  text-align: center;
+  color: grey;
+  padding-top: 4px;
+}
+
 @media only screen and (max-width: 600px) {
   .LandingComponent {
     padding: 10px;
