@@ -110,6 +110,10 @@
   padding-top: 2px;
 }
 
+.landing-card:last-of-type {
+  margin-bottom: 22px !important;
+}
+
 @media only screen and (max-width: 600px) {
   .LandingComponent {
     padding: 10px;
@@ -117,6 +121,10 @@
 
   .landing-card {
     margin: 0px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .landing-card:last-of-type {
     margin-bottom: 10px !important;
   }
 

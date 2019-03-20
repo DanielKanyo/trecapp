@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AuthUserContext from '../Session/AuthUserContext';
+import AuthUserContext from '../../Session/AuthUserContext';
 
 import FacebookAuth from './FacebookAuth';
 import FacebookNonAuth from './FacebookNonAuth';

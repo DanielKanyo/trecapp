@@ -764,7 +764,7 @@ input[type=time]::-webkit-clear-button {
 }
 
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -1874,11 +1874,11 @@ input[type=time]::-webkit-clear-button {
   }
 
   .recipe-preview-item {
-    padding-bottom: 0px !important;
+    padding-bottom: 2px !important;
   }
 
   .recipe-preview-item:last-of-type {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
 
   #delete-recipe-dialog div:nth-child(2)>div {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FacebookProvider, Like } from 'react-facebook';
-import withAuthorization from '../Session/withAuthorization';
+import withAuthorization from '../../Session/withAuthorization';
 
 class FacebookAuth extends Component {
   render() {
