@@ -58,6 +58,7 @@ class App extends Component {
       languageObject: dataEng,
       suggestionsObject: suggestionsEng,
       isAuthenticated: false,
+      renderFacebook: false
     };
   }
 
@@ -85,7 +86,8 @@ class App extends Component {
 
   setIsUserAuthenticated = (isAuthenticated) => {
     this.setState({
-      isAuthenticated
+      isAuthenticated,
+      renderFacebook: true
     });
   }
 
@@ -105,7 +107,7 @@ class App extends Component {
             />
 
             <Route exact path={ROUTES.LANDING}
-              component={() => <LandingPage languageObjectProp={this.state.languageObject} isAuthenticatedProp={this.state.isAuthenticated} />}
+              component={() => <LandingPage renderFbProp={this.state.renderFacebook} languageObjectProp={this.state.languageObject} isAuthenticatedProp={this.state.isAuthenticated} />}
             />
             <Route exact path={ROUTES.ADMIN}
               component={() => <AdminPage languageObjectProp={this.state.languageObject} />}

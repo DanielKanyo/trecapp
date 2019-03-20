@@ -73,6 +73,7 @@
 
 .landing-social-background {
   position: absolute;
+  
   top: 0;
   left: 0;
   padding: 0px 0px;
@@ -82,6 +83,10 @@
   background-size: cover;
   background-repeat: no-repeat;
   opacity: 0.08;
+}
+
+.landing-social-background * {
+  max-height: 46px !important;
 }
 
 @media only screen and (max-width: 600px) {

@@ -29,7 +29,7 @@ const styles = {
   },
 };
 
-const NavigationAuth = (props) => {
+const NavigationNonAuth = (props) => {
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -50,8 +50,8 @@ const NavigationAuth = (props) => {
   );
 }
  
-NavigationAuth.propTypes = {
+NavigationNonAuth.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavigationAuth);
+export default withStyles(styles)(NavigationNonAuth);

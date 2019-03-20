@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
-import { FacebookProvider, Like } from 'react-facebook';
+import Facebook from './Facebook';
 
 const styles = theme => ({
   card: {
@@ -44,7 +44,7 @@ class Landing extends Component {
   }
 
   render() {
-    const { classes, isAuthenticatedProp, languageObjectProp } = this.props;
+    const { classes, isAuthenticatedProp, languageObjectProp, renderFbProp } = this.props;
 
     return (
       <div className={isAuthenticatedProp ? "ComponentContent" : 'LandingComponent'}>
@@ -84,12 +84,7 @@ class Landing extends Component {
               </div>
               <div className="social-container">
                 <div className='landing-social-background'></div>
-                {
-                  isAuthenticatedProp &&
-                  <FacebookProvider appId="">
-                    <Like href="https://www.facebook.com/Trecapp-415056679268737/" layout="button_count" action="recommend" share />
-                  </FacebookProvider>
-                }
+                <Facebook renderFbProp={renderFbProp} />
               </div>
             </div>
           </Card>
