@@ -78,6 +78,7 @@ class NavigationAuth extends Component {
       user: {},
       openAccountDropdown: false,
       openLanguageDropdown: false,
+      openLanguageSecDropdown: false,
       loggedInUserId: '',
       emailVerified: false,
     };
@@ -123,12 +124,27 @@ class NavigationAuth extends Component {
   };
 
   /**
+   * Open or close the language dropdown menu
+   */
+  handleToggleLanguageSecDropdown = () => {
+    this.setState(state => ({ openLanguageSecDropdown: !state.openLanguageSecDropdown }));
+  };
+
+  handleCloseLanguageSecDropdown = event => {
+    if (this.languageSec.contains(event.target)) {
+      return;
+    }
+
+    this.setState({ openLanguageSecDropdown: false });
+  };
+
+  /**
    * Set isToggleOn state depends on the screen width
    */
   componentWillMount() {
-    const w = window.innerWidth;
+    this.windowWidth = window.innerWidth;
 
-    if (w < 750) {
+    if (this.windowWidth < 750) {
       this.setState({
         isToggleOn: false
       });
@@ -171,7 +187,7 @@ class NavigationAuth extends Component {
    */
   render() {
     const { classes, authUser } = this.props;
-    const { openAccountDropdown, openLanguageDropdown } = this.state;
+    const { openAccountDropdown, openLanguageDropdown, openLanguageSecDropdown } = this.state;
     const { username, profilePicUrl } = this.state.user;
 
     const { languageObjectProp } = this.props;
@@ -243,11 +259,11 @@ class NavigationAuth extends Component {
                       color="inherit"
                       aria-label="Menu"
                       buttonRef={node => {
-                        this.language = node;
+                        this.languageSec = node;
                       }}
-                      aria-owns={openLanguageDropdown ? 'menu-list-grow' : null}
+                      aria-owns={openLanguageSecDropdown ? 'menu-list-grow' : null}
                       aria-haspopup="true"
-                      onClick={this.handleToggleLanguageDropdown}
+                      onClick={this.handleToggleLanguageSecDropdown}
                     >
                       <MoreVert />
                     </IconButton>
@@ -292,6 +308,29 @@ class NavigationAuth extends Component {
                                 English
                               </MenuItem>
                               <MenuItem onClick={(e) => { this.handleCloseLanguageDropdown(e); this.changeLanguage('hun') }}>
+                                Magyar
+                              </MenuItem>
+                            </MenuList>
+                          </ClickAwayListener>
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+
+                  <Popper open={openLanguageSecDropdown} anchorEl={this.languageSec} transition disablePortal>
+                    {({ TransitionProps, placement }) => (
+                      <Grow
+                        {...TransitionProps}
+                        id="menu-list-grow"
+                        style={{ transformOrigin: placement === 'bottom' ? 'right top' : 'right bottom' }}
+                      >
+                        <Paper className="language-dropdown">
+                          <ClickAwayListener onClickAway={this.handleCloseLanguageSecDropdown}>
+                            <MenuList>
+                              <MenuItem onClick={(e) => { this.handleCloseLanguageSecDropdown(e); this.changeLanguage('eng') }}>
+                                English
+                              </MenuItem>
+                              <MenuItem onClick={(e) => { this.handleCloseLanguageSecDropdown(e); this.changeLanguage('hun') }}>
                                 Magyar
                               </MenuItem>
                             </MenuList>
