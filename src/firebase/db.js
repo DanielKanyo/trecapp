@@ -96,6 +96,15 @@ export const updateUserInfo = (id, username, language, about, filterRecipes) => 
   });
 }
 
+// Update user info
+export const updateUserLanguage = (id, language) => {
+  let userRef = db.ref(`users/${id}`);
+
+  return userRef.update({
+    language
+  });
+}
+
 // Update recipe visibility
 export const updateRecipeVisibility = (recipeId, visibility) => {
   let recipeRef = db.ref(`recipes/${recipeId}`);

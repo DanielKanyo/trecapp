@@ -18,6 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Face from '@material-ui/icons/Face';
 import Security from '@material-ui/icons/Security';
 import Home from '@material-ui/icons/Home';
+import Language from '@material-ui/icons/Language';
 import Button from '@material-ui/core/Button';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -75,6 +76,7 @@ class NavigationAuth extends Component {
       isToggleOn: true,
       user: {},
       openAccountDropdown: false,
+      openLanguageDropdown: false,
       loggedInUserId: '',
       emailVerified: false,
     };
@@ -97,11 +99,26 @@ class NavigationAuth extends Component {
   };
 
   handleCloseAccountDropdown = event => {
-    if (this.anchorEl.contains(event.target)) {
+    if (this.account.contains(event.target)) {
       return;
     }
 
     this.setState({ openAccountDropdown: false });
+  };
+
+  /**
+   * Open or close the language dropdown menu
+   */
+  handleToggleLanguageDropdown = () => {
+    this.setState(state => ({ openLanguageDropdown: !state.openLanguageDropdown }));
+  };
+
+  handleCloseLanguageDropdown = event => {
+    if (this.language.contains(event.target)) {
+      return;
+    }
+
+    this.setState({ openLanguageDropdown: false });
   };
 
   /**
@@ -142,12 +159,18 @@ class NavigationAuth extends Component {
     this.setState(() => ({ emailVerified: nextProps.authUser.emailVerified }))
   }
 
+  changeLanguage = (language) => {
+    this.props.setLanguageProp(language);
+
+    db.updateUserLanguage(this.state.loggedInUserId, language);
+  }
+
   /**
    * Render function
    */
   render() {
     const { classes, authUser } = this.props;
-    const { openAccountDropdown } = this.state;
+    const { openAccountDropdown, openLanguageDropdown } = this.state;
     const { username, profilePicUrl } = this.state.user;
 
     const { languageObjectProp } = this.props;
@@ -170,18 +193,28 @@ class NavigationAuth extends Component {
                     <Button component={Link} to={ROUTES.WALL} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
                       <Home />
                     </Button>
-                    {authUser.roles.includes(ROLES.ADMIN) && (
-                      <Button component={Link} to={ROUTES.ADMIN} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
-                        <Security />
-                      </Button>
-                    )}
+
+                    <Button
+                      variant="contained"
+                      size="small"
+                      aria-label="Add"
+                      className={classes.button + ' btn-my'}
+                      buttonRef={node => {
+                        this.language = node;
+                      }}
+                      aria-owns={openLanguageDropdown ? 'menu-list-grow' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleToggleLanguageDropdown}
+                    >
+                      <Language />
+                    </Button>
 
                     <Button
                       variant="contained"
                       size="small"
                       className={classes.button + ' btn-my'}
                       buttonRef={node => {
-                        this.anchorEl = node;
+                        this.account = node;
                       }}
                       aria-owns={openAccountDropdown ? 'menu-list-grow' : null}
                       aria-haspopup="true"
@@ -195,8 +228,16 @@ class NavigationAuth extends Component {
                           <Face className={classes.rightIcon} />
                       }
                     </Button>
+
+                    {
+                      authUser.roles.includes(ROLES.ADMIN) && (
+                        <Button component={Link} to={ROUTES.ADMIN} variant="contained" size="small" aria-label="Add" className={classes.button + ' btn-my'}>
+                          <Security />
+                        </Button>
+                      )
+                    }
                   </div>
-                  <Popper open={openAccountDropdown} anchorEl={this.anchorEl} transition disablePortal>
+                  <Popper open={openAccountDropdown} anchorEl={this.account} transition disablePortal>
                     {({ TransitionProps, placement }) => (
                       <Grow
                         {...TransitionProps}
@@ -214,6 +255,29 @@ class NavigationAuth extends Component {
                               </MenuItem>
                               <MenuItem onClick={auth.doSignOut}>
                                 {languageObjectProp.data.Navigation.dropdownValues[2]}
+                              </MenuItem>
+                            </MenuList>
+                          </ClickAwayListener>
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+
+                  <Popper open={openLanguageDropdown} anchorEl={this.language} transition disablePortal>
+                    {({ TransitionProps, placement }) => (
+                      <Grow
+                        {...TransitionProps}
+                        id="menu-list-grow"
+                        style={{ transformOrigin: placement === 'bottom' ? 'right top' : 'right bottom' }}
+                      >
+                        <Paper className="language-dropdown">
+                          <ClickAwayListener onClickAway={this.handleCloseLanguageDropdown}>
+                            <MenuList>
+                              <MenuItem onClick={(e) => {this.handleCloseLanguageDropdown(e); this.changeLanguage('eng')}}>
+                                English
+                              </MenuItem>
+                              <MenuItem onClick={(e) => {this.handleCloseLanguageDropdown(e); this.changeLanguage('hun')}}>
+                                Magyar
                               </MenuItem>
                             </MenuList>
                           </ClickAwayListener>

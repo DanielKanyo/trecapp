@@ -109,7 +109,8 @@ button a {
   background: #00b14d !important;
 }
 
-.account-dropdown {
+.account-dropdown,
+.language-dropdown {
   margin-top: 6px;
 }
 
