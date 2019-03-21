@@ -5,12 +5,13 @@ import withAuthorization from '../Session/withAuthorization';
 import compose from 'recompose/compose';
 
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { dataEng } from '../../constants/languages/eng';
 import Paper from '@material-ui/core/Paper';
 import RoomService from '@material-ui/icons/RoomService';
 import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import MyPagination from '../Pagination/MyPagination';
 
 import RecipePreview from './RecipePreview';
 
@@ -23,15 +24,47 @@ const styles = theme => ({
   },
 });
 
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    primary: {
+      light: '#F55300',
+      main: '#F55300',
+      dark: '#F55300',
+      contrastText: '#fff',
+    }
+  }
+});
+
+const constants = {
+  DEFAULT_NUMBER_OF_RECIPES: 20
+}
+
 class CategoryRecipes extends Component {
 
   constructor(props) {
+    const locationObject = new URL(window.location.href);
+    let pageId = locationObject.searchParams.get('pageId');
+
+    if (pageId === null) {
+      props.history.push({
+        search: '?pageId=1'
+      });
+
+      pageId = 1;
+    }
+
     super(props);
     this.state = {
       recipes: [],
+      recipesTotal: [],
       categoryName: '',
       loading: true,
       categoryNumber: null,
+      pageId,
+      numberOfPages: null,
     };
   }
 
@@ -41,6 +74,7 @@ class CategoryRecipes extends Component {
 
     let authObject = JSON.parse(localStorage.getItem('authUser'));
     let loggedInUserId = authObject.id;
+    let lengthCounter = 0;
 
     db.user(loggedInUserId).once('value').then(snapshot => {
       let userUptodateData = snapshot.val();
@@ -121,13 +155,38 @@ class CategoryRecipes extends Component {
                     languageObjectProp={this.props.languageObjectProp}
                   />
                 )
+
+                lengthCounter++;
               }
             }
 
+            let counter = 0;
+            let recipesPerPage = [];
+            let recipesTotal = [];
+
+            for (let i = 0; i < previousRecipes.length; i++) {
+              recipesPerPage.push(previousRecipes[i]);
+              counter++;
+
+              if (counter === constants.DEFAULT_NUMBER_OF_RECIPES) {
+                recipesTotal.push(recipesPerPage);
+                recipesPerPage = [];
+                counter = 0;
+              }
+            }
+
+            if (recipesPerPage.length > 0) {
+              recipesTotal.push(recipesPerPage);
+            }
+
+            let numberOfPages = Math.ceil(lengthCounter / constants.DEFAULT_NUMBER_OF_RECIPES);
+
             this.setState({
               recipes: previousRecipes,
+              recipesTotal,
               loggedInUserId,
-              loading: false
+              loading: false,
+              numberOfPages,
             });
           });
         }
@@ -142,15 +201,30 @@ class CategoryRecipes extends Component {
     this.mounted = false;
   }
 
+  /**
+	 * Pagination button clicked
+	 */
+  pagBtnClicked = (pageId) => {
+    let newParam = `?pageId=${pageId}`;
+
+    this.props.history.push({
+      search: newParam
+    });
+
+    this.setState({
+      pageId
+    });
+  }
+
   render() {
     const { classes, languageObjectProp } = this.props;
-    let { loading } = this.state;
+    let { loading, pageId, numberOfPages, recipes, recipesTotal } = this.state;
 
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
 
-          <Grid item className="grid-component" xs={12}>
+          <Grid item className="grid-component category-recipes-grid-component" xs={12}>
             <Paper className={classes.paper + ' paper-title paper-title-category-recipe'}>
               <div className="paper-title-icon">
                 <RoomService />
@@ -165,11 +239,20 @@ class CategoryRecipes extends Component {
                 loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
               }
 
-              {this.state.recipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
+              {recipes.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
-              {this.state.recipes.map((recipe, index) => {
-                return recipe;
-              })}
+              {recipesTotal[pageId - 1] && recipesTotal[pageId - 1].map(recipe => recipe)}
+
+              <MuiThemeProvider theme={theme}>
+                {
+                  !loading && numberOfPages > 1 &&
+                  <MyPagination
+                    pagBtnClickedProp={this.pagBtnClicked}
+                    totalProp={numberOfPages}
+                    activePageProp={pageId}
+                  />
+                }
+              </MuiThemeProvider>
             </Grid>
 
           </Grid>

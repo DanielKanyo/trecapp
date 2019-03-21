@@ -72,7 +72,7 @@ class MyPegination extends Component {
             key={i}
             color={"default"}
             aria-label={i}
-            className={this.props.classes.pagBtn + ` ${activePagBtn} ${hiddenPagBtn}`}
+            className={this.props.classes.pagBtn + ` ${activePagBtn} ${hiddenPagBtn} number-pag-btn`}
             onClick={(e) => { this.handlePagButtonClicked(i) }}
           >
             {i}

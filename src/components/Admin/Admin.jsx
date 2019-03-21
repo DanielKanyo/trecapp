@@ -8,7 +8,7 @@ import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Security from '@material-ui/icons/Security';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -16,6 +16,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MyPagination from '../Pagination/MyPagination';
 
 import UserListItem from './UserListItem';
 import BugListItem from './BugListItem';
@@ -38,12 +39,31 @@ const styles = theme => ({
     marginBottom: 10,
   },
   panelDetails: {
-    display: 'block'
+    display: 'block',
+    paddingBottom: 0
   },
   progressLine: {
     borderRadius: '4px'
   }
 });
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    primary: {
+      light: '#3f51b5',
+      main: '#3f51b5',
+      dark: '#3f51b5',
+      contrastText: '#fff',
+    }
+  }
+});
+
+const constants = {
+  DEFAULT_NUMBER_OF_USERS: 10
+}
 
 class AdminPage extends Component {
   constructor(props) {
@@ -53,7 +73,10 @@ class AdminPage extends Component {
       loading: false,
       error: false,
       users: [],
-      bugs: []
+      usersTotal: [],
+      bugs: [],
+      pageId: 1,
+      numberOfPages: null,
     };
   }
 
@@ -61,6 +84,7 @@ class AdminPage extends Component {
     this.mounted = true;
     let previousUsers = this.state.users;
     let previousBugs = this.state.bugs;
+    let lengthCounter = 0;
 
     if (this.mounted) {
       this.setState({ loading: true });
@@ -79,8 +103,30 @@ class AdminPage extends Component {
                   idProp={usersKey}
                 />
               )
+              lengthCounter++;
             }
           }
+
+          let counter = 0;
+          let usersPerPage = [];
+          let usersTotal = [];
+
+          for (let i = 0; i < previousUsers.length; i++) {
+            usersPerPage.push(previousUsers[i]);
+            counter++;
+
+            if (counter === constants.DEFAULT_NUMBER_OF_USERS) {
+              usersTotal.push(usersPerPage);
+              usersPerPage = [];
+              counter = 0;
+            }
+          }
+
+          if (usersPerPage.length > 0) {
+            usersTotal.push(usersPerPage);
+          }
+
+          let numberOfPages = Math.ceil(lengthCounter / constants.DEFAULT_NUMBER_OF_USERS);
 
           db.getBugReports().once('value')
             .then(bugsRes => {
@@ -102,6 +148,8 @@ class AdminPage extends Component {
               if (this.mounted) {
                 this.setState({
                   users: previousUsers,
+                  numberOfPages,
+                  usersTotal,
                   bugs: previousBugs,
                   loading: false,
                 });
@@ -121,9 +169,18 @@ class AdminPage extends Component {
     this.mounted = false;
   }
 
+  /**
+  * Pagination button clicked
+  */
+  pagBtnClicked = (pageId) => {
+    this.setState({
+      pageId
+    });
+  }
+
   render() {
     const { classes, languageObjectProp } = this.props;
-    const { users, bugs, loading, error } = this.state;
+    const { users, bugs, loading, error, usersTotal, numberOfPages, pageId } = this.state;
 
     let usersPanelDisabled = users.length ? false : true;
     let bugsPanelDisabled = bugs.length ? false : true;
@@ -131,7 +188,7 @@ class AdminPage extends Component {
     return (
       <div className="ComponentContent">
         <Grid className="main-grid" container spacing={16}>
-          <Grid item className="grid-component" xs={12}>
+          <Grid item className="grid-component admin-grid-component" xs={12}>
             <Paper className={classes.paper + ' paper-title paper-title-profile'}>
               <div className="paper-title-icon">
                 <Security />
@@ -151,11 +208,19 @@ class AdminPage extends Component {
                     <Typography className={classes.heading}>{languageObjectProp.data.Admin.usersListTitle}</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
-                    {
-                      users.map(user => {
-                        return user;
-                      })
-                    }
+                    {usersTotal[pageId - 1] && usersTotal[pageId - 1].map(user => user)}
+                    <div>
+                      <MuiThemeProvider theme={theme}>
+                        {
+                          !loading && numberOfPages > 1 &&
+                          <MyPagination
+                            pagBtnClickedProp={this.pagBtnClicked}
+                            totalProp={numberOfPages}
+                            activePageProp={pageId}
+                          />
+                        }
+                      </MuiThemeProvider>
+                    </div>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
                 <ExpansionPanel className="expansion-panel" disabled={bugsPanelDisabled}>

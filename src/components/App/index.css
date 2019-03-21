@@ -174,7 +174,7 @@ button a {
 }
 
 .paper-title-categories {
-  background: #66bf00 !important;
+  background: #bf0bb9 !important;
 }
 
 .paper-title-fav-settings {
@@ -1585,6 +1585,14 @@ input[type=time]::-webkit-clear-button {
   background: #7c06ad !important;
 }
 
+.admin-grid-component .active-pag-btn {
+  background: #3f51b5 !important;
+}
+
+.category-recipes-grid-component .active-pag-btn {
+  background: #F55300 !important;
+}
+
 .hidden-pag-btn {
   display: none !important;
 }
@@ -1898,7 +1906,7 @@ input[type=time]::-webkit-clear-button {
   }
 
   .panel-details-container {
-    padding: 5px 10px 15px 10px !important;
+    padding: 5px 10px 5px 10px !important;
   }
 
   .user-details-container {
@@ -2006,6 +2014,12 @@ input[type=time]::-webkit-clear-button {
   .friend-item {
     max-width: 100% !important;
     flex-basis: 100% !important;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .number-pag-btn {
+    display: none !important;
   }
 }
 
