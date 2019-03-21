@@ -19,6 +19,7 @@ import Face from '@material-ui/icons/Face';
 import Security from '@material-ui/icons/Security';
 import Home from '@material-ui/icons/Home';
 import Language from '@material-ui/icons/Language';
+import MoreVert from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -237,6 +238,20 @@ class NavigationAuth extends Component {
                       )
                     }
                   </div>
+                  <div className="language-selector-container-for-mobile">
+                    <IconButton
+                      color="inherit"
+                      aria-label="Menu"
+                      buttonRef={node => {
+                        this.language = node;
+                      }}
+                      aria-owns={openLanguageDropdown ? 'menu-list-grow' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleToggleLanguageDropdown}
+                    >
+                      <MoreVert />
+                    </IconButton>
+                  </div>
                   <Popper open={openAccountDropdown} anchorEl={this.account} transition disablePortal>
                     {({ TransitionProps, placement }) => (
                       <Grow
@@ -273,10 +288,10 @@ class NavigationAuth extends Component {
                         <Paper className="language-dropdown">
                           <ClickAwayListener onClickAway={this.handleCloseLanguageDropdown}>
                             <MenuList>
-                              <MenuItem onClick={(e) => {this.handleCloseLanguageDropdown(e); this.changeLanguage('eng')}}>
+                              <MenuItem onClick={(e) => { this.handleCloseLanguageDropdown(e); this.changeLanguage('eng') }}>
                                 English
                               </MenuItem>
-                              <MenuItem onClick={(e) => {this.handleCloseLanguageDropdown(e); this.changeLanguage('hun')}}>
+                              <MenuItem onClick={(e) => { this.handleCloseLanguageDropdown(e); this.changeLanguage('hun') }}>
                                 Magyar
                               </MenuItem>
                             </MenuList>

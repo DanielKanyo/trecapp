@@ -1737,6 +1737,10 @@ input[type=time]::-webkit-clear-button {
   margin-right: -8px !important;
 }
 
+.language-selector-container-for-mobile {
+  display: none;
+}
+
 @media only screen and (max-width: 950px) {
   .grid-component {
     width: 100% !important;
@@ -1988,6 +1992,11 @@ input[type=time]::-webkit-clear-button {
 
   ::-webkit-scrollbar {
     width: 0;
+  }
+
+  .language-selector-container-for-mobile {
+    display: block;
+    margin-right: -10px;
   }
 }
 
