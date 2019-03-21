@@ -19,6 +19,7 @@ button a {
   width: 100%;
   min-height: calc(100vh - 56px);
   justify-content: center;
+  padding-top: 56px;
 }
 
 .sign-paper,
@@ -1180,6 +1181,12 @@ input[type=time]::-webkit-clear-button {
   width: 12px;
 }
 
+.nav-non-auth {
+  position: fixed !important;
+  width: 100% !important;
+  z-index: 20 !important;
+}
+
 .app-bar-nav-non-auth>div {
   min-height: 56px !important;
 }
@@ -1843,7 +1850,7 @@ input[type=time]::-webkit-clear-button {
   .sign-form,
   .forget-form {
     display: block;
-    padding-top: 40px;
+    padding-top: 76px;
     min-height: calc(100vh - 96px);
   }
 

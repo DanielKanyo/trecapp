@@ -32,7 +32,7 @@ const styles = {
 const NavigationNonAuth = (props) => {
   const { classes } = props;
   return (
-    <div className={classes.root}>
+    <div className={classes.root + ' nav-non-auth'}>
       <AppBar className={classes.appbar + ' app-bar-nav-non-auth'} position="static">
         <Toolbar>
           <Typography component={Link} to={ROUTES.WALL} variant="h6" color="inherit" className={classes.grow}>
