@@ -95,45 +95,43 @@ class Search extends Component {
               let item = recipes[key];
 
               if (item.publicChecked) {
+                let username = usersObject[item.userId].username;
+                let profilePicUrl = usersObject[item.userId].profilePicUrl;
 
+                let isMine = item.userId === loggedInUserId ? true : false;
+
+                let favouritesObject = item.favourites;
+                let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+
+                let visibilityEditable = false;
+                let recipeDeletable = false;
+                let recipeEditable = false;
+                let displayUserInfo = true;
+                let withPhoto = item.imageUrl !== '' ? true : false;
+                let favouriteCounter = item.favouriteCounter;
+
+                let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+                let categoryNameEng = categoryItems[item.category];
+                let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+
+                let data = item;
+
+                data.recipeId = key;
+                data.loggedInUserId = loggedInUserId;
+                data.username = username;
+                data.profilePicUrl = profilePicUrl;
+                data.isMine = isMine;
+                data.isFavourite = isFavourite;
+                data.favouriteCounter = favouriteCounter;
+                data.recipeDeletable = recipeDeletable;
+                data.recipeEditable = recipeEditable;
+                data.withPhoto = withPhoto;
+                data.visibilityEditable = visibilityEditable;
+                data.displayUserInfo = displayUserInfo;
+                data.url = url;
+
+                previousRecipeData.push(data);
               }
-
-              let username = usersObject[item.userId].username;
-              let profilePicUrl = usersObject[item.userId].profilePicUrl;
-
-              let isMine = item.userId === loggedInUserId ? true : false;
-
-              let favouritesObject = item.favourites;
-              let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
-
-              let visibilityEditable = false;
-              let recipeDeletable = false;
-              let recipeEditable = false;
-              let displayUserInfo = true;
-              let withPhoto = item.imageUrl !== '' ? true : false;
-              let favouriteCounter = item.favouriteCounter;
-
-              let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-              let categoryNameEng = categoryItems[item.category];
-              let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
-
-              let data = item;
-
-              data.recipeId = key;
-              data.loggedInUserId = loggedInUserId;
-              data.username = username;
-              data.profilePicUrl = profilePicUrl;
-              data.isMine = isMine;
-              data.isFavourite = isFavourite;
-              data.favouriteCounter = favouriteCounter;
-              data.recipeDeletable = recipeDeletable;
-              data.recipeEditable = recipeEditable;
-              data.withPhoto = withPhoto;
-              data.visibilityEditable = visibilityEditable;
-              data.displayUserInfo = displayUserInfo;
-              data.url = url;
-
-              previousRecipeData.push(data);
             }
           }
 

@@ -504,7 +504,7 @@ class NewRecipe extends Component {
                   }}
                 >
                   {languageObjectProp.data.myRecipes.newRecipe.categoryItems.map((item, i) => {
-                    return <MenuItem key={i} value={i}>{item}</MenuItem>
+                    return <MenuItem key={i} value={i}>{item.replace("_", " ")}</MenuItem>
                   })}
                 </Select>
               </FormControl>
