@@ -21,7 +21,7 @@ const styles = theme => ({
     borderRadius: '4px',
   },
   progressBar: {
-    background: '#bf0bb9'
+    background: '#10b78c'
   },
 });
 
