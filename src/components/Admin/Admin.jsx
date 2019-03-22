@@ -86,11 +86,11 @@ class AdminPage extends Component {
     let previousBugs = this.state.bugs;
     let lengthCounter = 0;
 
-    if (this.mounted) {
-      this.setState({ loading: true });
+    this.setState({ loading: true });
 
-      db.users().once('value')
-        .then(users => {
+    db.users().once('value')
+      .then(users => {
+        if (this.mounted) {
           const usersObject = users.val();
 
           for (var usersKey in usersObject) {
@@ -106,6 +106,8 @@ class AdminPage extends Component {
               lengthCounter++;
             }
           }
+
+          previousUsers.sort((a, b) => (this.normalizeString(a.props.dataProp.username) > this.normalizeString(b.props.dataProp.username)) ? 1 : -1);
 
           let counter = 0;
           let usersPerPage = [];
@@ -128,38 +130,37 @@ class AdminPage extends Component {
 
           let numberOfPages = Math.ceil(lengthCounter / constants.DEFAULT_NUMBER_OF_USERS);
 
-          db.getBugReports().once('value')
-            .then(bugsRes => {
-              const bugsObject = bugsRes.val();
+          db.getBugReports().once('value').then(bugsRes => {
+            const bugsObject = bugsRes.val();
 
-              for (var bugsKey in bugsObject) {
-                if (bugsObject.hasOwnProperty(bugsKey)) {
-                  previousBugs.push(
-                    <BugListItem
-                      key={bugsKey}
-                      dataProp={bugsObject[bugsKey]}
-                      userData={usersObject[bugsObject[bugsKey].userId]}
-                      languageObjectProp={this.props.languageObjectProp}
-                    />
-                  )
-                }
+            for (var bugsKey in bugsObject) {
+              if (bugsObject.hasOwnProperty(bugsKey)) {
+                previousBugs.push(
+                  <BugListItem
+                    key={bugsKey}
+                    dataProp={bugsObject[bugsKey]}
+                    userData={usersObject[bugsObject[bugsKey].userId]}
+                    languageObjectProp={this.props.languageObjectProp}
+                  />
+                )
               }
+            }
 
-              if (this.mounted) {
-                this.setState({
-                  users: previousUsers,
-                  numberOfPages,
-                  usersTotal,
-                  bugs: previousBugs,
-                  loading: false,
-                });
-              }
-            });
-        })
-        .catch(error => {
-          this.setState({ error: true, loading: false });
-        });
-    }
+            if (this.mounted) {
+              this.setState({
+                users: previousUsers,
+                numberOfPages,
+                usersTotal,
+                bugs: previousBugs,
+                loading: false,
+              });
+            }
+          });
+        }
+      })
+      .catch(error => {
+        this.setState({ error: true, loading: false });
+      });
   }
 
   /**
@@ -167,6 +168,13 @@ class AdminPage extends Component {
    */
   componentWillUnmount() {
     this.mounted = false;
+  }
+
+  /**
+   * Normalize string
+   */
+  normalizeString = (string) => {
+    return string.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
   /**
@@ -205,7 +213,7 @@ class AdminPage extends Component {
               <div>
                 <ExpansionPanel className="expansion-panel" disabled={usersPanelDisabled}>
                   <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography className={classes.heading}>{languageObjectProp.data.Admin.usersListTitle}</Typography>
+                    <Typography className={classes.heading}>{languageObjectProp.data.Admin.usersListTitle} ({users.length})</Typography>
                   </ExpansionPanelSummary>
                   <ExpansionPanelDetails className={classes.panelDetails + ' panel-details-container'}>
                     {usersTotal[pageId - 1] && usersTotal[pageId - 1].map(user => user)}

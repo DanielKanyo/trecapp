@@ -133,10 +133,10 @@ class Categories extends Component {
   }
 
   /**
- * Function to sort alphabetically an array of objects by some specific key.
- * 
- * @param {String} property Key of the object to sort.
- */
+   * Function to sort alphabetically an array of objects by some specific key.
+   * 
+   * @param {String} property Key of the object to sort.
+   */
   dynamicSort = (property) => {
     let sortOrder = 1;
 
