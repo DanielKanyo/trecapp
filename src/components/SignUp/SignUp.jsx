@@ -90,6 +90,7 @@ class SignUpForm extends Component {
     const { history } = this.props;
     const { isAdmin } = this.state;
     const roles = [];
+    const method = 'google';
 
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
@@ -98,10 +99,11 @@ class SignUpForm extends Component {
     auth.doSignInWithGoogle()
       .then((authUser) => {
         // Create a user in your own accessible Firebase Database too
-        db.user(authUser.uid, authUser.displayName, authUser.email, roles)
+        db.user(authUser.uid, authUser.displayName, authUser.email, method, roles)
           .update({
             username: authUser.displayName,
-            email: authUser.email
+            email: authUser.email,
+            method
           })
           .then(() => {
             if (this.mounted) {
@@ -127,6 +129,7 @@ class SignUpForm extends Component {
     const { history } = this.props;
     const { isAdmin } = this.state;
     const roles = [];
+    const method = 'facebook';
 
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
@@ -135,10 +138,11 @@ class SignUpForm extends Component {
     auth.doSignInWithFacebook()
       .then((authUser) => {
         // Create a user in your own accessible Firebase Database too
-        db.user(authUser.uid, authUser.displayName, authUser.email, roles)
+        db.user(authUser.uid, authUser.displayName, authUser.email, method, roles)
           .update({
             username: authUser.displayName,
-            email: authUser.email
+            email: authUser.email,
+            method
           })
           .then(() => {
             auth.doSendEmailVerification();

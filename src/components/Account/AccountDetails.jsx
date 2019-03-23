@@ -152,6 +152,8 @@ class AccountDetails extends Component {
    */
   render() {
     const { classes, languageObjectProp } = this.props;
+    console.log(this.props);
+    const nameDisabled = this.props.dataProp.method === 'google' || this.props.dataProp.method === 'facebook'; 
 
     return (
       <div>
@@ -165,6 +167,7 @@ class AccountDetails extends Component {
               value={this.props.dataProp.accountName}
               margin="normal"
               placeholder="Your name..."
+              disabled={nameDisabled}
             />
             <TextField
               id="account-email"

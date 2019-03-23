@@ -95,6 +95,7 @@ class AccountPage extends Component {
       snackbarMessage: '',
       snackbarType: '',
       snackbarOpen: false,
+      method: ''
     };
   }
 
@@ -156,7 +157,6 @@ class AccountPage extends Component {
       if (this.mounted) {
 
         if (snapshot.filterRecipes) {
-
           let defaultLanguages = this.getDefaultLanguages(snapshot.filterRecipes);
 
           this.setState({ defaultLanguages, filterRecipes: snapshot.filterRecipes });
@@ -202,6 +202,7 @@ class AccountPage extends Component {
           accountAbout: snapshot.about ? snapshot.about : '',
           profilePicUrl: snapshot.profilePicUrl ? snapshot.profilePicUrl : '',
           loggedInUserId: loggedInUserId,
+          method: snapshot.method,
           pageLoading: false,
         }));
       }
