@@ -125,11 +125,12 @@ export const updateRecipeImageUrlAndName = (recipeId, url, name) => {
 }
 
 // Update users profile picture url
-export const updateUsersProfilePictureUrl = (userId, url) => {
+export const updateUsersProfilePictureUrlAndName = (userId, url, profileImageName) => {
   let userRef = db.ref(`users/${userId}`);
 
   return userRef.update({
-    profilePicUrl: url
+    profilePicUrl: url,
+    profileImageName
   });
 }
 

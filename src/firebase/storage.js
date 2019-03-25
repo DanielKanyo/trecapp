@@ -32,7 +32,13 @@ export const uploadProfileImage = (file) => {
   return storageRef.put(file);
 }
 
-// Delete image
+// Delete profile image
+export const deleteProfileImage = (imageName) => {
+  let imgRef = storage.ref(`profile_images/${imageName}`);
+  imgRef.delete();
+}
+
+// Delete recipe image
 export const deleteRecipeImage = (imageName) => {
   let imgRef = storage.ref(`recipe_images/${imageName}`);
   imgRef.delete();

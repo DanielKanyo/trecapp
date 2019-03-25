@@ -89,6 +89,7 @@ class AccountPage extends Component {
         height: 80
       },
       profilePicUrl: '',
+      profileImageName: '',
       loading: false,
       selectedLanguages: [],
       defaultLanguages: [],
@@ -201,6 +202,7 @@ class AccountPage extends Component {
           accountFilterRecipes: selectedLanguages,
           accountAbout: snapshot.about ? snapshot.about : '',
           profilePicUrl: snapshot.profilePicUrl ? snapshot.profilePicUrl : '',
+          profileImageName: snapshot.profileImageName ? snapshot.profileImageName : '',
           loggedInUserId: loggedInUserId,
           method: snapshot.method,
           pageLoading: false,
@@ -351,6 +353,8 @@ class AccountPage extends Component {
       loading: true
     });
 
+    if (this.state.profileImageName) storage.deleteProfileImage(this.state.profileImageName);
+
     let quality = 0.5;
 
     if (this.state.blob.size < 150000) {
@@ -364,16 +368,18 @@ class AccountPage extends Component {
     }).then((result) => {
 
       storage.uploadProfileImage(result).then(fileObject => {
-        let fullPath = fileObject.metadata.fullPath;
+        const fullPath = fileObject.metadata.fullPath;
+        const profileImageName = fileObject.metadata.name;
 
         storage.getImageDownloadUrl(fullPath).then(url => {
 
           this.setState({
             profilePicUrl: url,
+            profileImageName,
             loading: false
           });
 
-          db.updateUsersProfilePictureUrl(this.state.loggedInUserId, url);
+          db.updateUsersProfilePictureUrlAndName(this.state.loggedInUserId, url, profileImageName);
         });
       });
       
