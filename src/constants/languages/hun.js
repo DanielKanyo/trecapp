@@ -129,7 +129,7 @@ export const dataHun = {
       toaster: {
         languageAlreadyInList: 'A nyelv már a listában!',
         languageAddedSuccesfully: 'Sikeresen hozzáadtad a nyelvet a listához!',
-        userDataSaved: 'A felhasználó adatok sikeresen elmentve!'
+        userDataSaved: 'Sikeresen elmentve!'
       }
     },
     ShoppingList: {

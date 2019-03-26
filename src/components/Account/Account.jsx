@@ -29,6 +29,7 @@ import { isoLanguages } from '../../constants/languages/iso-639';
 import Snackbar from '../Snackbar/MySnackbar';
 import LanguageListItem from './LanguageListItem';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import _ from 'lodash';
 
 import ImageCompressor from 'image-compressor.js';
 
@@ -75,7 +76,6 @@ class AccountPage extends Component {
       pageLoading: true,
       accountName: '',
       accountEmail: '',
-      accountLanguage: '',
       loggedInUserId: '',
       accountFilterRecipes: '',
       accountAbout: '',
@@ -98,6 +98,37 @@ class AccountPage extends Component {
       snackbarOpen: false,
       method: ''
     };
+
+    this.saveNewValueToDb = _.debounce(this.saveNewValueToDb, 3000);
+  }
+
+  saveNewValueToDb = (key, value) => {
+    try {
+      switch (key) {
+        case 'accountName':
+          db.updateUsername(this.state.loggedInUserId, value);
+          break;
+
+        case 'accountAbout':
+          db.updateUserAbout(this.state.loggedInUserId, value);
+          break;
+
+        default:
+          break;
+      }
+
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: this.props.languageObjectProp.data.Account.toaster.userDataSaved,
+        snackbarType: 'success'
+      });
+    } catch (error) {
+      this.setState({
+        snackbarOpen: true,
+        snackbarMessage: 'Something went wrong...',
+        snackbarType: 'error'
+      });
+    }
   }
 
   /**
@@ -111,11 +142,9 @@ class AccountPage extends Component {
 
   handleInputChange = (name, event) => {
     this.setState({ [name]: event.target.value });
-  }
 
-  handleChangeLanguage = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
+    this.saveNewValueToDb(name, event.target.value);
+  }
 
   handleChangeFilterBy = (event) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -124,7 +153,7 @@ class AccountPage extends Component {
   /**
    * Save new account data
    */
-  handleSaveNewAccountData = (name, language, about, filterRecipes) => {
+  handleSaveNewAccountData = (filterRecipes) => {
     let languages = [];
 
     for (let i = 0; i < filterRecipes.length; i++) {
@@ -141,7 +170,7 @@ class AccountPage extends Component {
       snackbarType: 'success'
     });
 
-    db.updateUserInfo(this.state.loggedInUserId, name, language, about, languages);
+    db.updateUserFilterRecipes(this.state.loggedInUserId, languages);
   }
 
   /**
@@ -198,7 +227,6 @@ class AccountPage extends Component {
         this.setState(() => ({
           accountName: this.titleCase(snapshot.username),
           accountEmail: snapshot.email,
-          accountLanguage: snapshot.language ? snapshot.language : 'eng',
           accountFilterRecipes: selectedLanguages,
           accountAbout: snapshot.about ? snapshot.about : '',
           profilePicUrl: snapshot.profilePicUrl ? snapshot.profilePicUrl : '',
@@ -382,7 +410,7 @@ class AccountPage extends Component {
           db.updateUsersProfilePictureUrlAndName(this.state.loggedInUserId, url, profileImageName);
         });
       });
-      
+
     }).catch((err) => {
       console.log('Something went wrong...', err);
     });
@@ -542,9 +570,7 @@ class AccountPage extends Component {
                           </Paper>
                           <AccountDetails
                             handleInputChangeProp={this.handleInputChange}
-                            handleChangeLanguageProp={this.handleChangeLanguage}
                             handleChangeFilterByProp={this.handleChangeFilterBy}
-                            setLanguageProp={this.props.setLanguageProp}
                             handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
                             dataProp={this.state}
                             languageObjectProp={languageObjectProp}

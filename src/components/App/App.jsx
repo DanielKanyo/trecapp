@@ -125,7 +125,7 @@ class App extends Component {
               component={() => <RecipesWall languageObjectProp={this.state.languageObject} />}
             />
             <Route exact path={ROUTES.ACCOUNT}
-              component={() => <AccountPage setLanguageProp={this.setLanguage} languageObjectProp={this.state.languageObject} />}
+              component={() => <AccountPage languageObjectProp={this.state.languageObject} />}
             />
             <Route exact path={ROUTES.MYRECIPES}
               component={() => <MyRecipes languageObjectProp={this.state.languageObject} />}

@@ -85,23 +85,38 @@ export const removeRecipe = (recipeId) => {
 }
 
 // Update user info
-export const updateUserInfo = (id, username, language, about, filterRecipes) => {
+export const updateUserFilterRecipes = (id, filterRecipes) => {
   let userRef = db.ref(`users/${id}`);
 
   return userRef.update({
-    username,
-    language,
-    about,
     filterRecipes
   });
 }
 
-// Update user info
+// Update user language
 export const updateUserLanguage = (id, language) => {
   let userRef = db.ref(`users/${id}`);
 
   return userRef.update({
     language
+  });
+}
+
+// Update username
+export const updateUsername = (id, username) => {
+  let userRef = db.ref(`users/${id}`);
+
+  return userRef.update({
+    username
+  });
+}
+
+// Update about
+export const updateUserAbout = (id, about) => {
+  let userRef = db.ref(`users/${id}`);
+
+  return userRef.update({
+    about
   });
 }
 

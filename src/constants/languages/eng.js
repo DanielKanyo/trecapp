@@ -129,7 +129,7 @@ export const dataEng = {
       toaster: {
         languageAlreadyInList: 'The language is already in the list!',
         languageAddedSuccesfully: 'You have successfully added the language to the list!',
-        userDataSaved: 'User data successfully saved!'
+        userDataSaved: 'Saved successfully!'
       }
     },
     ShoppingList: {

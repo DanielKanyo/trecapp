@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import List from '@material-ui/core/List';
@@ -103,15 +99,6 @@ class AccountDetails extends Component {
    * 
    * @param {Object} event
    */
-  handleChangeLanguage = event => {
-    this.props.handleChangeLanguageProp(event);
-  }
-
-  /**
-   * Change dropdown value
-   * 
-   * @param {Object} event
-   */
   handleChangeFilterBy = event => {
     this.props.handleChangeFilterByProp(event);
   }
@@ -122,7 +109,7 @@ class AccountDetails extends Component {
    * @param {Object} event
    */
   handleSaveAccount = (event) => {
-    if (this.props.dataProp.accountName === '' || this.props.dataProp.accountEmail === '' || this.props.dataProp.accountLanguage === '') {
+    if (this.props.dataProp.accountName === '' || this.props.dataProp.accountEmail === '') {
       // TODO
       this.setState({
         snackbarOpen: true,
@@ -130,12 +117,7 @@ class AccountDetails extends Component {
         snackbarType: 'warning'
       });
     } else {
-      this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountName,
-        this.props.dataProp.accountLanguage,
-        this.props.dataProp.accountAbout,
-        this.props.dataProp.accountFilterRecipes
-      );
-      this.props.setLanguageProp(this.props.dataProp.accountLanguage);
+    this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountFilterRecipes);
     }
   }
 
@@ -177,22 +159,6 @@ class AccountDetails extends Component {
               margin="normal"
               disabled
             />
-            <div className="language-container">
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="account-langu-dropdown-label">{languageObjectProp.data.Account.language}</InputLabel>
-                <Select
-                  value={this.props.dataProp.accountLanguage ? this.props.dataProp.accountLanguage : ''}
-                  onChange={this.handleChangeLanguage}
-                  inputProps={{
-                    name: 'accountLanguage',
-                    id: 'language-dropdown',
-                  }}
-                >
-                  <MenuItem value={'eng'}>English</MenuItem>
-                  <MenuItem value={'hun'}>Magyar</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
 
             <div className="selected-languages-for-filtering-container">
               <div className="selected-languages-for-filtering-title">{languageObjectProp.data.Account.filteringByLanguage}</div>
