@@ -437,6 +437,7 @@ input[type=time]::-webkit-clear-button {
 
 .chip-card-content {
   margin-right: 8px;
+  margin-bottom: 5px;
 }
 
 .chip-card-content span {
