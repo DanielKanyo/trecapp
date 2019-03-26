@@ -119,15 +119,15 @@
   .LeftMenu {
     position: absolute;
   }
+
+  .navigation-right-side {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .LeftMenu {
     z-index: 2000;
-  }
-
-  .navigation-right-side {
-    display: none;
   }
 
   .LeftMenu.small {

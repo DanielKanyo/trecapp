@@ -62,6 +62,9 @@ const styles = {
   },
   iconSmall: {
     fontSize: 20,
+  },
+  langButton: {
+    marginLeft: 10
   }
 };
 
@@ -223,7 +226,8 @@ class NavigationAuth extends Component {
                       aria-haspopup="true"
                       onClick={this.handleToggleLanguageDropdown}
                     >
-                      <Language />
+                      {languageObjectProp.data.Admin.language}
+                      <Language className={classes.langButton} />
                     </Button>
 
                     <Button
