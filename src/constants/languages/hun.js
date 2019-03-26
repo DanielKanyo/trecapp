@@ -123,6 +123,7 @@ export const dataHun = {
       filteringByLanguage: 'Receptek szűrése nyelv alapján',
       showAllRecipes: 'Mutasd mind',
       addLanguage: 'Nyelv hozzáadás',
+      automaticSaving: 'A mentés automatikusan történik...',
       modal: {
         selectOneOrMore: 'Válassz akár többet is',
       },

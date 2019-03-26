@@ -103,26 +103,10 @@ class AccountDetails extends Component {
     this.props.handleChangeFilterByProp(event);
   }
 
-  /**
-   * Save new data
-   * 
-   * @param {Object} event
-   */
-  handleSaveAccount = (event) => {
-    if (this.props.dataProp.accountName === '' || this.props.dataProp.accountEmail === '') {
-      // TODO
-      this.setState({
-        snackbarOpen: true,
-        snackbarMessage: 'Warning! Fill the required fields...',
-        snackbarType: 'warning'
-      });
-    } else {
-    this.props.handleSaveNewAccountDataProp(this.props.dataProp.accountFilterRecipes);
-    }
-  }
-
   handleCloseLanguageList = () => {
     this.setState({ open: false });
+
+    this.props.handleSaveLanguagesProp(this.props.dataProp.accountFilterRecipes);
   };
 
   handleOpenLanguageList = () => {
@@ -134,7 +118,7 @@ class AccountDetails extends Component {
    */
   render() {
     const { classes, languageObjectProp } = this.props;
-    const nameDisabled = this.props.dataProp.method === 'google' || this.props.dataProp.method === 'facebook'; 
+    const nameDisabled = this.props.dataProp.method === 'google' || this.props.dataProp.method === 'facebook';
 
     return (
       <div>
@@ -194,13 +178,7 @@ class AccountDetails extends Component {
             />
 
             <div className="account-save-container">
-              <Button
-                variant="contained"
-                className={classes.button + ' control-btn save-btn'}
-                onClick={this.handleSaveAccount}
-              >
-                {languageObjectProp.data.Account.save}
-              </Button>
+              {languageObjectProp.data.Account.automaticSaving}
             </div>
           </div>
         </Paper>

@@ -123,6 +123,7 @@ export const dataEng = {
       filteringByLanguage: 'Filtering recipes by language',
       showAllRecipes: 'Show all',
       addLanguage: 'Add language',
+      automaticSaving: 'The saving is done automatically...',
       modal: {
         selectOneOrMore: 'Select one or more',
       },

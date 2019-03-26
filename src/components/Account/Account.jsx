@@ -153,7 +153,7 @@ class AccountPage extends Component {
   /**
    * Save new account data
    */
-  handleSaveNewAccountData = (filterRecipes) => {
+  handleSaveLanguages = (filterRecipes) => {
     let languages = [];
 
     for (let i = 0; i < filterRecipes.length; i++) {
@@ -437,6 +437,7 @@ class AccountPage extends Component {
 
     if (previousSelectedLanguages.length !== 0) {
       this.setState({ selectedLanguages: previousSelectedLanguages });
+      this.handleSaveLanguages(previousSelectedLanguages);
     } else {
       previousSelectedLanguages.push(
         <Chip
@@ -448,6 +449,7 @@ class AccountPage extends Component {
       )
 
       this.setState({ selectedLanguages: previousSelectedLanguages });
+      this.handleSaveLanguages(previousSelectedLanguages);
     }
 
   }
@@ -496,12 +498,6 @@ class AccountPage extends Component {
 
       this.setState({
         selectedLanguages: previousSelectedLanguages
-      });
-
-      this.setState({
-        snackbarOpen: true,
-        snackbarMessage: this.props.languageObjectProp.data.Account.toaster.languageAddedSuccesfully,
-        snackbarType: 'success'
       });
     } else {
       this.setState({
@@ -571,7 +567,7 @@ class AccountPage extends Component {
                           <AccountDetails
                             handleInputChangeProp={this.handleInputChange}
                             handleChangeFilterByProp={this.handleChangeFilterBy}
-                            handleSaveNewAccountDataProp={this.handleSaveNewAccountData}
+                            handleSaveLanguagesProp={this.handleSaveLanguages}
                             dataProp={this.state}
                             languageObjectProp={languageObjectProp}
                             defaultLanguagesProp={this.state.defaultLanguages}

@@ -380,8 +380,9 @@ input[type=time]::-webkit-clear-button {
 .account-save-container {
   display: flex;
   flex-direction: row;
-  min-height: 48px;
-  margin-bottom: 6px;
+  margin: 12px 0px 10px;
+  color: #999999;
+  font-size: 13px;
 }
 
 .icon-outlined {
