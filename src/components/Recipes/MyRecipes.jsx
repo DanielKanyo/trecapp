@@ -24,7 +24,7 @@ import { isoLanguages } from '../../constants/languages/iso-639';
 
 const styles = theme => ({
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(),
     textAlign: 'center',
     color: theme.palette.text.secondary,
     marginBottom: '14px'
@@ -304,7 +304,7 @@ class MyRecipes extends Component {
 
     return (
       <div className="ComponentContent MyRecipes">
-        <Grid className="main-grid" container spacing={16}>
+        <Grid className="main-grid" container spacing={2}>
 
           <Grid item className="grid-component" xs={6}>
             <NewRecipe

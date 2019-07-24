@@ -195,7 +195,7 @@ class AdminPage extends Component {
 
     return (
       <div className="ComponentContent">
-        <Grid className="main-grid" container spacing={16}>
+        <Grid className="main-grid" container spacing={2}>
           <Grid item className="grid-component admin-grid-component" xs={12}>
             <Paper className={classes.paper + ' paper-title paper-title-profile'}>
               <div className="paper-title-icon">

@@ -63,9 +63,9 @@ const styles = theme => ({
   },
 });
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 class AccountPage extends Component {
 
@@ -516,7 +516,7 @@ class AccountPage extends Component {
       <AuthUserContext.Consumer>
         {authUser =>
           <div className="ComponentContent Account">
-            <Grid className="main-grid" container spacing={16}>
+            <Grid className="main-grid" container spacing={2}>
 
               <Grid item className="grid-component" xs={12}>
 
@@ -536,7 +536,7 @@ class AccountPage extends Component {
                 {
                   !pageLoading ?
                     <Grid item className="grid-component" xs={12}>
-                      <Grid className="sub-grid" container spacing={16}>
+                      <Grid className="sub-grid" container spacing={2}>
 
                         <Grid item className="grid-component" xs={6}>
                           <Paper className={classes.paper + ' profile-picture-container'}>

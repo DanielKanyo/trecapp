@@ -68,7 +68,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const styles = theme => ({
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(),
     textAlign: 'center',
     color: theme.palette.text.secondary,
     marginBottom: '14px'
@@ -108,7 +108,7 @@ const styles = theme => ({
     color: '#03c457'
   },
   progress: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
     color: '#F8B000',
   },
   menuItem: {},
@@ -797,7 +797,7 @@ class Recipe extends Component {
               </Emojify>
             </Typography>
           </CardContent>
-          <CardActions className={classes.actions} disableActionSpacing>
+          <CardActions className={classes.actions}>
 
             <div className="like-and-fav-btn-container">
 
@@ -965,7 +965,7 @@ class Recipe extends Component {
                 >
                   <EditIcon />
                 </ListItemIcon>
-                <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.editRecipe} />
+                <ListItemText classes={{ primary: classes.primary }} primary={languageObjectProp.data.myRecipes.tooltips.editRecipe} />
               </MenuItem> : ''
           }
           {
@@ -976,7 +976,7 @@ class Recipe extends Component {
                 >
                   <OpenInNew />
                 </ListItemIcon>
-                <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.openRecipeFullSize} />
+                <ListItemText classes={{ primary: classes.primary }} primary={languageObjectProp.data.myRecipes.tooltips.openRecipeFullSize} />
               </MenuItem>
           }
           <MenuItem
@@ -988,7 +988,7 @@ class Recipe extends Component {
             >
               <SaveAltIcon />
             </ListItemIcon>
-            <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.downloadRecipe} />
+            <ListItemText classes={{ primary: classes.primary }} primary={languageObjectProp.data.myRecipes.tooltips.downloadRecipe} />
           </MenuItem>
           <MenuItem
             className={classes.menuItem}
@@ -999,7 +999,7 @@ class Recipe extends Component {
             >
               <Print />
             </ListItemIcon>
-            <ListItemText classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.printRecipe} />
+            <ListItemText classes={{ primary: classes.primary }} primary={languageObjectProp.data.myRecipes.tooltips.printRecipe} />
           </MenuItem>
           {
             this.state.recipeDeletable ?
@@ -1011,7 +1011,7 @@ class Recipe extends Component {
                 >
                   <DeleteIcon />
                 </ListItemIcon>
-                <ListItemText className="delete-recipe-text" classes={{ primary: classes.primary }} inset primary={languageObjectProp.data.myRecipes.tooltips.deleteRecipe} />
+                <ListItemText className="delete-recipe-text" classes={{ primary: classes.primary }} primary={languageObjectProp.data.myRecipes.tooltips.deleteRecipe} />
               </MenuItem> : ''
           }
 

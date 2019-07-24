@@ -130,7 +130,7 @@ const styles = theme => ({
     marginLeft: 8,
   },
   chip: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
   },
   container: {
     position: 'relative',
@@ -138,7 +138,7 @@ const styles = theme => ({
   suggestionsContainerOpen: {
     position: 'absolute',
     zIndex: 1,
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(),
     left: 0,
     right: 0,
   },
@@ -480,7 +480,7 @@ class ShoppingList extends Component {
     return (
       <div className="ComponentContent ShoppingList">
         <MuiThemeProvider theme={theme}>
-          <Grid className="main-grid" container spacing={16}>
+          <Grid className="main-grid" container spacing={2}>
 
             <Grid item className="grid-component new-shopping-list-grid" xs={6}>
               <Paper className={classes.paper + ' paper-title paper-title-shoppinglist'}>

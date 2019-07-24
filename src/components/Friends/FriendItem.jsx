@@ -18,7 +18,7 @@ import { db } from '../../firebase';
 
 const styles = theme => ({
 	margin: {
-		margin: theme.spacing.unit,
+		margin: theme.spacing(),
 		marginBottom: 0
 	},
 	friendBtn: {

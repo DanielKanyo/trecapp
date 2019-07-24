@@ -222,7 +222,7 @@ class CategoryRecipes extends Component {
 
     return (
       <div className="ComponentContent">
-        <Grid className="main-grid" container spacing={16}>
+        <Grid className="main-grid" container spacing={2}>
 
           <Grid item className="grid-component category-recipes-grid-component" xs={12}>
             <Paper className={classes.paper + ' paper-title paper-title-category-recipe'}>
@@ -234,7 +234,7 @@ class CategoryRecipes extends Component {
               </div>
             </Paper>
 
-            <Grid container spacing={16}>
+            <Grid container spacing={2}>
               {
                 loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
               }

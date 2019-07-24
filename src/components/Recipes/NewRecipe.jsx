@@ -58,7 +58,7 @@ const styles = theme => ({
     background: '#F55300'
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(),
   },
   rightIcon: {
     marginLeft: 8,

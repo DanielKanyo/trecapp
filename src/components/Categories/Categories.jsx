@@ -160,7 +160,7 @@ class Categories extends Component {
 
     return (
       <div className="ComponentContent">
-        <Grid className="main-grid" container spacing={16}>
+        <Grid className="main-grid" container spacing={2}>
 
           <Grid item className="grid-component" xs={12}>
             <Paper className={classes.paper + ' paper-title paper-title-categories'}>
@@ -172,7 +172,7 @@ class Categories extends Component {
               </div>
             </Paper>
 
-            <Grid container spacing={16} className="category-items-container">
+            <Grid container spacing={2} className="category-items-container">
               {
                 loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
               }

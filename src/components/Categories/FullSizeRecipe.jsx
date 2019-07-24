@@ -12,7 +12,7 @@ import Recipe from '../Recipes/Recipe';
 
 const styles = theme => ({
 	paper: {
-		padding: theme.spacing.unit * 2,
+		padding: theme.spacing(2),
 		textAlign: 'center',
 		color: theme.palette.text.secondary,
 		marginBottom: '14px'
@@ -139,7 +139,7 @@ class FullSizeRecipe extends Component {
 		
 		return (
 			<div className="ComponentContent">
-				<Grid className="main-grid" container spacing={16}>
+				<Grid className="main-grid" container spacing={2}>
 					<Grid item className="grid-component" xs={12}>
 						{this.state.loading && <LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} />}
 

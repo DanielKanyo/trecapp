@@ -423,6 +423,10 @@ input[type=time]::-webkit-clear-button {
   white-space: pre-line !important;
 }
 
+.recipe-story-card-content p {
+  font-size: 14px !important;
+}
+
 .recipe-story-card-content a {
   text-decoration: none;
 }
@@ -1197,6 +1201,7 @@ input[type=time]::-webkit-clear-button {
 .long-description-container {
   white-space: pre-line !important;
   padding: 0px 10px;
+  font-size: 14px !important;
 }
 
 .delete-recipe-btn svg {

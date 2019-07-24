@@ -267,7 +267,7 @@ class Search extends Component {
 
     return (
       <div className="ComponentContent Search">
-        <Grid className="main-grid" container spacing={16}>
+        <Grid className="main-grid" container spacing={2}>
           <Grid item className="grid-component" xs={12}>
             <Paper className={classes.root + ' search-root'} elevation={1}>
               <IconButton
@@ -313,7 +313,7 @@ class Search extends Component {
 
             {searchResults.length === 0 && !loading ? <EmptyList languageObjectProp={languageObjectProp} /> : ''}
 
-            <Grid container spacing={16}>
+            <Grid container spacing={2}>
               {searchResults.map(recipe => recipe)}
             </Grid>
 

@@ -35,7 +35,7 @@ const styles1 = theme => ({
   },
   iconVariant: {
     opacity: 0.9,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(),
   },
   message: {
     display: 'flex',
@@ -74,7 +74,7 @@ const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
 
 const styles2 = theme => ({
   margin: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
   },
 });
 

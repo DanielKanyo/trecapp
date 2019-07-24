@@ -177,7 +177,7 @@ class Friends extends Component {
 		return (
 			<div className="ComponentContent">
 				<MuiThemeProvider theme={theme}>
-					<Grid className="main-grid" container spacing={16}>
+					<Grid className="main-grid" container spacing={2}>
 
 						<Grid item className="grid-component friends-grid-component" xs={12}>
 							<div>
@@ -195,7 +195,7 @@ class Friends extends Component {
 									</div>
 								</Paper>
 
-								<Grid container spacing={16}>
+								<Grid container spacing={2}>
 									{
 										loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
 									}

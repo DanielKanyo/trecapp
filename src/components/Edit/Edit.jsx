@@ -64,7 +64,7 @@ const styles = theme => ({
     marginLeft: 'auto'
   },
   uploadIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(),
   },
   margin: {
     margin: 12,
@@ -74,7 +74,7 @@ const styles = theme => ({
     margin: 5
   },
   progress: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing(2),
     color: '#d33061',
   },
 });
@@ -456,7 +456,7 @@ class Edit extends Component {
 
     return (
       <div className="ComponentContent EditComponent">
-        <Grid className="main-grid" container spacing={16}>
+        <Grid className="main-grid" container spacing={2}>
 
           <Grid item className="grid-component" xs={12}>
             <Paper className={classes.paper + ' paper-title paper-title-editrecipe'}>

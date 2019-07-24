@@ -248,7 +248,7 @@ class User extends Component {
 
 		return (
 			<div className="ComponentContent UserContent">
-				<Grid className="main-grid" container spacing={16}>
+				<Grid className="main-grid" container spacing={2}>
 					<Grid item className="grid-component" xs={12}>
 						<div className={'user-cover-container'}>
 							<div className="header-user-details-container">
@@ -356,7 +356,7 @@ class User extends Component {
 							</div>
 						</div>
 
-						<Grid container spacing={16}>
+						<Grid container spacing={2}>
 							{
 								loading && <Grid item className="grid-component" xs={12}><LinearProgress classes={{ colorPrimary: classes.progressLine, barColorPrimary: classes.progressBar }} /></Grid>
 							}

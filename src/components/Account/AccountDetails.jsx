@@ -15,9 +15,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Snackbar from '../Snackbar/MySnackbar';
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const styles = theme => ({
   textField: {
@@ -39,7 +39,7 @@ const styles = theme => ({
     width: '100%'
   },
   selectEmpty: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   button: {
     width: '100%',

@@ -21,7 +21,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
@@ -287,7 +287,7 @@ class RecipesWall extends Component {
 
     return (
       <div className="ComponentContent">
-        <Grid className="main-grid" container spacing={16}>
+        <Grid className="main-grid" container spacing={2}>
 
           <Grid item className="grid-component recipes-wall" xs={6}>
 

@@ -29,7 +29,7 @@ const styles = theme => ({
     flexDirection: 'column'
   },
   margin: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(),
   },
 });
 
