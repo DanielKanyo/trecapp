@@ -114,7 +114,6 @@ class UserListItem extends Component {
 						</ListItemIcon>
 						<ListItemText
 							classes={{ primary: classes.primary }}
-							inset
 							primary={languageObjectProp.data.Admin.details}
 						/>
 					</MenuItem>
