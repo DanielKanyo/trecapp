@@ -115,13 +115,13 @@ class NewRecipe extends Component {
     let previousCurrencies = this.state.currencies;
 
     if (this.mounted) {
-      for (let key in isoCurrencies) {
+      Object.keys(isoCurrencies).forEach(key => {
         let code = isoCurrencies[key].code;
 
         previousCurrencies.push(
           <MenuItem key={key} value={code}>{code}</MenuItem>
         )
-      }
+      });
 
       this.setState({
         currencies: previousCurrencies

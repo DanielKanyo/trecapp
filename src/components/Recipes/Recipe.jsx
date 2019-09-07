@@ -190,35 +190,37 @@ class Recipe extends Component {
       db.getComments(recipeId).once('value').then(commentsRes => {
         const comments = commentsRes.val();
 
-        for (let key in comments) {
-          if (comments.hasOwnProperty(key)) {
-            let comment = comments[key].value;
-            let timestamp = comments[key].timestamp;
-            let isMineComment = comments[key].userId === loggedInUserId ? true : false;
-            let username = usersObject[comments[key].userId].username;
-            let profilePicUrl = usersObject[comments[key].userId].profilePicUrl;
-            let userId = comments[key].userId;
+        if (comments) {
+          Object.keys(comments).forEach(key => {
+            if (comments.hasOwnProperty(key)) {
+              let comment = comments[key].value;
+              let timestamp = comments[key].timestamp;
+              let isMineComment = comments[key].userId === loggedInUserId ? true : false;
+              let username = usersObject[comments[key].userId].username;
+              let profilePicUrl = usersObject[comments[key].userId].profilePicUrl;
+              let userId = comments[key].userId;
 
-            let data = {
-              comment,
-              timestamp,
-              isMineComment,
-              username,
-              profilePicUrl,
-              key,
-              userId
+              let data = {
+                comment,
+                timestamp,
+                isMineComment,
+                username,
+                profilePicUrl,
+                key,
+                userId
+              }
+
+              previousComments.push(
+                <CommentItem
+                  key={key}
+                  dataProp={data}
+                  languageObjectProp={this.props.languageObjectProp}
+                  removeCommentProp={this.removeComment}
+                />
+              );
+
             }
-
-            previousComments.push(
-              <CommentItem
-                key={key}
-                dataProp={data}
-                languageObjectProp={this.props.languageObjectProp}
-                removeCommentProp={this.removeComment}
-              />
-            );
-
-          }
+          });
         }
 
         this.setState({
@@ -824,12 +826,12 @@ class Recipe extends Component {
                   {this.state.favouriteCounter ? <div className="fav-counter"><div>{this.numberFormatter(this.state.favouriteCounter)}</div></div> : ''}
                 </div>
               </Tooltip>
-              
+
               <Tooltip title={`${languageObjectProp.data.Comment.commentSectionTitle}`}>
                 <div className="comment-icon-and-counter">
                   <IconButton
                     aria-label="comment"
-                  onClick={() => { this.handleGoToComments() }}
+                    onClick={() => { this.handleGoToComments() }}
                   >
                     {this.state.comments.length > 0 ? <ModeCommentIcon className="comment-icon" /> : <ModeCommentOutlinedIcon className="icon-outlined" />}
                   </IconButton>

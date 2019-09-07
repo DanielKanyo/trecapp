@@ -90,7 +90,7 @@ class Search extends Component {
         db.users().once('value').then(users => {
           let usersObject = users.val();
 
-          for (let key in recipes) {
+          Object.keys(recipes).forEach(key => {
             if (recipes.hasOwnProperty(key)) {
               let item = recipes[key];
 
@@ -133,7 +133,7 @@ class Search extends Component {
                 previousRecipeData.push(data);
               }
             }
-          }
+          });
 
           this.setState({
             recipeData: previousRecipeData,
@@ -185,29 +185,32 @@ class Search extends Component {
       const normalizedValueString = this.normalizeString(value);
 
       if (normalizedValueString.length >= constants.MIN_NUMBER_OF_CHARS) {
-        for (let i in recipeData) {
-          let recipe = recipeData[i];
+        if (recipeData) {
+          Object.keys(recipeData).forEach(i => {
+            let recipe = recipeData[i];
 
-          for (let key in recipe) {
-            let rec = recipe[key];
+            // eslint-disable-next-line
+            for (let key in recipe) {
+              let rec = recipe[key];
 
-            if (typeof rec === 'string') {
-              let normalizedRecString = this.normalizeString(rec);
+              if (typeof rec === 'string') {
+                let normalizedRecString = this.normalizeString(rec);
 
-              if (normalizedRecString.includes(normalizedValueString)) {
-                previousSeachResults.push(
-                  <RecipePreview
-                    key={recipe.recipeId}
-                    dataProp={recipe}
-                    languageObjectProp={this.props.languageObjectProp}
-                  />
-                )
-                counter++;
+                if (normalizedRecString.includes(normalizedValueString)) {
+                  previousSeachResults.push(
+                    <RecipePreview
+                      key={recipe.recipeId}
+                      dataProp={recipe}
+                      languageObjectProp={this.props.languageObjectProp}
+                    />
+                  )
+                  counter++;
 
-                break;
+                  break;
+                }
               }
             }
-          }
+          });
         }
 
         if (previousSeachResults.length > 0) {

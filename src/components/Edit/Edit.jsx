@@ -150,22 +150,22 @@ class Edit extends Component {
           let previousCurrencies = this.state.currencies;
           let previousLanguages = this.state.languages;
 
-          for (let key in isoCurrencies) {
+          Object.keys(isoCurrencies).forEach(key => {
             let code = isoCurrencies[key].code;
 
             previousCurrencies.push(
               <MenuItem key={key} value={code}>{code}</MenuItem>
             )
-          }
+          });
 
-          for (let key in isoLanguages) {
+          Object.keys(isoLanguages).forEach(key => {
             let nativeName = isoLanguages[key].nativeName;
             let name = isoLanguages[key].name;
 
             previousLanguages.push(
               <MenuItem key={key} value={isoLanguages[key]['639-1']}>{nativeName} ({name})</MenuItem>
             )
-          }
+          });
 
           this.setState({
             currencies: previousCurrencies,

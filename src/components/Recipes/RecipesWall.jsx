@@ -91,14 +91,16 @@ class RecipesWall extends Component {
         let sortedRecipesByFavAndLikeCounter = [];
 
         if (filterRecipes) {
-          for (let prepKey in resRecipes) {
-            if (Array.isArray(permittedRecipesLanguage)) {
-              if (!permittedRecipesLanguage.includes(resRecipes[prepKey].recipeLanguage)) {
+          if (resRecipes) {
+            Object.keys(resRecipes).forEach(prepKey => {
+              if (Array.isArray(permittedRecipesLanguage)) {
+                if (!permittedRecipesLanguage.includes(resRecipes[prepKey].recipeLanguage)) {
+                  delete resRecipes[prepKey];
+                }
+              } else if (resRecipes[prepKey].recipeLanguage !== permittedRecipesLanguage) {
                 delete resRecipes[prepKey];
               }
-            } else if (resRecipes[prepKey].recipeLanguage !== permittedRecipesLanguage) {
-              delete resRecipes[prepKey];
-            }
+            });
           }
         }
 
@@ -237,7 +239,7 @@ class RecipesWall extends Component {
                     )
                   }
                 }
-                
+
                 this.setState({
                   topRecipes: previousTopRecipes,
                   loggedInUserId,

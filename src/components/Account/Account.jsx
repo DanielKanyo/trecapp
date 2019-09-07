@@ -257,7 +257,7 @@ class AccountPage extends Component {
     let previousDefaultLanguages = this.state.defaultLanguages;
     let checked;
 
-    for (let key in isoLanguages) {
+    Object.keys(isoLanguages).forEach(key => {
       let nativeName = isoLanguages[key].nativeName;
       let name = isoLanguages[key].name;
 
@@ -282,7 +282,7 @@ class AccountPage extends Component {
           handleDeleteLanguageProp={this.handleDeleteLanguage}
         />
       )
-    }
+    });
 
     return previousDefaultLanguages
   }

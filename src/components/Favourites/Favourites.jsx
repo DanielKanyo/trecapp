@@ -90,63 +90,65 @@ class Favourites extends Component {
         db.users().once('value').then(users => {
           let usersObject = users.val();
 
-          for (let key in favRecipes) {
-            if (favRecipes.hasOwnProperty(key)) {
-              let item = favRecipes[key];
+          if (favRecipes) {
+            Object.keys(favRecipes).forEach(key => {
+              if (favRecipes.hasOwnProperty(key)) {
+                let item = favRecipes[key];
 
-              let favouritesObject = item.favourites;
+                let favouritesObject = item.favourites;
 
-              if (favouritesObject) {
-                if (favouritesObject.hasOwnProperty(loggedInUserId) && item.publicChecked) {
-                  let username = usersObject[item.userId].username;
-                  let profilePicUrl = usersObject[item.userId].profilePicUrl;
+                if (favouritesObject) {
+                  if (favouritesObject.hasOwnProperty(loggedInUserId) && item.publicChecked) {
+                    let username = usersObject[item.userId].username;
+                    let profilePicUrl = usersObject[item.userId].profilePicUrl;
 
-                  let isMine = item.userId === loggedInUserId ? true : false;
+                    let isMine = item.userId === loggedInUserId ? true : false;
 
-                  let visibilityEditable = false;
-                  let recipeDeletable = false;
-                  let recipeEditable = false;
-                  let displayUserInfo = true;
-                  let withPhoto = item.imageUrl !== '' ? true : false;
-                  let favouriteCounter = item.favouriteCounter;
+                    let visibilityEditable = false;
+                    let recipeDeletable = false;
+                    let recipeEditable = false;
+                    let displayUserInfo = true;
+                    let withPhoto = item.imageUrl !== '' ? true : false;
+                    let favouriteCounter = item.favouriteCounter;
 
-                  let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-                  let categoryNameEng = categoryItems[item.category];
-                  let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+                    let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+                    let categoryNameEng = categoryItems[item.category];
+                    let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
 
-                  let data = item;
+                    let data = item;
 
-                  data.recipeId = key;
-                  data.loggedInUserId = loggedInUserId;
-                  data.username = username;
-                  data.profilePicUrl = profilePicUrl;
-                  data.isMine = isMine;
-                  data.isFavourite = true;
-                  data.favouriteCounter = favouriteCounter;
-                  data.recipeDeletable = recipeDeletable;
-                  data.recipeEditable = recipeEditable;
-                  data.withPhoto = withPhoto;
-                  data.visibilityEditable = visibilityEditable;
-                  data.displayUserInfo = displayUserInfo;
-                  data.url = url;
+                    data.recipeId = key;
+                    data.loggedInUserId = loggedInUserId;
+                    data.username = username;
+                    data.profilePicUrl = profilePicUrl;
+                    data.isMine = isMine;
+                    data.isFavourite = true;
+                    data.favouriteCounter = favouriteCounter;
+                    data.recipeDeletable = recipeDeletable;
+                    data.recipeEditable = recipeEditable;
+                    data.withPhoto = withPhoto;
+                    data.visibilityEditable = visibilityEditable;
+                    data.displayUserInfo = displayUserInfo;
+                    data.url = url;
 
-                  previousRecipes.push(
-                    <RecipePreview
-                      key={data.recipeId}
-                      dataProp={data}
-                      deleteRecipeProp={this.deleteRecipe}
-                      languageObjectProp={this.props.languageObjectProp}
-                    />
-                  )
+                    previousRecipes.push(
+                      <RecipePreview
+                        key={data.recipeId}
+                        dataProp={data}
+                        deleteRecipeProp={this.deleteRecipe}
+                        languageObjectProp={this.props.languageObjectProp}
+                      />
+                    )
 
-                  lengthCounter++;
-                } else {
-                  this.setState({
-                    loading: false
-                  });
+                    lengthCounter++;
+                  } else {
+                    this.setState({
+                      loading: false
+                    });
+                  }
                 }
               }
-            }
+            });
           }
 
           let counter = 0;

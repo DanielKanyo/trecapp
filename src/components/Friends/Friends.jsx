@@ -93,7 +93,7 @@ class Friends extends Component {
 					let previousFriends = this.state.friends;
 
 					if (users) {
-						for (let key in users) {
+						Object.keys(users).forEach(key => {
 							if (friends && friends.hasOwnProperty(key)) {
 								let data = {
 									friendData: users[key],
@@ -111,7 +111,7 @@ class Friends extends Component {
 
 								lengthCounter++;
 							}
-						}
+						});
 					}
 
 					let counter = 0;

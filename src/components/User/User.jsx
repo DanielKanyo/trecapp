@@ -138,52 +138,54 @@ class User extends Component {
 						let recipeCounter = this.state.recipeCounter;
 						let recipes = resRecipes;
 
-						for (let key in recipes) {
-							if (this.state.userId === recipes[key].userId) {
-								let recipe = recipes[key];
+						if (recipes) {
+							Object.keys(recipes).forEach(key => {
+								if (this.state.userId === recipes[key].userId) {
+									let recipe = recipes[key];
 
-								let username = userData.username;
-								let profilePicUrl = userData.profilePicUrl;
+									let username = userData.username;
+									let profilePicUrl = userData.profilePicUrl;
 
-								let isMine = false;
+									let isMine = false;
 
-								if (recipe.publicChecked) {
-									let favouritesObject = recipes[key].favourites;
-									let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
+									if (recipe.publicChecked) {
+										let favouritesObject = recipes[key].favourites;
+										let isFavourite = !favouritesObject ? false : favouritesObject.hasOwnProperty(loggedInUserId) ? true : false;
 
-									let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
-									let categoryNameEng = categoryItems[recipe.category];
-									let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
+										let categoryItems = dataEng.data.myRecipes.newRecipe.categoryItems;
+										let categoryNameEng = categoryItems[recipe.category];
+										let url = `/categories/${categoryNameEng.charAt(0).toLowerCase() + categoryNameEng.slice(1)}`;
 
-									let data = {
-										...recipes[key],
-										loggedInUserId: loggedInUserId,
-										recipeId: key,
-										imageUrl: recipe.imageUrl,
-										title: recipe.title,
-										creationTime: recipe.creationTime,
-										difficulty: recipe.difficulty,
-										displayUserInfo: false,
-										username: username,
-										isMine: isMine,
-										profilePicUrl: profilePicUrl,
-										isFavourite: isFavourite,
-										favouriteCounter: recipes[key].favouriteCounter,
-										userId: recipe.userId,
-										url
+										let data = {
+											...recipes[key],
+											loggedInUserId: loggedInUserId,
+											recipeId: key,
+											imageUrl: recipe.imageUrl,
+											title: recipe.title,
+											creationTime: recipe.creationTime,
+											difficulty: recipe.difficulty,
+											displayUserInfo: false,
+											username: username,
+											isMine: isMine,
+											profilePicUrl: profilePicUrl,
+											isFavourite: isFavourite,
+											favouriteCounter: recipes[key].favouriteCounter,
+											userId: recipe.userId,
+											url
+										}
+
+										recipeCounter++;
+
+										previousRecipes.unshift(
+											<RecipePreview
+												key={key}
+												dataProp={data}
+												languageObjectProp={this.props.languageObjectProp}
+											/>
+										)
 									}
-
-									recipeCounter++;
-
-									previousRecipes.unshift(
-										<RecipePreview
-											key={key}
-											dataProp={data}
-											languageObjectProp={this.props.languageObjectProp}
-										/>
-									)
 								}
-							}
+							});
 						}
 
 						this.setState({

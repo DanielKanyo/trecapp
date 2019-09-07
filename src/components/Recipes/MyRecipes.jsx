@@ -94,14 +94,14 @@ class MyRecipes extends Component {
 
           let recipes = resRecipes;
 
-          for (let key in isoLanguages) {
+          Object.keys(isoLanguages).forEach(key => {
             let nativeName = isoLanguages[key].nativeName;
             let name = isoLanguages[key].name;
 
             previousLanguages.push(
               <MenuItem key={key} value={isoLanguages[key]['639-1']}>{nativeName} ({name})</MenuItem>
             )
-          }
+          });
 
           this.setState({
             languages: previousLanguages
